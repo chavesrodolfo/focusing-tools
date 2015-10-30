@@ -1,4 +1,4 @@
-System.register(['angular2/angular2', 'angular2/router', 'angular2/http', 'app/services/data.service', 'app/about', 'app/home'], function(exports_1) {
+System.register(['angular2/angular2', 'angular2/router', 'angular2/http', 'app/services/data.service', 'app/about', 'app/home', 'app/services/timer.service'], function(exports_1) {
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") return Reflect.decorate(decorators, target, key, desc);
         switch (arguments.length) {
@@ -10,7 +10,7 @@ System.register(['angular2/angular2', 'angular2/router', 'angular2/http', 'app/s
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var angular2_1, router_1, http_1, data_service_1, about_1, home_1;
+    var angular2_1, router_1, http_1, data_service_1, about_1, home_1, timer_service_1;
     var App;
     return {
         setters:[
@@ -31,6 +31,9 @@ System.register(['angular2/angular2', 'angular2/router', 'angular2/http', 'app/s
             },
             function (home_1_1) {
                 home_1 = home_1_1;
+            },
+            function (timer_service_1_1) {
+                timer_service_1 = timer_service_1_1;
             }],
         execute: function() {
             App = (function () {
@@ -61,7 +64,10 @@ System.register(['angular2/angular2', 'angular2/router', 'angular2/http', 'app/s
                 http_1.HTTP_BINDINGS,
                 angular2_1.bind(router_1.ROUTER_PRIMARY_COMPONENT).toValue(App),
                 angular2_1.bind(router_1.LocationStrategy).toClass(router_1.HashLocationStrategy),
-                [data_service_1.DataService]
+                [
+                    data_service_1.DataService,
+                    timer_service_1.TimerService
+                ]
             ]);
         }
     }
