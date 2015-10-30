@@ -3,7 +3,7 @@ import {UIProgress} from 'app/components/ui-progress/ui-progress.component';
 import {DataService} from 'app/services/data.service';
 
 @Component({
-    selector: 'not-ready',
+    selector: 'agile-pomodoro',
     templateUrl: 'app/app.html?v=1.5',
     directives: [CORE_DIRECTIVES, UIProgress]
 })

@@ -34,8 +34,8 @@ System.register(['angular2/angular2', 'app/components/ui-progress/ui-progress.co
                 }
                 App = __decorate([
                     angular2_1.Component({
-                        selector: 'not-ready',
-                        templateUrl: 'build/app/app.html?v=1446086028244?v=1.5',
+                        selector: 'agile-pomodoro',
+                        templateUrl: 'app/app.html?v=1.5',
                         directives: [angular2_1.CORE_DIRECTIVES, ui_progress_component_1.UIProgress]
                     }), 
                     __metadata('design:paramtypes', [data_service_1.DataService])

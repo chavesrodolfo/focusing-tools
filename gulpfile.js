@@ -1,10 +1,7 @@
-﻿'use strict';
+﻿/// <binding AfterBuild='build--dev' Clean='clean' ProjectOpened='watch' />
+'use strict';
 
-let gulp = require('gulp-help')(require('gulp'), {
-    hideDepsMessage: true,
-    afterPrintCallback: cliNotes
-});
-
+let gulp = require('gulp-help')(require('gulp'), { hideDepsMessage: true, afterPrintCallback: cliNotes });
 let gutil = require('gulp-util');
 let concat = require('gulp-concat');
 let uglify = require('gulp-uglify');
@@ -36,6 +33,7 @@ const CONFIG = {
     ],
     typeScriptSrc: [
         './app/**/*.ts',
+        './app/**/*.spec.ts',
         './typings/**/*.d.ts'
     ],
     imageSrc: [
@@ -97,24 +95,27 @@ gulp.task('build', DOCS.build, () => {
     runSequence(
         'clean',
         '_set.prod',
-        ['_build.static'],
-        '_test'
+        ['_build.typescript', '_build.images', '_build.fonts', '_build.html', '_build.javascript', '_build.sass'],
+        '_update.template-version',
+        '_update.version'
         );
 });
 
 gulp.task('build--dev', DOCS.buildDev, () => {
     runSequence(
+        'clean',
         '_set.dev',
-        ['_build.static'],
-        '_test'
+        ['_build.typescript', '_build.images', '_build.fonts', '_build.html', '_build.javascript', '_build.sass'],
+        '_update.template-version',
+        '_update.version'
         );
 });
 
 gulp.task('watch', DOCS.watch, ['_browser-sync'], () => {
-    gulp.watch('./styles/**/*.scss', ['_build.sass']);
-    gulp.watch('./app/**/*.html', ['_build.html']).on('change', browserSync.reload);
-    gulp.watch('./index.html', ['_build.injectables']);
-    gulp.watch('./app/**/*.ts', () => runSequence('_build.typescript'));
+    gulp.watch('./styles/**/*.scss', () => runSequence('_build.sass', '_update.version'));
+    gulp.watch('./app/**/*.html', () => runSequence('_build.html', '_update.template-version', '_update.version', '_browser-sync-reload'));
+    gulp.watch('./app/**/*.ts', () => runSequence('_build.typescript', '_update.version', '_browser-sync-reload'));
+    gulp.watch('./index.html', ['_update.version']);
 });
 
 gulp.task('tdd', DOCS.test, (done) => {
@@ -147,15 +148,12 @@ gulp.task('_set.dev', DOCS.setDev, () => {
     gutil.env.type = 'development';
 });
 
-gulp.task('_build.static', DOCS.buildStatic, ['_build.injectables', '_build.typescript', '_build.images', '_build.fonts']);
-
 gulp.task('_ts-lint', DOCS.tsLint, () => {
     return gulp.src('./app/**/*.ts*/').pipe(tslint()).pipe(tslint.report('prose'));
 });
 
-gulp.task('_build.typescript', DOCS.buildTypescript, [], () => {  // '_ts-lint'
-    let tsResult = gulp.src(CONFIG.typeScriptSrc)
-        .pipe(sourcemaps.init())
+gulp.task('_build.typescript', DOCS.buildTypescript, [], () => { // '_ts-lint'
+    return gulp.src(CONFIG.typeScriptSrc)
         .pipe(tsc({
             typescript: require('typescript'),
             target: 'ES5',
@@ -163,15 +161,9 @@ gulp.task('_build.typescript', DOCS.buildTypescript, [], () => {  // '_ts-lint'
             experimentalDecorators: true,
             emitDecoratorMetadata: true,
             module: 'system'
-        }));
-
-    return tsResult.js
-    // Update referenced static template versions
-        .pipe(replace(/templateUrl: 'app/, "templateUrl: 'build/app"))
-        .pipe(replace(/\.html/g, '.html?v=' + getVersion()))
+        }))
         .pipe(isProd() ? uglify() : gutil.noop())
-        .pipe(gulp.dest(CONFIG.buildLocations.js))
-        .pipe(browserSync.stream());
+        .pipe(gulp.dest(CONFIG.buildLocations.js));
 });
 
 gulp.task('_build.javascript', DOCS.buildJavaScript, () => {
@@ -181,6 +173,7 @@ gulp.task('_build.javascript', DOCS.buildJavaScript, () => {
 });
 
 gulp.task('_sass-lint', DOCS.lintSass, () => {
+    // Work in progress https://github.com/sasstools/sass-lint has a few bugs still
     gulp.src(CONFIG.sassSrcLint)
         .pipe(sassLint())
         .pipe(sassLint.format())
@@ -209,7 +202,7 @@ gulp.task('_build.images', DOCS.buildImages, () => {
 
 gulp.task('_build.html', DOCS.buildHtml, () => {
     // index.html must be generated with injectibles
-    return gulp.src([].concat(CONFIG.htmlSrc, '!app/index.html'))
+    return gulp.src([].concat(CONFIG.htmlSrc, '!./index.html'))
         .pipe(isProd() ? minifyHTML() : gutil.noop())
         .pipe(gulp.dest(CONFIG.buildLocations.html));
 });
@@ -219,7 +212,20 @@ gulp.task('_build.fonts', DOCS.buildFonts, () => {
         .pipe(gulp.dest(CONFIG.buildLocations.fonts));
 });
 
-gulp.task('_build.injectables', DOCS.buildInjectables, ['_build.html', '_build.javascript', '_build.sass'], () => {
+gulp.task('_browser-sync', DOCS.browserSync, () => {
+    browserSync.init({
+        server: {
+            baseDir: "./"
+        },
+        logFileChanges: false
+    });
+});
+
+gulp.task('_browser-sync-reload', DOCS.browserSync, () => {
+    browserSync.reload();
+});
+
+gulp.task('_update.version', DOCS.buildInjectables, () => {
     let version = getVersion();
     let target = gulp.src('./index.html');
     let sources = gulp.src([
@@ -234,19 +240,18 @@ gulp.task('_build.injectables', DOCS.buildInjectables, ['_build.html', '_build.j
 
     return target
         .pipe(inject(sources))
-    // Inject version number for ng2 app
+        // Inject version number for ng2 app
         .pipe(replace(/\.css/g, '.css?v=' + version))
         .pipe(replace(/\.js/g, '.js?v=' + version))
-        .pipe(gulp.dest(CONFIG.buildLocations.html));
+        .pipe(gulp.dest('./'));
 });
 
-gulp.task('_browser-sync', DOCS.browserSync, () => {
-    browserSync.init({
-        server: {
-            baseDir: "./"
-        },
-        logFileChanges: false
-    });
+gulp.task('_update.template-version', DOCS.buildInjectables, () => {
+    return gulp.src('build/app/**/*.js')
+    // Update referenced static template versions
+        .pipe(replace(/templateUrl: 'app/, "templateUrl: 'build/app"))
+        .pipe(replace(/\.html/g, '.html?v=' + getVersion()))
+        .pipe(gulp.dest(CONFIG.buildLocations.js));
 });
 
 function swallowError(error) {
