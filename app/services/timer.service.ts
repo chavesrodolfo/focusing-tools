@@ -15,12 +15,34 @@ export class TimerService {
 	}
 
 	startTime(minutes: number) {
-		this._runningTime.setMinutes(minutes);
-		this._interval = setInterval(this._tick(), 1000);
+		clearInterval(this._interval);
+		this._run(minutes);
 	}
 
-	private _tick() {
-		this._runningTime.setSeconds(this._runningTime.getSeconds() - 1);
+	stopTime() {
+		clearInterval(this._interval);
+		this._reset();
 		this._runningTimeObserver.onNext(this._runningTime);
+	}
+
+	private _run(minutes: number) {
+		this._reset();
+		this._runningTime.setMinutes(minutes);
+
+		this._interval = setInterval(() => {
+
+			if (this._runningTime.getMinutes() === 0 && this._runningTime.getSeconds() === 0) {
+				clearInterval(this._interval);
+			} else {
+				this._runningTime.setSeconds(this._runningTime.getSeconds() - 1);
+			}
+
+			this._runningTimeObserver.onNext(this._runningTime);
+		}, 1000);
+	}
+	
+	private _reset() {
+				this._runningTime.setMinutes(0);
+        this._runningTime.setSeconds(0);
 	}
 }

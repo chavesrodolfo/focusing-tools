@@ -23,23 +23,19 @@ System.register(['angular2/angular2', 'app/services/timer.service'], function(ex
         execute: function() {
             Home = (function () {
                 function Home(_timerService) {
-                    // this.runningTime = new Date();
-                    // this.runningTime.setMinutes(25);
-                    // this.runningTime.setSeconds(0);
-                    // this.displayTime = '25:00';
+                    var _this = this;
                     this._timerService = _timerService;
-                    // let timeIntervalStream = Rx.Observable.create(observer => {
-                    //     setInterval(() => {
-                    //         observer.onNext('tick');  
-                    //     }, 1000);
-                    // });
-                    // timeIntervalStream.subscribe(() => {
-                    //    this.runningTime.setSeconds(this.runningTime.getSeconds() - 1); 
-                    //    this.displayTime = `${this.runningTime.getMinutes()}:${this.runningTime.getSeconds()}`;
-                    // });
-                    this._timerService.runningTime$.subscribe(function (val) { return console.log(val); });
-                    this._timerService.startTime(25);
+                    this.runningTime = new Date();
+                    this.runningTime.setMinutes(0);
+                    this.runningTime.setSeconds(0);
+                    this._timerService.runningTime$.subscribe(function (time) { return _this.runningTime = time.getTime(); });
                 }
+                Home.prototype.start = function () {
+                    this._timerService.startTime(25);
+                };
+                Home.prototype.stop = function () {
+                    this._timerService.stopTime();
+                };
                 Home = __decorate([
                     angular2_1.Component({
                         selector: 'pom-home',

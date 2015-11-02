@@ -26,14 +26,13 @@ System.register(['angular2/angular2'], function(exports_1) {
                     };
                 }
                 DataService.prototype.loadMilestones = function () {
-                    var _this = this;
-                    return window.fetch('https://api.github.com/repos/angular/angular/milestones')
-                        .then(this._status)
-                        .then(this._json)
-                        .then(function (d) {
-                        _this.data.milestones = d;
-                        _this._updateSlimMilestones();
-                    }).catch(function (error) { return console.log('Request failed', error); });
+                    // return window.fetch('https://api.github.com/repos/angular/angular/milestones')
+                    //     .then(this._status)
+                    //     .then(this._json)
+                    //     .then(d => {
+                    //         this.data.milestones = d;
+                    //         this._updateSlimMilestones();
+                    //     }).catch(error => console.log('Request failed', error));
                 };
                 DataService.prototype._updateSlimMilestones = function () {
                     var _this = this;

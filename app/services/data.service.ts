@@ -15,13 +15,13 @@ export class DataService {
     }
 
     loadMilestones() {
-        return window.fetch('https://api.github.com/repos/angular/angular/milestones')
-            .then(this._status)
-            .then(this._json)
-            .then(d => {
-                this.data.milestones = d;
-                this._updateSlimMilestones();
-            }).catch(error => console.log('Request failed', error));
+        // return window.fetch('https://api.github.com/repos/angular/angular/milestones')
+        //     .then(this._status)
+        //     .then(this._json)
+        //     .then(d => {
+        //         this.data.milestones = d;
+        //         this._updateSlimMilestones();
+        //     }).catch(error => console.log('Request failed', error));
     }
 
     _updateSlimMilestones() {

@@ -21,9 +21,9 @@ class App {
     constructor(dataService: DataService) {
         this.milestones = [];
 
-        dataService.loadMilestones().then(milestones => {
-            this.milestones = dataService.data.slimMilestones;
-        });
+        // dataService.loadMilestones().then(milestones => {
+        //     this.milestones = dataService.data.slimMilestones;
+        // });
     }
 }
 

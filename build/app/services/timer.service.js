@@ -27,12 +27,31 @@ System.register(['angular2/angular2'], function(exports_1) {
                     this.runningTime$ = Rx.Observable.create(function (observer) { return _this._runningTimeObserver = observer; }).share();
                 }
                 TimerService.prototype.startTime = function (minutes) {
-                    this._runningTime.setMinutes(minutes);
-                    this._interval = setInterval(this._tick(), 1000);
+                    clearInterval(this._interval);
+                    this._run(minutes);
                 };
-                TimerService.prototype._tick = function () {
-                    this._runningTime.setSeconds(this._runningTime.getSeconds() - 1);
+                TimerService.prototype.stopTime = function () {
+                    clearInterval(this._interval);
+                    this._reset();
                     this._runningTimeObserver.onNext(this._runningTime);
+                };
+                TimerService.prototype._run = function (minutes) {
+                    var _this = this;
+                    this._reset();
+                    this._runningTime.setMinutes(minutes);
+                    this._interval = setInterval(function () {
+                        if (_this._runningTime.getMinutes() === 0 && _this._runningTime.getSeconds() === 0) {
+                            clearInterval(_this._interval);
+                        }
+                        else {
+                            _this._runningTime.setSeconds(_this._runningTime.getSeconds() - 1);
+                        }
+                        _this._runningTimeObserver.onNext(_this._runningTime);
+                    }, 1000);
+                };
+                TimerService.prototype._reset = function () {
+                    this._runningTime.setMinutes(0);
+                    this._runningTime.setSeconds(0);
                 };
                 TimerService = __decorate([
                     angular2_1.Injectable(), 

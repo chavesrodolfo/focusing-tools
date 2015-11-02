@@ -38,11 +38,10 @@ System.register(['angular2/angular2', 'angular2/router', 'angular2/http', 'app/s
         execute: function() {
             App = (function () {
                 function App(dataService) {
-                    var _this = this;
                     this.milestones = [];
-                    dataService.loadMilestones().then(function (milestones) {
-                        _this.milestones = dataService.data.slimMilestones;
-                    });
+                    // dataService.loadMilestones().then(milestones => {
+                    //     this.milestones = dataService.data.slimMilestones;
+                    // });
                 }
                 App = __decorate([
                     angular2_1.Component({
