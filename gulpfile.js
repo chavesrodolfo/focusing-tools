@@ -25,6 +25,9 @@ const CONFIG = {
     // Polyfills
         './assets/javascript/rxjs/rx-lite/rx-lite.js',
         
+    // Libs
+        './assets/javascript/firebase/firebase-client.js',
+        
     // Angular 2 Deps
         './node_modules/systemjs/dist/system.src.js',
         './node_modules/angular2/bundles/angular2.dev.js',
@@ -231,6 +234,7 @@ gulp.task('_update.version', DOCS.buildInjectables, () => {
     let sources = gulp.src([
     // Source order matters
         './build/assets/javascript/rx-lite.js',
+        './build/assets/javascript/firebase-client.js',
         './build/assets/javascript/system.src.js',
         './build/assets/javascript/angular2.dev.js',
         './build/assets/javascript/router.dev.js',

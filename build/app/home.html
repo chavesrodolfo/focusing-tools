@@ -1,5 +1,2 @@
 <h1>Home</h1>
-{{runningTime | date: 'mm:ss'}}
-
-<button (click)="start()">Start 25</button>
-<button (click)="stop()">Stop</button>
+<pom-timer (time-completed)="eventCompleted($event)"></pom-timer>

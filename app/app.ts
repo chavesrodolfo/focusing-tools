@@ -4,7 +4,6 @@ import {HTTP_BINDINGS} from 'angular2/http';
 import {DataService} from 'app/services/data.service';
 import {About} from 'app/about';
 import {Home} from 'app/home';
-import {TimerService} from 'app/services/timer.service';
 
 @Component({
     selector: 'agile-pomodoro',
@@ -34,7 +33,6 @@ bootstrap(App, [
     bind(ROUTER_PRIMARY_COMPONENT).toValue(App),
     bind(LocationStrategy).toClass(HashLocationStrategy),
     [
-        DataService,
-        TimerService
+        DataService
     ]
 ]);

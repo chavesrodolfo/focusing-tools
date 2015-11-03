@@ -34,34 +34,6 @@ System.register(['angular2/angular2'], function(exports_1) {
                     //         this._updateSlimMilestones();
                     //     }).catch(error => console.log('Request failed', error));
                 };
-                DataService.prototype._updateSlimMilestones = function () {
-                    var _this = this;
-                    this.data.milestones.forEach(function (milestone) {
-                        var total = milestone.closed_issues + milestone.open_issues;
-                        var completion = (milestone.closed_issues / total) * 100;
-                        if (isNaN(completion)) {
-                            completion = 0;
-                        }
-                        _this.data.slimMilestones.push({
-                            completion: completion.toFixed(0),
-                            title: milestone.title,
-                            open_issues: milestone.open_issues,
-                            closed_issues: milestone.closed_issues,
-                            description: milestone.description
-                        });
-                    });
-                };
-                DataService.prototype._status = function (response) {
-                    if (response.status >= 200 && response.status < 300) {
-                        return Promise.resolve(response);
-                    }
-                    else {
-                        return Promise.reject(new Error(response.statusText));
-                    }
-                };
-                DataService.prototype._json = function (response) {
-                    return response.json();
-                };
                 DataService = __decorate([
                     angular2_1.Injectable(), 
                     __metadata('design:paramtypes', [])

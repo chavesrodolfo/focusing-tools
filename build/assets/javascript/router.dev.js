@@ -25,6 +25,20 @@ System.register("angular2/src/router/instruction", ["angular2/src/core/facade/co
     return RouteParams;
   })();
   exports.RouteParams = RouteParams;
+  var RouteData = (function() {
+    function RouteData(data) {
+      if (data === void 0) {
+        data = lang_1.CONST_EXPR({});
+      }
+      this.data = data;
+    }
+    RouteData.prototype.get = function(key) {
+      return lang_1.normalizeBlank(collection_1.StringMapWrapper.get(this.data, key));
+    };
+    return RouteData;
+  })();
+  exports.RouteData = RouteData;
+  var BLANK_ROUTE_DATA = new RouteData();
   var Instruction = (function() {
     function Instruction(component, child, auxInstruction) {
       this.component = component;
@@ -103,6 +117,14 @@ System.register("angular2/src/router/instruction", ["angular2/src/core/facade/co
       configurable: true
     });
     ;
+    Object.defineProperty(ComponentInstruction.prototype, "routeData", {
+      get: function() {
+        return exceptions_1.unimplemented();
+      },
+      enumerable: true,
+      configurable: true
+    });
+    ;
     return ComponentInstruction;
   })();
   exports.ComponentInstruction = ComponentInstruction;
@@ -117,6 +139,11 @@ System.register("angular2/src/router/instruction", ["angular2/src/core/facade/co
       this.urlPath = urlPath;
       this.urlParams = urlParams;
       this.params = params;
+      if (lang_1.isPresent(this._recognizer.handler.data)) {
+        this._routeData = new RouteData(this._recognizer.handler.data);
+      } else {
+        this._routeData = BLANK_ROUTE_DATA;
+      }
     }
     Object.defineProperty(ComponentInstruction_.prototype, "componentType", {
       get: function() {
@@ -142,9 +169,13 @@ System.register("angular2/src/router/instruction", ["angular2/src/core/facade/co
       enumerable: true,
       configurable: true
     });
-    ComponentInstruction_.prototype.routeData = function() {
-      return this._recognizer.handler.data;
-    };
+    Object.defineProperty(ComponentInstruction_.prototype, "routeData", {
+      get: function() {
+        return this._routeData;
+      },
+      enumerable: true,
+      configurable: true
+    });
     return ComponentInstruction_;
   })(ComponentInstruction);
   exports.ComponentInstruction_ = ComponentInstruction_;
@@ -200,17 +231,6 @@ System.register("angular2/src/router/lifecycle_annotations_impl", ["angular2/src
   exports.onActivate = lang_1.CONST_EXPR(new RouteLifecycleHook("onActivate"));
   exports.onReuse = lang_1.CONST_EXPR(new RouteLifecycleHook("onReuse"));
   exports.onDeactivate = lang_1.CONST_EXPR(new RouteLifecycleHook("onDeactivate"));
-  global.define = __define;
-  return module.exports;
-});
-
-System.register("angular2/src/router/route_data", ["angular2/angular2", "angular2/src/core/facade/lang"], true, function(require, exports, module) {
-  var global = System.global,
-      __define = global.define;
-  global.define = undefined;
-  var angular2_1 = require("angular2/angular2");
-  var lang_1 = require("angular2/src/core/facade/lang");
-  exports.ROUTE_DATA = lang_1.CONST_EXPR(new angular2_1.OpaqueToken('routeData'));
   global.define = __define;
   return module.exports;
 });
@@ -703,12 +723,15 @@ System.register("angular2/src/router/hash_location_strategy", ["angular2/src/cor
       var path = this._location.hash;
       return (path.length > 0 ? path.substring(1) : path) + location_strategy_1.normalizeQueryParams(this._location.search);
     };
+    HashLocationStrategy.prototype.prepareExternalUrl = function(internal) {
+      return internal.length > 0 ? ('#' + internal) : internal;
+    };
     HashLocationStrategy.prototype.pushState = function(state, title, path, queryParams) {
       var url = path + location_strategy_1.normalizeQueryParams(queryParams);
       if (url.length == 0) {
         url = this._location.pathname;
       } else {
-        url = '#' + url;
+        url = this.prepareExternalUrl(url);
       }
       this._history.pushState(state, title, url);
     };
@@ -777,6 +800,9 @@ System.register("angular2/src/router/path_location_strategy", ["angular2/src/cor
     };
     PathLocationStrategy.prototype.getBaseHref = function() {
       return this._baseHref;
+    };
+    PathLocationStrategy.prototype.prepareExternalUrl = function(internal) {
+      return this._baseHref + internal;
     };
     PathLocationStrategy.prototype.path = function() {
       return this._location.pathname + location_strategy_1.normalizeQueryParams(this._location.search);
@@ -867,18 +893,17 @@ System.register("angular2/src/router/location", ["angular2/src/router/location_s
     Location.prototype.normalize = function(url) {
       return stripTrailingSlash(_stripBaseHref(this._baseHref, stripIndexHtml(url)));
     };
-    Location.prototype.normalizeAbsolutely = function(url) {
+    Location.prototype.prepareExternalUrl = function(url) {
       if (!url.startsWith('/')) {
         url = '/' + url;
       }
-      return stripTrailingSlash(_addBaseHref(this._baseHref, url));
+      return this.platformStrategy.prepareExternalUrl(stripTrailingSlash(_addBaseHref(this._baseHref, url)));
     };
     Location.prototype.go = function(path, query) {
       if (query === void 0) {
         query = '';
       }
-      var absolutePath = this.normalizeAbsolutely(path);
-      this.platformStrategy.pushState(null, '', absolutePath, query);
+      this.platformStrategy.pushState(null, '', path, query);
     };
     Location.prototype.forward = function() {
       this.platformStrategy.forward();
@@ -893,7 +918,7 @@ System.register("angular2/src/router/location", ["angular2/src/router/location_s
       if (onReturn === void 0) {
         onReturn = null;
       }
-      async_1.ObservableWrapper.subscribe(this._subject, onNext, onThrow, onReturn);
+      return async_1.ObservableWrapper.subscribe(this._subject, onNext, onThrow, onReturn);
     };
     Location = __decorate([angular2_1.Injectable(), __param(1, angular2_1.Optional()), __param(1, angular2_1.Inject(exports.APP_BASE_HREF)), __metadata('design:paramtypes', [location_strategy_1.LocationStrategy, String])], Location);
     return Location;
@@ -1321,8 +1346,8 @@ System.register("angular2/src/router/router_link", ["angular2/src/core/metadata"
       set: function(changes) {
         this._routeParams = changes;
         this._navigationInstruction = this._router.generate(this._routeParams);
-        var navigationHref = '/' + instruction_1.stringifyInstruction(this._navigationInstruction);
-        this.visibleHref = this._location.normalizeAbsolutely(navigationHref);
+        var navigationHref = instruction_1.stringifyInstruction(this._navigationInstruction);
+        this.visibleHref = this._location.prepareExternalUrl(navigationHref);
       },
       enumerable: true,
       configurable: true
@@ -1683,6 +1708,13 @@ System.register("angular2/src/router/route_registry", ["angular2/src/router/rout
       }
       return instruction;
     };
+    RouteRegistry.prototype.hasRoute = function(name, parentComponent) {
+      var componentRecognizer = this._rules.get(parentComponent);
+      if (lang_1.isBlank(componentRecognizer)) {
+        return false;
+      }
+      return componentRecognizer.hasRoute(name);
+    };
     RouteRegistry.prototype._generateRedirects = function(componentCursor) {
       if (lang_1.isBlank(componentCursor)) {
         return null;
@@ -1776,7 +1808,7 @@ System.register("angular2/src/router/router", ["angular2/src/core/facade/async",
     };
     Router.prototype.registerPrimaryOutlet = function(outlet) {
       if (lang_1.isPresent(outlet.name)) {
-        throw new exceptions_1.BaseException("registerAuxOutlet expects to be called with an unnamed outlet.");
+        throw new exceptions_1.BaseException("registerPrimaryOutlet expects to be called with an unnamed outlet.");
       }
       this._outlet = outlet;
       if (lang_1.isPresent(this._currentInstruction)) {
@@ -2026,7 +2058,16 @@ System.register("angular2/src/router/router", ["angular2/src/core/facade/async",
           }
         }
       } else if (first != '.') {
-        throw new exceptions_1.BaseException("Link \"" + collection_1.ListWrapper.toJSON(linkParams) + "\" must start with \"/\", \"./\", or \"../\"");
+        var childRouteExists = this.registry.hasRoute(first, this.hostComponent);
+        var parentRouteExists = lang_1.isPresent(this.parent) && this.registry.hasRoute(first, this.parent.hostComponent);
+        if (parentRouteExists && childRouteExists) {
+          var msg = "Link \"" + collection_1.ListWrapper.toJSON(linkParams) + "\" is ambiguous, use \"./\" or \"../\" to disambiguate.";
+          throw new exceptions_1.BaseException(msg);
+        }
+        if (parentRouteExists) {
+          router = this.parent;
+        }
+        rest = linkParams;
       }
       if (rest[rest.length - 1] == '') {
         rest.pop();
@@ -2035,13 +2076,13 @@ System.register("angular2/src/router/router", ["angular2/src/core/facade/async",
         var msg = "Link \"" + collection_1.ListWrapper.toJSON(linkParams) + "\" must include a route name.";
         throw new exceptions_1.BaseException(msg);
       }
+      var nextInstruction = this.registry.generate(rest, router.hostComponent);
       var url = [];
       var parent = router.parent;
       while (lang_1.isPresent(parent)) {
         url.unshift(parent._currentInstruction);
         parent = parent.parent;
       }
-      var nextInstruction = this.registry.generate(rest, router.hostComponent);
       while (url.length > 0) {
         nextInstruction = url.pop().replaceChild(nextInstruction);
       }
@@ -2056,7 +2097,7 @@ System.register("angular2/src/router/router", ["angular2/src/core/facade/async",
       var _this = this;
       _super.call(this, registry, null, primaryComponent);
       this._location = location;
-      this._location.subscribe(function(change) {
+      this._locationSub = this._location.subscribe(function(change) {
         return _this.navigateByUrl(change['url'], lang_1.isPresent(change['pop']));
       });
       this.registry.configFromComponent(primaryComponent);
@@ -2079,6 +2120,12 @@ System.register("angular2/src/router/router", ["angular2/src/core/facade/async",
         });
       }
       return promise;
+    };
+    RootRouter.prototype.dispose = function() {
+      if (lang_1.isPresent(this._locationSub)) {
+        async_1.ObservableWrapper.dispose(this._locationSub);
+        this._locationSub = null;
+      }
     };
     return RootRouter;
   })(Router);
@@ -2136,7 +2183,7 @@ System.register("angular2/src/router/router", ["angular2/src/core/facade/async",
   return module.exports;
 });
 
-System.register("angular2/src/router/router_outlet", ["angular2/src/core/facade/async", "angular2/src/core/facade/collection", "angular2/src/core/facade/lang", "angular2/src/core/facade/exceptions", "angular2/angular2", "angular2/src/router/router", "angular2/src/router/instruction", "angular2/src/router/route_data", "angular2/src/router/lifecycle_annotations", "angular2/src/router/route_lifecycle_reflector"], true, function(require, exports, module) {
+System.register("angular2/src/router/router_outlet", ["angular2/src/core/facade/async", "angular2/src/core/facade/collection", "angular2/src/core/facade/lang", "angular2/src/core/facade/exceptions", "angular2/angular2", "angular2/src/router/router", "angular2/src/router/instruction", "angular2/src/router/lifecycle_annotations", "angular2/src/router/route_lifecycle_reflector"], true, function(require, exports, module) {
   var global = System.global,
       __define = global.define;
   global.define = undefined;
@@ -2174,7 +2221,6 @@ System.register("angular2/src/router/router_outlet", ["angular2/src/core/facade/
   var angular2_1 = require("angular2/angular2");
   var routerMod = require("angular2/src/router/router");
   var instruction_1 = require("angular2/src/router/instruction");
-  var route_data_1 = require("angular2/src/router/route_data");
   var hookMod = require("angular2/src/router/lifecycle_annotations");
   var route_lifecycle_reflector_1 = require("angular2/src/router/route_lifecycle_reflector");
   var _resolveToTrue = async_1.PromiseWrapper.resolve(true);
@@ -2199,7 +2245,7 @@ System.register("angular2/src/router/router_outlet", ["angular2/src/core/facade/
       this._currentInstruction = nextInstruction;
       var componentType = nextInstruction.componentType;
       var childRouter = this._parentRouter.childRouter(componentType);
-      var providers = angular2_1.Injector.resolve([angular2_1.provide(route_data_1.ROUTE_DATA, {useValue: nextInstruction.routeData()}), angular2_1.provide(instruction_1.RouteParams, {useValue: new instruction_1.RouteParams(nextInstruction.params)}), angular2_1.provide(routerMod.Router, {useValue: childRouter})]);
+      var providers = angular2_1.Injector.resolve([angular2_1.provide(instruction_1.RouteData, {useValue: nextInstruction.routeData}), angular2_1.provide(instruction_1.RouteParams, {useValue: new instruction_1.RouteParams(nextInstruction.params)}), angular2_1.provide(routerMod.Router, {useValue: childRouter})]);
       return this._loader.loadNextToLocation(componentType, this._elementRef, providers).then(function(componentRef) {
         _this._componentRef = componentRef;
         if (route_lifecycle_reflector_1.hasLifecycleHook(hookMod.onActivate, componentType)) {
@@ -2256,7 +2302,7 @@ System.register("angular2/src/router/router_outlet", ["angular2/src/core/facade/
   return module.exports;
 });
 
-System.register("angular2/router", ["angular2/src/router/router", "angular2/src/router/router_outlet", "angular2/src/router/router_link", "angular2/src/router/instruction", "angular2/src/router/route_registry", "angular2/src/router/location_strategy", "angular2/src/router/hash_location_strategy", "angular2/src/router/path_location_strategy", "angular2/src/router/location", "angular2/src/router/route_config_decorator", "angular2/src/router/route_definition", "angular2/src/router/lifecycle_annotations", "angular2/src/router/instruction", "angular2/angular2", "angular2/src/router/route_data", "angular2/src/router/location_strategy", "angular2/src/router/path_location_strategy", "angular2/src/router/router", "angular2/src/router/router_outlet", "angular2/src/router/router_link", "angular2/src/router/route_registry", "angular2/src/router/location", "angular2/angular2", "angular2/src/core/facade/lang", "angular2/src/core/facade/exceptions"], true, function(require, exports, module) {
+System.register("angular2/router", ["angular2/src/router/router", "angular2/src/router/router_outlet", "angular2/src/router/router_link", "angular2/src/router/instruction", "angular2/src/router/route_registry", "angular2/src/router/location_strategy", "angular2/src/router/hash_location_strategy", "angular2/src/router/path_location_strategy", "angular2/src/router/location", "angular2/src/router/route_config_decorator", "angular2/src/router/route_definition", "angular2/src/router/lifecycle_annotations", "angular2/src/router/instruction", "angular2/angular2", "angular2/src/router/location_strategy", "angular2/src/router/path_location_strategy", "angular2/src/router/router", "angular2/src/router/router_outlet", "angular2/src/router/router_link", "angular2/src/router/route_registry", "angular2/src/router/location", "angular2/angular2", "angular2/src/core/facade/lang", "angular2/src/core/facade/exceptions"], true, function(require, exports, module) {
   var global = System.global,
       __define = global.define;
   global.define = undefined;
@@ -2273,6 +2319,7 @@ System.register("angular2/router", ["angular2/src/router/router", "angular2/src/
   exports.RouterLink = router_link_1.RouterLink;
   var instruction_1 = require("angular2/src/router/instruction");
   exports.RouteParams = instruction_1.RouteParams;
+  exports.RouteData = instruction_1.RouteData;
   var route_registry_1 = require("angular2/src/router/route_registry");
   exports.RouteRegistry = route_registry_1.RouteRegistry;
   var location_strategy_1 = require("angular2/src/router/location_strategy");
@@ -2293,8 +2340,6 @@ System.register("angular2/router", ["angular2/src/router/router", "angular2/src/
   exports.ComponentInstruction = instruction_2.ComponentInstruction;
   var angular2_1 = require("angular2/angular2");
   exports.OpaqueToken = angular2_1.OpaqueToken;
-  var route_data_1 = require("angular2/src/router/route_data");
-  exports.ROUTE_DATA = route_data_1.ROUTE_DATA;
   var location_strategy_2 = require("angular2/src/router/location_strategy");
   var path_location_strategy_2 = require("angular2/src/router/path_location_strategy");
   var router_2 = require("angular2/src/router/router");
@@ -2309,14 +2354,18 @@ System.register("angular2/router", ["angular2/src/router/router", "angular2/src/
   exports.ROUTER_DIRECTIVES = lang_1.CONST_EXPR([router_outlet_2.RouterOutlet, router_link_2.RouterLink]);
   exports.ROUTER_PROVIDERS = lang_1.CONST_EXPR([route_registry_2.RouteRegistry, lang_1.CONST_EXPR(new angular2_2.Provider(location_strategy_2.LocationStrategy, {useClass: path_location_strategy_2.PathLocationStrategy})), location_2.Location, lang_1.CONST_EXPR(new angular2_2.Provider(router_2.Router, {
     useFactory: routerFactory,
-    deps: lang_1.CONST_EXPR([route_registry_2.RouteRegistry, location_2.Location, exports.ROUTER_PRIMARY_COMPONENT])
+    deps: lang_1.CONST_EXPR([route_registry_2.RouteRegistry, location_2.Location, exports.ROUTER_PRIMARY_COMPONENT, angular2_2.ApplicationRef])
   })), lang_1.CONST_EXPR(new angular2_2.Provider(exports.ROUTER_PRIMARY_COMPONENT, {
     useFactory: routerPrimaryComponentFactory,
     deps: lang_1.CONST_EXPR([angular2_2.ApplicationRef])
   }))]);
   exports.ROUTER_BINDINGS = exports.ROUTER_PROVIDERS;
-  function routerFactory(registry, location, primaryComponent) {
-    return new router_2.RootRouter(registry, location, primaryComponent);
+  function routerFactory(registry, location, primaryComponent, appRef) {
+    var rootRouter = new router_2.RootRouter(registry, location, primaryComponent);
+    appRef.registerDisposeListener(function() {
+      return rootRouter.dispose();
+    });
+    return rootRouter;
   }
   function routerPrimaryComponentFactory(app) {
     if (app.componentTypes.length == 0) {

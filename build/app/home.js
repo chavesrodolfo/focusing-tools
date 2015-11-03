@@ -1,4 +1,4 @@
-System.register(['angular2/angular2', 'app/services/timer.service'], function(exports_1) {
+System.register(['angular2/angular2', 'app/components/pom-timer'], function(exports_1) {
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") return Reflect.decorate(decorators, target, key, desc);
         switch (arguments.length) {
@@ -10,38 +10,30 @@ System.register(['angular2/angular2', 'app/services/timer.service'], function(ex
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var angular2_1, timer_service_1;
+    var angular2_1, pom_timer_1;
     var Home;
     return {
         setters:[
             function (angular2_1_1) {
                 angular2_1 = angular2_1_1;
             },
-            function (timer_service_1_1) {
-                timer_service_1 = timer_service_1_1;
+            function (pom_timer_1_1) {
+                pom_timer_1 = pom_timer_1_1;
             }],
         execute: function() {
             Home = (function () {
-                function Home(_timerService) {
-                    var _this = this;
-                    this._timerService = _timerService;
-                    this.runningTime = new Date();
-                    this.runningTime.setMinutes(0);
-                    this.runningTime.setSeconds(0);
-                    this._timerService.runningTime$.subscribe(function (time) { return _this.runningTime = time.getTime(); });
+                function Home() {
                 }
-                Home.prototype.start = function () {
-                    this._timerService.startTime(25);
-                };
-                Home.prototype.stop = function () {
-                    this._timerService.stopTime();
+                Home.prototype.eventCompleted = function (pom) {
+                    console.log(pom);
                 };
                 Home = __decorate([
                     angular2_1.Component({
                         selector: 'pom-home',
-                        templateUrl: 'app/home.html'
+                        templateUrl: 'build/app/home.html?v=1446526882044',
+                        directives: [pom_timer_1.PomTimer]
                     }), 
-                    __metadata('design:paramtypes', [timer_service_1.TimerService])
+                    __metadata('design:paramtypes', [])
                 ], Home);
                 return Home;
             })();
