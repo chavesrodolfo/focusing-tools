@@ -24,7 +24,7 @@ System.register(['angular2/angular2'], function(exports_1) {
                 About = __decorate([
                     angular2_1.Component({
                         selector: 'pom-about',
-                        templateUrl: 'build/app/about.html?v=1446526882044'
+                        templateUrl: 'app/about.html'
                     }), 
                     __metadata('design:paramtypes', [])
                 ], About);

@@ -11,20 +11,13 @@ System.register(['angular2/angular2'], function(exports_1) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
     var angular2_1;
-    var EventType, PomTimer;
+    var PomTimer;
     return {
         setters:[
             function (angular2_1_1) {
                 angular2_1 = angular2_1_1;
             }],
         execute: function() {
-            (function (EventType) {
-                EventType[EventType["POMIDORO"] = 0] = "POMIDORO";
-                EventType[EventType["SHORT_BREAK"] = 1] = "SHORT_BREAK";
-                EventType[EventType["LONG_BREAK"] = 2] = "LONG_BREAK";
-            })(EventType || (EventType = {}));
-            ;
-            ;
             PomTimer = (function () {
                 function PomTimer() {
                     this.timeCompleted = new angular2_1.EventEmitter();
@@ -69,7 +62,7 @@ System.register(['angular2/angular2'], function(exports_1) {
                 PomTimer = __decorate([
                     angular2_1.Component({
                         selector: 'pom-timer',
-                        templateUrl: 'build/app/components/pom-timer.html?v=1446526882044',
+                        templateUrl: 'app/components/pom-timer.html',
                         events: ['timeCompleted']
                     }), 
                     __metadata('design:paramtypes', [])

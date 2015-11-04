@@ -1,26 +1,28 @@
 import {Injectable} from 'angular2/angular2';
+import {Pomodori, EventType} from 'app/interfaces';
+
+declare let Firebase;
 
 @Injectable()
 export class DataService {
-    data: {
-        milestones: Array<any>,
-        slimMilestones: Array<any>,
-    };
-
+    pomodori$: Rx.Observable<any>;
+    private _pomodoriObserver: Rx.Observer<any>;
+    private _firebaseRef: any;
+    
     constructor() {
-        this.data = {
-            milestones: [],
-            slimMilestones: []
-        };
+        this._firebaseRef = new Firebase('https://agile-pomodoro.firebaseio.com/');
+        this.pomodori$ = Rx.Observable.create(observer => this._pomodoriObserver = observer).share();
     }
 
-    loadMilestones() {
-        // return window.fetch('https://api.github.com/repos/angular/angular/milestones')
-        //     .then(this._status)
-        //     .then(this._json)
-        //     .then(d => {
-        //         this.data.milestones = d;
-        //         this._updateSlimMilestones();
-        //     }).catch(error => console.log('Request failed', error));
+    loadPomodori() {
+        this._firebaseRef.child('events').on('value', snapshot => {
+            this._pomodoriObserver.onNext(snapshot.val());
+        }, errorObject => {
+            console.log('The read failed: ' + errorObject.code);
+        });
+    }
+    
+    addPomodori(pomodori: Pomodori) {
+        this._firebaseRef.child('events').push().set(pomodori);
     }
 }

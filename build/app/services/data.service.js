@@ -20,19 +20,20 @@ System.register(['angular2/angular2'], function(exports_1) {
         execute: function() {
             DataService = (function () {
                 function DataService() {
-                    this.data = {
-                        milestones: [],
-                        slimMilestones: []
-                    };
+                    var _this = this;
+                    this._firebaseRef = new Firebase('https://agile-pomodoro.firebaseio.com/');
+                    this.pomodori$ = Rx.Observable.create(function (observer) { return _this._pomodoriObserver = observer; }).share();
                 }
-                DataService.prototype.loadMilestones = function () {
-                    // return window.fetch('https://api.github.com/repos/angular/angular/milestones')
-                    //     .then(this._status)
-                    //     .then(this._json)
-                    //     .then(d => {
-                    //         this.data.milestones = d;
-                    //         this._updateSlimMilestones();
-                    //     }).catch(error => console.log('Request failed', error));
+                DataService.prototype.loadPomodori = function () {
+                    var _this = this;
+                    this._firebaseRef.child('events').on('value', function (snapshot) {
+                        _this._pomodoriObserver.onNext(snapshot.val());
+                    }, function (errorObject) {
+                        console.log('The read failed: ' + errorObject.code);
+                    });
+                };
+                DataService.prototype.addPomodori = function (pomodori) {
+                    this._firebaseRef.child('events').push().set(pomodori);
                 };
                 DataService = __decorate([
                     angular2_1.Injectable(), 

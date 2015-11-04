@@ -1,16 +1,5 @@
 import {Component, EventEmitter, Title} from 'angular2/angular2';
 
-enum EventType {
-    POMIDORO,
-    SHORT_BREAK,
-    LONG_BREAK
-};
-
-interface TimeEvent {
-    eventType: EventType,
-    dateCreated?: Date
-};
-
 @Component({
     selector: 'pom-timer',
     templateUrl: 'app/components/pom-timer.html',
