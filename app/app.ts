@@ -2,6 +2,7 @@ import {Component, bootstrap, FORM_BINDINGS, bind} from 'angular2/angular2';
 import {RouteConfig, RouterOutlet, RouterLink, ROUTER_BINDINGS, ROUTER_PRIMARY_COMPONENT, LocationStrategy, HashLocationStrategy} from 'angular2/router';
 import {HTTP_BINDINGS} from 'angular2/http';
 import {DataService} from 'app/services/data.service';
+import {AuthService} from 'app/services/auth.service';
 import {About} from 'app/about';
 import {Home} from 'app/home';
 
@@ -33,6 +34,7 @@ bootstrap(App, [
     bind(ROUTER_PRIMARY_COMPONENT).toValue(App),
     bind(LocationStrategy).toClass(HashLocationStrategy),
     [
-        DataService
+        DataService,
+        AuthService
     ]
 ]);
