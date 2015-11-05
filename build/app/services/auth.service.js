@@ -36,11 +36,11 @@ System.register(['angular2/angular2'], function(exports_1) {
                     var _this = this;
                     this._firebaseRef.authWithOAuthPopup('twitter', function (error, authData) {
                         if (error) {
-                            _this._userObserver.onNext(_this._firebaseRef.getAuth());
                             console.log('Login Failed!', error);
                         }
                         else {
                             _this._firebaseRef.child('/users/' + authData.uid).child('authData').set(authData);
+                            _this._userObserver.onNext(_this._firebaseRef.getAuth());
                             console.log('Authenticated successfully with payload:', authData);
                         }
                     });

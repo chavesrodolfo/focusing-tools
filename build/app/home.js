@@ -32,10 +32,17 @@ System.register(['angular2/angular2', 'app/components/pom-timer', 'app/services/
         execute: function() {
             Home = (function () {
                 function Home(_dataService, _authService) {
+                    var _this = this;
                     this._dataService = _dataService;
                     this._authService = _authService;
-                    this._dataService.loadPomodori();
-                    this._dataService.pomodori$.subscribe(function (val) { return console.log(val); });
+                    this.displayName = 'Not signed in.';
+                    // this._dataService.loadPomodori();
+                    // this._dataService.pomodori$.subscribe(val => console.log(val));
+                    this._authService.user$.subscribe(function (authUser) {
+                        console.log(authUser);
+                        _this.authUser = authUser;
+                        _this.displayName = _this.authUser.twitter.displayName;
+                    });
                 }
                 Home.prototype.eventCompleted = function (pom) {
                     console.log(pom);
