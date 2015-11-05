@@ -26,6 +26,7 @@ export class Stats {
         if(this._authService.isLoggedIn()) {
             this.displayName = this._authService.userSession.twitter.displayName;
             this.displayImage = this._authService.userSession.twitter.profileImageURL;
+            
             this._dataService.pomodori$.subscribe(val => this.pomodori = val);
             this._dataService.loadPomodori();
         }
