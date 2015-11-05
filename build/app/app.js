@@ -41,13 +41,21 @@ System.register(['angular2/angular2', 'angular2/router', 'angular2/http', 'app/s
         execute: function() {
             App = (function () {
                 function App(_authService) {
+                    var _this = this;
                     this._authService = _authService;
-                    this.loggedIn = this._authService.isLoggedIn();
+                    this._authService.authUser$.subscribe(function (user) { return _this.authUser = user; });
+                    this._authService.loadAuthUser();
                 }
+                App.prototype.login = function () {
+                    this._authService.login();
+                };
+                App.prototype.logout = function () {
+                    this._authService.logout();
+                };
                 App = __decorate([
                     angular2_1.Component({
                         selector: 'agile-pomodoro',
-                        templateUrl: 'app/app.html',
+                        templateUrl: 'build/app/app.html?v=1446763428580?v=1446763422860?v=1446763415958?v=1446763409590?v=1446763391755',
                         directives: [router_1.RouterOutlet, router_1.RouterLink, angular2_1.CORE_DIRECTIVES]
                     }),
                     router_1.RouteConfig([

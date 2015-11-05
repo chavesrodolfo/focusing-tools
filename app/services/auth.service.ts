@@ -5,21 +5,30 @@ declare let Firebase;
 
 @Injectable()
 export class AuthService {
+	authUser$: Rx.Observable<any>;;
     private _firebaseRef: any;
-
+	private _authUserObserver: Rx.Observer<any>;
+	
     constructor() {
         this._firebaseRef = new Firebase('https://agile-pomodoro.firebaseio.com/');
+		this.authUser$ = Rx.Observable.create(observer => this._authUserObserver = observer).share();
+		this.authUser$.subscribe();
+
 		this._firebaseRef.onAuth(authData => {
 			if (authData) {
-				console.log("User " + authData.uid + " is logged in with " + authData.provider);
+				this._authUserObserver.onNext(authData);
 			} else {
-				console.log("User is logged out");
+				this._authUserObserver.onNext(null);
 			}
 		});
     }
 
-	get userSession(): AuthUser {
+	get userSession(): AuthUser { // dep
 		return this._firebaseRef.getAuth();
+	}
+	
+	loadAuthUser() {
+		this._authUserObserver.onNext(this._firebaseRef.getAuth());
 	}
 
 	login() {
@@ -28,13 +37,13 @@ export class AuthService {
 				console.log('Login Failed!', error);
 			} else {
 				this._firebaseRef.child('/users/' + authData.uid).child('authData').set(authData);
-				console.log('Authenticated successfully with payload:', authData);
 			}
 		});
 	}
 
 	logout() {
 		this._firebaseRef.unauth();
+		
 	}
 
 	isLoggedIn() {

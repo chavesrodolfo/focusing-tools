@@ -20,16 +20,20 @@ System.register(['angular2/angular2'], function(exports_1) {
         execute: function() {
             AuthService = (function () {
                 function AuthService() {
+                    var _this = this;
                     this._firebaseRef = new Firebase('https://agile-pomodoro.firebaseio.com/');
+                    this.authUser$ = Rx.Observable.create(function (observer) { return _this._authUserObserver = observer; }).share();
+                    this.authUser$.subscribe();
                     this._firebaseRef.onAuth(function (authData) {
                         if (authData) {
-                            console.log("User " + authData.uid + " is logged in with " + authData.provider);
+                            _this._authUserObserver.onNext(authData);
                         }
                         else {
-                            console.log("User is logged out");
+                            _this._authUserObserver.onNext(null);
                         }
                     });
                 }
+                ;
                 Object.defineProperty(AuthService.prototype, "userSession", {
                     get: function () {
                         return this._firebaseRef.getAuth();
@@ -37,6 +41,9 @@ System.register(['angular2/angular2'], function(exports_1) {
                     enumerable: true,
                     configurable: true
                 });
+                AuthService.prototype.loadAuthUser = function () {
+                    this._authUserObserver.onNext(this._firebaseRef.getAuth());
+                };
                 AuthService.prototype.login = function () {
                     var _this = this;
                     this._firebaseRef.authWithOAuthPopup('twitter', function (error, authData) {
@@ -45,7 +52,6 @@ System.register(['angular2/angular2'], function(exports_1) {
                         }
                         else {
                             _this._firebaseRef.child('/users/' + authData.uid).child('authData').set(authData);
-                            console.log('Authenticated successfully with payload:', authData);
                         }
                     });
                 };

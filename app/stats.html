@@ -1,14 +1,10 @@
+<div *ng-if="!authUser">
+	<p>Login to track your progress!</p>
+	<button (click)="login()">Login with Twitter</button>
+</div>
 
-<p>{{displayName}}</p>
-<img [src]="displayImage" />
-
-
-<button (click)="login()">Login with Twitter</button>
-<button (click)="logout()">Logout</button>
-
-
-<ul>
+<ul *ng-if="pomodori">
 	<li *ng-for="#pom of pomodori">
-		{{pom}}
+		<pom-event [pomodoro]="pom"></pom-event><br /><br />
 	</li>
 </ul>

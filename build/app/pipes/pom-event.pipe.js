@@ -11,29 +11,42 @@ System.register(['angular2/angular2'], function(exports_1) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
     var angular2_1;
-    var UIProgress;
+    var PomEventPipe;
     return {
         setters:[
             function (angular2_1_1) {
                 angular2_1 = angular2_1_1;
             }],
         execute: function() {
-            UIProgress = (function () {
-                function UIProgress() {
+            PomEventPipe = (function () {
+                function PomEventPipe() {
                 }
-                UIProgress = __decorate([
-                    angular2_1.Component({
-                        selector: 'ui-progress',
-                        properties: ['value']
-                    }),
-                    angular2_1.View({
-                        template: "\n  \t <div class=\"progress\">\n\t     <div class=\"progress-bar progress-bar-danger\" role=\"progressbar\" aria-valuemin=\"0\" aria-valuemax=\"100\" [style.width]=\"value + '%'\">\n\t       {{value}}%\n\t     </div>\n\t   </div>\n  "
+                PomEventPipe.prototype.transform = function (val, args) {
+                    switch (val) {
+                        case 0:
+                            return 'Pomodoro';
+                            break;
+                        case 1:
+                            return 'Short Break';
+                            break;
+                        case 2:
+                            return 'Long Break';
+                            break;
+                        default:
+                            return 'Error';
+                            break;
+                    }
+                };
+                PomEventPipe = __decorate([
+                    // https://github.com/chjj/marked
+                    angular2_1.Pipe({
+                        name: 'pomevent'
                     }), 
                     __metadata('design:paramtypes', [])
-                ], UIProgress);
-                return UIProgress;
+                ], PomEventPipe);
+                return PomEventPipe;
             })();
-            exports_1("UIProgress", UIProgress);
+            exports_1("PomEventPipe", PomEventPipe);
         }
     }
 });

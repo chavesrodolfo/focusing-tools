@@ -77,7 +77,7 @@ System.register(['angular2/angular2', 'app/interfaces'], function(exports_1) {
                 PomTimer = __decorate([
                     angular2_1.Component({
                         selector: 'pom-timer',
-                        templateUrl: 'app/components/pom-timer.html',
+                        templateUrl: 'build/app/components/pom-timer.html?v=1446763428580?v=1446763422860?v=1446763415958?v=1446763409590?v=1446763391755',
                         events: ['timeCompleted']
                     }), 
                     __metadata('design:paramtypes', [])

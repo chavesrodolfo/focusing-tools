@@ -6,6 +6,7 @@ import {AuthService} from 'app/services/auth.service';
 import {About} from 'app/about';
 import {Home} from 'app/home';
 import {Stats} from 'app/stats';
+import {AuthUser} from 'app/interfaces';
 
 @Component({
     selector: 'agile-pomodoro',
@@ -18,10 +19,19 @@ import {Stats} from 'app/stats';
     { path: '/stats', component: Stats, as: 'Stats' }
 ])
 class App { 
-    loggedIn: boolean;
+    authUser: AuthUser;
     
     constructor(private _authService: AuthService) {
-        this.loggedIn= this._authService.isLoggedIn();
+        this._authService.authUser$.subscribe(user => this.authUser = user);
+        this._authService.loadAuthUser();
+    }
+    
+    login() {
+        this._authService.login();
+    }
+    
+    logout() {
+        this._authService.logout();
     }
 }
 

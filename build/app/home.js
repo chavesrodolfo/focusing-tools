@@ -41,7 +41,7 @@ System.register(['angular2/angular2', 'app/components/pom-timer', 'app/services/
                 Home = __decorate([
                     angular2_1.Component({
                         selector: 'pom-home',
-                        templateUrl: 'app/home.html',
+                        templateUrl: 'build/app/home.html?v=1446763428580?v=1446763422860?v=1446763415958?v=1446763409590?v=1446763391755',
                         directives: [pom_timer_1.PomTimer]
                     }), 
                     __metadata('design:paramtypes', [data_service_1.DataService, auth_service_1.AuthService])

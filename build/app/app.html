@@ -1,6 +1,8 @@
 <a [router-link]="['./Home']">Home</a>
 <a [router-link]="['./About']">About</a>
 <a [router-link]="['./Stats']">Stats</a>
-<div *ng-if="loggedIn">Log Out</div>
-<div *ng-if="!loggedIn">Log In</div>
+<img [src]="authUser.twitter.profileImageURL" *ng-if="authUser" />
+<button (click)="logout()" *ng-if="authUser">Logout</button>
+<button (click)="login()" *ng-if="!authUser">Login</button>
+<hr /><br />
 <router-outlet></router-outlet>
