@@ -23,14 +23,26 @@ export class AuthService {
 	login() {
 		this._firebaseRef.authWithOAuthPopup('twitter', (error, authData) => {
 			if (error) {
+				this._userObserver.onNext(this._firebaseRef.getAuth());
 				console.log('Login Failed!', error);
 			} else {
+				this._firebaseRef.child('/users/' + authData.uid).child('authData').set(authData);
 				console.log('Authenticated successfully with payload:', authData);
 			}
 		});
 	}
 
 	logout() {
+		console.log('....');
 		this._firebaseRef.unauth();
+		this._userObserver.onNext(this._firebaseRef.getAuth());
+	}
+
+	isLoggedIn() {
+		return !!this._firebaseRef.getAuth();
+	}
+
+	loadUser() {
+		this._userObserver.onNext(this._firebaseRef.getAuth());
 	}
 }

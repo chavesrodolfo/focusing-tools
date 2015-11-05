@@ -33,17 +33,28 @@ System.register(['angular2/angular2'], function(exports_1) {
                     });
                 }
                 AuthService.prototype.login = function () {
+                    var _this = this;
                     this._firebaseRef.authWithOAuthPopup('twitter', function (error, authData) {
                         if (error) {
+                            _this._userObserver.onNext(_this._firebaseRef.getAuth());
                             console.log('Login Failed!', error);
                         }
                         else {
+                            _this._firebaseRef.child('/users/' + authData.uid).child('authData').set(authData);
                             console.log('Authenticated successfully with payload:', authData);
                         }
                     });
                 };
                 AuthService.prototype.logout = function () {
+                    console.log('....');
                     this._firebaseRef.unauth();
+                    this._userObserver.onNext(this._firebaseRef.getAuth());
+                };
+                AuthService.prototype.isLoggedIn = function () {
+                    return !!this._firebaseRef.getAuth();
+                };
+                AuthService.prototype.loadUser = function () {
+                    this._userObserver.onNext(this._firebaseRef.getAuth());
                 };
                 AuthService = __decorate([
                     angular2_1.Injectable(), 
