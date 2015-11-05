@@ -1,3 +1,6 @@
 <a [router-link]="['./Home']">Home</a>
 <a [router-link]="['./About']">About</a>
+<a [router-link]="['./Stats']">Stats</a>
+<div *ng-if="loggedIn">Log Out</div>
+<div *ng-if="!loggedIn">Log In</div>
 <router-outlet></router-outlet>

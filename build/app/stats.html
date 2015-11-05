@@ -1,0 +1,14 @@
+
+<p>{{displayName}}</p>
+<img [src]="displayImage" />
+
+
+<button (click)="login()">Login with Twitter</button>
+<button (click)="logout()">Logout</button>
+
+
+<ul>
+	<li *ng-for="#pom of pomodori">
+		{{pom}}
+	</li>
+</ul>

@@ -23,7 +23,7 @@ export interface AuthUser {
         accessTokenSecret: string,
         displayName: string,
         id: string,
-        profileImageUrl: string,
+        profileImageURL: string,
         username: string
     }
 };

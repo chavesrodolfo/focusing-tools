@@ -20,9 +20,7 @@ System.register(['angular2/angular2'], function(exports_1) {
         execute: function() {
             AuthService = (function () {
                 function AuthService() {
-                    var _this = this;
                     this._firebaseRef = new Firebase('https://agile-pomodoro.firebaseio.com/');
-                    this.user$ = Rx.Observable.create(function (observer) { return _this._userObserver = observer; }).share();
                     this._firebaseRef.onAuth(function (authData) {
                         if (authData) {
                             console.log("User " + authData.uid + " is logged in with " + authData.provider);
@@ -32,6 +30,13 @@ System.register(['angular2/angular2'], function(exports_1) {
                         }
                     });
                 }
+                Object.defineProperty(AuthService.prototype, "userSession", {
+                    get: function () {
+                        return this._firebaseRef.getAuth();
+                    },
+                    enumerable: true,
+                    configurable: true
+                });
                 AuthService.prototype.login = function () {
                     var _this = this;
                     this._firebaseRef.authWithOAuthPopup('twitter', function (error, authData) {
@@ -40,21 +45,15 @@ System.register(['angular2/angular2'], function(exports_1) {
                         }
                         else {
                             _this._firebaseRef.child('/users/' + authData.uid).child('authData').set(authData);
-                            _this._userObserver.onNext(_this._firebaseRef.getAuth());
                             console.log('Authenticated successfully with payload:', authData);
                         }
                     });
                 };
                 AuthService.prototype.logout = function () {
-                    console.log('....');
                     this._firebaseRef.unauth();
-                    this._userObserver.onNext(this._firebaseRef.getAuth());
                 };
                 AuthService.prototype.isLoggedIn = function () {
                     return !!this._firebaseRef.getAuth();
-                };
-                AuthService.prototype.loadUser = function () {
-                    this._userObserver.onNext(this._firebaseRef.getAuth());
                 };
                 AuthService = __decorate([
                     angular2_1.Injectable(), 

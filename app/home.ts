@@ -12,36 +12,14 @@ declare let Firebase;
     directives: [PomTimer]
 })
 export class Home {
-    authUser: AuthUser;
-    displayName: string;
-    
     constructor(
         private _dataService: DataService,
-        private _authService: AuthService) {
-        
-        this.displayName = 'Not signed in.';
-        // this._dataService.loadPomodori();
-        // this._dataService.pomodori$.subscribe(val => console.log(val));
-        this._authService.user$.subscribe(authUser => {
-            console.log(authUser);
-            this.authUser = authUser;
-            this.displayName = this.authUser.twitter.displayName;
-        });
-    }
+        private _authService: AuthService) { }
 
-    eventCompleted(pom) {
-        console.log(pom);
+    eventCompleted(eventType: EventType) {
         this._dataService.addPomodori({
-            eventType: EventType.POMIDORO,
+            eventType,
             dateCreated: Firebase.ServerValue.TIMESTAMP
         });
-    }
-    
-    login() {
-        this._authService.login();
-    }
-    
-    logout() {
-        this._authService.logout();
     }
 }

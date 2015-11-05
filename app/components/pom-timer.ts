@@ -1,4 +1,5 @@
 import {Component, EventEmitter, Title} from 'angular2/angular2';
+import {EventType} from 'app/interfaces';
 
 @Component({
     selector: 'pom-timer',
@@ -46,7 +47,21 @@ export class PomTimer {
         this._interval = setInterval(() => {
             if (this.runningTime.getSeconds() === 0 && this.runningTime.getMinutes() === 0) {
                 this.stop();
-                this.timeCompleted.next(mins);
+
+                switch (mins) {
+                    case 1:
+                        this.timeCompleted.next(EventType.POMIDORO);
+                        break;
+                    case 5:
+                        this.timeCompleted.next(EventType.SHORT_BREAK);
+                        break;
+                    case 15:
+                        this.timeCompleted.next(EventType.LONG_BREAK);
+                        break;
+                    default:
+                        break;
+                }
+                
             } else {
                 this.runningTime = new Date(this.runningTime.getTime() - 1000);
                 // Refactor to use DOM Adapter once ng2 fixed

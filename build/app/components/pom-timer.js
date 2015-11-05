@@ -1,4 +1,4 @@
-System.register(['angular2/angular2'], function(exports_1) {
+System.register(['angular2/angular2', 'app/interfaces'], function(exports_1) {
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") return Reflect.decorate(decorators, target, key, desc);
         switch (arguments.length) {
@@ -10,12 +10,15 @@ System.register(['angular2/angular2'], function(exports_1) {
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var angular2_1;
+    var angular2_1, interfaces_1;
     var PomTimer;
     return {
         setters:[
             function (angular2_1_1) {
                 angular2_1 = angular2_1_1;
+            },
+            function (interfaces_1_1) {
+                interfaces_1 = interfaces_1_1;
             }],
         execute: function() {
             PomTimer = (function () {
@@ -50,7 +53,19 @@ System.register(['angular2/angular2'], function(exports_1) {
                     this._interval = setInterval(function () {
                         if (_this.runningTime.getSeconds() === 0 && _this.runningTime.getMinutes() === 0) {
                             _this.stop();
-                            _this.timeCompleted.next(mins);
+                            switch (mins) {
+                                case 1:
+                                    _this.timeCompleted.next(interfaces_1.EventType.POMIDORO);
+                                    break;
+                                case 5:
+                                    _this.timeCompleted.next(interfaces_1.EventType.SHORT_BREAK);
+                                    break;
+                                case 15:
+                                    _this.timeCompleted.next(interfaces_1.EventType.LONG_BREAK);
+                                    break;
+                                default:
+                                    break;
+                            }
                         }
                         else {
                             _this.runningTime = new Date(_this.runningTime.getTime() - 1000);
