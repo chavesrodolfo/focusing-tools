@@ -1,11 +1,11 @@
-export enum EventType {
+export enum PhaseType {
     POMIDORO,
     SHORT_BREAK,
     LONG_BREAK
 };
 
-export interface Pomodori {
-    eventType: EventType,
+export interface FocusPhase {
+    phaseType: PhaseType,
     dateCreated?: Date
 };
 

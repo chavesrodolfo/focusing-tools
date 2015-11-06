@@ -2,9 +2,9 @@ import {Pipe} from 'angular2/angular2';
 declare let marked; // https://github.com/chjj/marked
 
 @Pipe({
-    name: 'pomevent'
+    name: 'phasetype'
 })
-export class PomEventPipe {
+export class FocusPhasePipe {
     transform(val, args) {
 		switch(val) {
 			case 0:

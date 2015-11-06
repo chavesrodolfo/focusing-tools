@@ -1,7 +1,7 @@
 import {Component} from 'angular2/angular2';
 
 @Component({
-    selector: 'pom-about',
+    selector: 'focus-about',
     templateUrl: 'app/about.html'
 })
 export class About { }

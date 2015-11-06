@@ -25,31 +25,31 @@ System.register(['angular2/angular2', 'app/services/auth.service'], function(exp
                 function DataService(_authService) {
                     var _this = this;
                     this._authService = _authService;
-                    this.pomodori$ = Rx.Observable.create(function (observer) { return _this._pomodoriObserver = observer; }).share();
-                    this.pomodori$.subscribe();
+                    this.focusPhases$ = Rx.Observable.create(function (observer) { return _this._focusPhasesObserver = observer; }).share();
+                    this.focusPhases$.subscribe();
                     this._firebaseRef = new Firebase('https://agile-pomodoro.firebaseio.com/');
                     this._authService.authUser$.subscribe(function (authUser) {
                         _this._authUser = authUser;
-                        _this.loadPomodori();
+                        _this.loadFocusPhases();
                     });
                     this._authService.loadAuthUser();
                 }
-                DataService.prototype.loadPomodori = function () {
+                DataService.prototype.loadFocusPhases = function () {
                     var _this = this;
                     if (this._authService.isLoggedIn()) {
-                        this._firebaseRef.child("users/" + this._authUser.uid + "/pomodori").on('value', function (snapshot) {
-                            _this._pomodoriObserver.onNext(_this._firebaseArrayToArray(snapshot.val()));
+                        this._firebaseRef.child("users/" + this._authUser.uid + "/focusPhases").on('value', function (snapshot) {
+                            _this._focusPhasesObserver.onNext(_this._firebaseArrayToArray(snapshot.val()));
                         }, function (errorObject) {
                             console.log('The read failed: ' + errorObject.code);
                         });
                     }
                     else {
-                        this._pomodoriObserver.onNext([]);
+                        this._focusPhasesObserver.onNext([]);
                     }
                 };
-                DataService.prototype.addPomodori = function (pomodori) {
+                DataService.prototype.addFocusPhase = function (focusPhase) {
                     if (this._authService.isLoggedIn()) {
-                        this._firebaseRef.child("users/" + this._authUser.uid + "/pomodori").push(pomodori);
+                        this._firebaseRef.child("users/" + this._authUser.uid + "/focusPhases").push(focusPhase);
                     }
                 };
                 DataService.prototype._firebaseArrayToArray = function (fbArray) {

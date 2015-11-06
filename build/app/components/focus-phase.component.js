@@ -1,4 +1,4 @@
-System.register(['angular2/angular2', 'app/pipes/pom-event.pipe'], function(exports_1) {
+System.register(['angular2/angular2', 'app/pipes/focus-phase.pipe'], function(exports_1) {
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") return Reflect.decorate(decorators, target, key, desc);
         switch (arguments.length) {
@@ -10,33 +10,33 @@ System.register(['angular2/angular2', 'app/pipes/pom-event.pipe'], function(expo
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var angular2_1, pom_event_pipe_1;
-    var PomEvent;
+    var angular2_1, focus_phase_pipe_1;
+    var FocusPhaseCmp;
     return {
         setters:[
             function (angular2_1_1) {
                 angular2_1 = angular2_1_1;
             },
-            function (pom_event_pipe_1_1) {
-                pom_event_pipe_1 = pom_event_pipe_1_1;
+            function (focus_phase_pipe_1_1) {
+                focus_phase_pipe_1 = focus_phase_pipe_1_1;
             }],
         execute: function() {
-            PomEvent = (function () {
-                function PomEvent() {
+            FocusPhaseCmp = (function () {
+                function FocusPhaseCmp() {
                 }
-                PomEvent = __decorate([
+                FocusPhaseCmp = __decorate([
                     angular2_1.Component({
-                        selector: 'pom-event',
-                        templateUrl: 'build/app/components/pom-event.html?v=1446763428580?v=1446763422860?v=1446763415958?v=1446763409590?v=1446763391755',
+                        selector: 'focus-phase',
+                        templateUrl: 'app/components/focus-phase.component.html',
                         directives: [angular2_1.CORE_DIRECTIVES],
-                        pipes: [pom_event_pipe_1.PomEventPipe],
-                        inputs: ['pomodoro']
+                        pipes: [focus_phase_pipe_1.FocusPhasePipe],
+                        inputs: ['focusPhase']
                     }), 
                     __metadata('design:paramtypes', [])
-                ], PomEvent);
-                return PomEvent;
+                ], FocusPhaseCmp);
+                return FocusPhaseCmp;
             })();
-            exports_1("PomEvent", PomEvent);
+            exports_1("FocusPhaseCmp", FocusPhaseCmp);
         }
     }
 });

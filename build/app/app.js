@@ -54,8 +54,8 @@ System.register(['angular2/angular2', 'angular2/router', 'angular2/http', 'app/s
                 };
                 App = __decorate([
                     angular2_1.Component({
-                        selector: 'agile-pomodoro',
-                        templateUrl: 'build/app/app.html?v=1446763428580?v=1446763422860?v=1446763415958?v=1446763409590?v=1446763391755',
+                        selector: 'focus-app',
+                        templateUrl: 'app/app.html',
                         directives: [router_1.RouterOutlet, router_1.RouterLink, angular2_1.CORE_DIRECTIVES]
                     }),
                     router_1.RouteConfig([

@@ -1,12 +1,12 @@
 import {Component, EventEmitter, Title} from 'angular2/angular2';
-import {EventType} from 'app/interfaces';
+import {PhaseType} from 'app/interfaces/interfaces';
 
 @Component({
-    selector: 'pom-timer',
-    templateUrl: 'app/components/pom-timer.html',
+    selector: 'focus-timer',
+    templateUrl: 'app/components/focus-timer.component.html',
     events: ['timeCompleted']
 })
-export class PomTimer {
+export class FocusTimerCmp {
     runningTime: Date;
     timeCompleted: EventEmitter;
     private _interval: any;
@@ -34,7 +34,7 @@ export class PomTimer {
     stop() {
         clearInterval(this._interval);
         // Refactor to use DOM Adapter once ng2 fixed
-        document.title = 'Agile Pomodoro';
+        document.title = 'Focus Timer';
         this.runningTime = new Date();
         this.runningTime.setMinutes(0);
         this.runningTime.setSeconds(0);
@@ -50,13 +50,13 @@ export class PomTimer {
 
                 switch (mins) {
                     case 1:
-                        this.timeCompleted.next(EventType.POMIDORO);
+                        this.timeCompleted.next(PhaseType.POMIDORO);
                         break;
                     case 5:
-                        this.timeCompleted.next(EventType.SHORT_BREAK);
+                        this.timeCompleted.next(PhaseType.SHORT_BREAK);
                         break;
                     case 15:
-                        this.timeCompleted.next(EventType.LONG_BREAK);
+                        this.timeCompleted.next(PhaseType.LONG_BREAK);
                         break;
                     default:
                         break;

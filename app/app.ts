@@ -6,10 +6,10 @@ import {AuthService} from 'app/services/auth.service';
 import {About} from 'app/about';
 import {Home} from 'app/home';
 import {Stats} from 'app/stats';
-import {AuthUser} from 'app/interfaces';
+import {AuthUser} from 'app/interfaces/interfaces';
 
 @Component({
-    selector: 'agile-pomodoro',
+    selector: 'focus-app',
     templateUrl: 'app/app.html',
     directives: [RouterOutlet, RouterLink, CORE_DIRECTIVES]
 })

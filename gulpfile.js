@@ -230,7 +230,7 @@ gulp.task('_browser-sync-reload', DOCS.browserSync, () => {
 
 gulp.task('_update.version', DOCS.buildInjectables, () => {
     let version = getVersion();
-    let target = gulp.src('./index.html');
+    let target = gulp.src('./app/index.html');
     let sources = gulp.src([
     // Source order matters
         './build/assets/javascript/rx-lite.js',

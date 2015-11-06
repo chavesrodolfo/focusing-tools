@@ -1,4 +1,4 @@
-System.register(['angular2/angular2', 'app/interfaces'], function(exports_1) {
+System.register(['angular2/angular2', 'app/interfaces/interfaces'], function(exports_1) {
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") return Reflect.decorate(decorators, target, key, desc);
         switch (arguments.length) {
@@ -11,7 +11,7 @@ System.register(['angular2/angular2', 'app/interfaces'], function(exports_1) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
     var angular2_1, interfaces_1;
-    var PomTimer;
+    var FocusTimerCmp;
     return {
         setters:[
             function (angular2_1_1) {
@@ -21,32 +21,32 @@ System.register(['angular2/angular2', 'app/interfaces'], function(exports_1) {
                 interfaces_1 = interfaces_1_1;
             }],
         execute: function() {
-            PomTimer = (function () {
-                function PomTimer() {
+            FocusTimerCmp = (function () {
+                function FocusTimerCmp() {
                     this.timeCompleted = new angular2_1.EventEmitter();
                     this.stop();
                 }
-                PomTimer.prototype.startPomodoro = function (val) {
+                FocusTimerCmp.prototype.startPomodoro = function (val) {
                     this.stop();
                     this._startTimer(1);
                 };
-                PomTimer.prototype.startShortBreak = function () {
+                FocusTimerCmp.prototype.startShortBreak = function () {
                     this.stop();
                     this._startTimer(5);
                 };
-                PomTimer.prototype.startLongBreak = function () {
+                FocusTimerCmp.prototype.startLongBreak = function () {
                     this.stop();
                     this._startTimer(15);
                 };
-                PomTimer.prototype.stop = function () {
+                FocusTimerCmp.prototype.stop = function () {
                     clearInterval(this._interval);
                     // Refactor to use DOM Adapter once ng2 fixed
-                    document.title = 'Agile Pomodoro';
+                    document.title = 'Focus Timer';
                     this.runningTime = new Date();
                     this.runningTime.setMinutes(0);
                     this.runningTime.setSeconds(0);
                 };
-                PomTimer.prototype._startTimer = function (mins) {
+                FocusTimerCmp.prototype._startTimer = function (mins) {
                     var _this = this;
                     this.runningTime.setMinutes(0);
                     this.runningTime.setSeconds(mins);
@@ -55,13 +55,13 @@ System.register(['angular2/angular2', 'app/interfaces'], function(exports_1) {
                             _this.stop();
                             switch (mins) {
                                 case 1:
-                                    _this.timeCompleted.next(interfaces_1.EventType.POMIDORO);
+                                    _this.timeCompleted.next(interfaces_1.PhaseType.POMIDORO);
                                     break;
                                 case 5:
-                                    _this.timeCompleted.next(interfaces_1.EventType.SHORT_BREAK);
+                                    _this.timeCompleted.next(interfaces_1.PhaseType.SHORT_BREAK);
                                     break;
                                 case 15:
-                                    _this.timeCompleted.next(interfaces_1.EventType.LONG_BREAK);
+                                    _this.timeCompleted.next(interfaces_1.PhaseType.LONG_BREAK);
                                     break;
                                 default:
                                     break;
@@ -74,17 +74,17 @@ System.register(['angular2/angular2', 'app/interfaces'], function(exports_1) {
                         }
                     }, 1000);
                 };
-                PomTimer = __decorate([
+                FocusTimerCmp = __decorate([
                     angular2_1.Component({
-                        selector: 'pom-timer',
-                        templateUrl: 'build/app/components/pom-timer.html?v=1446763428580?v=1446763422860?v=1446763415958?v=1446763409590?v=1446763391755',
+                        selector: 'focus-timer',
+                        templateUrl: 'app/components/focus-timer.component.html',
                         events: ['timeCompleted']
                     }), 
                     __metadata('design:paramtypes', [])
-                ], PomTimer);
-                return PomTimer;
+                ], FocusTimerCmp);
+                return FocusTimerCmp;
             })();
-            exports_1("PomTimer", PomTimer);
+            exports_1("FocusTimerCmp", FocusTimerCmp);
         }
     }
 });

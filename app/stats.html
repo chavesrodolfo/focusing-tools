@@ -3,8 +3,8 @@
 	<button (click)="login()">Login with Twitter</button>
 </div>
 
-<ul *ng-if="pomodori">
-	<li *ng-for="#pom of pomodori">
-		<pom-event [pomodoro]="pom"></pom-event><br /><br />
+<ul *ng-if="focusPhases">
+	<li *ng-for="#phase of focusPhases">
+		<focus-phase [focus-phase]="phase"></focus-phase><br /><br />
 	</li>
 </ul>

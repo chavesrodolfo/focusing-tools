@@ -1,5 +1,5 @@
 import {Injectable} from 'angular2/angular2';
-import {AuthUser} from 'app/interfaces';
+import {AuthUser} from 'app/interfaces/interfaces';
 
 declare let Firebase;
 
