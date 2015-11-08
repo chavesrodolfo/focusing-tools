@@ -24,7 +24,7 @@ System.register(['angular2/angular2'], function(exports_1) {
                 About = __decorate([
                     angular2_1.Component({
                         selector: 'focus-about',
-                        templateUrl: 'app/about.html'
+                        templateUrl: 'build/app/about.html?v=1447011007227?v=1447011005340?v=1447007533469?v=1447007455017?v=1447006997307?v=1447004935582?v=1447004848717?v=1447004738408?v=1447004722294?v=1447004700959?v=1447004678336?v=1447004657120?v=1447004554618?v=1447004525118?v=1447004241851?v=1447004117295?v=1447004081220?v=1447003619903'
                     }), 
                     __metadata('design:paramtypes', [])
                 ], About);

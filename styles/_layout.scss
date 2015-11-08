@@ -1,0 +1,24 @@
+.app-header {
+	background-color: $color-focus-red;
+	color: $color-focus-white;
+	padding: 15px;
+}
+
+.app-main {
+	background-color: $color-focus-white;
+	padding: 10px;
+	border-radius: 4px;
+	margin: 15px 0;
+	
+	
+	@media (min-width: 600px) {
+		border: 1px solid #ccc;
+		min-height: 500px;
+	}
+}
+
+.app-nav {
+	&__link {
+		color: #fff;		
+	}
+}

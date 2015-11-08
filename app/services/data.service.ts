@@ -1,7 +1,6 @@
 import {Injectable} from 'angular2/angular2';
-import {FocusPhase, PhaseType} from 'app/interfaces';
 import {AuthService} from 'app/services/auth.service';
-import {AuthUser} from 'app/interfaces/interfaces';
+import {AuthUser, FocusPhase, PhaseType} from 'app/interfaces/interfaces';
 
 declare let Firebase;
 
@@ -21,7 +20,7 @@ export class DataService {
             this._authUser = authUser;
             this.loadFocusPhases();
         });
- 
+
         this._authService.loadAuthUser();
     }
 

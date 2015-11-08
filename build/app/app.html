@@ -1,8 +1,18 @@
-<a [router-link]="['./Home']">Home</a>
-<a [router-link]="['./About']">About</a>
-<a [router-link]="['./Stats']">Stats</a>
-<img [src]="authUser.twitter.profileImageURL" *ng-if="authUser" />
-<button (click)="logout()" *ng-if="authUser">Logout</button>
-<button (click)="login()" *ng-if="!authUser">Login</button>
-<hr /><br />
-<router-outlet></router-outlet>
+<header class="app-header">
+	<div class="container">
+		<nav class="app-nav">
+			<a [router-link]="['./Home']" class="app-nav__link">Home</a>
+			<a [router-link]="['./About']" class="app-nav__link">About</a>
+			<a [router-link]="['./Stats']" class="app-nav__link">Stats</a>
+			<img [src]="authUser.twitter.profileImageURL" *ng-if="authUser" />
+			<button (click)="logout()" *ng-if="authUser" class="app-nav__link">Logout</button>
+			<button (click)="login()" *ng-if="!authUser" class="app-nav__link">Login</button>
+		</nav>
+	</div>
+</header>
+
+<div class="container">
+	<main class="app-main">
+		<router-outlet></router-outlet>
+	</main>
+</div>

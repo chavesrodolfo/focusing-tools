@@ -58,8 +58,8 @@ const CONFIG = {
     [
         'styles/**/*',
         '!styles/libraries/**/*',
-        '!styles/layout/_grid.scss',
-        '!styles/base/_normalize.scss'
+        '!styles/_grid.scss',
+        '!styles/_normalize.scss'
     ],
     buildLocations: {
         html: './build/app/',
@@ -184,7 +184,7 @@ gulp.task('_sass-lint', DOCS.lintSass, () => {
         .on('error', swallowError);
 });
 
-gulp.task('_build.sass', DOCS.buildSass, ['_sass-lint'], () => {
+gulp.task('_build.sass', DOCS.buildSass, [], () => {
     return gulp.src(CONFIG.scssSrc)
         .pipe(sourcemaps.init())
         .pipe(isProd() ? sass({ outputStyle: 'compressed' }) : sass())

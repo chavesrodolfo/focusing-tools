@@ -55,7 +55,7 @@ System.register(['angular2/angular2', 'angular2/router', 'angular2/http', 'app/s
                 App = __decorate([
                     angular2_1.Component({
                         selector: 'focus-app',
-                        templateUrl: 'app/app.html',
+                        templateUrl: 'build/app/app.html?v=1447011007227?v=1447011005340?v=1447007533469?v=1447007455017?v=1447006997307?v=1447004935582?v=1447004848717?v=1447004738408?v=1447004722294?v=1447004700959?v=1447004678336?v=1447004657120?v=1447004554618?v=1447004525118?v=1447004241851?v=1447004117295?v=1447004081220?v=1447003619903',
                         directives: [router_1.RouterOutlet, router_1.RouterLink, angular2_1.CORE_DIRECTIVES]
                     }),
                     router_1.RouteConfig([

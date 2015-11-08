@@ -1,6 +1,10 @@
-{{runningTime | date: 'mm:ss'}}
+<div class="focus-timer">
+	<div class="focus-timer__time">
+		{{runningTime | date: 'mm:ss'}}
+	</div>
 
-<button (click)="startPomodoro()">Start 25</button>
-<button (click)="startShortBreak()">Break 5</button>
-<button (click)="startLongBreak()">Break 15</button>
-<button (click)="stop()">Stop</button>
+	<button (click)="startPomodoro()" class="btn">Start 25</button>
+	<button (click)="startShortBreak()" class="btn">Break 5</button>
+	<button (click)="startLongBreak()" class="btn">Break 15</button>
+	<button (click)="stop()" class="btn">Stop</button>
+</div>

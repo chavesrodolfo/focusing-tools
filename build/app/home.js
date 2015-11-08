@@ -41,7 +41,7 @@ System.register(['angular2/angular2', 'app/components/focus-timer.component', 'a
                 Home = __decorate([
                     angular2_1.Component({
                         selector: 'focus-home',
-                        templateUrl: 'app/home.html',
+                        templateUrl: 'build/app/home.html?v=1447011007227?v=1447011005340?v=1447007533469?v=1447007455017?v=1447006997307?v=1447004935582?v=1447004848717?v=1447004738408?v=1447004722294?v=1447004700959?v=1447004678336?v=1447004657120?v=1447004554618?v=1447004525118?v=1447004241851?v=1447004117295?v=1447004081220?v=1447003619903',
                         directives: [focus_timer_component_1.FocusTimerCmp]
                     }), 
                     __metadata('design:paramtypes', [data_service_1.DataService, auth_service_1.AuthService])
