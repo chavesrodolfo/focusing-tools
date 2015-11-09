@@ -2,11 +2,10 @@
 	<div class="container">
 		<nav class="app-nav">
 			<a [router-link]="['./Home']"><h1 class="logo">Focus</h1></a>
-			<a [router-link]="['./About']" class="app-nav__link">About</a>
 			<a [router-link]="['./Stats']" class="app-nav__link">Stats</a>
+			<a [router-link]="['./About']" class="app-nav__link">About</a>
 
 			<div class="logout-group">
-				
 				<button (click)="logout()" *ng-if="authUser" class="logout-group__link">Logout</button>
 				<button (click)="login()" *ng-if="!authUser" class="logout-group__link">Login</button>
 				<img [src]="authUser.twitter.profileImageURL" *ng-if="authUser" class="logout-group__image" />

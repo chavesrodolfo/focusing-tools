@@ -13,10 +13,13 @@ focus-app {
 	background-color: $color-focus-red;
 	color: $color-focus-white;
 	padding: 4px 4px 8px 4px;
+	position: fixed;
+    left: 0;
+    right: 0;
 }
 
 .app-main {
-	padding: 15px;
+	padding: 78px 15px 15px 15px;
 }
 
 .app-nav {
@@ -82,3 +85,4 @@ focus-app {
 	background-color: #F3F3F3;
 	padding: 10px;
 }
+

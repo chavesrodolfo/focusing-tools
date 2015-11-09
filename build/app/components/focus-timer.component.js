@@ -24,35 +24,70 @@ System.register(['angular2/angular2', 'app/interfaces/interfaces'], function(exp
             FocusTimerCmp = (function () {
                 function FocusTimerCmp() {
                     this.timeCompleted = new angular2_1.EventEmitter();
-                    this.stop();
+                    this._stopTimer();
+                    this._enableButtons();
                 }
-                FocusTimerCmp.prototype.startPomodoro = function (val) {
-                    this.stop();
-                    this._startTimer(1);
+                FocusTimerCmp.prototype.startFocus = function () {
+                    if (this.clockRunning) {
+                        this._stopTimer();
+                        this._enableButtons();
+                    }
+                    else {
+                        this._startTimer(1);
+                        this._disableButtons();
+                        this.focusRunning = true;
+                    }
                 };
                 FocusTimerCmp.prototype.startShortBreak = function () {
-                    this.stop();
-                    this._startTimer(5);
+                    if (this.clockRunning) {
+                        this._stopTimer();
+                        this._enableButtons();
+                    }
+                    else {
+                        this._startTimer(5);
+                        this._disableButtons();
+                        this.shortRunning = true;
+                    }
                 };
                 FocusTimerCmp.prototype.startLongBreak = function () {
-                    this.stop();
-                    this._startTimer(15);
+                    if (this.clockRunning) {
+                        this._stopTimer();
+                        this._enableButtons();
+                    }
+                    else {
+                        this._startTimer(15);
+                        this._disableButtons();
+                        this.longRunning = true;
+                    }
                 };
-                FocusTimerCmp.prototype.stop = function () {
+                FocusTimerCmp.prototype._stopTimer = function () {
                     clearInterval(this._interval);
                     // Refactor to use DOM Adapter once ng2 fixed
                     document.title = 'Focus Timer';
                     this.runningTime = new Date();
                     this.runningTime.setMinutes(0);
                     this.runningTime.setSeconds(0);
+                    this.clockRunning = false;
+                };
+                FocusTimerCmp.prototype._disableButtons = function () {
+                    this.focusRunning = false;
+                    this.shortRunning = false;
+                    this.longRunning = false;
+                };
+                FocusTimerCmp.prototype._enableButtons = function () {
+                    this.focusRunning = true;
+                    this.shortRunning = true;
+                    this.longRunning = true;
                 };
                 FocusTimerCmp.prototype._startTimer = function (mins) {
                     var _this = this;
+                    this.clockRunning = true;
                     this.runningTime.setMinutes(0);
-                    this.runningTime.setSeconds(mins);
+                    this.runningTime.setSeconds(mins + 1);
                     this._interval = setInterval(function () {
                         if (_this.runningTime.getSeconds() === 0 && _this.runningTime.getMinutes() === 0) {
-                            _this.stop();
+                            _this._stopTimer();
+                            _this._enableButtons();
                             switch (mins) {
                                 case 1:
                                     _this.timeCompleted.next(interfaces_1.PhaseType.POMIDORO);

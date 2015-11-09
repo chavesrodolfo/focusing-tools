@@ -842,10 +842,13 @@ focus-app {
 .app-header {
   background-color: #D76450;
   color: #fff;
-  padding: 4px 4px 8px 4px; }
+  padding: 4px 4px 8px 4px;
+  position: fixed;
+  left: 0;
+  right: 0; }
 
 .app-main {
-  padding: 15px; }
+  padding: 78px 15px 15px 15px; }
 
 .app-nav {
   display: inline-block;
@@ -927,7 +930,8 @@ focus-app {
   margin: 0 4px;
   border-radius: 2px; }
   .btn:hover {
-    box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.18), 0 4px 15px 0 rgba(0, 0, 0, 0.15); }
+    box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.18), 0 4px 15px 0 rgba(0, 0, 0, 0.15);
+    background-color: #db7361; }
   .btn.large {
     font-size: 1.3em;
     padding: 14px 24px; }
