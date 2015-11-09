@@ -1,6 +1,21 @@
 .focus-timer {
+	text-align: center;
+	
 	&__time {
 		font-size: 6em;
 		text-align: center;
+		margin: 18px 0;
+		
+		@media (min-width: 600px) {
+			font-size: 8em;
+			margin: 36px 0;
+		}
 	}
 }
+
+@media (min-width: 600px) {		
+	.focus-timer .btn {
+		font-size: 1.3em;
+		padding: 14px 24px;
+	}
+} 

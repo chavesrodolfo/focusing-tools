@@ -833,29 +833,93 @@ body {
 .app-header {
   background-color: #D76450;
   color: #fff;
-  padding: 15px; }
+  padding: 4px 4px 8px 4px; }
 
 .app-main {
-  background-color: #fff;
-  padding: 10px;
-  border-radius: 4px;
-  margin: 15px 0; }
-  @media (min-width: 600px) {
-    .app-main {
-      border: 1px solid #ccc;
-      min-height: 500px; } }
+  padding: 15px; }
 
-.app-nav__link {
-  color: #fff; }
+.app-nav {
+  display: inline-block;
+  width: 100%; }
+  .app-nav__link {
+    color: #fff;
+    background: none;
+    border: 0;
+    padding: 4px 10px;
+    text-decoration: none; }
+    .app-nav__link:hover {
+      text-decoration: underline; }
 
-.focus-timer__time {
-  font-size: 6em;
+.logo {
+  font-weight: 100;
+  font-size: 3em;
+  display: inline-block;
+  margin: 0;
+  color: #fff;
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  margin-right: 10px; }
+  .logo:hover {
+    border-bottom: 1px solid #fff; }
+
+.logout-group {
+  display: block;
+  float: right;
+  padding-top: 5px; }
+  .logout-group__image {
+    border-radius: 50%;
+    display: block;
+    float: right; }
+  .logout-group__link {
+    color: #fff;
+    background: none;
+    border: 0;
+    padding: 4px 10px;
+    text-decoration: none;
+    margin-top: 11px;
+    float: right; }
+    .logout-group__link:hover {
+      text-decoration: underline; }
+
+.focus-timer {
   text-align: center; }
+  .focus-timer__time {
+    font-size: 6em;
+    text-align: center;
+    margin: 18px 0; }
+    @media (min-width: 600px) {
+      .focus-timer__time {
+        font-size: 8em;
+        margin: 36px 0; } }
+
+@media (min-width: 600px) {
+  .focus-timer .btn {
+    font-size: 1.3em;
+    padding: 14px 24px; } }
 
 .btn {
   background-color: #D76450;
   color: #fff;
-  padding: 4px;
-  border: 0px; }
+  padding: 10px 20px;
+  border: 0px;
+  display: inline-block;
+  min-width: 100px;
+  -webkit-transition: all .3s ease-out;
+  -moz-transition: all .3s ease-out;
+  -o-transition: all .3s ease-out;
+  -ms-transition: all .3s ease-out;
+  transition: all .3s ease-out;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+  text-transform: uppercase;
+  margin: 0 4px;
+  border-radius: 2px; }
+  .btn:hover {
+    box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.18), 0 4px 15px 0 rgba(0, 0, 0, 0.15); }
+  .btn.large {
+    font-size: 1.3em;
+    padding: 14px 24px; }
+  .btn[disabled] {
+    box-shadow: none;
+    background-color: #ccc; }
 
 /*# sourceMappingURL=app.css.map */
