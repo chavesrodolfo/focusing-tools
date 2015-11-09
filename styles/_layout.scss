@@ -1,3 +1,14 @@
+body {
+	display: flex;
+ 	min-height: 100vh;
+  	flex-direction: column;
+}
+
+focus-app {
+	flex: 1;
+	overflow: auto;
+}
+
 .app-header {
 	background-color: $color-focus-red;
 	color: $color-focus-white;
@@ -65,4 +76,9 @@
 			text-decoration: underline;
 		}
 	}
+}
+
+.app-footer {
+	background-color: #F3F3F3;
+	padding: 10px;
 }

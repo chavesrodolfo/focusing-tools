@@ -830,6 +830,15 @@ html {
 body {
   font-family: 'Lato', Arial, Helvetica, sans-serif; }
 
+body {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column; }
+
+focus-app {
+  flex: 1;
+  overflow: auto; }
+
 .app-header {
   background-color: #D76450;
   color: #fff;
@@ -880,6 +889,10 @@ body {
     float: right; }
     .logout-group__link:hover {
       text-decoration: underline; }
+
+.app-footer {
+  background-color: #F3F3F3;
+  padding: 10px; }
 
 .focus-timer {
   text-align: center; }
