@@ -27,7 +27,7 @@ var Home = (function () {
     Home = __decorate([
         angular2_1.Component({
             selector: 'focus-home',
-            templateUrl: 'build/app/home.html?v=1448421539833?v=1448421491137',
+            templateUrl: 'app/home.html',
             directives: [focus_timer_component_1.FocusTimerCmp]
         }), 
         __metadata('design:paramtypes', [data_service_1.DataService, auth_service_1.AuthService])

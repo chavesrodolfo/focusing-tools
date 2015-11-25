@@ -17,7 +17,7 @@ var FocusPhaseCmp = (function () {
     FocusPhaseCmp = __decorate([
         angular2_1.Component({
             selector: 'focus-phase',
-            templateUrl: 'build/app/components/focus-phase.component.html?v=1448421539833?v=1448421491137',
+            templateUrl: 'app/components/focus-phase.component.html',
             directives: [angular2_1.CORE_DIRECTIVES],
             pipes: [focus_phase_pipe_1.FocusPhasePipe],
             inputs: ['focusPhase']

@@ -14,6 +14,7 @@ var router_1 = require('angular2/router');
 var http_1 = require('angular2/http');
 var data_service_1 = require('./services/data.service');
 var auth_service_1 = require('./services/auth.service');
+var timer_service_1 = require('./services/timer.service');
 var about_1 = require('./about');
 var home_1 = require('./home');
 var stats_1 = require('./stats');
@@ -33,7 +34,7 @@ var App = (function () {
     App = __decorate([
         angular2_1.Component({
             selector: 'focus-app',
-            templateUrl: 'build/app/app.html?v=1448421539833?v=1448421491137',
+            templateUrl: 'app/app.html',
             directives: [router_1.RouterOutlet, router_1.RouterLink, angular2_1.CORE_DIRECTIVES]
         }),
         router_1.RouteConfig([
@@ -53,6 +54,7 @@ angular2_1.bootstrap(App, [
     angular2_1.bind(router_1.LocationStrategy).toClass(router_1.HashLocationStrategy),
     [
         data_service_1.DataService,
-        auth_service_1.AuthService
+        auth_service_1.AuthService,
+        timer_service_1.TimerService
     ]
 ]);

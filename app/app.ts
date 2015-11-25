@@ -3,6 +3,7 @@ import {RouteConfig, RouterOutlet, RouterLink, ROUTER_BINDINGS, ROUTER_PRIMARY_C
 import {HTTP_BINDINGS} from 'angular2/http';
 import {DataService} from './services/data.service';
 import {AuthService} from './services/auth.service';
+import {TimerService} from './services/timer.service';
 import {About} from './about';
 import {Home} from './home';
 import {Stats} from './stats';
@@ -43,6 +44,7 @@ bootstrap(App, [
     bind(LocationStrategy).toClass(HashLocationStrategy),
     [
         DataService,
-        AuthService
+        AuthService,
+        TimerService
     ]
 ]);
