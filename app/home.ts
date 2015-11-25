@@ -1,8 +1,8 @@
 import {Component, NgZone} from 'angular2/angular2';
-import {FocusTimerCmp} from 'app/components/focus-timer.component';
-import {DataService} from 'app/services/data.service';
-import {PhaseType} from 'app/interfaces/interfaces';
-import {AuthService} from 'app/services/auth.service';
+import {FocusTimerCmp} from './components/focus-timer.component';
+import {DataService} from './services/data.service';
+import {PhaseType} from './interfaces/interfaces';
+import {AuthService} from './services/auth.service';
 
 declare let Firebase;
 

@@ -1,18 +1,18 @@
-import {Injectable} from 'angular2/angular2';
-import {AuthService} from 'app/services/auth.service';
-import {AuthUser, FocusPhase, PhaseType} from 'app/interfaces/interfaces';
+import {Injectable, Observable} from 'angular2/angular2';
+import {AuthService} from './auth.service';
+import {AuthUser, FocusPhase, PhaseType} from '../interfaces/interfaces';
 
 declare let Firebase;
 
 @Injectable()
 export class DataService {
-    focusPhases$: Rx.Observable<any>;
-    private _focusPhasesObserver: Rx.Observer<any>;
+    focusPhases$: Observable<Array<FocusPhase>>;
+    private _focusPhasesObserver: any;
     private _firebaseRef: any;
     private _authUser: AuthUser;
 
     constructor(private _authService: AuthService) {
-        this.focusPhases$ = Rx.Observable.create(observer => this._focusPhasesObserver = observer).share();
+        this.focusPhases$ = new Observable(observer => this._focusPhasesObserver = observer).share();
         this.focusPhases$.subscribe();
 
         this._firebaseRef = new Firebase('https://agile-pomodoro.firebaseio.com/');
@@ -27,12 +27,12 @@ export class DataService {
     loadFocusPhases() {
         if (this._authService.isLoggedIn()) {
             this._firebaseRef.child(`users/${this._authUser.uid}/focusPhases`).on('value', snapshot => {
-                this._focusPhasesObserver.onNext(this._firebaseArrayToArray(snapshot.val()));
+                this._focusPhasesObserver.next(this._firebaseArrayToArray(snapshot.val()));
             }, errorObject => {
                 console.log('The read failed: ' + errorObject.code);
             });
         } else {
-            this._focusPhasesObserver.onNext([]);
+            this._focusPhasesObserver.next([]);
         }
     }
 

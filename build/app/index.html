@@ -9,8 +9,15 @@
     <link href='https://fonts.googleapis.com/css?family=Lato:400,300' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
     <style>
-        [hidden], [admin-only], template { display: none !important; }
-        .is-admin [admin-only] { display: block !important; }
+        [hidden],
+        [admin-only],
+        template {
+            display: none !important;
+        }
+        
+        .is-admin [admin-only] {
+            display: block !important;
+        }
     </style>
     <base href="/" />
     <!-- inject:css -->
@@ -21,20 +28,16 @@
         <h1>Focus. Loading...</h1>
     </focus-app>
     <footer class="app-footer">
-	   Built by <a href="https://twitter.com/SplinterCode" target="_blank">Cory Rylan</a>
+        Built by <a href="https://twitter.com/SplinterCode" target="_blank">Cory Rylan</a>
     </footer>
     <!-- inject:js -->
     <!-- endinject -->
     <script>
         System.config({
-            paths: {
-                'rx': 'rx',
-                'angular2/*': 'angular2/*',
-                'app/*': 'build/app/*.js'
-            }
+            packages: { 'build': { defaultExtension: 'js?<systemjs-version>' } }
         });
 
-        System.import('app/app');
+        System.import('build/app/app');
     </script>
 </body>
 </html>

@@ -1,8 +1,8 @@
 import {Component, NgZone, CORE_DIRECTIVES} from 'angular2/angular2';
-import {FocusPhaseCmp} from 'app/components/focus-phase.component';
-import {DataService} from 'app/services/data.service';
-import {AuthUser} from 'app/interfaces/interfaces';
-import {AuthService} from 'app/services/auth.service';
+import {FocusPhaseCmp} from './components/focus-phase.component';
+import {DataService} from './services/data.service';
+import {AuthUser} from './interfaces/interfaces';
+import {AuthService} from './services/auth.service';
 
 declare let Firebase;
 

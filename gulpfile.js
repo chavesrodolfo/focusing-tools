@@ -163,7 +163,7 @@ gulp.task('_build.typescript', DOCS.buildTypescript, [], () => { // '_ts-lint'
             declarationFiles: false,
             experimentalDecorators: true,
             emitDecoratorMetadata: true,
-            module: 'system'
+            module: 'commonjs'
         }))
         .pipe(isProd() ? uglify() : gutil.noop())
         .pipe(gulp.dest(CONFIG.buildLocations.js));

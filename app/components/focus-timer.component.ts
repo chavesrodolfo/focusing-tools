@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Title} from 'angular2/angular2';
-import {PhaseType} from 'app/interfaces/interfaces';
+import {PhaseType} from '../interfaces/interfaces';
 
 @Component({
     selector: 'focus-timer',
@@ -8,7 +8,7 @@ import {PhaseType} from 'app/interfaces/interfaces';
 })
 export class FocusTimerCmp {
     runningTime: Date;
-    timeCompleted: EventEmitter;
+    timeCompleted: EventEmitter<PhaseType>;
     focusRunning: boolean;
     shortRunning: boolean;
     longRunning: boolean;

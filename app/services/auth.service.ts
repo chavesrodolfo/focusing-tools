@@ -1,24 +1,24 @@
-import {Injectable} from 'angular2/angular2';
-import {AuthUser} from 'app/interfaces/interfaces';
+import {Injectable, Observable} from 'angular2/angular2';
+import {AuthUser} from '../interfaces/interfaces';
 
 declare let Firebase;
 
 @Injectable()
 export class AuthService {
-	authUser$: Rx.Observable<any>;;
+	authUser$: Observable<any>;;
     private _firebaseRef: any;
-	private _authUserObserver: Rx.Observer<any>;
+	private _authUserObserver: any;
 	
     constructor() {
         this._firebaseRef = new Firebase('https://agile-pomodoro.firebaseio.com/');
-		this.authUser$ = Rx.Observable.create(observer => this._authUserObserver = observer).share();
+		this.authUser$ = new Observable(observer => this._authUserObserver = observer).share();
 		this.authUser$.subscribe();
 
 		this._firebaseRef.onAuth(authData => {
 			if (authData) {
-				this._authUserObserver.onNext(authData);
+				this._authUserObserver.next(authData);
 			} else {
-				this._authUserObserver.onNext(null);
+				this._authUserObserver.next(null);
 			}
 		});
     }
@@ -28,7 +28,7 @@ export class AuthService {
 	}
 	
 	loadAuthUser() {
-		this._authUserObserver.onNext(this._firebaseRef.getAuth());
+		this._authUserObserver.next(this._firebaseRef.getAuth());
 	}
 
 	login() {
