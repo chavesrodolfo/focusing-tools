@@ -1,62 +1,79 @@
 import {Injectable, Observable} from 'angular2/angular2';
+import {DataService} from './data.service';
+import {PhaseType} from '../interfaces/interfaces';
+declare let Firebase;
 
 @Injectable()
 export class TimerService {
-	runningTime: Date;
+    runningTime$: Observable<Date>;
     focusRunning: boolean;
     clockRunning: boolean;
 
+    private _timerObserver: any;
+    private _runningTime: Date;
     private _interval: any;
+    private _selectedTime: number;
 
-    constructor() {
-        this._stopTimer();
+    constructor(private _dataService: DataService) {
+        this.runningTime$ = new Observable(observer => this._timerObserver = observer);
+        this.runningTime$.subscribe();
+        this.stopTimer();
     }
 
-    startFocus(time: number) {
+    startTimer(time: number) {
         if (this.clockRunning) {
-            this._stopTimer();
+            this.stopTimer();
         } else {
-            this._startTimer(1);
+            this._startTimer(time);
+            this._selectedTime = time;
             this.focusRunning = true;
         }
     }
 
-    private _stopTimer() {
+    stopTimer() {
         clearInterval(this._interval);
-        document.title = 'Focus Timer';
-        this.runningTime = new Date();
-        this.runningTime.setMinutes(0);
-        this.runningTime.setSeconds(0);
+        this._runningTime = new Date();
+        this._runningTime.setMinutes(0);
+        this._runningTime.setSeconds(0);
         this.clockRunning = false;
     }
 
     private _startTimer(mins: number) {
         this.clockRunning = true;
-        this.runningTime.setMinutes(0);
-        this.runningTime.setSeconds(mins + 1);
+        this._runningTime.setMinutes(0);
+        this._runningTime.setSeconds(mins + 1);
 
         this._interval = setInterval(() => {
-            if (this.runningTime.getSeconds() === 0 && this.runningTime.getMinutes() === 0) {
-                this._stopTimer();
-                // switch (mins) {
-                //     case 1:
-                //         this.timeCompleted.next(PhaseType.POMIDORO);
-                //         break;
-                //     case 5:
-                //         this.timeCompleted.next(PhaseType.SHORT_BREAK);
-                //         break;
-                //     case 15:
-                //         this.timeCompleted.next(PhaseType.LONG_BREAK);
-                //         break;
-                //     default:
-                //         break;
-                // }
+            if (this._runningTime.getSeconds() === 0 && this._runningTime.getMinutes() === 0) {
+                this.stopTimer();
+                
+                switch (this._selectedTime) {
+                    case 1:
+                        this._saveTime(PhaseType.POMIDORO);
+                        break;
+                    case 5:
+                        this._saveTime(PhaseType.SHORT_BREAK);
+                        break;
+                    case 15:
+                        this._saveTime(PhaseType.LONG_BREAK);
+                        break;
+                    default:
+                        this._saveTime(PhaseType.CUSTOM_BREAK);
+                        break;
+                }
+
             } else {
-                this.runningTime = new Date(this.runningTime.getTime() - 1000);
-                // Refactor to use DOM Adapter once ng2 fixed
-                document.title = `${this.runningTime.getMinutes() }:${this.runningTime.getSeconds() }`;
+                this._runningTime = new Date(this._runningTime.getTime() - 1000);
             }
 
+            this._timerObserver.next(this._runningTime);
         }, 1000);
+    }
+
+    private _saveTime(phaseType: PhaseType) {
+        this._dataService.addFocusPhase({
+            phaseType,
+            dateCreated: Firebase.ServerValue.TIMESTAMP
+        });
     }
 }

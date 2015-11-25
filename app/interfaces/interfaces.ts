@@ -1,7 +1,8 @@
 export enum PhaseType {
     POMIDORO,
     SHORT_BREAK,
-    LONG_BREAK
+    LONG_BREAK,
+    CUSTOM_BREAK
 };
 
 export interface FocusPhase {

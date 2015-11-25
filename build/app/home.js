@@ -11,26 +11,16 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var angular2_1 = require('angular2/angular2');
 var focus_timer_component_1 = require('./components/focus-timer.component');
-var data_service_1 = require('./services/data.service');
-var auth_service_1 = require('./services/auth.service');
 var Home = (function () {
-    function Home(_dataService, _authService) {
-        this._dataService = _dataService;
-        this._authService = _authService;
+    function Home() {
     }
-    Home.prototype.eventCompleted = function (phaseType) {
-        this._dataService.addFocusPhase({
-            phaseType: phaseType,
-            dateCreated: Firebase.ServerValue.TIMESTAMP
-        });
-    };
     Home = __decorate([
         angular2_1.Component({
             selector: 'focus-home',
             templateUrl: 'app/home.html',
             directives: [focus_timer_component_1.FocusTimerCmp]
         }), 
-        __metadata('design:paramtypes', [data_service_1.DataService, auth_service_1.AuthService])
+        __metadata('design:paramtypes', [])
     ], Home);
     return Home;
 })();

@@ -10,54 +10,50 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var angular2_1 = require('angular2/angular2');
-var interfaces_1 = require('../interfaces/interfaces');
+var timer_service_1 = require('../services/timer.service');
 var FocusTimerCmp = (function () {
-    function FocusTimerCmp() {
+    function FocusTimerCmp(_timerService) {
+        var _this = this;
+        this._timerService = _timerService;
         this.timeCompleted = new angular2_1.EventEmitter();
-        this._stopTimer();
+        this.runningTime = new Date();
+        this.runningTime.setMinutes(0);
+        this.runningTime.setSeconds(0);
+        this._timerService.runningTime$.subscribe(function (time) { return _this._calcTime(time); });
         this._enableButtons();
     }
     FocusTimerCmp.prototype.startFocus = function () {
         if (this.clockRunning) {
-            this._stopTimer();
+            this._timerService.stopTimer();
             this._enableButtons();
         }
         else {
-            this._startTimer(1);
+            this._timerService.startTimer(1);
             this._disableButtons();
             this.focusRunning = true;
         }
     };
     FocusTimerCmp.prototype.startShortBreak = function () {
         if (this.clockRunning) {
-            this._stopTimer();
+            this._timerService.stopTimer();
             this._enableButtons();
         }
         else {
-            this._startTimer(5);
+            this._timerService.startTimer(5);
             this._disableButtons();
             this.shortRunning = true;
         }
     };
     FocusTimerCmp.prototype.startLongBreak = function () {
         if (this.clockRunning) {
-            this._stopTimer();
+            this._timerService.stopTimer();
             this._enableButtons();
         }
         else {
-            this._startTimer(15);
+            this._timerService.startTimer(15);
             this._disableButtons();
             this.longRunning = true;
         }
-    };
-    FocusTimerCmp.prototype._stopTimer = function () {
-        clearInterval(this._interval);
-        // Refactor to use DOM Adapter once ng2 fixed
-        document.title = 'Focus Timer';
-        this.runningTime = new Date();
-        this.runningTime.setMinutes(0);
-        this.runningTime.setSeconds(0);
-        this.clockRunning = false;
     };
     FocusTimerCmp.prototype._disableButtons = function () {
         this.focusRunning = false;
@@ -69,35 +65,15 @@ var FocusTimerCmp = (function () {
         this.shortRunning = true;
         this.longRunning = true;
     };
-    FocusTimerCmp.prototype._startTimer = function (mins) {
-        var _this = this;
+    FocusTimerCmp.prototype._calcTime = function (time) {
+        this.runningTime = time;
         this.clockRunning = true;
-        this.runningTime.setMinutes(0);
-        this.runningTime.setSeconds(mins + 1);
-        this._interval = setInterval(function () {
-            if (_this.runningTime.getSeconds() === 0 && _this.runningTime.getMinutes() === 0) {
-                _this._stopTimer();
-                _this._enableButtons();
-                switch (mins) {
-                    case 1:
-                        _this.timeCompleted.next(interfaces_1.PhaseType.POMIDORO);
-                        break;
-                    case 5:
-                        _this.timeCompleted.next(interfaces_1.PhaseType.SHORT_BREAK);
-                        break;
-                    case 15:
-                        _this.timeCompleted.next(interfaces_1.PhaseType.LONG_BREAK);
-                        break;
-                    default:
-                        break;
-                }
-            }
-            else {
-                _this.runningTime = new Date(_this.runningTime.getTime() - 1000);
-                // Refactor to use DOM Adapter once ng2 fixed
-                document.title = _this.runningTime.getMinutes() + ":" + _this.runningTime.getSeconds();
-            }
-        }, 1000);
+        document.title = this.runningTime.getMinutes() + ":" + this.runningTime.getSeconds();
+        if (this.runningTime.getSeconds() === 0 && this.runningTime.getMinutes() === 0) {
+            this.timeCompleted.next(true);
+            this._enableButtons();
+            this.clockRunning = false;
+        }
     };
     FocusTimerCmp = __decorate([
         angular2_1.Component({
@@ -105,7 +81,7 @@ var FocusTimerCmp = (function () {
             templateUrl: 'app/components/focus-timer.component.html',
             events: ['timeCompleted']
         }), 
-        __metadata('design:paramtypes', [])
+        __metadata('design:paramtypes', [timer_service_1.TimerService])
     ], FocusTimerCmp);
     return FocusTimerCmp;
 })();
