@@ -15,7 +15,7 @@ export class DataService {
         this.focusPhases$ = new Observable(observer => this._focusPhasesObserver = observer).share();
         this.focusPhases$.subscribe();
 
-        this._firebaseRef = new Firebase('https://agile-pomodoro.firebaseio.com/');
+        this._firebaseRef = new Firebase('https://focus-app.firebaseio.com/');
         this._authService.authUser$.subscribe(authUser => {
             this._authUser = authUser;
             this.loadFocusPhases();

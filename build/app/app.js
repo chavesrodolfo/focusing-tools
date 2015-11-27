@@ -25,16 +25,13 @@ var App = (function () {
         this._authService.authUser$.subscribe(function (user) { return _this.authUser = user; });
         this._authService.loadAuthUser();
     }
-    App.prototype.login = function () {
-        this._authService.login();
-    };
     App.prototype.logout = function () {
         this._authService.logout();
     };
     App = __decorate([
         angular2_1.Component({
             selector: 'focus-app',
-            templateUrl: 'app/app.html',
+            templateUrl: 'build/app/app.html?v=1448666941975',
             directives: [router_1.RouterOutlet, router_1.RouterLink, angular2_1.CORE_DIRECTIVES]
         }),
         router_1.RouteConfig([

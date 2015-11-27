@@ -1,7 +1,7 @@
 import {Component, NgZone, CORE_DIRECTIVES} from 'angular2/angular2';
 import {FocusPhaseCmp} from './components/focus-phase.component';
 import {DataService} from './services/data.service';
-import {AuthUser} from './interfaces/interfaces';
+import {AuthUser, AuthType} from './interfaces/interfaces';
 import {AuthService} from './services/auth.service';
 
 declare let Firebase;
@@ -21,12 +21,16 @@ export class Stats {
 
         this._dataService.focusPhases$.subscribe(focusPhases => this.focusPhases = focusPhases);
         this._dataService.loadFocusPhases();
-        
+
         this._authService.authUser$.subscribe(authUser => this.authUser = authUser);
         this._authService.loadAuthUser();
     }
-
-    login() {
-        this._authService.login();
+    
+    loginTwitter() {
+        this._authService.login(AuthType.TWITTER);
+    }
+    
+    loginGithub() {
+        this._authService.login(AuthType.GITHUB);
     }
 }

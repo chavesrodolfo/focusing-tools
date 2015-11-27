@@ -16,7 +16,7 @@ var About = (function () {
     About = __decorate([
         angular2_1.Component({
             selector: 'focus-about',
-            templateUrl: 'app/about.html'
+            templateUrl: 'build/app/about.html?v=1448666941975'
         }), 
         __metadata('design:paramtypes', [])
     ], About);

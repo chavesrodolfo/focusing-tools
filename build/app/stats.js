@@ -12,6 +12,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var angular2_1 = require('angular2/angular2');
 var focus_phase_component_1 = require('./components/focus-phase.component');
 var data_service_1 = require('./services/data.service');
+var interfaces_1 = require('./interfaces/interfaces');
 var auth_service_1 = require('./services/auth.service');
 var Stats = (function () {
     function Stats(_authService, _dataService) {
@@ -23,13 +24,16 @@ var Stats = (function () {
         this._authService.authUser$.subscribe(function (authUser) { return _this.authUser = authUser; });
         this._authService.loadAuthUser();
     }
-    Stats.prototype.login = function () {
-        this._authService.login();
+    Stats.prototype.loginTwitter = function () {
+        this._authService.login(interfaces_1.AuthType.TWITTER);
+    };
+    Stats.prototype.loginGithub = function () {
+        this._authService.login(interfaces_1.AuthType.GITHUB);
     };
     Stats = __decorate([
         angular2_1.Component({
             selector: 'focus-stats',
-            templateUrl: 'app/stats.html',
+            templateUrl: 'build/app/stats.html?v=1448666941975',
             directives: [angular2_1.CORE_DIRECTIVES, focus_phase_component_1.FocusPhaseCmp]
         }), 
         __metadata('design:paramtypes', [auth_service_1.AuthService, data_service_1.DataService])

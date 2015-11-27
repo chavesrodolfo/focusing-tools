@@ -5,6 +5,11 @@ export enum PhaseType {
     CUSTOM_BREAK
 };
 
+export enum AuthType {
+    TWITTER,
+    GITHUB
+};
+
 export interface FocusPhase {
     phaseType: PhaseType,
     dateCreated?: Date

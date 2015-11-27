@@ -27,10 +27,6 @@ class App {
         this._authService.loadAuthUser();
     }
     
-    login() {
-        this._authService.login();
-    }
-    
     logout() {
         this._authService.logout();
     }

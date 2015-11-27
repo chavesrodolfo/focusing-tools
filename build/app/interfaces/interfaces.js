@@ -6,5 +6,11 @@
 })(exports.PhaseType || (exports.PhaseType = {}));
 var PhaseType = exports.PhaseType;
 ;
+(function (AuthType) {
+    AuthType[AuthType["TWITTER"] = 0] = "TWITTER";
+    AuthType[AuthType["GITHUB"] = 1] = "GITHUB";
+})(exports.AuthType || (exports.AuthType = {}));
+var AuthType = exports.AuthType;
+;
 ;
 ;

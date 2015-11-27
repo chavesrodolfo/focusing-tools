@@ -7,7 +7,7 @@
 
 			<div class="logout-group">
 				<button (click)="logout()" *ng-if="authUser" class="logout-group__link">Logout</button>
-				<button (click)="login()" *ng-if="!authUser" class="logout-group__link">Login</button>
+				<a [router-link]="['./Stats']" *ng-if="!authUser" class="logout-group__link">Login</a>
 				<img [src]="authUser.twitter.profileImageURL" *ng-if="authUser" class="logout-group__image" />
 			</div>
 		</nav>
