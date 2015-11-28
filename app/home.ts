@@ -1,4 +1,4 @@
-import {Component, NgZone} from 'angular2/angular2';
+import {Component} from 'angular2/angular2';
 import {FocusTimerCmp} from './components/focus-timer.component';
 
 declare let Firebase;

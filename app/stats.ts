@@ -1,4 +1,4 @@
-import {Component, NgZone, CORE_DIRECTIVES} from 'angular2/angular2';
+import {Component} from 'angular2/angular2';
 import {FocusPhaseCmp} from './components/focus-phase.component';
 import {DataService} from './services/data.service';
 import {AuthUser, AuthType} from './interfaces/interfaces';
@@ -9,7 +9,7 @@ declare let Firebase;
 @Component({
     selector: 'focus-stats',
     templateUrl: 'app/stats.html',
-    directives: [CORE_DIRECTIVES, FocusPhaseCmp]
+    directives: [FocusPhaseCmp]
 })
 export class Stats {
     authUser: AuthUser;

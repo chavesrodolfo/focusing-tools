@@ -864,7 +864,7 @@ focus-app {
 
 .logo {
   font-weight: 100;
-  font-size: 3em;
+  font-size: 1.2em;
   display: inline-block;
   margin: 0;
   color: #fff;
@@ -873,15 +873,19 @@ focus-app {
   margin-right: 10px; }
   .logo:hover {
     border-bottom: 1px solid #fff; }
+  @media (min-width: 33.75em) {
+    .logo {
+      font-size: 3em; } }
 
 .logout-group {
   display: block;
   float: right;
   padding-top: 5px; }
-  .logout-group__image {
+  .logout-group__image img {
     border-radius: 50%;
     display: block;
-    float: right; }
+    float: right;
+    max-width: 50px; }
   .logout-group__link {
     color: #fff;
     background: none;

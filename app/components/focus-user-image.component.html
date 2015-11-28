@@ -1,0 +1,4 @@
+<span *ng-if="authUser">
+	<img [src]="authUser.twitter.profileImageURL" *ng-if="authUser.twitter" />
+	<img [src]="authUser.github.profileImageURL" *ng-if="authUser.github" />
+</span>

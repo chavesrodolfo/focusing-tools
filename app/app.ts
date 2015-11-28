@@ -1,4 +1,4 @@
-import {Component, bootstrap, FORM_BINDINGS, bind, CORE_DIRECTIVES} from 'angular2/angular2';
+import {Component, bootstrap, FORM_BINDINGS, bind} from 'angular2/angular2';
 import {RouteConfig, RouterOutlet, RouterLink, ROUTER_BINDINGS, ROUTER_PRIMARY_COMPONENT, LocationStrategy, HashLocationStrategy} from 'angular2/router';
 import {HTTP_BINDINGS} from 'angular2/http';
 import {DataService} from './services/data.service';
@@ -8,11 +8,12 @@ import {About} from './about';
 import {Home} from './home';
 import {Stats} from './stats';
 import {AuthUser} from './interfaces/interfaces';
+import {FocusUserImageCmp} from './components/focus-user-image.component';
 
 @Component({
     selector: 'focus-app',
     templateUrl: 'app/app.html',
-    directives: [RouterOutlet, RouterLink, CORE_DIRECTIVES]
+    directives: [RouterOutlet, RouterLink, FocusUserImageCmp]
 })
 @RouteConfig([
     { path: '/', component: Home, as: 'Home' },

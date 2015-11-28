@@ -4,6 +4,10 @@
 	<button (click)="loginGithub()" class="btn">Login with Github</button>
 </div>
 
+<p *ng-if="authUser">
+	Logged in with {{authUser.provider}}.
+</p>
+
 <ul *ng-if="focusPhases">
 	<li *ng-for="#phase of focusPhases">
 		<focus-phase [focus-phase]="phase"></focus-phase><br /><br />

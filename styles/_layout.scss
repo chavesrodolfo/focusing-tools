@@ -41,7 +41,7 @@ focus-app {
 
 .logo {
 	font-weight: 100;
-	font-size: 3em;
+	font-size: 1.2em;
 	display: inline-block;
 	margin: 0;
 	color: $color-focus-white;
@@ -52,6 +52,10 @@ focus-app {
 	&:hover {
 		border-bottom: 1px solid $color-focus-white;
 	}
+	
+	@media (min-width: $sm-break) {
+		font-size: 3em;
+	}
 }
 
 
@@ -60,10 +64,11 @@ focus-app {
 	float: right;
 	padding-top: 5px;
 		
-	&__image {
+	&__image img {
 		border-radius: 50%;
 		display: block;
 		float: right;
+		max-width: 50px;
 	}
 	
 	&__link {
