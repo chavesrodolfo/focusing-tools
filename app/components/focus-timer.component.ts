@@ -82,6 +82,7 @@ export class FocusTimerCmp {
             this.timeCompleted.next(true);
             this._enableButtons();
             this.clockRunning = false;
+            document.title = 'Focus Time Management';
         }
     }
 }

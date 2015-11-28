@@ -74,12 +74,13 @@ var FocusTimerCmp = (function () {
             this.timeCompleted.next(true);
             this._enableButtons();
             this.clockRunning = false;
+            document.title = 'Focus Time Management';
         }
     };
     FocusTimerCmp = __decorate([
         angular2_1.Component({
             selector: 'focus-timer',
-            templateUrl: 'app/components/focus-timer.component.html',
+            templateUrl: 'build/app/components/focus-timer.component.html?v=1448675667035?v=1448675643461',
             events: ['timeCompleted']
         }), 
         __metadata('design:paramtypes', [timer_service_1.TimerService])

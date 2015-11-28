@@ -33,7 +33,7 @@ var Stats = (function () {
     Stats = __decorate([
         angular2_1.Component({
             selector: 'focus-stats',
-            templateUrl: 'app/stats.html',
+            templateUrl: 'build/app/stats.html?v=1448675667035?v=1448675643461',
             directives: [focus_phase_component_1.FocusPhaseCmp]
         }), 
         __metadata('design:paramtypes', [auth_service_1.AuthService, data_service_1.DataService])
