@@ -22,7 +22,8 @@ export class FocusTimerCmp {
         this.runningTime = new Date();
         this.runningTime.setMinutes(0);
         this.runningTime.setSeconds(0);
-
+        
+        this.clockRunning = false;
         this._timerService.runningTime$.subscribe(time => this._calcTime(time));
         this._enableButtons();
     }

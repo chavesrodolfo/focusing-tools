@@ -35,6 +35,7 @@ var TimerService = (function () {
         this._runningTime = new Date();
         this._runningTime.setMinutes(0);
         this._runningTime.setSeconds(0);
+        this._timerObserver.next(this._runningTime);
         this.clockRunning = false;
     };
     TimerService.prototype._startTimer = function (mins) {

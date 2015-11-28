@@ -12,36 +12,23 @@ focus-app {
 .app-header {
 	background-color: $color-focus-red;
 	color: $color-focus-white;
-	padding: 4px 4px 8px 4px;
+	padding: 10px 12px 10px 12px;
 	position: fixed;
     left: 0;
     right: 0;
 }
 
 .app-main {
-	padding: 78px 15px 15px 15px;
-}
-
-.app-nav {
-	display: inline-block;
-	width: 100%;
+	padding: 60px 15px 15px 15px;
 	
-	&__link {
-		color: $color-focus-white;	
-		background: none;
-		border: 0;
-		padding: 4px 10px;
-		text-decoration: none;
-		
-		&:hover {
-			text-decoration: underline;
-		}	
+	@media (min-width: $md-break) {
+		padding: 80px 15px 15px 15px;
 	}
 }
 
 .logo {
 	font-weight: 100;
-	font-size: 1.2em;
+	font-size: 1.8em;
 	display: inline-block;
 	margin: 0;
 	color: $color-focus-white;
@@ -53,7 +40,7 @@ focus-app {
 		border-bottom: 1px solid $color-focus-white;
 	}
 	
-	@media (min-width: $sm-break) {
+	@media (min-width: $md-break) {
 		font-size: 3em;
 	}
 }
