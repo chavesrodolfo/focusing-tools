@@ -1,17 +1,1 @@
-<div *ng-if="!authUser">
-	<p>Login to track your progress!</p>
-	<button (click)="loginTwitter()" class="btn">Login with Twitter</button>
-	<button (click)="loginGithub()" class="btn">Login with Github</button>
-</div>
-
-<p *ng-if="authUser">
-	Logged in with {{authUser.provider}}.
-</p>
-
-<ul *ng-if="focusPhases">
-	<li *ng-for="#phase of focusPhases">
-		<focus-phase [focus-phase]="phase"></focus-phase>
-		<br />
-		<br />
-	</li>
-</ul>
+<div *ng-if=!authUser><p>Login to track your progress!</p><button (click)=loginTwitter() class=btn>Login with Twitter</button> <button (click)=loginGithub() class=btn>Login with Github</button></div><p *ng-if=authUser>Logged in with {{authUser.provider}}.</p><ul *ng-if=focusPhases><li *ng-for="#phase of focusPhases"><focus-phase [focus-phase]=phase></focus-phase><br><br></li></ul>
