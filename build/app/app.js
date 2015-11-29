@@ -34,7 +34,7 @@ var App = (function () {
     App = __decorate([
         angular2_1.Component({
             selector: 'focus-app',
-            templateUrl: 'app/app.html',
+            templateUrl: 'build/app/app.html?v=1448834606277?v=1448834575732?v=1448834121861?v=1448834085048?v=1448833869893?v=1448833859378?v=1448833829470?v=1448833803731?v=1448833628402?v=1448833334412?v=1448833117338',
             directives: [router_1.RouterOutlet, router_1.RouterLink, focus_user_image_component_1.FocusUserImageCmp]
         }),
         router_1.RouteConfig([

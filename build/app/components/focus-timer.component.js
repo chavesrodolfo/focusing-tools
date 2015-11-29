@@ -80,7 +80,7 @@ var FocusTimerCmp = (function () {
     FocusTimerCmp = __decorate([
         angular2_1.Component({
             selector: 'focus-timer',
-            templateUrl: 'app/components/focus-timer.component.html',
+            templateUrl: 'build/app/components/focus-timer.component.html?v=1448834606277?v=1448834575732?v=1448834121861?v=1448834085048?v=1448833869893?v=1448833859378?v=1448833829470?v=1448833803731?v=1448833628402?v=1448833334412?v=1448833117338',
             events: ['timeCompleted']
         }), 
         __metadata('design:paramtypes', [timer_service_1.TimerService])

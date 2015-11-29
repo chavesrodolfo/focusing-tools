@@ -830,6 +830,9 @@ html {
 body {
   font-family: 'Lato', Arial, Helvetica, sans-serif; }
 
+.text-center {
+  text-align: center; }
+
 body {
   display: flex;
   min-height: 100vh;
@@ -848,7 +851,7 @@ focus-app {
   right: 0; }
 
 .app-main {
-  padding: 60px 15px 15px 15px; }
+  padding: 60px 5px 15px 5px; }
   @media (min-width: 45em) {
     .app-main {
       padding: 80px 15px 15px 15px; } }
@@ -954,6 +957,9 @@ focus-app {
     right: 0; }
     .nav .close-menu-btn:focus, .nav .close-menu-btn:active {
       outline: none; }
+  .nav .logout-group {
+    float: left;
+    padding: 10px; }
 
 .open-nav .nav {
   left: 0; }
@@ -983,12 +989,22 @@ focus-app {
     font-size: 6em;
     text-align: center;
     margin: 18px 0; }
-    @media (min-width: 600px) {
+    @media (min-width: 420px) {
       .focus-timer__time {
         font-size: 8em;
         margin: 36px 0; } }
+  .focus-timer .btn .fa {
+    display: none; }
 
-@media (min-width: 600px) {
+@media (min-width: 420px) {
+  .focus-timer .btn .fa {
+    display: inline-block; } }
+
+@media (max-width: 420px) {
+  .focus-timer .btn {
+    padding: 10px; } }
+
+@media (min-width: 560px) {
   .focus-timer .btn {
     font-size: 1.3em;
     padding: 14px 24px; } }
@@ -999,7 +1015,7 @@ focus-app {
   padding: 10px 20px;
   border: 0px;
   display: inline-block;
-  min-width: 100px;
+  min-width: 90px;
   -webkit-transition: all .3s ease-out;
   -moz-transition: all .3s ease-out;
   -o-transition: all .3s ease-out;
