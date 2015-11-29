@@ -1,5 +1,6 @@
 import {Injectable, Observable} from 'angular2/angular2';
 import {DataService} from './data.service';
+import {NotificationService} from './notification.service';
 import {PhaseType} from '../interfaces/interfaces';
 declare let Firebase;
 
@@ -14,7 +15,10 @@ export class TimerService {
     private _interval: any;
     private _selectedTime: number;
 
-    constructor(private _dataService: DataService) {
+    constructor(
+        private _dataService: DataService,
+        private _notificationService: NotificationService) {
+
         this.runningTime$ = new Observable(observer => this._timerObserver = observer);
         this.runningTime$.subscribe();
         this.stopTimer();
@@ -42,27 +46,12 @@ export class TimerService {
     private _startTimer(mins: number) {
         this.clockRunning = true;
         this._runningTime.setMinutes(0);
-        this._runningTime.setSeconds(mins + 1);
+        this._runningTime.setSeconds(mins + 1); // test until ready for mins
 
         this._interval = setInterval(() => {
             if (this._timerFinished()) {
                 this.stopTimer();
-                
-                switch (this._selectedTime) {
-                    case 1:
-                        this._saveTime(PhaseType.POMIDORO);
-                        break;
-                    case 5:
-                        this._saveTime(PhaseType.SHORT_BREAK);
-                        break;
-                    case 15:
-                        this._saveTime(PhaseType.LONG_BREAK);
-                        break;
-                    default:
-                        this._saveTime(PhaseType.CUSTOM_BREAK);
-                        break;
-                }
-
+                this._saveTime();
             } else {
                 this._runningTime = new Date(this._runningTime.getTime() - 1000);
             }
@@ -75,10 +64,30 @@ export class TimerService {
         return (this._runningTime.getSeconds() === 0 && this._runningTime.getMinutes() === 0);
     }
 
-    private _saveTime(phaseType: PhaseType) {
-        this._dataService.addFocusPhase({
-            phaseType,
-            dateCreated: Firebase.ServerValue.TIMESTAMP
-        });
+    private _saveTime() {
+        let phaseType = null;
+        let message = null;
+
+        switch (this._selectedTime) {
+            case 1:
+                phaseType = PhaseType.FOCUS;
+                message = 'Focus Phase Complete!';
+                break;
+            case 5:
+                phaseType = PhaseType.SHORT_BREAK;
+                message = 'Short Break Complete!';
+                break;
+            case 15:
+                phaseType = PhaseType.LONG_BREAK;
+                message = 'Long Break Complete!';
+                break;
+            default:
+                phaseType = PhaseType.CUSTOM_BREAK;
+                message = 'Custom Brake Complete!';
+                break;
+        }
+
+        this._dataService.addFocusPhase({ phaseType, dateCreated: Firebase.ServerValue.TIMESTAMP });
+        this._notificationService.openNotification(message);
     }
 }

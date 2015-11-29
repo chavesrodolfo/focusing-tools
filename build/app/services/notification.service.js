@@ -31,6 +31,13 @@ var NotificationService = (function () {
             alert(permission);
         });
     };
+    NotificationService.prototype.openNotification = function (message, body) {
+        if (body === void 0) { body = ''; }
+        new Notification(message, {
+            body: body,
+            icon: '/assets/images/favicon.ico'
+        });
+    };
     NotificationService = __decorate([
         // Browser W3C Spec Notification API
         angular2_1.Injectable(), 

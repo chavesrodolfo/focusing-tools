@@ -1,5 +1,5 @@
 export enum PhaseType {
-    POMIDORO,
+    FOCUS,
     SHORT_BREAK,
     LONG_BREAK,
     CUSTOM_BREAK
