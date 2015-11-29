@@ -4,6 +4,7 @@ import {HTTP_BINDINGS} from 'angular2/http';
 import {DataService} from './services/data.service';
 import {AuthService} from './services/auth.service';
 import {TimerService} from './services/timer.service';
+import {NotificationService} from './services/notification.service';
 import {About} from './about';
 import {Home} from './home';
 import {Stats} from './stats';
@@ -44,6 +45,7 @@ bootstrap(App, [
     [
         DataService,
         AuthService,
-        TimerService
+        TimerService,
+        NotificationService
     ]
 ]);

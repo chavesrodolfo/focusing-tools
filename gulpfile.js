@@ -23,7 +23,7 @@ let KarmaServer = require('karma').server;
 const CONFIG = {
     jsLibSrc: [
     // Polyfills
-        './assets/javascript/rxjs/rx-lite/rx-lite.js',
+        './assets/javascript/notification/notification.js',
         
     // Libs
         './assets/javascript/firebase/firebase-client.js',
@@ -233,7 +233,7 @@ gulp.task('_update.version', DOCS.buildInjectables, () => {
     let target = gulp.src('./app/index.html');
     let sources = gulp.src([
     // Source order matters
-        './build/assets/javascript/rx-lite.js',
+        './build/assets/javascript/notification.js',
         './build/assets/javascript/firebase-client.js',
         './build/assets/javascript/system.src.js',
         './build/assets/javascript/angular2.dev.js',

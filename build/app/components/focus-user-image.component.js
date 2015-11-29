@@ -16,7 +16,7 @@ var FocusUserImageCmp = (function () {
     FocusUserImageCmp = __decorate([
         angular2_1.Component({
             selector: 'focus-user-image',
-            templateUrl: 'build/app/components/focus-user-image.component.html?v=1448675667035?v=1448675643461',
+            templateUrl: 'app/components/focus-user-image.component.html',
             inputs: ['authUser']
         }), 
         __metadata('design:paramtypes', [])

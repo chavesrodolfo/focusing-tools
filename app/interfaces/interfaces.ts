@@ -10,6 +10,12 @@ export enum AuthType {
     GITHUB
 };
 
+export enum NotificationPermission {
+	GRANTED,
+	DENIED,
+	UNSUPPORTED
+};
+
 export interface FocusPhase {
     phaseType: PhaseType,
     dateCreated?: Date

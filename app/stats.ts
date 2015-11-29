@@ -1,7 +1,7 @@
 import {Component} from 'angular2/angular2';
 import {FocusPhaseCmp} from './components/focus-phase.component';
 import {DataService} from './services/data.service';
-import {AuthUser, AuthType} from './interfaces/interfaces';
+import {AuthUser, AuthType, NotificationPermission} from './interfaces/interfaces';
 import {AuthService} from './services/auth.service';
 
 declare let Firebase;
@@ -14,7 +14,7 @@ declare let Firebase;
 export class Stats {
     authUser: AuthUser;
     focusPhases: any;
-
+    
     constructor(
         private _authService: AuthService,
         private _dataService: DataService) {
@@ -25,11 +25,11 @@ export class Stats {
         this._authService.authUser$.subscribe(authUser => this.authUser = authUser);
         this._authService.loadAuthUser();
     }
-    
+
     loginTwitter() {
         this._authService.login(AuthType.TWITTER);
     }
-    
+
     loginGithub() {
         this._authService.login(AuthType.GITHUB);
     }

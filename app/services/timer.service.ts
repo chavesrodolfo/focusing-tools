@@ -45,7 +45,7 @@ export class TimerService {
         this._runningTime.setSeconds(mins + 1);
 
         this._interval = setInterval(() => {
-            if (this._runningTime.getSeconds() === 0 && this._runningTime.getMinutes() === 0) {
+            if (this._timerFinished()) {
                 this.stopTimer();
                 
                 switch (this._selectedTime) {
@@ -69,6 +69,10 @@ export class TimerService {
 
             this._timerObserver.next(this._runningTime);
         }, 1000);
+    }
+
+    private _timerFinished() {
+        return (this._runningTime.getSeconds() === 0 && this._runningTime.getMinutes() === 0);
     }
 
     private _saveTime(phaseType: PhaseType) {

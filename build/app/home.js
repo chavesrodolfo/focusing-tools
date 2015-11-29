@@ -11,16 +11,30 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var angular2_1 = require('angular2/angular2');
 var focus_timer_component_1 = require('./components/focus-timer.component');
+var notification_service_1 = require('./services/notification.service');
+var interfaces_1 = require('./interfaces/interfaces');
 var Home = (function () {
-    function Home() {
+    function Home(_notificationService) {
+        this._notificationService = _notificationService;
+        this.notificationsEnabled = false;
+        this.notificationsSupported = true;
+        if (this._notificationService.hasPermission() === interfaces_1.NotificationPermission.GRANTED) {
+            this.notificationsEnabled = true;
+        }
+        if (this._notificationService.hasPermission() === interfaces_1.NotificationPermission.UNSUPPORTED) {
+            this.notificationsSupported = false;
+        }
     }
+    Home.prototype.enableNotifications = function () {
+        this._notificationService.requestPermission();
+    };
     Home = __decorate([
         angular2_1.Component({
             selector: 'focus-home',
-            templateUrl: 'build/app/home.html?v=1448675667035?v=1448675643461',
+            templateUrl: 'app/home.html',
             directives: [focus_timer_component_1.FocusTimerCmp]
         }), 
-        __metadata('design:paramtypes', [])
+        __metadata('design:paramtypes', [notification_service_1.NotificationService])
     ], Home);
     return Home;
 })();

@@ -44,7 +44,7 @@ var TimerService = (function () {
         this._runningTime.setMinutes(0);
         this._runningTime.setSeconds(mins + 1);
         this._interval = setInterval(function () {
-            if (_this._runningTime.getSeconds() === 0 && _this._runningTime.getMinutes() === 0) {
+            if (_this._timerFinished()) {
                 _this.stopTimer();
                 switch (_this._selectedTime) {
                     case 1:
@@ -66,6 +66,9 @@ var TimerService = (function () {
             }
             _this._timerObserver.next(_this._runningTime);
         }, 1000);
+    };
+    TimerService.prototype._timerFinished = function () {
+        return (this._runningTime.getSeconds() === 0 && this._runningTime.getMinutes() === 0);
     };
     TimerService.prototype._saveTime = function (phaseType) {
         this._dataService.addFocusPhase({

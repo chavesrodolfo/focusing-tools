@@ -15,6 +15,7 @@ var http_1 = require('angular2/http');
 var data_service_1 = require('./services/data.service');
 var auth_service_1 = require('./services/auth.service');
 var timer_service_1 = require('./services/timer.service');
+var notification_service_1 = require('./services/notification.service');
 var about_1 = require('./about');
 var home_1 = require('./home');
 var stats_1 = require('./stats');
@@ -33,7 +34,7 @@ var App = (function () {
     App = __decorate([
         angular2_1.Component({
             selector: 'focus-app',
-            templateUrl: 'build/app/app.html?v=1448675667035?v=1448675643461',
+            templateUrl: 'app/app.html',
             directives: [router_1.RouterOutlet, router_1.RouterLink, focus_user_image_component_1.FocusUserImageCmp]
         }),
         router_1.RouteConfig([
@@ -54,6 +55,7 @@ angular2_1.bootstrap(App, [
     [
         data_service_1.DataService,
         auth_service_1.AuthService,
-        timer_service_1.TimerService
+        timer_service_1.TimerService,
+        notification_service_1.NotificationService
     ]
 ]);
