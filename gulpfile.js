@@ -247,6 +247,7 @@ gulp.task('_update.version', DOCS.buildInjectables, () => {
         // Inject version number for ng2 app
         .pipe(replace(/\.css/g, '.css?v=' + version))
         .pipe(replace(/\.js/g, '.js?v=' + version))
+        .pipe(replace(/src="\//g, 'src="'))
         .pipe(gulp.dest('./'));
 });
 
