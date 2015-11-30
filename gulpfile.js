@@ -243,11 +243,11 @@ gulp.task('_update.version', DOCS.buildInjectables, () => {
         CONFIG.buildLocations.css + '*.css'], { read: false });
 
     return target
-        .pipe(inject(sources))
+        .pipe(inject(sources, {relative: true}))
         // Inject version number for ng2 app
         .pipe(replace(/\.css/g, '.css?v=' + version))
         .pipe(replace(/\.js/g, '.js?v=' + version))
-        .pipe(replace(/src="\//g, 'src="'))
+        //.pipe(replace(/src="\//g, 'src="'))
         .pipe(gulp.dest('./'));
 });
 
