@@ -68,7 +68,9 @@ const CONFIG = {
         img: './build/assets/images/',
         jsLib: './build/assets/javascript/',
         fonts: './build/assets/fonts/'
-    }
+    },
+    baseUrl: '/',
+    prodBaseUrl: '/focus/'
 }
 
 const DOCS = {
@@ -247,8 +249,9 @@ gulp.task('_update.version', DOCS.buildInjectables, () => {
         // Inject version number for ng2 app
         .pipe(replace(/\.css/g, '.css?v=' + version))
         .pipe(replace(/\.js/g, '.js?v=' + version))
-        .pipe(isProd() ? replace(/src="\//g, 'src="/focus/') : gutil.noop())
-        .pipe(isProd() ? replace(/href="\//g, 'href="/focus/') : gutil.noop())
+        .pipe(isProd() ? replace(/src="\//g, 'src="' + CONFIG.prodBaseUrl) : gutil.noop())
+        .pipe(isProd() ? replace(/href="\//g, 'href="' + CONFIG.prodBaseUrl) : gutil.noop())
+        .pipe(isProd() ? replace(/<app-version>/, getVersion()) : gutil.noop())
         .pipe(gulp.dest('./'));
 });
 
