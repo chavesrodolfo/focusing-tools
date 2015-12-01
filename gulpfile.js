@@ -248,6 +248,7 @@ gulp.task('_update.version', DOCS.buildInjectables, () => {
         .pipe(replace(/\.css/g, '.css?v=' + version))
         .pipe(replace(/\.js/g, '.js?v=' + version))
         .pipe(isProd() ? replace(/src="\//g, 'src="/focus/') : gutil.noop())
+        .pipe(isProd() ? replace(/href="\//g, 'href="/focus/') : gutil.noop())
         .pipe(gulp.dest('./'));
 });
 
