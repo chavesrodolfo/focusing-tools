@@ -45,8 +45,8 @@ export class TimerService {
 
     private _startTimer(mins: number) {
         this.clockRunning = true;
-        this._runningTime.setMinutes(mins + 1);
-        this._runningTime.setSeconds(0); // test until ready for mins
+        this._runningTime.setMinutes(mins);
+        this._runningTime.setSeconds(1); // test until ready for mins
 
         this._interval = setInterval(() => {
             if (this._timerFinished()) {
