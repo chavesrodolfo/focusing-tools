@@ -44,7 +44,8 @@ $nav-break: 45em;
     -moz-transition: left 0.3s;
     -o-transition: left 0.3s;
     transition: left 0.3s;
-
+    will-change: left;
+    
     .nav__link {
         display: block;
         padding: 13px;
