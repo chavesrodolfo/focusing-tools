@@ -33,7 +33,7 @@ export class FocusTimerCmp {
             this._timerService.stopTimer();
             this._enableButtons();
         } else {
-            this._timerService.startTimer(1);
+            this._timerService.startTimer(25);
             this._disableButtons();
             this.focusRunning = true;
         }
