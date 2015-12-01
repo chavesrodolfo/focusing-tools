@@ -1,1 +1,10 @@
-<focus-timer></focus-timer><div *ng-if="notificationsSupported && !notificationsEnabled"><button (click)=enableNotifications() class=btn>Enable Notifications</button></div><div *ng-if=notificationsEnabled class=text-center><br>Notifications Enabled</div>
+<focus-timer></focus-timer>
+
+<div *ng-if="notificationsSupported && !notificationsEnabled">
+	<button (click)="enableNotifications()" class="btn">Enable Notifications</button>
+</div>
+
+<div *ng-if="notificationsEnabled" class="text-center">
+	<br />
+	Notifications Enabled
+</div>

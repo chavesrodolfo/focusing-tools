@@ -1,1 +1,71 @@
-var __decorate=this&&this.__decorate||function(e,t,r,i){if("object"==typeof Reflect&&"function"==typeof Reflect.decorate)return Reflect.decorate(e,t,r,i);switch(arguments.length){case 2:return e.reduceRight(function(e,t){return t&&t(e)||e},t);case 3:return e.reduceRight(function(e,i){return void(i&&i(t,r))},void 0);case 4:return e.reduceRight(function(e,i){return i&&i(t,r,e)||e},i)}},__metadata=this&&this.__metadata||function(e,t){return"object"==typeof Reflect&&"function"==typeof Reflect.metadata?Reflect.metadata(e,t):void 0},angular2_1=require("angular2/angular2"),interfaces_1=require("../interfaces/interfaces"),AuthService=function(){function e(){var e=this;this._firebaseRef=new Firebase("https://focus-app.firebaseio.com/"),this.authUser$=new angular2_1.Observable(function(t){return e._authUserObserver=t}).share(),this.authUser$.subscribe(),this._firebaseRef.onAuth(function(t){t?e._authUserObserver.next(t):e._authUserObserver.next(null)})}return Object.defineProperty(e.prototype,"userSession",{get:function(){return this._firebaseRef.getAuth()},enumerable:!0,configurable:!0}),e.prototype.loadAuthUser=function(){this._authUserObserver.next(this._firebaseRef.getAuth())},e.prototype.login=function(e){e===interfaces_1.AuthType.TWITTER?this._login("twitter"):e===interfaces_1.AuthType.GITHUB&&this._login("github")},e.prototype.logout=function(){this._firebaseRef.unauth()},e.prototype.isLoggedIn=function(){return!!this._firebaseRef.getAuth()},e.prototype._login=function(e){var t=this;this._firebaseRef.authWithOAuthPopup(e,function(e,r){e?console.log("Login Failed!",e):t._firebaseRef.child("/users/"+r.uid).child("authData").set(r)})},e=__decorate([angular2_1.Injectable(),__metadata("design:paramtypes",[])],e)}();exports.AuthService=AuthService;
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") return Reflect.decorate(decorators, target, key, desc);
+    switch (arguments.length) {
+        case 2: return decorators.reduceRight(function(o, d) { return (d && d(o)) || o; }, target);
+        case 3: return decorators.reduceRight(function(o, d) { return (d && d(target, key)), void 0; }, void 0);
+        case 4: return decorators.reduceRight(function(o, d) { return (d && d(target, key, o)) || o; }, desc);
+    }
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var angular2_1 = require('angular2/angular2');
+var interfaces_1 = require('../interfaces/interfaces');
+var AuthService = (function () {
+    function AuthService() {
+        var _this = this;
+        this._firebaseRef = new Firebase('https://focus-app.firebaseio.com/');
+        this.authUser$ = new angular2_1.Observable(function (observer) { return _this._authUserObserver = observer; }).share();
+        this.authUser$.subscribe();
+        this._firebaseRef.onAuth(function (authData) {
+            if (authData) {
+                _this._authUserObserver.next(authData);
+            }
+            else {
+                _this._authUserObserver.next(null);
+            }
+        });
+    }
+    ;
+    Object.defineProperty(AuthService.prototype, "userSession", {
+        get: function () {
+            return this._firebaseRef.getAuth();
+        },
+        enumerable: true,
+        configurable: true
+    });
+    AuthService.prototype.loadAuthUser = function () {
+        this._authUserObserver.next(this._firebaseRef.getAuth());
+    };
+    AuthService.prototype.login = function (authType) {
+        if (authType === interfaces_1.AuthType.TWITTER) {
+            this._login('twitter');
+        }
+        else if (authType === interfaces_1.AuthType.GITHUB) {
+            this._login('github');
+        }
+    };
+    AuthService.prototype.logout = function () {
+        this._firebaseRef.unauth();
+    };
+    AuthService.prototype.isLoggedIn = function () {
+        return !!this._firebaseRef.getAuth();
+    };
+    AuthService.prototype._login = function (authTypeVal) {
+        var _this = this;
+        this._firebaseRef.authWithOAuthPopup(authTypeVal, function (error, authData) {
+            if (error) {
+                console.log('Login Failed!', error);
+            }
+            else {
+                _this._firebaseRef.child('/users/' + authData.uid).child('authData').set(authData);
+            }
+        });
+    };
+    AuthService = __decorate([
+        angular2_1.Injectable(), 
+        __metadata('design:paramtypes', [])
+    ], AuthService);
+    return AuthService;
+})();
+exports.AuthService = AuthService;

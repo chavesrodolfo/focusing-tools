@@ -1,1 +1,48 @@
-var __decorate=this&&this.__decorate||function(e,t,i,n){if("object"==typeof Reflect&&"function"==typeof Reflect.decorate)return Reflect.decorate(e,t,i,n);switch(arguments.length){case 2:return e.reduceRight(function(e,t){return t&&t(e)||e},t);case 3:return e.reduceRight(function(e,n){return void(n&&n(t,i))},void 0);case 4:return e.reduceRight(function(e,n){return n&&n(t,i,e)||e},n)}},__metadata=this&&this.__metadata||function(e,t){return"object"==typeof Reflect&&"function"==typeof Reflect.metadata?Reflect.metadata(e,t):void 0},angular2_1=require("angular2/angular2"),interfaces_1=require("../interfaces/interfaces"),NotificationService=function(){function e(){}return e.prototype.hasPermission=function(){var e=Notification.permission;return"granted"===e?interfaces_1.NotificationPermission.GRANTED:"denied"===e?interfaces_1.NotificationPermission.DENIED:"unknown"===e?interfaces_1.NotificationPermission.UNSUPPORTED:void 0},e.prototype.requestPermission=function(){Notification.requestPermission(function(e){alert(e)})},e.prototype.openNotification=function(e,t){void 0===t&&(t=""),new Notification(e,{body:t,icon:"/assets/images/favicon.ico"})},e=__decorate([angular2_1.Injectable(),__metadata("design:paramtypes",[])],e)}();exports.NotificationService=NotificationService;
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") return Reflect.decorate(decorators, target, key, desc);
+    switch (arguments.length) {
+        case 2: return decorators.reduceRight(function(o, d) { return (d && d(o)) || o; }, target);
+        case 3: return decorators.reduceRight(function(o, d) { return (d && d(target, key)), void 0; }, void 0);
+        case 4: return decorators.reduceRight(function(o, d) { return (d && d(target, key, o)) || o; }, desc);
+    }
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var angular2_1 = require('angular2/angular2');
+var interfaces_1 = require('../interfaces/interfaces');
+var NotificationService = (function () {
+    function NotificationService() {
+    }
+    NotificationService.prototype.hasPermission = function () {
+        var permission = Notification.permission;
+        if (permission === 'granted') {
+            return interfaces_1.NotificationPermission.GRANTED;
+        }
+        else if (permission === 'denied') {
+            return interfaces_1.NotificationPermission.DENIED;
+        }
+        else if (permission === 'unknown') {
+            return interfaces_1.NotificationPermission.UNSUPPORTED;
+        }
+    };
+    NotificationService.prototype.requestPermission = function () {
+        Notification.requestPermission(function (permission) {
+            alert(permission);
+        });
+    };
+    NotificationService.prototype.openNotification = function (message, body) {
+        if (body === void 0) { body = ''; }
+        new Notification(message, {
+            body: body,
+            icon: '/assets/images/favicon.ico'
+        });
+    };
+    NotificationService = __decorate([
+        // Browser W3C Spec Notification API
+        angular2_1.Injectable(), 
+        __metadata('design:paramtypes', [])
+    ], NotificationService);
+    return NotificationService;
+})();
+exports.NotificationService = NotificationService;

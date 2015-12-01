@@ -1,1 +1,37 @@
-<header class=app-header><div class=container [class.open-nav]=navOpen><div class=menu-overlay (click)="navOpen = !navOpen"></div><button class=menu-btn (click)="navOpen = !navOpen"><i class="fa fa-bars"></i></button><nav class=nav (click)="navOpen = !navOpen"><a [router-link]="['./Home']" class=nav__link>Focus</a> <a [router-link]="['./Stats']" class=nav__link>Stats</a> <a [router-link]="['./About']" class=nav__link>About</a><div class=logout-group><button (click)=logout() *ng-if=authUser class=logout-group__link>Logout</button> <a [router-link]="['./Stats']" *ng-if=!authUser class=logout-group__link>Login</a><focus-user-image [auth-user]=authUser class=logout-group__image><focus-user-image></focus-user-image></focus-user-image></div></nav><a [router-link]="['./Home']"><h1 class=logo>Focus</h1></a><nav class=large-nav><a [router-link]="['./Stats']" class=large-nav__link>Stats</a> <a [router-link]="['./About']" class=large-nav__link>About</a><div class=logout-group><button (click)=logout() *ng-if=authUser class=logout-group__link>Logout</button> <a [router-link]="['./Stats']" *ng-if=!authUser class=logout-group__link>Login</a><focus-user-image [auth-user]=authUser class=logout-group__image><focus-user-image></focus-user-image></focus-user-image></div></nav></div></header><div class=container><main class=app-main><router-outlet></router-outlet></main></div>
+<header class="app-header">
+	<div class="container" [class.open-nav]="navOpen">
+		<!-- Mobile Nav -->
+		<div class="menu-overlay" (click)="navOpen = !navOpen"></div>
+		<button class="menu-btn" (click)="navOpen = !navOpen"><i class="fa fa-bars"></i></button>
+		<nav class="nav" (click)="navOpen = !navOpen">
+			<a [router-link]="['./Home']" class="nav__link">Focus</a>
+			<a [router-link]="['./Stats']" class="nav__link">Stats</a>
+			<a [router-link]="['./About']" class="nav__link">About</a>
+
+			<div class="logout-group">
+				<button (click)="logout()" *ng-if="authUser" class="logout-group__link">Logout</button>
+				<a [router-link]="['./Stats']" *ng-if="!authUser" class="logout-group__link">Login</a>
+				<focus-user-image [auth-user]="authUser" class="logout-group__image"><focus-user-image>
+			</div>
+		</nav>
+		
+		<!-- Large Nav -->
+		<a [router-link]="['./Home']"><h1 class="logo">Focus</h1></a>
+		<nav class="large-nav">
+			<a [router-link]="['./Stats']" class="large-nav__link">Stats</a>
+			<a [router-link]="['./About']" class="large-nav__link">About</a>
+
+			<div class="logout-group">
+				<button (click)="logout()" *ng-if="authUser" class="logout-group__link">Logout</button>
+				<a [router-link]="['./Stats']" *ng-if="!authUser" class="logout-group__link">Login</a>
+				<focus-user-image [auth-user]="authUser" class="logout-group__image"><focus-user-image>
+			</div>
+		</nav>
+	</div>
+</header>
+
+<div class="container">
+	<main class="app-main">
+		<router-outlet></router-outlet>
+	</main>
+</div>
