@@ -15,27 +15,37 @@ $large-timer-brakepoint: 420px;
 		}
 	}
 	
-	.btn .fa {
-		display: none;
+	.btn {
+		.fa {
+			display: none;
+		}
 	}
 }
 
 @media (min-width: $large-timer-brakepoint) {	
-	.focus-timer .btn .fa {
-		display: inline-block;
+	.focus-timer {
+		.btn  {
+			.fa {
+				display: inline-block;
+			}
+		}
 	}
 }
 
 @media (max-width: $large-timer-brakepoint) {		
-	.focus-timer .btn {
-		padding: 12px 10px;
-		width: 29.33%;
+	.focus-timer {
+		.btn {
+			padding: 12px 10px;
+			width: 29.33%;
+		}
 	}
 } 
 
 @media (min-width: 530px) {		
-	.focus-timer .btn {
-		font-size: 1.3em;
-		padding: 14px 24px;
+	.focus-timer {
+		.btn {
+			font-size: 1.3em;
+			padding: 14px 24px;
+		}
 	}
 } 
