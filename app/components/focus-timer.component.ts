@@ -1,4 +1,5 @@
-import {Component, EventEmitter, Title} from 'angular2/angular2';
+import {Component, EventEmitter} from 'angular2/core';
+import {Title} from 'angular2/platform/browser';
 import {TimerService} from '../services/timer.service';
 
 @Component({

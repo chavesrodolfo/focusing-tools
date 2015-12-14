@@ -7,7 +7,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var angular2_1 = require('angular2/angular2');
+var core_1 = require('angular2/core');
 var focus_timer_component_1 = require('./components/focus-timer.component');
 var notification_service_1 = require('./services/notification.service');
 var interfaces_1 = require('./interfaces/interfaces');
@@ -27,7 +27,7 @@ var Home = (function () {
         this._notificationService.requestPermission();
     };
     Home = __decorate([
-        angular2_1.Component({
+        core_1.Component({
             selector: 'focus-home',
             templateUrl: 'app/home.html',
             directives: [focus_timer_component_1.FocusTimerCmp]

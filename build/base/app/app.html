@@ -4,27 +4,27 @@
 		<div class="menu-overlay" (click)="navOpen = !navOpen"></div>
 		<button class="menu-btn" (click)="navOpen = !navOpen"><i class="fa fa-bars"></i></button>
 		<nav class="nav" (click)="navOpen = !navOpen">
-			<a [router-link]="['./Home']" class="nav__link">Focus</a>
-			<a [router-link]="['./Stats']" class="nav__link">Stats</a>
-			<a [router-link]="['./About']" class="nav__link">About</a>
+			<a [routerLink]="['./Home']" class="nav__link">Focus</a>
+			<a [routerLink]="['./Stats']" class="nav__link">Stats</a>
+			<a [routerLink]="['./About']" class="nav__link">About</a>
 
 			<div class="logout-group">
-				<button (click)="logout()" *ng-if="authUser" class="logout-group__link">Logout</button>
-				<a [router-link]="['./Stats']" *ng-if="!authUser" class="logout-group__link">Login</a>
-				<focus-user-image [auth-user]="authUser" class="logout-group__image"></focus-user-image>
+				<button (click)="logout()" *ngIf="authUser" class="logout-group__link">Logout</button>
+				<a [routerLink]="['./Stats']" *ngIf="!authUser" class="logout-group__link">Login</a>
+				<focus-user-image [authUser]="authUser" class="logout-group__image"></focus-user-image>
 			</div>
 		</nav>
 		
 		<!-- Large Nav -->
-		<a [router-link]="['./Home']"><h1 class="logo">Focus</h1></a>
+		<a [routerLink]="['./Home']"><h1 class="logo">Focus</h1></a>
 		<nav class="large-nav">
-			<a [router-link]="['./Stats']" class="large-nav__link">Stats</a>
-			<a [router-link]="['./About']" class="large-nav__link">About</a>
+			<a [routerLink]="['./Stats']" class="large-nav__link">Stats</a>
+			<a [routerLink]="['./About']" class="large-nav__link">About</a>
 
 			<div class="logout-group">
-				<button (click)="logout()" *ng-if="authUser" class="logout-group__link">Logout</button>
-				<a [router-link]="['./Stats']" *ng-if="!authUser" class="logout-group__link">Login</a>
-				<focus-user-image [auth-user]="authUser" class="logout-group__image"></focus-user-image>
+				<button (click)="logout()" *ngIf="authUser" class="logout-group__link">Logout</button>
+				<a [routerLink]="['./Stats']" *ngIf="!authUser" class="logout-group__link">Login</a>
+				<focus-user-image [authUser]="authUser" class="logout-group__image"></focus-user-image>
 			</div>
 		</nav>
 	</div>

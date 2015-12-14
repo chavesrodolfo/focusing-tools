@@ -1,4 +1,5 @@
-import {Injectable, Observable} from 'angular2/angular2';
+import {Injectable} from 'angular2/core';
+import {Observable} from 'rxjs/Observable';
 import {DataService} from './data.service';
 import {NotificationService} from './notification.service';
 import {PhaseType} from '../interfaces/interfaces';

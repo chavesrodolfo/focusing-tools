@@ -1,4 +1,4 @@
-import {Component} from 'angular2/angular2';
+import {Component} from 'angular2/core';
 import {FocusPhaseCmp} from './components/focus-phase.component';
 import {DataService} from './services/data.service';
 import {AuthUser, AuthType, NotificationPermission} from './interfaces/interfaces';

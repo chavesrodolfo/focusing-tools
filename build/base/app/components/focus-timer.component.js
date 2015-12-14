@@ -7,13 +7,13 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var angular2_1 = require('angular2/angular2');
+var core_1 = require('angular2/core');
 var timer_service_1 = require('../services/timer.service');
 var FocusTimerCmp = (function () {
     function FocusTimerCmp(_timerService) {
         var _this = this;
         this._timerService = _timerService;
-        this.timeCompleted = new angular2_1.EventEmitter();
+        this.timeCompleted = new core_1.EventEmitter();
         this.runningTime = new Date();
         this.runningTime.setMinutes(0);
         this.runningTime.setSeconds(0);
@@ -76,7 +76,7 @@ var FocusTimerCmp = (function () {
         }
     };
     FocusTimerCmp = __decorate([
-        angular2_1.Component({
+        core_1.Component({
             selector: 'focus-timer',
             templateUrl: 'app/components/focus-timer.component.html',
             events: ['timeCompleted']

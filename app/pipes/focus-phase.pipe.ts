@@ -1,4 +1,4 @@
-import {Pipe} from 'angular2/angular2';
+import {Pipe} from 'angular2/core';
 declare let marked; // https://github.com/chjj/marked
 
 @Pipe({

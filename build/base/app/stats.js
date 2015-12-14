@@ -7,7 +7,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var angular2_1 = require('angular2/angular2');
+var core_1 = require('angular2/core');
 var focus_phase_component_1 = require('./components/focus-phase.component');
 var data_service_1 = require('./services/data.service');
 var interfaces_1 = require('./interfaces/interfaces');
@@ -29,7 +29,7 @@ var Stats = (function () {
         this._authService.login(interfaces_1.AuthType.GITHUB);
     };
     Stats = __decorate([
-        angular2_1.Component({
+        core_1.Component({
             selector: 'focus-stats',
             templateUrl: 'app/stats.html',
             directives: [focus_phase_component_1.FocusPhaseCmp]

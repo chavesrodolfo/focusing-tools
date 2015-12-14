@@ -7,12 +7,12 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var angular2_1 = require('angular2/angular2');
+var core_1 = require('angular2/core');
 var FocusUserImageCmp = (function () {
     function FocusUserImageCmp() {
     }
     FocusUserImageCmp = __decorate([
-        angular2_1.Component({
+        core_1.Component({
             selector: 'focus-user-image',
             templateUrl: 'app/components/focus-user-image.component.html',
             inputs: ['authUser']

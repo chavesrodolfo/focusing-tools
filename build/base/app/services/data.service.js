@@ -7,13 +7,14 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var angular2_1 = require('angular2/angular2');
+var core_1 = require('angular2/core');
+var Observable_1 = require('rxjs/Observable');
 var auth_service_1 = require('./auth.service');
 var DataService = (function () {
     function DataService(_authService) {
         var _this = this;
         this._authService = _authService;
-        this.focusPhases$ = new angular2_1.Observable(function (observer) { return _this._focusPhasesObserver = observer; }).share();
+        this.focusPhases$ = new Observable_1.Observable(function (observer) { return _this._focusPhasesObserver = observer; }).share();
         this.focusPhases$.subscribe();
         this._firebaseRef = new Firebase('https://focus-app.firebaseio.com/');
         this._authService.authUser$.subscribe(function (authUser) {
@@ -50,7 +51,7 @@ var DataService = (function () {
         return convertedArray;
     };
     DataService = __decorate([
-        angular2_1.Injectable(), 
+        core_1.Injectable(), 
         __metadata('design:paramtypes', [auth_service_1.AuthService])
     ], DataService);
     return DataService;

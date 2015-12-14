@@ -7,13 +7,13 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var angular2_1 = require('angular2/angular2');
+var core_1 = require('angular2/core');
 var focus_phase_pipe_1 = require('../pipes/focus-phase.pipe');
 var FocusPhaseCmp = (function () {
     function FocusPhaseCmp() {
     }
     FocusPhaseCmp = __decorate([
-        angular2_1.Component({
+        core_1.Component({
             selector: 'focus-phase',
             templateUrl: 'app/components/focus-phase.component.html',
             pipes: [focus_phase_pipe_1.FocusPhasePipe],

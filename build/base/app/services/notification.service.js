@@ -7,7 +7,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var angular2_1 = require('angular2/angular2');
+var core_1 = require('angular2/core');
 var interfaces_1 = require('../interfaces/interfaces');
 var NotificationService = (function () {
     function NotificationService() {
@@ -38,7 +38,7 @@ var NotificationService = (function () {
     };
     NotificationService = __decorate([
         // Browser W3C Spec Notification API
-        angular2_1.Injectable(), 
+        core_1.Injectable(), 
         __metadata('design:paramtypes', [])
     ], NotificationService);
     return NotificationService;

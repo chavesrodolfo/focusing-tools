@@ -7,7 +7,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var angular2_1 = require('angular2/angular2');
+var core_1 = require('angular2/core');
 var FocusPhasePipe = (function () {
     function FocusPhasePipe() {
     }
@@ -29,7 +29,7 @@ var FocusPhasePipe = (function () {
     };
     FocusPhasePipe = __decorate([
         // https://github.com/chjj/marked
-        angular2_1.Pipe({
+        core_1.Pipe({
             name: 'phasetype'
         }), 
         __metadata('design:paramtypes', [])

@@ -7,7 +7,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var angular2_1 = require('angular2/angular2');
+var core_1 = require('angular2/core');
+var common_1 = require('angular2/common');
+var browser_1 = require('angular2/platform/browser');
 var router_1 = require('angular2/router');
 var http_1 = require('angular2/http');
 var data_service_1 = require('./services/data.service');
@@ -18,6 +20,13 @@ var about_1 = require('./about');
 var home_1 = require('./home');
 var stats_1 = require('./stats');
 var focus_user_image_component_1 = require('./components/focus-user-image.component');
+// Temp import all operators see issues 
+// https://github.com/ReactiveX/RxJS/issues/1010 
+// https://github.com/escardin/angular2-community-faq/blob/master/rxjs_operators.md
+require('rxjs/Rx');
+// import 'rxjs/add/operator/share'; 
+// import 'rxjs/add/operator/map';
+// import 'rxjs/add/operator/retry';
 var App = (function () {
     function App(_authService) {
         var _this = this;
@@ -30,7 +39,7 @@ var App = (function () {
         this._authService.logout();
     };
     App = __decorate([
-        angular2_1.Component({
+        core_1.Component({
             selector: 'focus-app',
             templateUrl: 'app/app.html',
             directives: [router_1.RouterOutlet, router_1.RouterLink, focus_user_image_component_1.FocusUserImageCmp]
@@ -44,12 +53,12 @@ var App = (function () {
     ], App);
     return App;
 })();
-angular2_1.bootstrap(App, [
+browser_1.bootstrap(App, [
     router_1.ROUTER_BINDINGS,
-    angular2_1.FORM_BINDINGS,
+    common_1.FORM_BINDINGS,
     http_1.HTTP_BINDINGS,
-    angular2_1.bind(router_1.ROUTER_PRIMARY_COMPONENT).toValue(App),
-    angular2_1.bind(router_1.LocationStrategy).toClass(router_1.HashLocationStrategy),
+    core_1.bind(router_1.ROUTER_PRIMARY_COMPONENT).toValue(App),
+    core_1.bind(router_1.LocationStrategy).toClass(router_1.HashLocationStrategy),
     [
         data_service_1.DataService,
         auth_service_1.AuthService,
