@@ -194,7 +194,7 @@ gulp.task('_update.version', 'Create version for CSS/JS references', () => {
         let sources = gulp.src([].concat(jsFiles, cssFiles), { read: false });
 
         return target
-                .pipe(inject(sources, { transform: injectVersion }))
+                .pipe(inject(sources, { transform: injectVersion, addRootSlash: false }))
                 .pipe(replace(/<app-version>/g, getVersion()))
                 .pipe(gulp.dest(config.buildLocations.index));
     });
