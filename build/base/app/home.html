@@ -1,10 +1,1 @@
-<focus-timer></focus-timer>
-
-<div *ngIf="notificationsSupported && !notificationsEnabled">
-	<button (click)="enableNotifications()" class="btn">Enable Notifications</button>
-</div>
-
-<div *ngIf="notificationsEnabled" class="text-center">
-	<br />
-	Notifications Enabled
-</div>
+<focus-timer></focus-timer><div *ngif="notificationsSupported && !notificationsEnabled"><button (click)=enableNotifications() class=btn>Enable Notifications</button></div><div *ngif=notificationsEnabled class=text-center><br>Notifications Enabled</div>

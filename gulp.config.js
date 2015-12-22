@@ -26,19 +26,18 @@ module.exports = {
     },
     javascript: {
         src: [
-        // Need core.js here
+            // Libs
+            './assets/javascript/firebase/firebase-client.js',
+            './assets/javascript/notification/notification.js',
         
-        // Polyfills
-        './assets/javascript/notification/notification.js',
-        
-        // Libs
-        './assets/javascript/firebase/firebase-client.js',
-        
-        // Angular 2 Deps
-        './node_modules/systemjs/dist/system.src.js',
-        './node_modules/angular2/bundles/angular2.dev.js',
-        './node_modules/angular2/bundles/router.dev.js',
-        './node_modules/angular2/bundles/http.dev.js'
+            // Angular 2 Deps
+            './node_modules/es6-shim/es6-shim.js',
+            './node_modules/angular2/bundles/angular2-polyfills.js',
+            './node_modules/systemjs/dist/system.src.js',
+            './node_modules/rxjs/bundles/Rx.js',
+            './node_modules/angular2/bundles/angular2.dev.js',
+            './node_modules/angular2/bundles/router.dev.js',
+            './node_modules/angular2/bundles/http.dev.js'
         ]
     },
     buildLocations: {

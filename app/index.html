@@ -50,17 +50,24 @@
     <script>
         System.config({
             packages: {
-                'build': { defaultExtension: 'js?v=<app-version>' },
-                'node_modules/rxjs': { defaultExtension: 'js?v=<app-version>' }
-            },
-            paths: {
-                'rxjs/add/observable/*': 'node_modules/rxjs/add/observable/*',
-                'rxjs/add/operator/*': 'node_modules/rxjs/add/operator/*',
-                'rxjs/*': 'node_modules/rxjs/*'
+                'build': { defaultExtension: 'js?v=<app-version>' }
             }
         });
-
-        System.import('build/base/app/app');
+        
+        System.import('build/base/app/app').then(null, console.error.bind(console));
+        
+        // load rxjs per operator 
+        // System.config({
+        //     packages: {
+        //         'build': { defaultExtension: 'js?v=<app-version>' },
+        //         'node_modules/rxjs': { defaultExtension: 'js?v=<app-version>' }
+        //     },
+        //     paths: {
+        //         'rxjs/add/observable/*': 'node_modules/rxjs/add/observable/*',
+        //         'rxjs/add/operator/*': 'node_modules/rxjs/add/operator/*',
+        //         'rxjs/*': 'node_modules/rxjs/*'
+        //     }
+        // });
     </script>
 </body>
 

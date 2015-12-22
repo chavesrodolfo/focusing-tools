@@ -17,9 +17,9 @@ import {FocusUserImageCmp} from './components/focus-user-image.component';
 // https://github.com/ReactiveX/RxJS/issues/1010 
 // https://github.com/escardin/angular2-community-faq/blob/master/rxjs_operators.md
 import 'rxjs/Rx';
-// import 'rxjs/add/operator/share'; 
-// import 'rxjs/add/operator/map';
-// import 'rxjs/add/operator/retry';
+//import 'rxjs/add/operator/share'; 
+//import 'rxjs/add/operator/map';
+//import 'rxjs/add/operator/retry';
 
 @Component({
     selector: 'focus-app',
