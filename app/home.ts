@@ -1,4 +1,4 @@
-import {Component} from 'angular2/angular2';
+import {Component} from 'angular2/core';
 import {FocusTimerCmp} from './components/focus-timer.component';
 import {NotificationService} from './services/notification.service';
 import {NotificationPermission} from './interfaces/interfaces';
