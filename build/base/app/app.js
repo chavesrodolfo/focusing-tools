@@ -1,1 +1,68 @@
-var __decorate=this&&this.__decorate||function(e,t,r,o){var a,i=arguments.length,c=3>i?t:null===o?o=Object.getOwnPropertyDescriptor(t,r):o;if("object"==typeof Reflect&&"function"==typeof Reflect.decorate)c=Reflect.decorate(e,t,r,o);else for(var u=e.length-1;u>=0;u--)(a=e[u])&&(c=(3>i?a(c):i>3?a(t,r,c):a(t,r))||c);return i>3&&c&&Object.defineProperty(t,r,c),c},__metadata=this&&this.__metadata||function(e,t){return"object"==typeof Reflect&&"function"==typeof Reflect.metadata?Reflect.metadata(e,t):void 0},core_1=require("angular2/core"),common_1=require("angular2/common"),browser_1=require("angular2/platform/browser"),router_1=require("angular2/router"),http_1=require("angular2/http"),data_service_1=require("./services/data.service"),auth_service_1=require("./services/auth.service"),timer_service_1=require("./services/timer.service"),notification_service_1=require("./services/notification.service"),about_1=require("./about"),home_1=require("./home"),stats_1=require("./stats"),focus_user_image_component_1=require("./components/focus-user-image.component");require("rxjs/Rx");var App=function(){function e(e){var t=this;this._authService=e,this._authService.authUser$.subscribe(function(e){return t.authUser=e}),this._authService.loadAuthUser(),this.navOpen=!1}return e.prototype.logout=function(){this._authService.logout()},e=__decorate([core_1.Component({selector:"focus-app",templateUrl:"app/app.html",directives:[router_1.RouterOutlet,router_1.RouterLink,focus_user_image_component_1.FocusUserImageCmp]}),router_1.RouteConfig([{path:"/",component:home_1.Home,as:"Home"},{path:"/about",component:about_1.About,as:"About"},{path:"/stats",component:stats_1.Stats,as:"Stats"}]),__metadata("design:paramtypes",[auth_service_1.AuthService])],e)}();browser_1.bootstrap(App,[router_1.ROUTER_BINDINGS,common_1.FORM_BINDINGS,http_1.HTTP_BINDINGS,core_1.bind(router_1.ROUTER_PRIMARY_COMPONENT).toValue(App),core_1.bind(router_1.LocationStrategy).toClass(router_1.HashLocationStrategy),[data_service_1.DataService,auth_service_1.AuthService,timer_service_1.TimerService,notification_service_1.NotificationService]]);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var core_1 = require('angular2/core');
+var common_1 = require('angular2/common');
+var browser_1 = require('angular2/platform/browser');
+var router_1 = require('angular2/router');
+var http_1 = require('angular2/http');
+var data_service_1 = require('./services/data.service');
+var auth_service_1 = require('./services/auth.service');
+var timer_service_1 = require('./services/timer.service');
+var notification_service_1 = require('./services/notification.service');
+var about_1 = require('./about');
+var home_1 = require('./home');
+var stats_1 = require('./stats');
+var focus_user_image_component_1 = require('./components/focus-user-image.component');
+// Temp import all operators see issues 
+// https://github.com/ReactiveX/RxJS/issues/1010 
+// https://github.com/escardin/angular2-community-faq/blob/master/rxjs_operators.md
+require('rxjs/Rx');
+//import 'rxjs/add/operator/share'; 
+//import 'rxjs/add/operator/map';
+//import 'rxjs/add/operator/retry';
+var App = (function () {
+    function App(_authService) {
+        var _this = this;
+        this._authService = _authService;
+        this._authService.authUser$.subscribe(function (user) { return _this.authUser = user; });
+        this._authService.loadAuthUser();
+        this.navOpen = false;
+    }
+    App.prototype.logout = function () {
+        this._authService.logout();
+    };
+    App = __decorate([
+        core_1.Component({
+            selector: 'focus-app',
+            templateUrl: 'app/app.html',
+            directives: [router_1.RouterOutlet, router_1.RouterLink, focus_user_image_component_1.FocusUserImageCmp]
+        }),
+        router_1.RouteConfig([
+            { path: '/', component: home_1.Home, as: 'Home' },
+            { path: '/about', component: about_1.About, as: 'About' },
+            { path: '/stats', component: stats_1.Stats, as: 'Stats' }
+        ]), 
+        __metadata('design:paramtypes', [auth_service_1.AuthService])
+    ], App);
+    return App;
+})();
+browser_1.bootstrap(App, [
+    router_1.ROUTER_BINDINGS,
+    common_1.FORM_BINDINGS,
+    http_1.HTTP_BINDINGS,
+    core_1.bind(router_1.ROUTER_PRIMARY_COMPONENT).toValue(App),
+    core_1.bind(router_1.LocationStrategy).toClass(router_1.HashLocationStrategy),
+    [
+        data_service_1.DataService,
+        auth_service_1.AuthService,
+        timer_service_1.TimerService,
+        notification_service_1.NotificationService
+    ]
+]);

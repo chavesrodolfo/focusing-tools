@@ -1,1 +1,39 @@
-var __decorate=this&&this.__decorate||function(e,t,r,a){var o,c=arguments.length,n=3>c?t:null===a?a=Object.getOwnPropertyDescriptor(t,r):a;if("object"==typeof Reflect&&"function"==typeof Reflect.decorate)n=Reflect.decorate(e,t,r,a);else for(var f=e.length-1;f>=0;f--)(o=e[f])&&(n=(3>c?o(n):c>3?o(t,r,n):o(t,r))||n);return c>3&&n&&Object.defineProperty(t,r,n),n},__metadata=this&&this.__metadata||function(e,t){return"object"==typeof Reflect&&"function"==typeof Reflect.metadata?Reflect.metadata(e,t):void 0},core_1=require("angular2/core"),FocusPhasePipe=function(){function e(){}return e.prototype.transform=function(e,t){switch(e){case 0:return"Pomodoro";case 1:return"Short Break";case 2:return"Long Break";default:return"Error"}},e=__decorate([core_1.Pipe({name:"phasetype"}),__metadata("design:paramtypes",[])],e)}();exports.FocusPhasePipe=FocusPhasePipe;
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var core_1 = require('angular2/core');
+var FocusPhasePipe = (function () {
+    function FocusPhasePipe() {
+    }
+    FocusPhasePipe.prototype.transform = function (val, args) {
+        switch (val) {
+            case 0:
+                return 'Pomodoro';
+                break;
+            case 1:
+                return 'Short Break';
+                break;
+            case 2:
+                return 'Long Break';
+                break;
+            default:
+                return 'Error';
+                break;
+        }
+    };
+    FocusPhasePipe = __decorate([
+        // https://github.com/chjj/marked
+        core_1.Pipe({
+            name: 'phasetype'
+        }), 
+        __metadata('design:paramtypes', [])
+    ], FocusPhasePipe);
+    return FocusPhasePipe;
+})();
+exports.FocusPhasePipe = FocusPhasePipe;

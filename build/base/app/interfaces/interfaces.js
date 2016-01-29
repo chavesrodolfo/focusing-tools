@@ -1,1 +1,23 @@
-!function(e){e[e.FOCUS=0]="FOCUS",e[e.SHORT_BREAK=1]="SHORT_BREAK",e[e.LONG_BREAK=2]="LONG_BREAK",e[e.CUSTOM_BREAK=3]="CUSTOM_BREAK"}(exports.PhaseType||(exports.PhaseType={}));var PhaseType=exports.PhaseType;!function(e){e[e.TWITTER=0]="TWITTER",e[e.GITHUB=1]="GITHUB"}(exports.AuthType||(exports.AuthType={}));var AuthType=exports.AuthType;!function(e){e[e.GRANTED=0]="GRANTED",e[e.DENIED=1]="DENIED",e[e.UNSUPPORTED=2]="UNSUPPORTED"}(exports.NotificationPermission||(exports.NotificationPermission={}));var NotificationPermission=exports.NotificationPermission;
+(function (PhaseType) {
+    PhaseType[PhaseType["FOCUS"] = 0] = "FOCUS";
+    PhaseType[PhaseType["SHORT_BREAK"] = 1] = "SHORT_BREAK";
+    PhaseType[PhaseType["LONG_BREAK"] = 2] = "LONG_BREAK";
+    PhaseType[PhaseType["CUSTOM_BREAK"] = 3] = "CUSTOM_BREAK";
+})(exports.PhaseType || (exports.PhaseType = {}));
+var PhaseType = exports.PhaseType;
+;
+(function (AuthType) {
+    AuthType[AuthType["TWITTER"] = 0] = "TWITTER";
+    AuthType[AuthType["GITHUB"] = 1] = "GITHUB";
+})(exports.AuthType || (exports.AuthType = {}));
+var AuthType = exports.AuthType;
+;
+(function (NotificationPermission) {
+    NotificationPermission[NotificationPermission["GRANTED"] = 0] = "GRANTED";
+    NotificationPermission[NotificationPermission["DENIED"] = 1] = "DENIED";
+    NotificationPermission[NotificationPermission["UNSUPPORTED"] = 2] = "UNSUPPORTED";
+})(exports.NotificationPermission || (exports.NotificationPermission = {}));
+var NotificationPermission = exports.NotificationPermission;
+;
+;
+;
