@@ -1,1 +1,1083 @@
-"format register";System.register("angular2/src/http/interfaces",[],!0,function(e,t,r){var n=System.global,s=n.define;n.define=void 0;var a=function(){function e(){}return e}();t.ConnectionBackend=a;var o=function(){function e(){}return e}();return t.Connection=o,n.define=s,r.exports}),System.register("angular2/src/http/headers",["angular2/src/facade/lang","angular2/src/facade/exceptions","angular2/src/facade/collection"],!0,function(e,t,r){var n=System.global,s=n.define;n.define=void 0;var a=e("angular2/src/facade/lang"),o=e("angular2/src/facade/exceptions"),i=e("angular2/src/facade/collection"),c=function(){function e(t){var r=this;return t instanceof e?void(this._headersMap=t._headersMap):(this._headersMap=new i.Map,void(a.isBlank(t)||i.StringMapWrapper.forEach(t,function(e,t){r._headersMap.set(t,i.isListLikeIterable(e)?e:[e])})))}return e.fromResponseHeaderString=function(t){return t.trim().split("\n").map(function(e){return e.split(":")}).map(function(e){var t=e[0],r=e.slice(1);return[t.trim(),r.join(":").trim()]}).reduce(function(e,t){var r=t[0],n=t[1];return!e.set(r,n)&&e},new e)},e.prototype.append=function(e,t){var r=this._headersMap.get(e),n=i.isListLikeIterable(r)?r:[];n.push(t),this._headersMap.set(e,n)},e.prototype["delete"]=function(e){this._headersMap["delete"](e)},e.prototype.forEach=function(e){this._headersMap.forEach(e)},e.prototype.get=function(e){return i.ListWrapper.first(this._headersMap.get(e))},e.prototype.has=function(e){return this._headersMap.has(e)},e.prototype.keys=function(){return i.MapWrapper.keys(this._headersMap)},e.prototype.set=function(e,t){var r=[];if(i.isListLikeIterable(t)){var n=t.join(",");r.push(n)}else r.push(t);this._headersMap.set(e,r)},e.prototype.values=function(){return i.MapWrapper.values(this._headersMap)},e.prototype.toJSON=function(){return a.Json.stringify(this.values())},e.prototype.getAll=function(e){var t=this._headersMap.get(e);return i.isListLikeIterable(t)?t:[]},e.prototype.entries=function(){throw new o.BaseException('"entries" method is not implemented on Headers class')},e}();return t.Headers=c,n.define=s,r.exports}),System.register("angular2/src/http/enums",[],!0,function(e,t,r){var n=System.global,s=n.define;n.define=void 0,function(e){e[e.Get=0]="Get",e[e.Post=1]="Post",e[e.Put=2]="Put",e[e.Delete=3]="Delete",e[e.Options=4]="Options",e[e.Head=5]="Head",e[e.Patch=6]="Patch"}(t.RequestMethod||(t.RequestMethod={}));t.RequestMethod;!function(e){e[e.Unsent=0]="Unsent",e[e.Open=1]="Open",e[e.HeadersReceived=2]="HeadersReceived",e[e.Loading=3]="Loading",e[e.Done=4]="Done",e[e.Cancelled=5]="Cancelled"}(t.ReadyState||(t.ReadyState={}));t.ReadyState;!function(e){e[e.Basic=0]="Basic",e[e.Cors=1]="Cors",e[e.Default=2]="Default",e[e.Error=3]="Error",e[e.Opaque=4]="Opaque"}(t.ResponseType||(t.ResponseType={}));t.ResponseType;return n.define=s,r.exports}),System.register("angular2/src/http/url_search_params",["angular2/src/facade/lang","angular2/src/facade/collection"],!0,function(e,t,r){function n(e){void 0===e&&(e="");var t=new i.Map;if(e.length>0){var r=e.split("&");r.forEach(function(e){var r=e.split("="),n=r[0],s=r[1],a=o.isPresent(t.get(n))?t.get(n):[];a.push(s),t.set(n,a)})}return t}var s=System.global,a=s.define;s.define=void 0;var o=e("angular2/src/facade/lang"),i=e("angular2/src/facade/collection"),c=function(){function e(e){void 0===e&&(e=""),this.rawParams=e,this.paramsMap=n(e)}return e.prototype.clone=function(){var t=new e;return t.appendAll(this),t},e.prototype.has=function(e){return this.paramsMap.has(e)},e.prototype.get=function(e){var t=this.paramsMap.get(e);return i.isListLikeIterable(t)?i.ListWrapper.first(t):null},e.prototype.getAll=function(e){var t=this.paramsMap.get(e);return o.isPresent(t)?t:[]},e.prototype.set=function(e,t){var r=this.paramsMap.get(e),n=o.isPresent(r)?r:[];i.ListWrapper.clear(n),n.push(t),this.paramsMap.set(e,n)},e.prototype.setAll=function(e){var t=this;e.paramsMap.forEach(function(e,r){var n=t.paramsMap.get(r),s=o.isPresent(n)?n:[];i.ListWrapper.clear(s),s.push(e[0]),t.paramsMap.set(r,s)})},e.prototype.append=function(e,t){var r=this.paramsMap.get(e),n=o.isPresent(r)?r:[];n.push(t),this.paramsMap.set(e,n)},e.prototype.appendAll=function(e){var t=this;e.paramsMap.forEach(function(e,r){for(var n=t.paramsMap.get(r),s=o.isPresent(n)?n:[],a=0;a<e.length;++a)s.push(e[a]);t.paramsMap.set(r,s)})},e.prototype.replaceAll=function(e){var t=this;e.paramsMap.forEach(function(e,r){var n=t.paramsMap.get(r),s=o.isPresent(n)?n:[];i.ListWrapper.clear(s);for(var a=0;a<e.length;++a)s.push(e[a]);t.paramsMap.set(r,s)})},e.prototype.toString=function(){var e=[];return this.paramsMap.forEach(function(t,r){t.forEach(function(t){return e.push(r+"="+t)})}),e.join("&")},e.prototype["delete"]=function(e){this.paramsMap["delete"](e)},e}();return t.URLSearchParams=c,s.define=a,r.exports}),System.register("angular2/src/http/static_response",["angular2/src/facade/lang","angular2/src/facade/exceptions","angular2/src/http/http_utils"],!0,function(e,t,r){var n=System.global,s=n.define;n.define=void 0;var a=e("angular2/src/facade/lang"),o=e("angular2/src/facade/exceptions"),i=e("angular2/src/http/http_utils"),c=function(){function e(e){this._body=e.body,this.status=e.status,this.statusText=e.statusText,this.headers=e.headers,this.type=e.type,this.url=e.url}return e.prototype.blob=function(){throw new o.BaseException('"blob()" method not implemented on Response superclass')},e.prototype.json=function(){var e;return i.isJsObject(this._body)?e=this._body:a.isString(this._body)&&(e=a.Json.parse(this._body)),e},e.prototype.text=function(){return this._body.toString()},e.prototype.arrayBuffer=function(){throw new o.BaseException('"arrayBuffer()" method not implemented on Response superclass')},e}();return t.Response=c,n.define=s,r.exports}),System.register("angular2/src/http/base_response_options",["angular2/core","angular2/src/facade/lang","angular2/src/http/headers","angular2/src/http/enums"],!0,function(e,t,r){var n=System.global,s=n.define;n.define=void 0;var a=this&&this.__extends||function(e,t){function r(){this.constructor=e}for(var n in t)t.hasOwnProperty(n)&&(e[n]=t[n]);e.prototype=null===t?Object.create(t):(r.prototype=t.prototype,new r)},o=this&&this.__decorate||function(e,t,r,n){var s,a=arguments.length,o=3>a?t:null===n?n=Object.getOwnPropertyDescriptor(t,r):n;if("object"==typeof Reflect&&"function"==typeof Reflect.decorate)o=Reflect.decorate(e,t,r,n);else for(var i=e.length-1;i>=0;i--)(s=e[i])&&(o=(3>a?s(o):a>3?s(t,r,o):s(t,r))||o);return a>3&&o&&Object.defineProperty(t,r,o),o},i=this&&this.__metadata||function(e,t){return"object"==typeof Reflect&&"function"==typeof Reflect.metadata?Reflect.metadata(e,t):void 0},c=e("angular2/core"),u=e("angular2/src/facade/lang"),p=e("angular2/src/http/headers"),l=e("angular2/src/http/enums"),d=function(){function e(e){var t=void 0===e?{}:e,r=t.body,n=t.status,s=t.headers,a=t.statusText,o=t.type,i=t.url;this.body=u.isPresent(r)?r:null,this.status=u.isPresent(n)?n:null,this.headers=u.isPresent(s)?s:null,this.statusText=u.isPresent(a)?a:null,this.type=u.isPresent(o)?o:null,this.url=u.isPresent(i)?i:null}return e.prototype.merge=function(t){return new e({body:u.isPresent(t)&&u.isPresent(t.body)?t.body:this.body,status:u.isPresent(t)&&u.isPresent(t.status)?t.status:this.status,headers:u.isPresent(t)&&u.isPresent(t.headers)?t.headers:this.headers,statusText:u.isPresent(t)&&u.isPresent(t.statusText)?t.statusText:this.statusText,type:u.isPresent(t)&&u.isPresent(t.type)?t.type:this.type,url:u.isPresent(t)&&u.isPresent(t.url)?t.url:this.url})},e}();t.ResponseOptions=d;var h=function(e){function t(){e.call(this,{status:200,statusText:"Ok",type:l.ResponseType.Default,headers:new p.Headers})}return a(t,e),t=o([c.Injectable(),i("design:paramtypes",[])],t)}(d);return t.BaseResponseOptions=h,n.define=s,r.exports}),System.register("angular2/src/http/backends/browser_xhr",["angular2/core"],!0,function(e,t,r){var n=System.global,s=n.define;n.define=void 0;var a=this&&this.__decorate||function(e,t,r,n){var s,a=arguments.length,o=3>a?t:null===n?n=Object.getOwnPropertyDescriptor(t,r):n;if("object"==typeof Reflect&&"function"==typeof Reflect.decorate)o=Reflect.decorate(e,t,r,n);else for(var i=e.length-1;i>=0;i--)(s=e[i])&&(o=(3>a?s(o):a>3?s(t,r,o):s(t,r))||o);return a>3&&o&&Object.defineProperty(t,r,o),o},o=this&&this.__metadata||function(e,t){return"object"==typeof Reflect&&"function"==typeof Reflect.metadata?Reflect.metadata(e,t):void 0},i=e("angular2/core"),c=function(){function e(){}return e.prototype.build=function(){return new XMLHttpRequest},e=a([i.Injectable(),o("design:paramtypes",[])],e)}();return t.BrowserXhr=c,n.define=s,r.exports}),System.register("angular2/src/http/backends/browser_jsonp",["angular2/core","angular2/src/facade/lang"],!0,function(e,t,r){function n(){return null===l&&(l=u.global[t.JSONP_HOME]={}),l}var s=System.global,a=s.define;s.define=void 0;var o=this&&this.__decorate||function(e,t,r,n){var s,a=arguments.length,o=3>a?t:null===n?n=Object.getOwnPropertyDescriptor(t,r):n;if("object"==typeof Reflect&&"function"==typeof Reflect.decorate)o=Reflect.decorate(e,t,r,n);else for(var i=e.length-1;i>=0;i--)(s=e[i])&&(o=(3>a?s(o):a>3?s(t,r,o):s(t,r))||o);return a>3&&o&&Object.defineProperty(t,r,o),o},i=this&&this.__metadata||function(e,t){return"object"==typeof Reflect&&"function"==typeof Reflect.metadata?Reflect.metadata(e,t):void 0},c=e("angular2/core"),u=e("angular2/src/facade/lang"),p=0;t.JSONP_HOME="__ng_jsonp__";var l=null,d=function(){function e(){}return e.prototype.build=function(e){var t=document.createElement("script");return t.src=e,t},e.prototype.nextRequestID=function(){return"__req"+p++},e.prototype.requestCallback=function(e){return t.JSONP_HOME+"."+e+".finished"},e.prototype.exposeConnection=function(e,t){var r=n();r[e]=t},e.prototype.removeConnection=function(e){var t=n();t[e]=null},e.prototype.send=function(e){document.body.appendChild(e)},e.prototype.cleanup=function(e){e.parentNode&&e.parentNode.removeChild(e)},e=o([c.Injectable(),i("design:paramtypes",[])],e)}();return t.BrowserJsonp=d,s.define=a,r.exports}),System.register("angular2/src/http/http_utils",["angular2/src/facade/lang","angular2/src/http/enums","angular2/src/facade/exceptions","angular2/src/facade/lang"],!0,function(e,t,r){function n(e){if(i.isString(e)){var t=e;if(e=e.replace(/(\w)(\w*)/g,function(e,t,r){return t.toUpperCase()+r.toLowerCase()}),e=c.RequestMethod[e],"number"!=typeof e)throw u.makeTypeError('Invalid request method. The method "'+t+'" is not supported.')}return e}function s(e){return"responseURL"in e?e.responseURL:/^X-Request-URL:/m.test(e.getAllResponseHeaders())?e.getResponseHeader("X-Request-URL"):void 0}var a=System.global,o=a.define;a.define=void 0;var i=e("angular2/src/facade/lang"),c=e("angular2/src/http/enums"),u=e("angular2/src/facade/exceptions");t.normalizeMethodName=n,t.isSuccess=function(e){return e>=200&&300>e},t.getResponseURL=s;var p=e("angular2/src/facade/lang");return t.isJsObject=p.isJsObject,a.define=o,r.exports}),System.register("angular2/src/http/base_request_options",["angular2/src/facade/lang","angular2/src/http/headers","angular2/src/http/enums","angular2/core","angular2/src/http/url_search_params","angular2/src/http/http_utils"],!0,function(e,t,r){var n=System.global,s=n.define;n.define=void 0;var a=this&&this.__extends||function(e,t){function r(){this.constructor=e}for(var n in t)t.hasOwnProperty(n)&&(e[n]=t[n]);e.prototype=null===t?Object.create(t):(r.prototype=t.prototype,new r)},o=this&&this.__decorate||function(e,t,r,n){var s,a=arguments.length,o=3>a?t:null===n?n=Object.getOwnPropertyDescriptor(t,r):n;if("object"==typeof Reflect&&"function"==typeof Reflect.decorate)o=Reflect.decorate(e,t,r,n);else for(var i=e.length-1;i>=0;i--)(s=e[i])&&(o=(3>a?s(o):a>3?s(t,r,o):s(t,r))||o);return a>3&&o&&Object.defineProperty(t,r,o),o},i=this&&this.__metadata||function(e,t){return"object"==typeof Reflect&&"function"==typeof Reflect.metadata?Reflect.metadata(e,t):void 0},c=e("angular2/src/facade/lang"),u=e("angular2/src/http/headers"),p=e("angular2/src/http/enums"),l=e("angular2/core"),d=e("angular2/src/http/url_search_params"),h=e("angular2/src/http/http_utils"),f=function(){function e(e){var t=void 0===e?{}:e,r=t.method,n=t.headers,s=t.body,a=t.url,o=t.search;this.method=c.isPresent(r)?h.normalizeMethodName(r):null,this.headers=c.isPresent(n)?n:null,this.body=c.isPresent(s)?s:null,this.url=c.isPresent(a)?a:null,this.search=c.isPresent(o)?c.isString(o)?new d.URLSearchParams(o):o:null}return e.prototype.merge=function(t){return new e({method:c.isPresent(t)&&c.isPresent(t.method)?t.method:this.method,headers:c.isPresent(t)&&c.isPresent(t.headers)?t.headers:this.headers,body:c.isPresent(t)&&c.isPresent(t.body)?t.body:this.body,url:c.isPresent(t)&&c.isPresent(t.url)?t.url:this.url,search:c.isPresent(t)&&c.isPresent(t.search)?c.isString(t.search)?new d.URLSearchParams(t.search):t.search.clone():this.search})},e}();t.RequestOptions=f;var g=function(e){function t(){e.call(this,{method:p.RequestMethod.Get,headers:new u.Headers})}return a(t,e),t=o([l.Injectable(),i("design:paramtypes",[])],t)}(f);return t.BaseRequestOptions=g,n.define=s,r.exports}),System.register("angular2/src/http/backends/xhr_backend",["angular2/src/http/enums","angular2/src/http/static_response","angular2/src/http/headers","angular2/src/http/base_response_options","angular2/core","angular2/src/http/backends/browser_xhr","angular2/src/facade/lang","rxjs/Observable","angular2/src/http/http_utils"],!0,function(e,t,r){var n=System.global,s=n.define;n.define=void 0;var a=this&&this.__decorate||function(e,t,r,n){var s,a=arguments.length,o=3>a?t:null===n?n=Object.getOwnPropertyDescriptor(t,r):n;if("object"==typeof Reflect&&"function"==typeof Reflect.decorate)o=Reflect.decorate(e,t,r,n);else for(var i=e.length-1;i>=0;i--)(s=e[i])&&(o=(3>a?s(o):a>3?s(t,r,o):s(t,r))||o);return a>3&&o&&Object.defineProperty(t,r,o),o},o=this&&this.__metadata||function(e,t){return"object"==typeof Reflect&&"function"==typeof Reflect.metadata?Reflect.metadata(e,t):void 0},i=e("angular2/src/http/enums"),c=e("angular2/src/http/static_response"),u=e("angular2/src/http/headers"),p=e("angular2/src/http/base_response_options"),l=e("angular2/core"),d=e("angular2/src/http/backends/browser_xhr"),h=e("angular2/src/facade/lang"),f=e("rxjs/Observable"),g=e("angular2/src/http/http_utils"),y=function(){function e(e,t,r){var n=this;this.request=e,this.response=new f.Observable(function(s){var a=t.build();a.open(i.RequestMethod[e.method].toUpperCase(),e.url);var o=function(){var e=h.isPresent(a.response)?a.response:a.responseText,t=u.Headers.fromResponseHeaderString(a.getAllResponseHeaders()),n=g.getResponseURL(a),o=1223===a.status?204:a.status;0===o&&(o=e?200:0);var i=new p.ResponseOptions({body:e,status:o,headers:t,url:n});h.isPresent(r)&&(i=r.merge(i));var l=new c.Response(i);return g.isSuccess(o)?(s.next(l),void s.complete()):void s.error(l)},l=function(e){var t=new p.ResponseOptions({body:e,type:i.ResponseType.Error});h.isPresent(r)&&(t=r.merge(t)),s.error(new c.Response(t))};return h.isPresent(e.headers)&&e.headers.forEach(function(e,t){return a.setRequestHeader(t,e.join(","))}),a.addEventListener("load",o),a.addEventListener("error",l),a.send(n.request.text()),function(){a.removeEventListener("load",o),a.removeEventListener("error",l),a.abort()}})}return e}();t.XHRConnection=y;var b=function(){function e(e,t){this._browserXHR=e,this._baseResponseOptions=t}return e.prototype.createConnection=function(e){return new y(e,this._browserXHR,this._baseResponseOptions)},e=a([l.Injectable(),o("design:paramtypes",[d.BrowserXhr,p.ResponseOptions])],e)}();return t.XHRBackend=b,n.define=s,r.exports}),System.register("angular2/src/http/backends/jsonp_backend",["angular2/src/http/interfaces","angular2/src/http/enums","angular2/src/http/static_response","angular2/src/http/base_response_options","angular2/core","angular2/src/http/backends/browser_jsonp","angular2/src/facade/exceptions","angular2/src/facade/lang","rxjs/Observable"],!0,function(e,t,r){var n=System.global,s=n.define;n.define=void 0;var a=this&&this.__extends||function(e,t){function r(){this.constructor=e}for(var n in t)t.hasOwnProperty(n)&&(e[n]=t[n]);e.prototype=null===t?Object.create(t):(r.prototype=t.prototype,new r)},o=this&&this.__decorate||function(e,t,r,n){var s,a=arguments.length,o=3>a?t:null===n?n=Object.getOwnPropertyDescriptor(t,r):n;if("object"==typeof Reflect&&"function"==typeof Reflect.decorate)o=Reflect.decorate(e,t,r,n);else for(var i=e.length-1;i>=0;i--)(s=e[i])&&(o=(3>a?s(o):a>3?s(t,r,o):s(t,r))||o);return a>3&&o&&Object.defineProperty(t,r,o),o},i=this&&this.__metadata||function(e,t){return"object"==typeof Reflect&&"function"==typeof Reflect.metadata?Reflect.metadata(e,t):void 0},c=e("angular2/src/http/interfaces"),u=e("angular2/src/http/enums"),p=e("angular2/src/http/static_response"),l=e("angular2/src/http/base_response_options"),d=e("angular2/core"),h=e("angular2/src/http/backends/browser_jsonp"),f=e("angular2/src/facade/exceptions"),g=e("angular2/src/facade/lang"),y=e("rxjs/Observable"),b="JSONP injected script did not invoke callback.",_="JSONP requests must use GET request method.",m=function(){function e(){}return e}();t.JSONPConnection=m;var R=function(e){function t(t,r,n){var s=this;if(e.call(this),this._dom=r,this.baseResponseOptions=n,this._finished=!1,t.method!==u.RequestMethod.Get)throw f.makeTypeError(_);this.request=t,this.response=new y.Observable(function(e){s.readyState=u.ReadyState.Loading;var a=s._id=r.nextRequestID();r.exposeConnection(a,s);var o=r.requestCallback(s._id),i=t.url;i.indexOf("=JSONP_CALLBACK&")>-1?i=g.StringWrapper.replace(i,"=JSONP_CALLBACK&","="+o+"&"):i.lastIndexOf("=JSONP_CALLBACK")===i.length-"=JSONP_CALLBACK".length&&(i=i.substring(0,i.length-"=JSONP_CALLBACK".length)+("="+o));var c=s._script=r.build(i),d=function(t){if(s.readyState!==u.ReadyState.Cancelled){if(s.readyState=u.ReadyState.Done,r.cleanup(c),!s._finished){var a=new l.ResponseOptions({body:b,type:u.ResponseType.Error,url:i});return g.isPresent(n)&&(a=n.merge(a)),void e.error(new p.Response(a))}var o=new l.ResponseOptions({body:s._responseData,url:i});g.isPresent(s.baseResponseOptions)&&(o=s.baseResponseOptions.merge(o)),e.next(new p.Response(o)),e.complete()}},h=function(t){if(s.readyState!==u.ReadyState.Cancelled){s.readyState=u.ReadyState.Done,r.cleanup(c);var a=new l.ResponseOptions({body:t.message,type:u.ResponseType.Error});g.isPresent(n)&&(a=n.merge(a)),e.error(new p.Response(a))}};return c.addEventListener("load",d),c.addEventListener("error",h),r.send(c),function(){s.readyState=u.ReadyState.Cancelled,c.removeEventListener("load",d),c.removeEventListener("error",h),g.isPresent(c)&&s._dom.cleanup(c)}})}return a(t,e),t.prototype.finished=function(e){this._finished=!0,this._dom.removeConnection(this._id),this.readyState!==u.ReadyState.Cancelled&&(this._responseData=e)},t}(m);t.JSONPConnection_=R;var v=function(e){function t(){e.apply(this,arguments)}return a(t,e),t}(c.ConnectionBackend);t.JSONPBackend=v;var O=function(e){function t(t,r){e.call(this),this._browserJSONP=t,this._baseResponseOptions=r}return a(t,e),t.prototype.createConnection=function(e){return new R(e,this._browserJSONP,this._baseResponseOptions)},t=o([d.Injectable(),i("design:paramtypes",[h.BrowserJsonp,l.ResponseOptions])],t)}(v);return t.JSONPBackend_=O,n.define=s,r.exports}),System.register("angular2/src/http/static_request",["angular2/src/http/headers","angular2/src/http/http_utils","angular2/src/facade/lang"],!0,function(e,t,r){var n=System.global,s=n.define;n.define=void 0;var a=e("angular2/src/http/headers"),o=e("angular2/src/http/http_utils"),i=e("angular2/src/facade/lang"),c=function(){function e(e){var t=e.url;if(this.url=e.url,i.isPresent(e.search)){var r=e.search.toString();if(r.length>0){var n="?";i.StringWrapper.contains(this.url,"?")&&(n="&"==this.url[this.url.length-1]?"":"&"),this.url=t+n+r}}this._body=e.body,this.method=o.normalizeMethodName(e.method),this.headers=new a.Headers(e.headers)}return e.prototype.text=function(){return i.isPresent(this._body)?this._body.toString():""},e}();return t.Request=c,n.define=s,r.exports}),System.register("angular2/src/http/http",["angular2/src/facade/lang","angular2/src/facade/exceptions","angular2/core","angular2/src/http/interfaces","angular2/src/http/static_request","angular2/src/http/base_request_options","angular2/src/http/enums"],!0,function(e,t,r){function n(e,t){return e.createConnection(t).response}function s(e,t,r,n){var s=e;return p.isPresent(t)?s.merge(new g.RequestOptions({method:t.method||r,url:t.url||n,search:t.search,headers:t.headers,body:t.body})):p.isPresent(r)?s.merge(new g.RequestOptions({method:r,url:n})):s.merge(new g.RequestOptions({url:n}))}var a=System.global,o=a.define;a.define=void 0;var i=this&&this.__extends||function(e,t){function r(){this.constructor=e}for(var n in t)t.hasOwnProperty(n)&&(e[n]=t[n]);e.prototype=null===t?Object.create(t):(r.prototype=t.prototype,new r)},c=this&&this.__decorate||function(e,t,r,n){var s,a=arguments.length,o=3>a?t:null===n?n=Object.getOwnPropertyDescriptor(t,r):n;if("object"==typeof Reflect&&"function"==typeof Reflect.decorate)o=Reflect.decorate(e,t,r,n);else for(var i=e.length-1;i>=0;i--)(s=e[i])&&(o=(3>a?s(o):a>3?s(t,r,o):s(t,r))||o);return a>3&&o&&Object.defineProperty(t,r,o),o},u=this&&this.__metadata||function(e,t){return"object"==typeof Reflect&&"function"==typeof Reflect.metadata?Reflect.metadata(e,t):void 0},p=e("angular2/src/facade/lang"),l=e("angular2/src/facade/exceptions"),d=e("angular2/core"),h=e("angular2/src/http/interfaces"),f=e("angular2/src/http/static_request"),g=e("angular2/src/http/base_request_options"),y=e("angular2/src/http/enums"),b=function(){function e(e,t){this._backend=e,this._defaultOptions=t}return e.prototype.request=function(e,t){var r;if(p.isString(e))r=n(this._backend,new f.Request(s(this._defaultOptions,t,y.RequestMethod.Get,e)));else{if(!(e instanceof f.Request))throw l.makeTypeError("First argument must be a url string or Request instance.");r=n(this._backend,e)}return r},e.prototype.get=function(e,t){return n(this._backend,new f.Request(s(this._defaultOptions,t,y.RequestMethod.Get,e)))},e.prototype.post=function(e,t,r){return n(this._backend,new f.Request(s(this._defaultOptions.merge(new g.RequestOptions({body:t})),r,y.RequestMethod.Post,e)))},e.prototype.put=function(e,t,r){return n(this._backend,new f.Request(s(this._defaultOptions.merge(new g.RequestOptions({body:t})),r,y.RequestMethod.Put,e)))},e.prototype["delete"]=function(e,t){return n(this._backend,new f.Request(s(this._defaultOptions,t,y.RequestMethod.Delete,e)))},e.prototype.patch=function(e,t,r){return n(this._backend,new f.Request(s(this._defaultOptions.merge(new g.RequestOptions({body:t})),r,y.RequestMethod.Patch,e)))},e.prototype.head=function(e,t){return n(this._backend,new f.Request(s(this._defaultOptions,t,y.RequestMethod.Head,e)))},e=c([d.Injectable(),u("design:paramtypes",[h.ConnectionBackend,g.RequestOptions])],e)}();t.Http=b;var _=function(e){function t(t,r){e.call(this,t,r)}return i(t,e),t.prototype.request=function(e,t){var r;if(p.isString(e)&&(e=new f.Request(s(this._defaultOptions,t,y.RequestMethod.Get,e))),!(e instanceof f.Request))throw l.makeTypeError("First argument must be a url string or Request instance.");return e.method!==y.RequestMethod.Get&&l.makeTypeError("JSONP requests must use GET request method."),r=n(this._backend,e)},t=c([d.Injectable(),u("design:paramtypes",[h.ConnectionBackend,g.RequestOptions])],t)}(b);return t.Jsonp=_,a.define=o,r.exports}),System.register("angular2/http",["angular2/core","angular2/src/http/http","angular2/src/http/backends/xhr_backend","angular2/src/http/backends/jsonp_backend","angular2/src/http/backends/browser_xhr","angular2/src/http/backends/browser_jsonp","angular2/src/http/base_request_options","angular2/src/http/base_response_options","angular2/src/http/static_request","angular2/src/http/static_response","angular2/src/http/interfaces","angular2/src/http/backends/browser_xhr","angular2/src/http/base_request_options","angular2/src/http/base_response_options","angular2/src/http/backends/xhr_backend","angular2/src/http/backends/jsonp_backend","angular2/src/http/http","angular2/src/http/headers","angular2/src/http/enums","angular2/src/http/url_search_params"],!0,function(e,t,r){var n=System.global,s=n.define;n.define=void 0;var a=e("angular2/core"),o=e("angular2/src/http/http"),i=e("angular2/src/http/backends/xhr_backend"),c=e("angular2/src/http/backends/jsonp_backend"),u=e("angular2/src/http/backends/browser_xhr"),p=e("angular2/src/http/backends/browser_jsonp"),l=e("angular2/src/http/base_request_options"),d=e("angular2/src/http/base_response_options"),h=e("angular2/src/http/static_request");t.Request=h.Request;var f=e("angular2/src/http/static_response");t.Response=f.Response;var g=e("angular2/src/http/interfaces");t.Connection=g.Connection,t.ConnectionBackend=g.ConnectionBackend;var y=e("angular2/src/http/backends/browser_xhr");t.BrowserXhr=y.BrowserXhr;var b=e("angular2/src/http/base_request_options");t.BaseRequestOptions=b.BaseRequestOptions,t.RequestOptions=b.RequestOptions;var _=e("angular2/src/http/base_response_options");t.BaseResponseOptions=_.BaseResponseOptions,t.ResponseOptions=_.ResponseOptions;var m=e("angular2/src/http/backends/xhr_backend");t.XHRBackend=m.XHRBackend,t.XHRConnection=m.XHRConnection;var R=e("angular2/src/http/backends/jsonp_backend");t.JSONPBackend=R.JSONPBackend,t.JSONPConnection=R.JSONPConnection;var v=e("angular2/src/http/http");t.Http=v.Http,t.Jsonp=v.Jsonp;var O=e("angular2/src/http/headers");t.Headers=O.Headers;var P=e("angular2/src/http/enums");t.ResponseType=P.ResponseType,t.ReadyState=P.ReadyState,t.RequestMethod=P.RequestMethod;var S=e("angular2/src/http/url_search_params");return t.URLSearchParams=S.URLSearchParams,t.HTTP_PROVIDERS=[a.provide(o.Http,{useFactory:function(e,t){return new o.Http(e,t)},deps:[i.XHRBackend,l.RequestOptions]}),u.BrowserXhr,a.provide(l.RequestOptions,{useClass:l.BaseRequestOptions}),a.provide(d.ResponseOptions,{useClass:d.BaseResponseOptions}),i.XHRBackend],t.HTTP_BINDINGS=t.HTTP_PROVIDERS,t.JSONP_PROVIDERS=[a.provide(o.Jsonp,{useFactory:function(e,t){return new o.Jsonp(e,t)},deps:[c.JSONPBackend,l.RequestOptions]}),p.BrowserJsonp,a.provide(l.RequestOptions,{useClass:l.BaseRequestOptions}),a.provide(d.ResponseOptions,{useClass:d.BaseResponseOptions}),a.provide(c.JSONPBackend,{useClass:c.JSONPBackend_})],t.JSON_BINDINGS=t.JSONP_PROVIDERS,n.define=s,r.exports});
+"format register";
+System.register("angular2/src/http/interfaces", [], true, function(require, exports, module) {
+  var global = System.global,
+      __define = global.define;
+  global.define = undefined;
+  var ConnectionBackend = (function() {
+    function ConnectionBackend() {}
+    return ConnectionBackend;
+  })();
+  exports.ConnectionBackend = ConnectionBackend;
+  var Connection = (function() {
+    function Connection() {}
+    return Connection;
+  })();
+  exports.Connection = Connection;
+  global.define = __define;
+  return module.exports;
+});
+
+System.register("angular2/src/http/headers", ["angular2/src/facade/lang", "angular2/src/facade/exceptions", "angular2/src/facade/collection"], true, function(require, exports, module) {
+  var global = System.global,
+      __define = global.define;
+  global.define = undefined;
+  var lang_1 = require("angular2/src/facade/lang");
+  var exceptions_1 = require("angular2/src/facade/exceptions");
+  var collection_1 = require("angular2/src/facade/collection");
+  var Headers = (function() {
+    function Headers(headers) {
+      var _this = this;
+      if (headers instanceof Headers) {
+        this._headersMap = headers._headersMap;
+        return ;
+      }
+      this._headersMap = new collection_1.Map();
+      if (lang_1.isBlank(headers)) {
+        return ;
+      }
+      collection_1.StringMapWrapper.forEach(headers, function(v, k) {
+        _this._headersMap.set(k, collection_1.isListLikeIterable(v) ? v : [v]);
+      });
+    }
+    Headers.fromResponseHeaderString = function(headersString) {
+      return headersString.trim().split('\n').map(function(val) {
+        return val.split(':');
+      }).map(function(_a) {
+        var key = _a[0],
+            parts = _a.slice(1);
+        return ([key.trim(), parts.join(':').trim()]);
+      }).reduce(function(headers, _a) {
+        var key = _a[0],
+            value = _a[1];
+        return !headers.set(key, value) && headers;
+      }, new Headers());
+    };
+    Headers.prototype.append = function(name, value) {
+      var mapName = this._headersMap.get(name);
+      var list = collection_1.isListLikeIterable(mapName) ? mapName : [];
+      list.push(value);
+      this._headersMap.set(name, list);
+    };
+    Headers.prototype.delete = function(name) {
+      this._headersMap.delete(name);
+    };
+    Headers.prototype.forEach = function(fn) {
+      this._headersMap.forEach(fn);
+    };
+    Headers.prototype.get = function(header) {
+      return collection_1.ListWrapper.first(this._headersMap.get(header));
+    };
+    Headers.prototype.has = function(header) {
+      return this._headersMap.has(header);
+    };
+    Headers.prototype.keys = function() {
+      return collection_1.MapWrapper.keys(this._headersMap);
+    };
+    Headers.prototype.set = function(header, value) {
+      var list = [];
+      if (collection_1.isListLikeIterable(value)) {
+        var pushValue = value.join(',');
+        list.push(pushValue);
+      } else {
+        list.push(value);
+      }
+      this._headersMap.set(header, list);
+    };
+    Headers.prototype.values = function() {
+      return collection_1.MapWrapper.values(this._headersMap);
+    };
+    Headers.prototype.toJSON = function() {
+      return lang_1.Json.stringify(this.values());
+    };
+    Headers.prototype.getAll = function(header) {
+      var headers = this._headersMap.get(header);
+      return collection_1.isListLikeIterable(headers) ? headers : [];
+    };
+    Headers.prototype.entries = function() {
+      throw new exceptions_1.BaseException('"entries" method is not implemented on Headers class');
+    };
+    return Headers;
+  })();
+  exports.Headers = Headers;
+  global.define = __define;
+  return module.exports;
+});
+
+System.register("angular2/src/http/enums", [], true, function(require, exports, module) {
+  var global = System.global,
+      __define = global.define;
+  global.define = undefined;
+  (function(RequestMethod) {
+    RequestMethod[RequestMethod["Get"] = 0] = "Get";
+    RequestMethod[RequestMethod["Post"] = 1] = "Post";
+    RequestMethod[RequestMethod["Put"] = 2] = "Put";
+    RequestMethod[RequestMethod["Delete"] = 3] = "Delete";
+    RequestMethod[RequestMethod["Options"] = 4] = "Options";
+    RequestMethod[RequestMethod["Head"] = 5] = "Head";
+    RequestMethod[RequestMethod["Patch"] = 6] = "Patch";
+  })(exports.RequestMethod || (exports.RequestMethod = {}));
+  var RequestMethod = exports.RequestMethod;
+  (function(ReadyState) {
+    ReadyState[ReadyState["Unsent"] = 0] = "Unsent";
+    ReadyState[ReadyState["Open"] = 1] = "Open";
+    ReadyState[ReadyState["HeadersReceived"] = 2] = "HeadersReceived";
+    ReadyState[ReadyState["Loading"] = 3] = "Loading";
+    ReadyState[ReadyState["Done"] = 4] = "Done";
+    ReadyState[ReadyState["Cancelled"] = 5] = "Cancelled";
+  })(exports.ReadyState || (exports.ReadyState = {}));
+  var ReadyState = exports.ReadyState;
+  (function(ResponseType) {
+    ResponseType[ResponseType["Basic"] = 0] = "Basic";
+    ResponseType[ResponseType["Cors"] = 1] = "Cors";
+    ResponseType[ResponseType["Default"] = 2] = "Default";
+    ResponseType[ResponseType["Error"] = 3] = "Error";
+    ResponseType[ResponseType["Opaque"] = 4] = "Opaque";
+  })(exports.ResponseType || (exports.ResponseType = {}));
+  var ResponseType = exports.ResponseType;
+  global.define = __define;
+  return module.exports;
+});
+
+System.register("angular2/src/http/url_search_params", ["angular2/src/facade/lang", "angular2/src/facade/collection"], true, function(require, exports, module) {
+  var global = System.global,
+      __define = global.define;
+  global.define = undefined;
+  var lang_1 = require("angular2/src/facade/lang");
+  var collection_1 = require("angular2/src/facade/collection");
+  function paramParser(rawParams) {
+    if (rawParams === void 0) {
+      rawParams = '';
+    }
+    var map = new collection_1.Map();
+    if (rawParams.length > 0) {
+      var params = rawParams.split('&');
+      params.forEach(function(param) {
+        var split = param.split('=');
+        var key = split[0];
+        var val = split[1];
+        var list = lang_1.isPresent(map.get(key)) ? map.get(key) : [];
+        list.push(val);
+        map.set(key, list);
+      });
+    }
+    return map;
+  }
+  var URLSearchParams = (function() {
+    function URLSearchParams(rawParams) {
+      if (rawParams === void 0) {
+        rawParams = '';
+      }
+      this.rawParams = rawParams;
+      this.paramsMap = paramParser(rawParams);
+    }
+    URLSearchParams.prototype.clone = function() {
+      var clone = new URLSearchParams();
+      clone.appendAll(this);
+      return clone;
+    };
+    URLSearchParams.prototype.has = function(param) {
+      return this.paramsMap.has(param);
+    };
+    URLSearchParams.prototype.get = function(param) {
+      var storedParam = this.paramsMap.get(param);
+      if (collection_1.isListLikeIterable(storedParam)) {
+        return collection_1.ListWrapper.first(storedParam);
+      } else {
+        return null;
+      }
+    };
+    URLSearchParams.prototype.getAll = function(param) {
+      var mapParam = this.paramsMap.get(param);
+      return lang_1.isPresent(mapParam) ? mapParam : [];
+    };
+    URLSearchParams.prototype.set = function(param, val) {
+      var mapParam = this.paramsMap.get(param);
+      var list = lang_1.isPresent(mapParam) ? mapParam : [];
+      collection_1.ListWrapper.clear(list);
+      list.push(val);
+      this.paramsMap.set(param, list);
+    };
+    URLSearchParams.prototype.setAll = function(searchParams) {
+      var _this = this;
+      searchParams.paramsMap.forEach(function(value, param) {
+        var mapParam = _this.paramsMap.get(param);
+        var list = lang_1.isPresent(mapParam) ? mapParam : [];
+        collection_1.ListWrapper.clear(list);
+        list.push(value[0]);
+        _this.paramsMap.set(param, list);
+      });
+    };
+    URLSearchParams.prototype.append = function(param, val) {
+      var mapParam = this.paramsMap.get(param);
+      var list = lang_1.isPresent(mapParam) ? mapParam : [];
+      list.push(val);
+      this.paramsMap.set(param, list);
+    };
+    URLSearchParams.prototype.appendAll = function(searchParams) {
+      var _this = this;
+      searchParams.paramsMap.forEach(function(value, param) {
+        var mapParam = _this.paramsMap.get(param);
+        var list = lang_1.isPresent(mapParam) ? mapParam : [];
+        for (var i = 0; i < value.length; ++i) {
+          list.push(value[i]);
+        }
+        _this.paramsMap.set(param, list);
+      });
+    };
+    URLSearchParams.prototype.replaceAll = function(searchParams) {
+      var _this = this;
+      searchParams.paramsMap.forEach(function(value, param) {
+        var mapParam = _this.paramsMap.get(param);
+        var list = lang_1.isPresent(mapParam) ? mapParam : [];
+        collection_1.ListWrapper.clear(list);
+        for (var i = 0; i < value.length; ++i) {
+          list.push(value[i]);
+        }
+        _this.paramsMap.set(param, list);
+      });
+    };
+    URLSearchParams.prototype.toString = function() {
+      var paramsList = [];
+      this.paramsMap.forEach(function(values, k) {
+        values.forEach(function(v) {
+          return paramsList.push(k + '=' + v);
+        });
+      });
+      return paramsList.join('&');
+    };
+    URLSearchParams.prototype.delete = function(param) {
+      this.paramsMap.delete(param);
+    };
+    return URLSearchParams;
+  })();
+  exports.URLSearchParams = URLSearchParams;
+  global.define = __define;
+  return module.exports;
+});
+
+System.register("angular2/src/http/static_response", ["angular2/src/facade/lang", "angular2/src/facade/exceptions", "angular2/src/http/http_utils"], true, function(require, exports, module) {
+  var global = System.global,
+      __define = global.define;
+  global.define = undefined;
+  var lang_1 = require("angular2/src/facade/lang");
+  var exceptions_1 = require("angular2/src/facade/exceptions");
+  var http_utils_1 = require("angular2/src/http/http_utils");
+  var Response = (function() {
+    function Response(responseOptions) {
+      this._body = responseOptions.body;
+      this.status = responseOptions.status;
+      this.statusText = responseOptions.statusText;
+      this.headers = responseOptions.headers;
+      this.type = responseOptions.type;
+      this.url = responseOptions.url;
+    }
+    Response.prototype.blob = function() {
+      throw new exceptions_1.BaseException('"blob()" method not implemented on Response superclass');
+    };
+    Response.prototype.json = function() {
+      var jsonResponse;
+      if (http_utils_1.isJsObject(this._body)) {
+        jsonResponse = this._body;
+      } else if (lang_1.isString(this._body)) {
+        jsonResponse = lang_1.Json.parse(this._body);
+      }
+      return jsonResponse;
+    };
+    Response.prototype.text = function() {
+      return this._body.toString();
+    };
+    Response.prototype.arrayBuffer = function() {
+      throw new exceptions_1.BaseException('"arrayBuffer()" method not implemented on Response superclass');
+    };
+    return Response;
+  })();
+  exports.Response = Response;
+  global.define = __define;
+  return module.exports;
+});
+
+System.register("angular2/src/http/base_response_options", ["angular2/core", "angular2/src/facade/lang", "angular2/src/http/headers", "angular2/src/http/enums"], true, function(require, exports, module) {
+  var global = System.global,
+      __define = global.define;
+  global.define = undefined;
+  var __extends = (this && this.__extends) || function(d, b) {
+    for (var p in b)
+      if (b.hasOwnProperty(p))
+        d[p] = b[p];
+    function __() {
+      this.constructor = d;
+    }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+  };
+  var __decorate = (this && this.__decorate) || function(decorators, target, key, desc) {
+    var c = arguments.length,
+        r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc,
+        d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function")
+      r = Reflect.decorate(decorators, target, key, desc);
+    else
+      for (var i = decorators.length - 1; i >= 0; i--)
+        if (d = decorators[i])
+          r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+  };
+  var __metadata = (this && this.__metadata) || function(k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function")
+      return Reflect.metadata(k, v);
+  };
+  var core_1 = require("angular2/core");
+  var lang_1 = require("angular2/src/facade/lang");
+  var headers_1 = require("angular2/src/http/headers");
+  var enums_1 = require("angular2/src/http/enums");
+  var ResponseOptions = (function() {
+    function ResponseOptions(_a) {
+      var _b = _a === void 0 ? {} : _a,
+          body = _b.body,
+          status = _b.status,
+          headers = _b.headers,
+          statusText = _b.statusText,
+          type = _b.type,
+          url = _b.url;
+      this.body = lang_1.isPresent(body) ? body : null;
+      this.status = lang_1.isPresent(status) ? status : null;
+      this.headers = lang_1.isPresent(headers) ? headers : null;
+      this.statusText = lang_1.isPresent(statusText) ? statusText : null;
+      this.type = lang_1.isPresent(type) ? type : null;
+      this.url = lang_1.isPresent(url) ? url : null;
+    }
+    ResponseOptions.prototype.merge = function(options) {
+      return new ResponseOptions({
+        body: lang_1.isPresent(options) && lang_1.isPresent(options.body) ? options.body : this.body,
+        status: lang_1.isPresent(options) && lang_1.isPresent(options.status) ? options.status : this.status,
+        headers: lang_1.isPresent(options) && lang_1.isPresent(options.headers) ? options.headers : this.headers,
+        statusText: lang_1.isPresent(options) && lang_1.isPresent(options.statusText) ? options.statusText : this.statusText,
+        type: lang_1.isPresent(options) && lang_1.isPresent(options.type) ? options.type : this.type,
+        url: lang_1.isPresent(options) && lang_1.isPresent(options.url) ? options.url : this.url
+      });
+    };
+    return ResponseOptions;
+  })();
+  exports.ResponseOptions = ResponseOptions;
+  var BaseResponseOptions = (function(_super) {
+    __extends(BaseResponseOptions, _super);
+    function BaseResponseOptions() {
+      _super.call(this, {
+        status: 200,
+        statusText: 'Ok',
+        type: enums_1.ResponseType.Default,
+        headers: new headers_1.Headers()
+      });
+    }
+    BaseResponseOptions = __decorate([core_1.Injectable(), __metadata('design:paramtypes', [])], BaseResponseOptions);
+    return BaseResponseOptions;
+  })(ResponseOptions);
+  exports.BaseResponseOptions = BaseResponseOptions;
+  global.define = __define;
+  return module.exports;
+});
+
+System.register("angular2/src/http/backends/browser_xhr", ["angular2/core"], true, function(require, exports, module) {
+  var global = System.global,
+      __define = global.define;
+  global.define = undefined;
+  var __decorate = (this && this.__decorate) || function(decorators, target, key, desc) {
+    var c = arguments.length,
+        r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc,
+        d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function")
+      r = Reflect.decorate(decorators, target, key, desc);
+    else
+      for (var i = decorators.length - 1; i >= 0; i--)
+        if (d = decorators[i])
+          r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+  };
+  var __metadata = (this && this.__metadata) || function(k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function")
+      return Reflect.metadata(k, v);
+  };
+  var core_1 = require("angular2/core");
+  var BrowserXhr = (function() {
+    function BrowserXhr() {}
+    BrowserXhr.prototype.build = function() {
+      return (new XMLHttpRequest());
+    };
+    BrowserXhr = __decorate([core_1.Injectable(), __metadata('design:paramtypes', [])], BrowserXhr);
+    return BrowserXhr;
+  })();
+  exports.BrowserXhr = BrowserXhr;
+  global.define = __define;
+  return module.exports;
+});
+
+System.register("angular2/src/http/backends/browser_jsonp", ["angular2/core", "angular2/src/facade/lang"], true, function(require, exports, module) {
+  var global = System.global,
+      __define = global.define;
+  global.define = undefined;
+  var __decorate = (this && this.__decorate) || function(decorators, target, key, desc) {
+    var c = arguments.length,
+        r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc,
+        d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function")
+      r = Reflect.decorate(decorators, target, key, desc);
+    else
+      for (var i = decorators.length - 1; i >= 0; i--)
+        if (d = decorators[i])
+          r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+  };
+  var __metadata = (this && this.__metadata) || function(k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function")
+      return Reflect.metadata(k, v);
+  };
+  var core_1 = require("angular2/core");
+  var lang_1 = require("angular2/src/facade/lang");
+  var _nextRequestId = 0;
+  exports.JSONP_HOME = '__ng_jsonp__';
+  var _jsonpConnections = null;
+  function _getJsonpConnections() {
+    if (_jsonpConnections === null) {
+      _jsonpConnections = lang_1.global[exports.JSONP_HOME] = {};
+    }
+    return _jsonpConnections;
+  }
+  var BrowserJsonp = (function() {
+    function BrowserJsonp() {}
+    BrowserJsonp.prototype.build = function(url) {
+      var node = document.createElement('script');
+      node.src = url;
+      return node;
+    };
+    BrowserJsonp.prototype.nextRequestID = function() {
+      return "__req" + _nextRequestId++;
+    };
+    BrowserJsonp.prototype.requestCallback = function(id) {
+      return exports.JSONP_HOME + "." + id + ".finished";
+    };
+    BrowserJsonp.prototype.exposeConnection = function(id, connection) {
+      var connections = _getJsonpConnections();
+      connections[id] = connection;
+    };
+    BrowserJsonp.prototype.removeConnection = function(id) {
+      var connections = _getJsonpConnections();
+      connections[id] = null;
+    };
+    BrowserJsonp.prototype.send = function(node) {
+      document.body.appendChild((node));
+    };
+    BrowserJsonp.prototype.cleanup = function(node) {
+      if (node.parentNode) {
+        node.parentNode.removeChild((node));
+      }
+    };
+    BrowserJsonp = __decorate([core_1.Injectable(), __metadata('design:paramtypes', [])], BrowserJsonp);
+    return BrowserJsonp;
+  })();
+  exports.BrowserJsonp = BrowserJsonp;
+  global.define = __define;
+  return module.exports;
+});
+
+System.register("angular2/src/http/http_utils", ["angular2/src/facade/lang", "angular2/src/http/enums", "angular2/src/facade/exceptions", "angular2/src/facade/lang"], true, function(require, exports, module) {
+  var global = System.global,
+      __define = global.define;
+  global.define = undefined;
+  var lang_1 = require("angular2/src/facade/lang");
+  var enums_1 = require("angular2/src/http/enums");
+  var exceptions_1 = require("angular2/src/facade/exceptions");
+  function normalizeMethodName(method) {
+    if (lang_1.isString(method)) {
+      var originalMethod = method;
+      method = method.replace(/(\w)(\w*)/g, function(g0, g1, g2) {
+        return g1.toUpperCase() + g2.toLowerCase();
+      });
+      method = enums_1.RequestMethod[method];
+      if (typeof method !== 'number')
+        throw exceptions_1.makeTypeError("Invalid request method. The method \"" + originalMethod + "\" is not supported.");
+    }
+    return method;
+  }
+  exports.normalizeMethodName = normalizeMethodName;
+  exports.isSuccess = function(status) {
+    return (status >= 200 && status < 300);
+  };
+  function getResponseURL(xhr) {
+    if ('responseURL' in xhr) {
+      return xhr.responseURL;
+    }
+    if (/^X-Request-URL:/m.test(xhr.getAllResponseHeaders())) {
+      return xhr.getResponseHeader('X-Request-URL');
+    }
+    return ;
+  }
+  exports.getResponseURL = getResponseURL;
+  var lang_2 = require("angular2/src/facade/lang");
+  exports.isJsObject = lang_2.isJsObject;
+  global.define = __define;
+  return module.exports;
+});
+
+System.register("angular2/src/http/base_request_options", ["angular2/src/facade/lang", "angular2/src/http/headers", "angular2/src/http/enums", "angular2/core", "angular2/src/http/url_search_params", "angular2/src/http/http_utils"], true, function(require, exports, module) {
+  var global = System.global,
+      __define = global.define;
+  global.define = undefined;
+  var __extends = (this && this.__extends) || function(d, b) {
+    for (var p in b)
+      if (b.hasOwnProperty(p))
+        d[p] = b[p];
+    function __() {
+      this.constructor = d;
+    }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+  };
+  var __decorate = (this && this.__decorate) || function(decorators, target, key, desc) {
+    var c = arguments.length,
+        r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc,
+        d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function")
+      r = Reflect.decorate(decorators, target, key, desc);
+    else
+      for (var i = decorators.length - 1; i >= 0; i--)
+        if (d = decorators[i])
+          r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+  };
+  var __metadata = (this && this.__metadata) || function(k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function")
+      return Reflect.metadata(k, v);
+  };
+  var lang_1 = require("angular2/src/facade/lang");
+  var headers_1 = require("angular2/src/http/headers");
+  var enums_1 = require("angular2/src/http/enums");
+  var core_1 = require("angular2/core");
+  var url_search_params_1 = require("angular2/src/http/url_search_params");
+  var http_utils_1 = require("angular2/src/http/http_utils");
+  var RequestOptions = (function() {
+    function RequestOptions(_a) {
+      var _b = _a === void 0 ? {} : _a,
+          method = _b.method,
+          headers = _b.headers,
+          body = _b.body,
+          url = _b.url,
+          search = _b.search;
+      this.method = lang_1.isPresent(method) ? http_utils_1.normalizeMethodName(method) : null;
+      this.headers = lang_1.isPresent(headers) ? headers : null;
+      this.body = lang_1.isPresent(body) ? body : null;
+      this.url = lang_1.isPresent(url) ? url : null;
+      this.search = lang_1.isPresent(search) ? (lang_1.isString(search) ? new url_search_params_1.URLSearchParams((search)) : (search)) : null;
+    }
+    RequestOptions.prototype.merge = function(options) {
+      return new RequestOptions({
+        method: lang_1.isPresent(options) && lang_1.isPresent(options.method) ? options.method : this.method,
+        headers: lang_1.isPresent(options) && lang_1.isPresent(options.headers) ? options.headers : this.headers,
+        body: lang_1.isPresent(options) && lang_1.isPresent(options.body) ? options.body : this.body,
+        url: lang_1.isPresent(options) && lang_1.isPresent(options.url) ? options.url : this.url,
+        search: lang_1.isPresent(options) && lang_1.isPresent(options.search) ? (lang_1.isString(options.search) ? new url_search_params_1.URLSearchParams((options.search)) : (options.search).clone()) : this.search
+      });
+    };
+    return RequestOptions;
+  })();
+  exports.RequestOptions = RequestOptions;
+  var BaseRequestOptions = (function(_super) {
+    __extends(BaseRequestOptions, _super);
+    function BaseRequestOptions() {
+      _super.call(this, {
+        method: enums_1.RequestMethod.Get,
+        headers: new headers_1.Headers()
+      });
+    }
+    BaseRequestOptions = __decorate([core_1.Injectable(), __metadata('design:paramtypes', [])], BaseRequestOptions);
+    return BaseRequestOptions;
+  })(RequestOptions);
+  exports.BaseRequestOptions = BaseRequestOptions;
+  global.define = __define;
+  return module.exports;
+});
+
+System.register("angular2/src/http/backends/xhr_backend", ["angular2/src/http/enums", "angular2/src/http/static_response", "angular2/src/http/headers", "angular2/src/http/base_response_options", "angular2/core", "angular2/src/http/backends/browser_xhr", "angular2/src/facade/lang", "rxjs/Observable", "angular2/src/http/http_utils"], true, function(require, exports, module) {
+  var global = System.global,
+      __define = global.define;
+  global.define = undefined;
+  var __decorate = (this && this.__decorate) || function(decorators, target, key, desc) {
+    var c = arguments.length,
+        r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc,
+        d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function")
+      r = Reflect.decorate(decorators, target, key, desc);
+    else
+      for (var i = decorators.length - 1; i >= 0; i--)
+        if (d = decorators[i])
+          r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+  };
+  var __metadata = (this && this.__metadata) || function(k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function")
+      return Reflect.metadata(k, v);
+  };
+  var enums_1 = require("angular2/src/http/enums");
+  var static_response_1 = require("angular2/src/http/static_response");
+  var headers_1 = require("angular2/src/http/headers");
+  var base_response_options_1 = require("angular2/src/http/base_response_options");
+  var core_1 = require("angular2/core");
+  var browser_xhr_1 = require("angular2/src/http/backends/browser_xhr");
+  var lang_1 = require("angular2/src/facade/lang");
+  var Observable_1 = require("rxjs/Observable");
+  var http_utils_1 = require("angular2/src/http/http_utils");
+  var XHRConnection = (function() {
+    function XHRConnection(req, browserXHR, baseResponseOptions) {
+      var _this = this;
+      this.request = req;
+      this.response = new Observable_1.Observable(function(responseObserver) {
+        var _xhr = browserXHR.build();
+        _xhr.open(enums_1.RequestMethod[req.method].toUpperCase(), req.url);
+        var onLoad = function() {
+          var body = lang_1.isPresent(_xhr.response) ? _xhr.response : _xhr.responseText;
+          var headers = headers_1.Headers.fromResponseHeaderString(_xhr.getAllResponseHeaders());
+          var url = http_utils_1.getResponseURL(_xhr);
+          var status = _xhr.status === 1223 ? 204 : _xhr.status;
+          if (status === 0) {
+            status = body ? 200 : 0;
+          }
+          var responseOptions = new base_response_options_1.ResponseOptions({
+            body: body,
+            status: status,
+            headers: headers,
+            url: url
+          });
+          if (lang_1.isPresent(baseResponseOptions)) {
+            responseOptions = baseResponseOptions.merge(responseOptions);
+          }
+          var response = new static_response_1.Response(responseOptions);
+          if (http_utils_1.isSuccess(status)) {
+            responseObserver.next(response);
+            responseObserver.complete();
+            return ;
+          }
+          responseObserver.error(response);
+        };
+        var onError = function(err) {
+          var responseOptions = new base_response_options_1.ResponseOptions({
+            body: err,
+            type: enums_1.ResponseType.Error
+          });
+          if (lang_1.isPresent(baseResponseOptions)) {
+            responseOptions = baseResponseOptions.merge(responseOptions);
+          }
+          responseObserver.error(new static_response_1.Response(responseOptions));
+        };
+        if (lang_1.isPresent(req.headers)) {
+          req.headers.forEach(function(values, name) {
+            return _xhr.setRequestHeader(name, values.join(','));
+          });
+        }
+        _xhr.addEventListener('load', onLoad);
+        _xhr.addEventListener('error', onError);
+        _xhr.send(_this.request.text());
+        return function() {
+          _xhr.removeEventListener('load', onLoad);
+          _xhr.removeEventListener('error', onError);
+          _xhr.abort();
+        };
+      });
+    }
+    return XHRConnection;
+  })();
+  exports.XHRConnection = XHRConnection;
+  var XHRBackend = (function() {
+    function XHRBackend(_browserXHR, _baseResponseOptions) {
+      this._browserXHR = _browserXHR;
+      this._baseResponseOptions = _baseResponseOptions;
+    }
+    XHRBackend.prototype.createConnection = function(request) {
+      return new XHRConnection(request, this._browserXHR, this._baseResponseOptions);
+    };
+    XHRBackend = __decorate([core_1.Injectable(), __metadata('design:paramtypes', [browser_xhr_1.BrowserXhr, base_response_options_1.ResponseOptions])], XHRBackend);
+    return XHRBackend;
+  })();
+  exports.XHRBackend = XHRBackend;
+  global.define = __define;
+  return module.exports;
+});
+
+System.register("angular2/src/http/backends/jsonp_backend", ["angular2/src/http/interfaces", "angular2/src/http/enums", "angular2/src/http/static_response", "angular2/src/http/base_response_options", "angular2/core", "angular2/src/http/backends/browser_jsonp", "angular2/src/facade/exceptions", "angular2/src/facade/lang", "rxjs/Observable"], true, function(require, exports, module) {
+  var global = System.global,
+      __define = global.define;
+  global.define = undefined;
+  var __extends = (this && this.__extends) || function(d, b) {
+    for (var p in b)
+      if (b.hasOwnProperty(p))
+        d[p] = b[p];
+    function __() {
+      this.constructor = d;
+    }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+  };
+  var __decorate = (this && this.__decorate) || function(decorators, target, key, desc) {
+    var c = arguments.length,
+        r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc,
+        d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function")
+      r = Reflect.decorate(decorators, target, key, desc);
+    else
+      for (var i = decorators.length - 1; i >= 0; i--)
+        if (d = decorators[i])
+          r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+  };
+  var __metadata = (this && this.__metadata) || function(k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function")
+      return Reflect.metadata(k, v);
+  };
+  var interfaces_1 = require("angular2/src/http/interfaces");
+  var enums_1 = require("angular2/src/http/enums");
+  var static_response_1 = require("angular2/src/http/static_response");
+  var base_response_options_1 = require("angular2/src/http/base_response_options");
+  var core_1 = require("angular2/core");
+  var browser_jsonp_1 = require("angular2/src/http/backends/browser_jsonp");
+  var exceptions_1 = require("angular2/src/facade/exceptions");
+  var lang_1 = require("angular2/src/facade/lang");
+  var Observable_1 = require("rxjs/Observable");
+  var JSONP_ERR_NO_CALLBACK = 'JSONP injected script did not invoke callback.';
+  var JSONP_ERR_WRONG_METHOD = 'JSONP requests must use GET request method.';
+  var JSONPConnection = (function() {
+    function JSONPConnection() {}
+    return JSONPConnection;
+  })();
+  exports.JSONPConnection = JSONPConnection;
+  var JSONPConnection_ = (function(_super) {
+    __extends(JSONPConnection_, _super);
+    function JSONPConnection_(req, _dom, baseResponseOptions) {
+      var _this = this;
+      _super.call(this);
+      this._dom = _dom;
+      this.baseResponseOptions = baseResponseOptions;
+      this._finished = false;
+      if (req.method !== enums_1.RequestMethod.Get) {
+        throw exceptions_1.makeTypeError(JSONP_ERR_WRONG_METHOD);
+      }
+      this.request = req;
+      this.response = new Observable_1.Observable(function(responseObserver) {
+        _this.readyState = enums_1.ReadyState.Loading;
+        var id = _this._id = _dom.nextRequestID();
+        _dom.exposeConnection(id, _this);
+        var callback = _dom.requestCallback(_this._id);
+        var url = req.url;
+        if (url.indexOf('=JSONP_CALLBACK&') > -1) {
+          url = lang_1.StringWrapper.replace(url, '=JSONP_CALLBACK&', "=" + callback + "&");
+        } else if (url.lastIndexOf('=JSONP_CALLBACK') === url.length - '=JSONP_CALLBACK'.length) {
+          url = url.substring(0, url.length - '=JSONP_CALLBACK'.length) + ("=" + callback);
+        }
+        var script = _this._script = _dom.build(url);
+        var onLoad = function(event) {
+          if (_this.readyState === enums_1.ReadyState.Cancelled)
+            return ;
+          _this.readyState = enums_1.ReadyState.Done;
+          _dom.cleanup(script);
+          if (!_this._finished) {
+            var responseOptions_1 = new base_response_options_1.ResponseOptions({
+              body: JSONP_ERR_NO_CALLBACK,
+              type: enums_1.ResponseType.Error,
+              url: url
+            });
+            if (lang_1.isPresent(baseResponseOptions)) {
+              responseOptions_1 = baseResponseOptions.merge(responseOptions_1);
+            }
+            responseObserver.error(new static_response_1.Response(responseOptions_1));
+            return ;
+          }
+          var responseOptions = new base_response_options_1.ResponseOptions({
+            body: _this._responseData,
+            url: url
+          });
+          if (lang_1.isPresent(_this.baseResponseOptions)) {
+            responseOptions = _this.baseResponseOptions.merge(responseOptions);
+          }
+          responseObserver.next(new static_response_1.Response(responseOptions));
+          responseObserver.complete();
+        };
+        var onError = function(error) {
+          if (_this.readyState === enums_1.ReadyState.Cancelled)
+            return ;
+          _this.readyState = enums_1.ReadyState.Done;
+          _dom.cleanup(script);
+          var responseOptions = new base_response_options_1.ResponseOptions({
+            body: error.message,
+            type: enums_1.ResponseType.Error
+          });
+          if (lang_1.isPresent(baseResponseOptions)) {
+            responseOptions = baseResponseOptions.merge(responseOptions);
+          }
+          responseObserver.error(new static_response_1.Response(responseOptions));
+        };
+        script.addEventListener('load', onLoad);
+        script.addEventListener('error', onError);
+        _dom.send(script);
+        return function() {
+          _this.readyState = enums_1.ReadyState.Cancelled;
+          script.removeEventListener('load', onLoad);
+          script.removeEventListener('error', onError);
+          if (lang_1.isPresent(script)) {
+            _this._dom.cleanup(script);
+          }
+        };
+      });
+    }
+    JSONPConnection_.prototype.finished = function(data) {
+      this._finished = true;
+      this._dom.removeConnection(this._id);
+      if (this.readyState === enums_1.ReadyState.Cancelled)
+        return ;
+      this._responseData = data;
+    };
+    return JSONPConnection_;
+  })(JSONPConnection);
+  exports.JSONPConnection_ = JSONPConnection_;
+  var JSONPBackend = (function(_super) {
+    __extends(JSONPBackend, _super);
+    function JSONPBackend() {
+      _super.apply(this, arguments);
+    }
+    return JSONPBackend;
+  })(interfaces_1.ConnectionBackend);
+  exports.JSONPBackend = JSONPBackend;
+  var JSONPBackend_ = (function(_super) {
+    __extends(JSONPBackend_, _super);
+    function JSONPBackend_(_browserJSONP, _baseResponseOptions) {
+      _super.call(this);
+      this._browserJSONP = _browserJSONP;
+      this._baseResponseOptions = _baseResponseOptions;
+    }
+    JSONPBackend_.prototype.createConnection = function(request) {
+      return new JSONPConnection_(request, this._browserJSONP, this._baseResponseOptions);
+    };
+    JSONPBackend_ = __decorate([core_1.Injectable(), __metadata('design:paramtypes', [browser_jsonp_1.BrowserJsonp, base_response_options_1.ResponseOptions])], JSONPBackend_);
+    return JSONPBackend_;
+  })(JSONPBackend);
+  exports.JSONPBackend_ = JSONPBackend_;
+  global.define = __define;
+  return module.exports;
+});
+
+System.register("angular2/src/http/static_request", ["angular2/src/http/headers", "angular2/src/http/http_utils", "angular2/src/facade/lang"], true, function(require, exports, module) {
+  var global = System.global,
+      __define = global.define;
+  global.define = undefined;
+  var headers_1 = require("angular2/src/http/headers");
+  var http_utils_1 = require("angular2/src/http/http_utils");
+  var lang_1 = require("angular2/src/facade/lang");
+  var Request = (function() {
+    function Request(requestOptions) {
+      var url = requestOptions.url;
+      this.url = requestOptions.url;
+      if (lang_1.isPresent(requestOptions.search)) {
+        var search = requestOptions.search.toString();
+        if (search.length > 0) {
+          var prefix = '?';
+          if (lang_1.StringWrapper.contains(this.url, '?')) {
+            prefix = (this.url[this.url.length - 1] == '&') ? '' : '&';
+          }
+          this.url = url + prefix + search;
+        }
+      }
+      this._body = requestOptions.body;
+      this.method = http_utils_1.normalizeMethodName(requestOptions.method);
+      this.headers = new headers_1.Headers(requestOptions.headers);
+    }
+    Request.prototype.text = function() {
+      return lang_1.isPresent(this._body) ? this._body.toString() : '';
+    };
+    return Request;
+  })();
+  exports.Request = Request;
+  global.define = __define;
+  return module.exports;
+});
+
+System.register("angular2/src/http/http", ["angular2/src/facade/lang", "angular2/src/facade/exceptions", "angular2/core", "angular2/src/http/interfaces", "angular2/src/http/static_request", "angular2/src/http/base_request_options", "angular2/src/http/enums"], true, function(require, exports, module) {
+  var global = System.global,
+      __define = global.define;
+  global.define = undefined;
+  var __extends = (this && this.__extends) || function(d, b) {
+    for (var p in b)
+      if (b.hasOwnProperty(p))
+        d[p] = b[p];
+    function __() {
+      this.constructor = d;
+    }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+  };
+  var __decorate = (this && this.__decorate) || function(decorators, target, key, desc) {
+    var c = arguments.length,
+        r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc,
+        d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function")
+      r = Reflect.decorate(decorators, target, key, desc);
+    else
+      for (var i = decorators.length - 1; i >= 0; i--)
+        if (d = decorators[i])
+          r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+  };
+  var __metadata = (this && this.__metadata) || function(k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function")
+      return Reflect.metadata(k, v);
+  };
+  var lang_1 = require("angular2/src/facade/lang");
+  var exceptions_1 = require("angular2/src/facade/exceptions");
+  var core_1 = require("angular2/core");
+  var interfaces_1 = require("angular2/src/http/interfaces");
+  var static_request_1 = require("angular2/src/http/static_request");
+  var base_request_options_1 = require("angular2/src/http/base_request_options");
+  var enums_1 = require("angular2/src/http/enums");
+  function httpRequest(backend, request) {
+    return backend.createConnection(request).response;
+  }
+  function mergeOptions(defaultOpts, providedOpts, method, url) {
+    var newOptions = defaultOpts;
+    if (lang_1.isPresent(providedOpts)) {
+      return newOptions.merge(new base_request_options_1.RequestOptions({
+        method: providedOpts.method || method,
+        url: providedOpts.url || url,
+        search: providedOpts.search,
+        headers: providedOpts.headers,
+        body: providedOpts.body
+      }));
+    }
+    if (lang_1.isPresent(method)) {
+      return newOptions.merge(new base_request_options_1.RequestOptions({
+        method: method,
+        url: url
+      }));
+    } else {
+      return newOptions.merge(new base_request_options_1.RequestOptions({url: url}));
+    }
+  }
+  var Http = (function() {
+    function Http(_backend, _defaultOptions) {
+      this._backend = _backend;
+      this._defaultOptions = _defaultOptions;
+    }
+    Http.prototype.request = function(url, options) {
+      var responseObservable;
+      if (lang_1.isString(url)) {
+        responseObservable = httpRequest(this._backend, new static_request_1.Request(mergeOptions(this._defaultOptions, options, enums_1.RequestMethod.Get, url)));
+      } else if (url instanceof static_request_1.Request) {
+        responseObservable = httpRequest(this._backend, url);
+      } else {
+        throw exceptions_1.makeTypeError('First argument must be a url string or Request instance.');
+      }
+      return responseObservable;
+    };
+    Http.prototype.get = function(url, options) {
+      return httpRequest(this._backend, new static_request_1.Request(mergeOptions(this._defaultOptions, options, enums_1.RequestMethod.Get, url)));
+    };
+    Http.prototype.post = function(url, body, options) {
+      return httpRequest(this._backend, new static_request_1.Request(mergeOptions(this._defaultOptions.merge(new base_request_options_1.RequestOptions({body: body})), options, enums_1.RequestMethod.Post, url)));
+    };
+    Http.prototype.put = function(url, body, options) {
+      return httpRequest(this._backend, new static_request_1.Request(mergeOptions(this._defaultOptions.merge(new base_request_options_1.RequestOptions({body: body})), options, enums_1.RequestMethod.Put, url)));
+    };
+    Http.prototype.delete = function(url, options) {
+      return httpRequest(this._backend, new static_request_1.Request(mergeOptions(this._defaultOptions, options, enums_1.RequestMethod.Delete, url)));
+    };
+    Http.prototype.patch = function(url, body, options) {
+      return httpRequest(this._backend, new static_request_1.Request(mergeOptions(this._defaultOptions.merge(new base_request_options_1.RequestOptions({body: body})), options, enums_1.RequestMethod.Patch, url)));
+    };
+    Http.prototype.head = function(url, options) {
+      return httpRequest(this._backend, new static_request_1.Request(mergeOptions(this._defaultOptions, options, enums_1.RequestMethod.Head, url)));
+    };
+    Http = __decorate([core_1.Injectable(), __metadata('design:paramtypes', [interfaces_1.ConnectionBackend, base_request_options_1.RequestOptions])], Http);
+    return Http;
+  })();
+  exports.Http = Http;
+  var Jsonp = (function(_super) {
+    __extends(Jsonp, _super);
+    function Jsonp(backend, defaultOptions) {
+      _super.call(this, backend, defaultOptions);
+    }
+    Jsonp.prototype.request = function(url, options) {
+      var responseObservable;
+      if (lang_1.isString(url)) {
+        url = new static_request_1.Request(mergeOptions(this._defaultOptions, options, enums_1.RequestMethod.Get, url));
+      }
+      if (url instanceof static_request_1.Request) {
+        if (url.method !== enums_1.RequestMethod.Get) {
+          exceptions_1.makeTypeError('JSONP requests must use GET request method.');
+        }
+        responseObservable = httpRequest(this._backend, url);
+      } else {
+        throw exceptions_1.makeTypeError('First argument must be a url string or Request instance.');
+      }
+      return responseObservable;
+    };
+    Jsonp = __decorate([core_1.Injectable(), __metadata('design:paramtypes', [interfaces_1.ConnectionBackend, base_request_options_1.RequestOptions])], Jsonp);
+    return Jsonp;
+  })(Http);
+  exports.Jsonp = Jsonp;
+  global.define = __define;
+  return module.exports;
+});
+
+System.register("angular2/http", ["angular2/core", "angular2/src/http/http", "angular2/src/http/backends/xhr_backend", "angular2/src/http/backends/jsonp_backend", "angular2/src/http/backends/browser_xhr", "angular2/src/http/backends/browser_jsonp", "angular2/src/http/base_request_options", "angular2/src/http/base_response_options", "angular2/src/http/static_request", "angular2/src/http/static_response", "angular2/src/http/interfaces", "angular2/src/http/backends/browser_xhr", "angular2/src/http/base_request_options", "angular2/src/http/base_response_options", "angular2/src/http/backends/xhr_backend", "angular2/src/http/backends/jsonp_backend", "angular2/src/http/http", "angular2/src/http/headers", "angular2/src/http/enums", "angular2/src/http/url_search_params"], true, function(require, exports, module) {
+  var global = System.global,
+      __define = global.define;
+  global.define = undefined;
+  var core_1 = require("angular2/core");
+  var http_1 = require("angular2/src/http/http");
+  var xhr_backend_1 = require("angular2/src/http/backends/xhr_backend");
+  var jsonp_backend_1 = require("angular2/src/http/backends/jsonp_backend");
+  var browser_xhr_1 = require("angular2/src/http/backends/browser_xhr");
+  var browser_jsonp_1 = require("angular2/src/http/backends/browser_jsonp");
+  var base_request_options_1 = require("angular2/src/http/base_request_options");
+  var base_response_options_1 = require("angular2/src/http/base_response_options");
+  var static_request_1 = require("angular2/src/http/static_request");
+  exports.Request = static_request_1.Request;
+  var static_response_1 = require("angular2/src/http/static_response");
+  exports.Response = static_response_1.Response;
+  var interfaces_1 = require("angular2/src/http/interfaces");
+  exports.Connection = interfaces_1.Connection;
+  exports.ConnectionBackend = interfaces_1.ConnectionBackend;
+  var browser_xhr_2 = require("angular2/src/http/backends/browser_xhr");
+  exports.BrowserXhr = browser_xhr_2.BrowserXhr;
+  var base_request_options_2 = require("angular2/src/http/base_request_options");
+  exports.BaseRequestOptions = base_request_options_2.BaseRequestOptions;
+  exports.RequestOptions = base_request_options_2.RequestOptions;
+  var base_response_options_2 = require("angular2/src/http/base_response_options");
+  exports.BaseResponseOptions = base_response_options_2.BaseResponseOptions;
+  exports.ResponseOptions = base_response_options_2.ResponseOptions;
+  var xhr_backend_2 = require("angular2/src/http/backends/xhr_backend");
+  exports.XHRBackend = xhr_backend_2.XHRBackend;
+  exports.XHRConnection = xhr_backend_2.XHRConnection;
+  var jsonp_backend_2 = require("angular2/src/http/backends/jsonp_backend");
+  exports.JSONPBackend = jsonp_backend_2.JSONPBackend;
+  exports.JSONPConnection = jsonp_backend_2.JSONPConnection;
+  var http_2 = require("angular2/src/http/http");
+  exports.Http = http_2.Http;
+  exports.Jsonp = http_2.Jsonp;
+  var headers_1 = require("angular2/src/http/headers");
+  exports.Headers = headers_1.Headers;
+  var enums_1 = require("angular2/src/http/enums");
+  exports.ResponseType = enums_1.ResponseType;
+  exports.ReadyState = enums_1.ReadyState;
+  exports.RequestMethod = enums_1.RequestMethod;
+  var url_search_params_1 = require("angular2/src/http/url_search_params");
+  exports.URLSearchParams = url_search_params_1.URLSearchParams;
+  exports.HTTP_PROVIDERS = [core_1.provide(http_1.Http, {
+    useFactory: function(xhrBackend, requestOptions) {
+      return new http_1.Http(xhrBackend, requestOptions);
+    },
+    deps: [xhr_backend_1.XHRBackend, base_request_options_1.RequestOptions]
+  }), browser_xhr_1.BrowserXhr, core_1.provide(base_request_options_1.RequestOptions, {useClass: base_request_options_1.BaseRequestOptions}), core_1.provide(base_response_options_1.ResponseOptions, {useClass: base_response_options_1.BaseResponseOptions}), xhr_backend_1.XHRBackend];
+  exports.HTTP_BINDINGS = exports.HTTP_PROVIDERS;
+  exports.JSONP_PROVIDERS = [core_1.provide(http_1.Jsonp, {
+    useFactory: function(jsonpBackend, requestOptions) {
+      return new http_1.Jsonp(jsonpBackend, requestOptions);
+    },
+    deps: [jsonp_backend_1.JSONPBackend, base_request_options_1.RequestOptions]
+  }), browser_jsonp_1.BrowserJsonp, core_1.provide(base_request_options_1.RequestOptions, {useClass: base_request_options_1.BaseRequestOptions}), core_1.provide(base_response_options_1.ResponseOptions, {useClass: base_response_options_1.BaseResponseOptions}), core_1.provide(jsonp_backend_1.JSONPBackend, {useClass: jsonp_backend_1.JSONPBackend_})];
+  exports.JSON_BINDINGS = exports.JSONP_PROVIDERS;
+  global.define = __define;
+  return module.exports;
+});
+
+//# sourceMappingURLDisabled=http.dev.js.map

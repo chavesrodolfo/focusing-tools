@@ -1,3 +1,3045 @@
-"format register";System.register("angular2/src/router/router_link_transform",["angular2/compiler","angular2/src/core/change_detection/parser/ast","angular2/src/facade/exceptions","angular2/core","angular2/src/core/change_detection/parser/parser"],!0,function(t,e,r){function n(t,e){var r=new _(t,e.trim()).tokenize();return new v(r).generate()}var o=System.global,a=o.define;o.define=void 0;var i=this&&this.__extends||function(t,e){function r(){this.constructor=t}for(var n in e)e.hasOwnProperty(n)&&(t[n]=e[n]);t.prototype=null===e?Object.create(e):(r.prototype=e.prototype,new r)},s=this&&this.__decorate||function(t,e,r,n){var o,a=arguments.length,i=3>a?e:null===n?n=Object.getOwnPropertyDescriptor(e,r):n;if("object"==typeof Reflect&&"function"==typeof Reflect.decorate)i=Reflect.decorate(t,e,r,n);else for(var s=t.length-1;s>=0;s--)(o=t[s])&&(i=(3>a?o(i):a>3?o(e,r,i):o(e,r))||i);return a>3&&i&&Object.defineProperty(e,r,i),i},u=this&&this.__metadata||function(t,e){return"object"==typeof Reflect&&"function"==typeof Reflect.metadata?Reflect.metadata(t,e):void 0},c=t("angular2/compiler"),l=t("angular2/src/core/change_detection/parser/ast"),p=t("angular2/src/facade/exceptions"),f=t("angular2/core"),h=t("angular2/src/core/change_detection/parser/parser"),g=function(){function t(t){this.value=t}return t}(),m=function(){function t(){}return t}(),d=function(){function t(){}return t}(),y=function(){function t(t){this.ast=t}return t}(),_=function(){function t(t,e){this.parser=t,this.exp=e,this.index=0}return t.prototype.tokenize=function(){for(var t=[];this.index<this.exp.length;)t.push(this._parseToken());return t},t.prototype._parseToken=function(){var t=this.exp[this.index];return"["==t?(this.index++,new m):"]"==t?(this.index++,new d):"("==t?this._parseParams():"/"==t&&0!==this.index?(this.index++,this._parseFixedPart()):this._parseFixedPart()},t.prototype._parseParams=function(){for(var t=this.index;this.index<this.exp.length;++this.index){var e=this.exp[this.index];if(")"==e){var r=this.exp.substring(t+1,this.index);return this.index++,new y(this.parser.parseBinding("{"+r+"}",null).ast)}}throw new p.BaseException("Cannot find ')'")},t.prototype._parseFixedPart=function(){for(var t=this.index,e=!1;this.index<this.exp.length;++this.index){var r=this.exp[this.index];if("("==r||"["==r||"]"==r||"/"==r&&e)break;"."!=r&&"/"!=r&&(e=!0)}var n=this.exp.substring(t,this.index);if(t===this.index||!e||n.startsWith("//"))throw new p.BaseException("Invalid router link");return new g(n)},t}(),v=function(){function t(t){this.tokens=t,this.index=0}return t.prototype.generate=function(){return this._genAuxiliary()},t.prototype._genAuxiliary=function(){for(var t=[];this.index<this.tokens.length;this.index++){var e=this.tokens[this.index];if(e instanceof g)t.push(new l.LiteralPrimitive(e.value));else if(e instanceof y)t.push(e.ast);else{if(e instanceof d)break;e instanceof m&&(this.index++,t.push(this._genAuxiliary()))}}return new l.LiteralArray(t)},t}(),R=function(t){function e(e){t.call(this),this.parser=e}return i(e,t),e.prototype.visitQuote=function(e){return"route"==e.prefix?n(this.parser,e.uninterpretedExpression):t.prototype.visitQuote.call(this,e)},e}(l.AstTransformer);e.parseRouterLinkExpression=n;var P=function(){function t(t){this.astTransformer=new R(t)}return t.prototype.visitNgContent=function(t,e){return t},t.prototype.visitEmbeddedTemplate=function(t,e){return t},t.prototype.visitElement=function(t,e){var r=this,n=t.children.map(function(t){return t.visit(r,e)}),o=t.inputs.map(function(t){return t.visit(r,e)}),a=t.directives.map(function(t){return t.visit(r,e)});return new c.ElementAst(t.name,t.attrs,o,t.outputs,t.exportAsVars,a,n,t.ngContentIndex,t.sourceSpan)},t.prototype.visitVariable=function(t,e){return t},t.prototype.visitEvent=function(t,e){return t},t.prototype.visitElementProperty=function(t,e){return t},t.prototype.visitAttr=function(t,e){return t},t.prototype.visitBoundText=function(t,e){return t},t.prototype.visitText=function(t,e){return t},t.prototype.visitDirective=function(t,e){var r=this,n=t.inputs.map(function(t){return t.visit(r,e)});return new c.DirectiveAst(t.directive,n,t.hostProperties,t.hostEvents,t.exportAsVars,t.sourceSpan)},t.prototype.visitDirectiveProperty=function(t,e){var r=t.value.visit(this.astTransformer);return new c.BoundDirectivePropertyAst(t.directiveName,t.templateName,r,t.sourceSpan)},t=s([f.Injectable(),u("design:paramtypes",[h.Parser])],t)}();return e.RouterLinkTransform=P,o.define=a,r.exports}),System.register("angular2/router/router_link_dsl",["angular2/compiler","angular2/core","angular2/src/router/router_link_transform","angular2/src/facade/lang","angular2/src/router/router_link_transform"],!0,function(t,e,r){var n=System.global,o=n.define;n.define=void 0;var a=t("angular2/compiler"),i=t("angular2/core"),s=t("angular2/src/router/router_link_transform"),u=t("angular2/src/facade/lang"),c=t("angular2/src/router/router_link_transform");return e.RouterLinkTransform=c.RouterLinkTransform,e.ROUTER_LINK_DSL_PROVIDER=u.CONST_EXPR(new i.Provider(a.TEMPLATE_TRANSFORMS,{useClass:s.RouterLinkTransform,multi:!0})),n.define=o,r.exports}),System.register("angular2/src/router/route_config_impl",["angular2/src/facade/lang"],!0,function(t,e,r){var n=System.global,o=n.define;n.define=void 0;var a=this&&this.__decorate||function(t,e,r,n){var o,a=arguments.length,i=3>a?e:null===n?n=Object.getOwnPropertyDescriptor(e,r):n;if("object"==typeof Reflect&&"function"==typeof Reflect.decorate)i=Reflect.decorate(t,e,r,n);else for(var s=t.length-1;s>=0;s--)(o=t[s])&&(i=(3>a?o(i):a>3?o(e,r,i):o(e,r))||i);return a>3&&i&&Object.defineProperty(e,r,i),i},i=this&&this.__metadata||function(t,e){return"object"==typeof Reflect&&"function"==typeof Reflect.metadata?Reflect.metadata(t,e):void 0},s=t("angular2/src/facade/lang"),u=function(){function t(t){this.configs=t}return t=a([s.CONST(),i("design:paramtypes",[Array])],t)}();e.RouteConfig=u;var c=function(){function t(t){var e=t.path,r=t.component,n=t.name,o=t.data,a=t.useAsDefault;this.aux=null,this.loader=null,this.redirectTo=null,this.path=e,this.component=r,this.name=n,this.data=o,this.useAsDefault=a}return t=a([s.CONST(),i("design:paramtypes",[Object])],t)}();e.Route=c;var l=function(){function t(t){var e=t.path,r=t.component,n=t.name;this.data=null,this.aux=null,this.loader=null,this.redirectTo=null,this.useAsDefault=!1,this.path=e,this.component=r,this.name=n}return t=a([s.CONST(),i("design:paramtypes",[Object])],t)}();e.AuxRoute=l;var p=function(){function t(t){var e=t.path,r=t.loader,n=t.name,o=t.data,a=t.useAsDefault;this.aux=null,this.path=e,this.loader=r,this.name=n,this.data=o,this.useAsDefault=a}return t=a([s.CONST(),i("design:paramtypes",[Object])],t)}();e.AsyncRoute=p;var f=function(){function t(t){var e=t.path,r=t.redirectTo;this.name=null,this.loader=null,this.data=null,this.aux=null,this.useAsDefault=!1,this.path=e,this.redirectTo=r}return t=a([s.CONST(),i("design:paramtypes",[Object])],t)}();return e.Redirect=f,n.define=o,r.exports}),System.register("angular2/src/router/instruction",["angular2/src/facade/collection","angular2/src/facade/lang","angular2/src/facade/async"],!0,function(t,e,r){var n=System.global,o=n.define;n.define=void 0;var a=this&&this.__extends||function(t,e){function r(){this.constructor=t}for(var n in e)e.hasOwnProperty(n)&&(t[n]=e[n]);t.prototype=null===e?Object.create(e):(r.prototype=e.prototype,new r)},i=t("angular2/src/facade/collection"),s=t("angular2/src/facade/lang"),u=t("angular2/src/facade/async"),c=function(){function t(t){this.params=t}return t.prototype.get=function(t){return s.normalizeBlank(i.StringMapWrapper.get(this.params,t))},t}();e.RouteParams=c;var l=function(){function t(t){void 0===t&&(t=s.CONST_EXPR({})),this.data=t}return t.prototype.get=function(t){return s.normalizeBlank(i.StringMapWrapper.get(this.data,t))},t}();e.RouteData=l,e.BLANK_ROUTE_DATA=new l;var p=function(){function t(){this.auxInstruction={}}return Object.defineProperty(t.prototype,"urlPath",{get:function(){return this.component.urlPath},enumerable:!0,configurable:!0}),Object.defineProperty(t.prototype,"urlParams",{get:function(){return this.component.urlParams},enumerable:!0,configurable:!0}),Object.defineProperty(t.prototype,"specificity",{get:function(){var t=0;return s.isPresent(this.component)&&(t+=this.component.specificity),s.isPresent(this.child)&&(t+=this.child.specificity),t},enumerable:!0,configurable:!0}),t.prototype.toRootUrl=function(){return this.toUrlPath()+this.toUrlQuery()},t.prototype._toNonRootUrl=function(){return this._stringifyPathMatrixAuxPrefixed()+(s.isPresent(this.child)?this.child._toNonRootUrl():"")},t.prototype.toUrlQuery=function(){return this.urlParams.length>0?"?"+this.urlParams.join("&"):""},t.prototype.replaceChild=function(t){return new f(this.component,t,this.auxInstruction)},t.prototype.toUrlPath=function(){return this.urlPath+this._stringifyAux()+(s.isPresent(this.child)?this.child._toNonRootUrl():"")},t.prototype.toLinkUrl=function(){return this.urlPath+this._stringifyAux()+(s.isPresent(this.child)?this.child._toLinkUrl():"")},t.prototype._toLinkUrl=function(){return this._stringifyPathMatrixAuxPrefixed()+(s.isPresent(this.child)?this.child._toLinkUrl():"")},t.prototype._stringifyPathMatrixAuxPrefixed=function(){var t=this._stringifyPathMatrixAux();return t.length>0&&(t="/"+t),t},t.prototype._stringifyMatrixParams=function(){return this.urlParams.length>0?";"+this.component.urlParams.join(";"):""},t.prototype._stringifyPathMatrixAux=function(){return s.isBlank(this.component)?"":this.urlPath+this._stringifyMatrixParams()+this._stringifyAux()},t.prototype._stringifyAux=function(){var t=[];return i.StringMapWrapper.forEach(this.auxInstruction,function(e,r){t.push(e._stringifyPathMatrixAux())}),t.length>0?"("+t.join("//")+")":""},t}();e.Instruction=p;var f=function(t){function e(e,r,n){t.call(this),this.component=e,this.child=r,this.auxInstruction=n}return a(e,t),e.prototype.resolveComponent=function(){return u.PromiseWrapper.resolve(this.component)},e}(p);e.ResolvedInstruction=f;var h=function(t){function e(e,r){t.call(this),this.component=e,this.child=r}return a(e,t),e.prototype.resolveComponent=function(){return u.PromiseWrapper.resolve(this.component)},e.prototype.toLinkUrl=function(){return""},e.prototype._toLinkUrl=function(){return""},e}(p);e.DefaultInstruction=h;var g=function(t){function e(e,r,n){void 0===r&&(r=""),void 0===n&&(n=s.CONST_EXPR([])),t.call(this),this._resolver=e,this._urlPath=r,this._urlParams=n}return a(e,t),Object.defineProperty(e.prototype,"urlPath",{get:function(){return s.isPresent(this.component)?this.component.urlPath:s.isPresent(this._urlPath)?this._urlPath:""},enumerable:!0,configurable:!0}),Object.defineProperty(e.prototype,"urlParams",{get:function(){return s.isPresent(this.component)?this.component.urlParams:s.isPresent(this._urlParams)?this._urlParams:[]},enumerable:!0,configurable:!0}),e.prototype.resolveComponent=function(){var t=this;return s.isPresent(this.component)?u.PromiseWrapper.resolve(this.component):this._resolver().then(function(e){return t.child=e.child,t.component=e.component})},e}(p);e.UnresolvedInstruction=g;var m=function(t){function e(e,r,n){t.call(this,e,r,n)}return a(e,t),e}(f);e.RedirectInstruction=m;var d=function(){function t(t,r,n,o,a,i,u){void 0===u&&(u=null),this.urlPath=t,this.urlParams=r,this.componentType=o,this.terminal=a,this.specificity=i,this.params=u,this.reuse=!1,this.routeData=s.isPresent(n)?n:e.BLANK_ROUTE_DATA}return t}();return e.ComponentInstruction=d,n.define=o,r.exports}),System.register("angular2/src/router/url_parser",["angular2/src/facade/collection","angular2/src/facade/lang","angular2/src/facade/exceptions"],!0,function(t,e,r){function n(t){for(var e=new f(t[t.length-1]),r=t.length-2;r>=0;r-=1)e=new f(t[r],e);return e}function o(t){var e=l.RegExpWrapper.firstMatch(g,t);return l.isPresent(e)?e[0]:""}function a(t){var e=[];return l.isPresent(t)&&c.StringMapWrapper.forEach(t,function(t,r){1==t?e.push(r):e.push(r+"="+t)}),e}var i=System.global,s=i.define;i.define=void 0;var u=this&&this.__extends||function(t,e){function r(){this.constructor=t}for(var n in e)e.hasOwnProperty(n)&&(t[n]=e[n]);t.prototype=null===e?Object.create(e):(r.prototype=e.prototype,new r)},c=t("angular2/src/facade/collection"),l=t("angular2/src/facade/lang"),p=t("angular2/src/facade/exceptions"),f=function(){function t(t,e,r,n){void 0===e&&(e=null),void 0===r&&(r=l.CONST_EXPR([])),void 0===n&&(n=null),this.path=t,this.child=e,this.auxiliary=r,this.params=n}return t.prototype.toString=function(){return this.path+this._matrixParamsToString()+this._auxToString()+this._childString()},t.prototype.segmentToString=function(){return this.path+this._matrixParamsToString()},t.prototype._auxToString=function(){return this.auxiliary.length>0?"("+this.auxiliary.map(function(t){return t.toString()}).join("//")+")":""},t.prototype._matrixParamsToString=function(){return l.isBlank(this.params)?"":";"+a(this.params).join(";")},t.prototype._childString=function(){return l.isPresent(this.child)?"/"+this.child.toString():""},t}();e.Url=f;var h=function(t){function e(e,r,n,o){void 0===r&&(r=null),void 0===n&&(n=l.CONST_EXPR([])),void 0===o&&(o=null),t.call(this,e,r,n,o)}return u(e,t),e.prototype.toString=function(){return this.path+this._auxToString()+this._childString()+this._queryParamsToString()},e.prototype.segmentToString=function(){return this.path+this._queryParamsToString()},e.prototype._queryParamsToString=function(){return l.isBlank(this.params)?"":"?"+a(this.params).join("&")},e}(f);e.RootUrl=h,e.pathSegmentsToUrl=n;var g=l.RegExpWrapper.create("^[^\\/\\(\\)\\?;=&#]+"),m=function(){function t(){}return t.prototype.peekStartsWith=function(t){return this._remaining.startsWith(t)},t.prototype.capture=function(t){if(!this._remaining.startsWith(t))throw new p.BaseException('Expected "'+t+'".');this._remaining=this._remaining.substring(t.length)},t.prototype.parse=function(t){return this._remaining=t,""==t||"/"==t?new f(""):this.parseRoot()},t.prototype.parseRoot=function(){this.peekStartsWith("/")&&this.capture("/");var t=o(this._remaining);this.capture(t);var e=[];this.peekStartsWith("(")&&(e=this.parseAuxiliaryRoutes()),this.peekStartsWith(";")&&this.parseMatrixParams();var r=null;this.peekStartsWith("/")&&!this.peekStartsWith("//")&&(this.capture("/"),r=this.parseSegment());var n=null;return this.peekStartsWith("?")&&(n=this.parseQueryParams()),new h(t,r,e,n)},t.prototype.parseSegment=function(){if(0==this._remaining.length)return null;this.peekStartsWith("/")&&this.capture("/");var t=o(this._remaining);this.capture(t);var e=null;this.peekStartsWith(";")&&(e=this.parseMatrixParams());var r=[];this.peekStartsWith("(")&&(r=this.parseAuxiliaryRoutes());var n=null;return this.peekStartsWith("/")&&!this.peekStartsWith("//")&&(this.capture("/"),n=this.parseSegment()),new f(t,n,r,e)},t.prototype.parseQueryParams=function(){var t={};for(this.capture("?"),this.parseParam(t);this._remaining.length>0&&this.peekStartsWith("&");)this.capture("&"),this.parseParam(t);return t},t.prototype.parseMatrixParams=function(){for(var t={};this._remaining.length>0&&this.peekStartsWith(";");)this.capture(";"),this.parseParam(t);return t},t.prototype.parseParam=function(t){var e=o(this._remaining);if(!l.isBlank(e)){this.capture(e);var r=!0;if(this.peekStartsWith("=")){this.capture("=");var n=o(this._remaining);l.isPresent(n)&&(r=n,this.capture(r))}t[e]=r}},t.prototype.parseAuxiliaryRoutes=function(){var t=[];for(this.capture("(");!this.peekStartsWith(")")&&this._remaining.length>0;)t.push(this.parseSegment()),this.peekStartsWith("//")&&this.capture("//");return this.capture(")"),t},t}();return e.UrlParser=m,e.parser=new m,e.serializeParams=a,i.define=s,r.exports}),System.register("angular2/src/router/async_route_handler",["angular2/src/facade/lang","angular2/src/router/instruction"],!0,function(t,e,r){var n=System.global,o=n.define;n.define=void 0;var a=t("angular2/src/facade/lang"),i=t("angular2/src/router/instruction"),s=function(){function t(t,e){void 0===e&&(e=null),this._loader=t,this._resolvedComponent=null,this.data=a.isPresent(e)?new i.RouteData(e):i.BLANK_ROUTE_DATA}return t.prototype.resolveComponentType=function(){var t=this;return a.isPresent(this._resolvedComponent)?this._resolvedComponent:this._resolvedComponent=this._loader().then(function(e){return t.componentType=e,e})},t}();return e.AsyncRouteHandler=s,n.define=o,r.exports}),System.register("angular2/src/router/sync_route_handler",["angular2/src/facade/async","angular2/src/facade/lang","angular2/src/router/instruction"],!0,function(t,e,r){var n=System.global,o=n.define;n.define=void 0;var a=t("angular2/src/facade/async"),i=t("angular2/src/facade/lang"),s=t("angular2/src/router/instruction"),u=function(){function t(t,e){this.componentType=t,this._resolvedComponent=null,this._resolvedComponent=a.PromiseWrapper.resolve(t),this.data=i.isPresent(e)?new s.RouteData(e):s.BLANK_ROUTE_DATA}return t.prototype.resolveComponentType=function(){return this._resolvedComponent},t}();return e.SyncRouteHandler=u,n.define=o,r.exports}),System.register("angular2/src/router/route_config_decorator",["angular2/src/router/route_config_impl","angular2/src/core/util/decorators","angular2/src/router/route_config_impl"],!0,function(t,e,r){var n=System.global,o=n.define;n.define=void 0;var a=t("angular2/src/router/route_config_impl"),i=t("angular2/src/core/util/decorators"),s=t("angular2/src/router/route_config_impl");return e.Route=s.Route,e.Redirect=s.Redirect,e.AuxRoute=s.AuxRoute,e.AsyncRoute=s.AsyncRoute,e.RouteConfig=i.makeDecorator(a.RouteConfig),n.define=o,r.exports}),System.register("angular2/src/router/location_strategy",["angular2/src/facade/lang","angular2/core"],!0,function(t,e,r){function n(t){return t.length>0&&"?"!=t.substring(0,1)?"?"+t:t}function o(t,e){if(0==t.length)return e;if(0==e.length)return t;var r=0;return t.endsWith("/")&&r++,e.startsWith("/")&&r++,2==r?t+e.substring(1):1==r?t+e:t+"/"+e}var a=System.global,i=a.define;a.define=void 0;var s=t("angular2/src/facade/lang"),u=t("angular2/core"),c=function(){function t(){}return t}();return e.LocationStrategy=c,e.APP_BASE_HREF=s.CONST_EXPR(new u.OpaqueToken("appBaseHref")),e.normalizeQueryParams=n,e.joinWithSlash=o,a.define=i,r.exports}),System.register("angular2/src/router/lifecycle_annotations_impl",["angular2/src/facade/lang"],!0,function(t,e,r){var n=System.global,o=n.define;n.define=void 0;var a=this&&this.__decorate||function(t,e,r,n){var o,a=arguments.length,i=3>a?e:null===n?n=Object.getOwnPropertyDescriptor(e,r):n;if("object"==typeof Reflect&&"function"==typeof Reflect.decorate)i=Reflect.decorate(t,e,r,n);else for(var s=t.length-1;s>=0;s--)(o=t[s])&&(i=(3>a?o(i):a>3?o(e,r,i):o(e,r))||i);return a>3&&i&&Object.defineProperty(e,r,i),i},i=this&&this.__metadata||function(t,e){return"object"==typeof Reflect&&"function"==typeof Reflect.metadata?Reflect.metadata(t,e):void 0},s=t("angular2/src/facade/lang"),u=function(){function t(t){this.name=t}return t=a([s.CONST(),i("design:paramtypes",[String])],t)}();e.RouteLifecycleHook=u;var c=function(){function t(t){this.fn=t}return t=a([s.CONST(),i("design:paramtypes",[Function])],t)}();return e.CanActivate=c,e.routerCanReuse=s.CONST_EXPR(new u("routerCanReuse")),e.routerCanDeactivate=s.CONST_EXPR(new u("routerCanDeactivate")),e.routerOnActivate=s.CONST_EXPR(new u("routerOnActivate")),e.routerOnReuse=s.CONST_EXPR(new u("routerOnReuse")),e.routerOnDeactivate=s.CONST_EXPR(new u("routerOnDeactivate")),n.define=o,r.exports}),System.register("angular2/src/router/lifecycle_annotations",["angular2/src/core/util/decorators","angular2/src/router/lifecycle_annotations_impl","angular2/src/router/lifecycle_annotations_impl"],!0,function(t,e,r){var n=System.global,o=n.define;n.define=void 0;var a=t("angular2/src/core/util/decorators"),i=t("angular2/src/router/lifecycle_annotations_impl"),s=t("angular2/src/router/lifecycle_annotations_impl");return e.routerCanReuse=s.routerCanReuse,e.routerCanDeactivate=s.routerCanDeactivate,e.routerOnActivate=s.routerOnActivate,e.routerOnReuse=s.routerOnReuse,e.routerOnDeactivate=s.routerOnDeactivate,e.CanActivate=a.makeDecorator(i.CanActivate),n.define=o,r.exports}),System.register("angular2/src/router/router_link",["angular2/core","angular2/src/facade/lang","angular2/src/router/router","angular2/src/router/location"],!0,function(t,e,r){var n=System.global,o=n.define;n.define=void 0;var a=this&&this.__decorate||function(t,e,r,n){var o,a=arguments.length,i=3>a?e:null===n?n=Object.getOwnPropertyDescriptor(e,r):n;if("object"==typeof Reflect&&"function"==typeof Reflect.decorate)i=Reflect.decorate(t,e,r,n);else for(var s=t.length-1;s>=0;s--)(o=t[s])&&(i=(3>a?o(i):a>3?o(e,r,i):o(e,r))||i);return a>3&&i&&Object.defineProperty(e,r,i),i},i=this&&this.__metadata||function(t,e){return"object"==typeof Reflect&&"function"==typeof Reflect.metadata?Reflect.metadata(t,e):void 0},s=t("angular2/core"),u=t("angular2/src/facade/lang"),c=t("angular2/src/router/router"),l=t("angular2/src/router/location"),p=function(){function t(t,e){this._router=t,this._location=e}return Object.defineProperty(t.prototype,"isRouteActive",{get:function(){return this._router.isRouteActive(this._navigationInstruction)},enumerable:!0,configurable:!0}),Object.defineProperty(t.prototype,"routeParams",{set:function(t){this._routeParams=t,this._navigationInstruction=this._router.generate(this._routeParams);var e=this._navigationInstruction.toLinkUrl();this.visibleHref=this._location.prepareExternalUrl(e)},enumerable:!0,configurable:!0}),t.prototype.onClick=function(){return u.isString(this.target)&&"_self"!=this.target?!0:(this._router.navigateByInstruction(this._navigationInstruction),!1)},t=a([s.Directive({selector:"[routerLink]",inputs:["routeParams: routerLink","target: target"],host:{"(click)":"onClick()","[attr.href]":"visibleHref","[class.router-link-active]":"isRouteActive"}}),i("design:paramtypes",[c.Router,l.Location])],t)}();return e.RouterLink=p,n.define=o,r.exports}),System.register("angular2/src/router/hash_location_strategy",["angular2/core","angular2/src/router/location_strategy","angular2/src/facade/lang","angular2/src/router/platform_location"],!0,function(t,e,r){var n=System.global,o=n.define;n.define=void 0;var a=this&&this.__extends||function(t,e){function r(){this.constructor=t}for(var n in e)e.hasOwnProperty(n)&&(t[n]=e[n]);t.prototype=null===e?Object.create(e):(r.prototype=e.prototype,new r)},i=this&&this.__decorate||function(t,e,r,n){var o,a=arguments.length,i=3>a?e:null===n?n=Object.getOwnPropertyDescriptor(e,r):n;if("object"==typeof Reflect&&"function"==typeof Reflect.decorate)i=Reflect.decorate(t,e,r,n);else for(var s=t.length-1;s>=0;s--)(o=t[s])&&(i=(3>a?o(i):a>3?o(e,r,i):o(e,r))||i);return a>3&&i&&Object.defineProperty(e,r,i),i},s=this&&this.__metadata||function(t,e){return"object"==typeof Reflect&&"function"==typeof Reflect.metadata?Reflect.metadata(t,e):void 0},u=this&&this.__param||function(t,e){return function(r,n){e(r,n,t)}},c=t("angular2/core"),l=t("angular2/src/router/location_strategy"),p=t("angular2/src/facade/lang"),f=t("angular2/src/router/platform_location"),h=function(t){function e(e,r){t.call(this),this._platformLocation=e,this._baseHref="",p.isPresent(r)&&(this._baseHref=r)}return a(e,t),e.prototype.onPopState=function(t){this._platformLocation.onPopState(t),this._platformLocation.onHashChange(t)},e.prototype.getBaseHref=function(){return this._baseHref},e.prototype.path=function(){var t=this._platformLocation.hash;return(t.length>0?t.substring(1):t)+l.normalizeQueryParams(this._platformLocation.search)},e.prototype.prepareExternalUrl=function(t){var e=l.joinWithSlash(this._baseHref,t);return e.length>0?"#"+e:e},e.prototype.pushState=function(t,e,r,n){var o=this.prepareExternalUrl(r+l.normalizeQueryParams(n));0==o.length&&(o=this._platformLocation.pathname),this._platformLocation.pushState(t,e,o)},e.prototype.replaceState=function(t,e,r,n){var o=this.prepareExternalUrl(r+l.normalizeQueryParams(n));0==o.length&&(o=this._platformLocation.pathname),this._platformLocation.replaceState(t,e,o)},e.prototype.forward=function(){this._platformLocation.forward()},e.prototype.back=function(){this._platformLocation.back()},e=i([c.Injectable(),u(1,c.Optional()),u(1,c.Inject(l.APP_BASE_HREF)),s("design:paramtypes",[f.PlatformLocation,String])],e)}(l.LocationStrategy);return e.HashLocationStrategy=h,n.define=o,r.exports}),System.register("angular2/src/router/path_location_strategy",["angular2/core","angular2/src/facade/lang","angular2/src/facade/exceptions","angular2/src/router/location_strategy","angular2/src/router/platform_location"],!0,function(t,e,r){var n=System.global,o=n.define;n.define=void 0;var a=this&&this.__extends||function(t,e){function r(){this.constructor=t}for(var n in e)e.hasOwnProperty(n)&&(t[n]=e[n]);t.prototype=null===e?Object.create(e):(r.prototype=e.prototype,new r)},i=this&&this.__decorate||function(t,e,r,n){var o,a=arguments.length,i=3>a?e:null===n?n=Object.getOwnPropertyDescriptor(e,r):n;if("object"==typeof Reflect&&"function"==typeof Reflect.decorate)i=Reflect.decorate(t,e,r,n);else for(var s=t.length-1;s>=0;s--)(o=t[s])&&(i=(3>a?o(i):a>3?o(e,r,i):o(e,r))||i);return a>3&&i&&Object.defineProperty(e,r,i),i},s=this&&this.__metadata||function(t,e){return"object"==typeof Reflect&&"function"==typeof Reflect.metadata?Reflect.metadata(t,e):void 0},u=this&&this.__param||function(t,e){return function(r,n){e(r,n,t)}},c=t("angular2/core"),l=t("angular2/src/facade/lang"),p=t("angular2/src/facade/exceptions"),f=t("angular2/src/router/location_strategy"),h=t("angular2/src/router/platform_location"),g=function(t){function e(e,r){if(t.call(this),this._platformLocation=e,l.isBlank(r)&&(r=this._platformLocation.getBaseHrefFromDOM()),l.isBlank(r))throw new p.BaseException("No base href set. Please provide a value for the APP_BASE_HREF token or add a base element to the document.");this._baseHref=r}return a(e,t),e.prototype.onPopState=function(t){this._platformLocation.onPopState(t),this._platformLocation.onHashChange(t)},e.prototype.getBaseHref=function(){return this._baseHref},e.prototype.prepareExternalUrl=function(t){return f.joinWithSlash(this._baseHref,t)},e.prototype.path=function(){return this._platformLocation.pathname+f.normalizeQueryParams(this._platformLocation.search)},e.prototype.pushState=function(t,e,r,n){var o=this.prepareExternalUrl(r+f.normalizeQueryParams(n));this._platformLocation.pushState(t,e,o)},e.prototype.replaceState=function(t,e,r,n){var o=this.prepareExternalUrl(r+f.normalizeQueryParams(n));this._platformLocation.replaceState(t,e,o)},e.prototype.forward=function(){this._platformLocation.forward()},e.prototype.back=function(){this._platformLocation.back()},e=i([c.Injectable(),u(1,c.Optional()),u(1,c.Inject(f.APP_BASE_HREF)),s("design:paramtypes",[h.PlatformLocation,String])],e)}(f.LocationStrategy);return e.PathLocationStrategy=g,n.define=o,r.exports}),System.register("angular2/src/router/route_definition",[],!0,function(t,e,r){var n=System.global,o=n.define;return n.define=void 0,n.define=o,r.exports}),System.register("angular2/src/router/path_recognizer",["angular2/src/facade/lang","angular2/src/facade/exceptions","angular2/src/facade/collection","angular2/src/router/url_parser"],!0,function(t,e,r){function n(t){return l.isBlank(t)?null:t.toString()}function o(t){t.startsWith("/")&&(t=t.substring(1));var e=i(t),r=[],n=0;if(e.length>98)throw new p.BaseException("'"+t+"' has more than the maximum supported number of segments.");for(var o=e.length-1,a=0;o>=a;a++){var s,u=e[a];if(l.isPresent(s=l.RegExpWrapper.firstMatch(v,u)))r.push(new y(s[1])),n+=100-a;else if(l.isPresent(s=l.RegExpWrapper.firstMatch(R,u)))r.push(new _(s[1]));else if("..."==u){if(o>a)throw new p.BaseException('Unexpected "..." before the end of the path for "'+t+'".');r.push(new m)}else r.push(new d(u)),n+=100*(100-a)}var c=f.StringMapWrapper.create();return f.StringMapWrapper.set(c,"segments",r),f.StringMapWrapper.set(c,"specificity",n),c}function a(t){return t.map(function(t){return t instanceof _?"*":t instanceof m?"...":t instanceof y?":":t instanceof d?t.path:void 0}).join("/")}function i(t){return t.split("/")}function s(t){if(l.StringWrapper.contains(t,"#"))throw new p.BaseException('Path "'+t+'" should not include "#". Use "HashLocationStrategy" instead.');var e=l.RegExpWrapper.firstMatch(P,t);if(l.isPresent(e))throw new p.BaseException('Path "'+t+'" contains "'+e[0]+'" which is not allowed in a route config.')}var u=System.global,c=u.define;u.define=void 0;var l=t("angular2/src/facade/lang"),p=t("angular2/src/facade/exceptions"),f=t("angular2/src/facade/collection"),h=t("angular2/src/router/url_parser"),g=function(){function t(t){var e=this;this.map={},this.keys={},l.isPresent(t)&&f.StringMapWrapper.forEach(t,function(t,r){e.map[r]=l.isPresent(t)?t.toString():null,e.keys[r]=!0})}return t.prototype.get=function(t){return f.StringMapWrapper["delete"](this.keys,t),this.map[t]},t.prototype.getUnused=function(){var t=this,e={},r=f.StringMapWrapper.keys(this.keys);return r.forEach(function(r){return e[r]=f.StringMapWrapper.get(t.map,r)}),e},t}(),m=function(){function t(){this.name=""}return t.prototype.generate=function(t){return""},t.prototype.match=function(t){return!0},t}(),d=function(){function t(t){this.path=t,this.name=""}return t.prototype.match=function(t){return t==this.path},t.prototype.generate=function(t){return this.path},t}(),y=function(){function t(t){this.name=t}return t.prototype.match=function(t){return t.length>0},t.prototype.generate=function(t){if(!f.StringMapWrapper.contains(t.map,this.name))throw new p.BaseException("Route generator for '"+this.name+"' was not included in parameters passed.");return n(t.get(this.name))},t}(),_=function(){function t(t){this.name=t}return t.prototype.match=function(t){return!0},t.prototype.generate=function(t){return n(t.get(this.name))},t}(),v=/^:([^\/]+)$/g,R=/^\*([^\/]+)$/g,P=l.RegExpWrapper.create("//|\\(|\\)|;|\\?|="),x=function(){function t(t){this.path=t,this.terminal=!0,s(t);var e=o(t);this._segments=e.segments,this.specificity=e.specificity,this.hash=a(this._segments);var r=this._segments[this._segments.length-1];this.terminal=!(r instanceof m)}return t.prototype.recognize=function(t){for(var e,r=t,n={},o=[],a=0;a<this._segments.length;a+=1){var i=this._segments[a];if(e=r,i instanceof m)break;if(l.isPresent(e)){if(o.push(e.path),i instanceof _){n[i.name]=e.toString(),r=null;break}if(i instanceof y)n[i.name]=e.path;else if(!i.match(e.path))return null;r=e.child}else if(!i.match(""))return null}if(this.terminal&&l.isPresent(r))return null;var s,u,c,p=o.join("/");if(l.isPresent(e)){var g=t instanceof h.RootUrl?t:e;c=l.isPresent(g.params)?f.StringMapWrapper.merge(g.params,n):n,u=h.serializeParams(g.params),s=e.auxiliary}else c=n,s=[],u=[];return{urlPath:p,urlParams:u,allParams:c,auxiliary:s,nextSegment:r}},t.prototype.generate=function(t){for(var e=new g(t),r=[],n=0;n<this._segments.length;n++){var o=this._segments[n];o instanceof m||r.push(o.generate(e))}var a=r.join("/"),i=e.getUnused(),s=h.serializeParams(i);return{urlPath:a,urlParams:s}},t}();return e.PathRecognizer=x,u.define=c,r.exports}),System.register("angular2/src/router/component_recognizer",["angular2/src/facade/lang","angular2/src/facade/exceptions","angular2/src/facade/collection","angular2/src/facade/async","angular2/src/router/route_recognizer","angular2/src/router/route_config_impl","angular2/src/router/async_route_handler","angular2/src/router/sync_route_handler"],!0,function(t,e,r){var n=System.global,o=n.define;n.define=void 0;var a=t("angular2/src/facade/lang"),i=t("angular2/src/facade/exceptions"),s=t("angular2/src/facade/collection"),u=t("angular2/src/facade/async"),c=t("angular2/src/router/route_recognizer"),l=t("angular2/src/router/route_config_impl"),p=t("angular2/src/router/async_route_handler"),f=t("angular2/src/router/sync_route_handler"),h=function(){function t(){this.names=new s.Map,
-this.auxNames=new s.Map,this.auxRoutes=new s.Map,this.matchers=[],this.defaultRoute=null}return t.prototype.config=function(t){var e;if(a.isPresent(t.name)&&t.name[0].toUpperCase()!=t.name[0]){var r=t.name[0].toUpperCase()+t.name.substring(1);throw new i.BaseException('Route "'+t.path+'" with name "'+t.name+'" does not begin with an uppercase letter. Route names should be CamelCase like "'+r+'".')}if(t instanceof l.AuxRoute){e=new f.SyncRouteHandler(t.component,t.data);var n=t.path.startsWith("/")?t.path.substring(1):t.path,o=new c.RouteRecognizer(t.path,e);return this.auxRoutes.set(n,o),a.isPresent(t.name)&&this.auxNames.set(t.name,o),o.terminal}var s=!1;if(t instanceof l.Redirect){var u=new c.RedirectRecognizer(t.path,t.redirectTo);return this._assertNoHashCollision(u.hash,t.path),this.matchers.push(u),!0}t instanceof l.Route?(e=new f.SyncRouteHandler(t.component,t.data),s=a.isPresent(t.useAsDefault)&&t.useAsDefault):t instanceof l.AsyncRoute&&(e=new p.AsyncRouteHandler(t.loader,t.data),s=a.isPresent(t.useAsDefault)&&t.useAsDefault);var o=new c.RouteRecognizer(t.path,e);if(this._assertNoHashCollision(o.hash,t.path),s){if(a.isPresent(this.defaultRoute))throw new i.BaseException("Only one route can be default");this.defaultRoute=o}return this.matchers.push(o),a.isPresent(t.name)&&this.names.set(t.name,o),o.terminal},t.prototype._assertNoHashCollision=function(t,e){this.matchers.forEach(function(r){if(t==r.hash)throw new i.BaseException("Configuration '"+e+"' conflicts with existing route '"+r.path+"'")})},t.prototype.recognize=function(t){var e=[];return this.matchers.forEach(function(r){var n=r.recognize(t);a.isPresent(n)&&e.push(n)}),e},t.prototype.recognizeAuxiliary=function(t){var e=this.auxRoutes.get(t.path);return a.isPresent(e)?[e.recognize(t)]:[u.PromiseWrapper.resolve(null)]},t.prototype.hasRoute=function(t){return this.names.has(t)},t.prototype.componentLoaded=function(t){return this.hasRoute(t)&&a.isPresent(this.names.get(t).handler.componentType)},t.prototype.loadComponent=function(t){return this.names.get(t).handler.resolveComponentType()},t.prototype.generate=function(t,e){var r=this.names.get(t);return a.isBlank(r)?null:r.generate(e)},t.prototype.generateAuxiliary=function(t,e){var r=this.auxNames.get(t);return a.isBlank(r)?null:r.generate(e)},t}();return e.ComponentRecognizer=h,n.define=o,r.exports}),System.register("angular2/src/router/route_config_nomalizer",["angular2/src/router/route_config_decorator","angular2/src/facade/lang","angular2/src/facade/exceptions"],!0,function(t,e,r){function n(t,e){if(t instanceof u.AsyncRoute){var r=o(t.loader,e);return new u.AsyncRoute({path:t.path,loader:r,name:t.name,data:t.data,useAsDefault:t.useAsDefault})}if(t instanceof u.Route||t instanceof u.Redirect||t instanceof u.AuxRoute)return t;if(+!!t.component+ +!!t.redirectTo+ +!!t.loader!=1)throw new l.BaseException('Route config should contain exactly one "component", "loader", or "redirectTo" property.');if(t.as&&t.name)throw new l.BaseException('Route config should contain exactly one "as" or "name" property.');if(t.as&&(t.name=t.as),t.loader){var r=o(t.loader,e);return new u.AsyncRoute({path:t.path,loader:r,name:t.name,useAsDefault:t.useAsDefault})}if(t.aux)return new u.AuxRoute({path:t.aux,component:t.component,name:t.name});if(t.component){if("object"==typeof t.component){var n=t.component;if("constructor"==n.type)return new u.Route({path:t.path,component:n.constructor,name:t.name,data:t.data,useAsDefault:t.useAsDefault});if("loader"==n.type)return new u.AsyncRoute({path:t.path,loader:n.loader,name:t.name,useAsDefault:t.useAsDefault});throw new l.BaseException('Invalid component type "'+n.type+'". Valid types are "constructor" and "loader".')}return new u.Route(t)}return t.redirectTo?new u.Redirect({path:t.path,redirectTo:t.redirectTo}):t}function o(t,e){return function(){return t().then(function(t){return e.configFromComponent(t),t})}}function a(t,e){if(!c.isType(t))throw new l.BaseException('Component for route "'+e+'" is not defined, or is not a class.')}var i=System.global,s=i.define;i.define=void 0;var u=t("angular2/src/router/route_config_decorator"),c=t("angular2/src/facade/lang"),l=t("angular2/src/facade/exceptions");return e.normalizeRouteConfig=n,e.assertComponentExists=a,i.define=s,r.exports}),System.register("angular2/src/router/location",["angular2/src/router/location_strategy","angular2/src/facade/async","angular2/core"],!0,function(t,e,r){function n(t,e){return t.length>0&&e.startsWith(t)?e.substring(t.length):e}function o(t){return/\/index.html$/g.test(t)?t.substring(0,t.length-11):t}function a(t){return/\/$/g.test(t)&&(t=t.substring(0,t.length-1)),t}var i=System.global,s=i.define;i.define=void 0;var u=this&&this.__decorate||function(t,e,r,n){var o,a=arguments.length,i=3>a?e:null===n?n=Object.getOwnPropertyDescriptor(e,r):n;if("object"==typeof Reflect&&"function"==typeof Reflect.decorate)i=Reflect.decorate(t,e,r,n);else for(var s=t.length-1;s>=0;s--)(o=t[s])&&(i=(3>a?o(i):a>3?o(e,r,i):o(e,r))||i);return a>3&&i&&Object.defineProperty(e,r,i),i},c=this&&this.__metadata||function(t,e){return"object"==typeof Reflect&&"function"==typeof Reflect.metadata?Reflect.metadata(t,e):void 0},l=t("angular2/src/router/location_strategy"),p=t("angular2/src/facade/async"),f=t("angular2/core"),h=function(){function t(t){var e=this;this.platformStrategy=t,this._subject=new p.EventEmitter;var r=this.platformStrategy.getBaseHref();this._baseHref=a(o(r)),this.platformStrategy.onPopState(function(t){p.ObservableWrapper.callEmit(e._subject,{url:e.path(),pop:!0,type:t.type})})}return t.prototype.path=function(){return this.normalize(this.platformStrategy.path())},t.prototype.normalize=function(t){return a(n(this._baseHref,o(t)))},t.prototype.prepareExternalUrl=function(t){return t.length>0&&!t.startsWith("/")&&(t="/"+t),this.platformStrategy.prepareExternalUrl(t)},t.prototype.go=function(t,e){void 0===e&&(e=""),this.platformStrategy.pushState(null,"",t,e)},t.prototype.replaceState=function(t,e){void 0===e&&(e=""),this.platformStrategy.replaceState(null,"",t,e)},t.prototype.forward=function(){this.platformStrategy.forward()},t.prototype.back=function(){this.platformStrategy.back()},t.prototype.subscribe=function(t,e,r){return void 0===e&&(e=null),void 0===r&&(r=null),p.ObservableWrapper.subscribe(this._subject,t,e,r)},t=u([f.Injectable(),c("design:paramtypes",[l.LocationStrategy])],t)}();return e.Location=h,i.define=s,r.exports}),System.register("angular2/src/router/route_lifecycle_reflector",["angular2/src/facade/lang","angular2/src/router/lifecycle_annotations_impl","angular2/src/core/reflection/reflection"],!0,function(t,e,r){function n(t,e){return e instanceof s.Type?t.name in e.prototype:!1}function o(t){for(var e=c.reflector.annotations(t),r=0;r<e.length;r+=1){var n=e[r];if(n instanceof u.CanActivate)return n.fn}return null}var a=System.global,i=a.define;a.define=void 0;var s=t("angular2/src/facade/lang"),u=t("angular2/src/router/lifecycle_annotations_impl"),c=t("angular2/src/core/reflection/reflection");return e.hasLifecycleHook=n,e.getCanActivateHook=o,a.define=i,r.exports}),System.register("angular2/src/router/router_outlet",["angular2/src/facade/async","angular2/src/facade/collection","angular2/src/facade/lang","angular2/src/facade/exceptions","angular2/core","angular2/src/router/router","angular2/src/router/instruction","angular2/src/router/lifecycle_annotations","angular2/src/router/route_lifecycle_reflector"],!0,function(t,e,r){var n=System.global,o=n.define;n.define=void 0;var a=this&&this.__decorate||function(t,e,r,n){var o,a=arguments.length,i=3>a?e:null===n?n=Object.getOwnPropertyDescriptor(e,r):n;if("object"==typeof Reflect&&"function"==typeof Reflect.decorate)i=Reflect.decorate(t,e,r,n);else for(var s=t.length-1;s>=0;s--)(o=t[s])&&(i=(3>a?o(i):a>3?o(e,r,i):o(e,r))||i);return a>3&&i&&Object.defineProperty(e,r,i),i},i=this&&this.__metadata||function(t,e){return"object"==typeof Reflect&&"function"==typeof Reflect.metadata?Reflect.metadata(t,e):void 0},s=this&&this.__param||function(t,e){return function(r,n){e(r,n,t)}},u=t("angular2/src/facade/async"),c=t("angular2/src/facade/collection"),l=t("angular2/src/facade/lang"),p=t("angular2/src/facade/exceptions"),f=t("angular2/core"),h=t("angular2/src/router/router"),g=t("angular2/src/router/instruction"),m=t("angular2/src/router/lifecycle_annotations"),d=t("angular2/src/router/route_lifecycle_reflector"),y=u.PromiseWrapper.resolve(!0),_=function(){function t(t,e,r,n){this._elementRef=t,this._loader=e,this._parentRouter=r,this.name=null,this._componentRef=null,this._currentInstruction=null,l.isPresent(n)?(this.name=n,this._parentRouter.registerAuxOutlet(this)):this._parentRouter.registerPrimaryOutlet(this)}return t.prototype.activate=function(t){var e=this,r=this._currentInstruction;this._currentInstruction=t;var n=t.componentType,o=this._parentRouter.childRouter(n),a=f.Injector.resolve([f.provide(g.RouteData,{useValue:t.routeData}),f.provide(g.RouteParams,{useValue:new g.RouteParams(t.params)}),f.provide(h.Router,{useValue:o})]);return this._loader.loadNextToLocation(n,this._elementRef,a).then(function(o){return e._componentRef=o,d.hasLifecycleHook(m.routerOnActivate,n)?e._componentRef.instance.routerOnActivate(t,r):void 0})},t.prototype.reuse=function(t){var e=this._currentInstruction;if(this._currentInstruction=t,l.isBlank(this._componentRef))throw new p.BaseException("Cannot reuse an outlet that does not contain a component.");return u.PromiseWrapper.resolve(d.hasLifecycleHook(m.routerOnReuse,this._currentInstruction.componentType)?this._componentRef.instance.routerOnReuse(t,e):!0)},t.prototype.deactivate=function(t){var e=this,r=y;return l.isPresent(this._componentRef)&&l.isPresent(this._currentInstruction)&&d.hasLifecycleHook(m.routerOnDeactivate,this._currentInstruction.componentType)&&(r=u.PromiseWrapper.resolve(this._componentRef.instance.routerOnDeactivate(t,this._currentInstruction))),r.then(function(t){l.isPresent(e._componentRef)&&(e._componentRef.dispose(),e._componentRef=null)})},t.prototype.routerCanDeactivate=function(t){return l.isBlank(this._currentInstruction)?y:d.hasLifecycleHook(m.routerCanDeactivate,this._currentInstruction.componentType)?u.PromiseWrapper.resolve(this._componentRef.instance.routerCanDeactivate(t,this._currentInstruction)):y},t.prototype.routerCanReuse=function(t){var e;return e=l.isBlank(this._currentInstruction)||this._currentInstruction.componentType!=t.componentType?!1:d.hasLifecycleHook(m.routerCanReuse,this._currentInstruction.componentType)?this._componentRef.instance.routerCanReuse(t,this._currentInstruction):t==this._currentInstruction||l.isPresent(t.params)&&l.isPresent(this._currentInstruction.params)&&c.StringMapWrapper.equals(t.params,this._currentInstruction.params),u.PromiseWrapper.resolve(e)},t=a([f.Directive({selector:"router-outlet"}),s(3,f.Attribute("name")),i("design:paramtypes",[f.ElementRef,f.DynamicComponentLoader,h.Router,String])],t)}();return e.RouterOutlet=_,n.define=o,r.exports}),System.register("angular2/src/router/platform_location",["angular2/src/platform/dom/dom_adapter","angular2/core"],!0,function(t,e,r){var n=System.global,o=n.define;n.define=void 0;var a=this&&this.__decorate||function(t,e,r,n){var o,a=arguments.length,i=3>a?e:null===n?n=Object.getOwnPropertyDescriptor(e,r):n;if("object"==typeof Reflect&&"function"==typeof Reflect.decorate)i=Reflect.decorate(t,e,r,n);else for(var s=t.length-1;s>=0;s--)(o=t[s])&&(i=(3>a?o(i):a>3?o(e,r,i):o(e,r))||i);return a>3&&i&&Object.defineProperty(e,r,i),i},i=this&&this.__metadata||function(t,e){return"object"==typeof Reflect&&"function"==typeof Reflect.metadata?Reflect.metadata(t,e):void 0},s=t("angular2/src/platform/dom/dom_adapter"),u=t("angular2/core"),c=function(){function t(){this._init()}return t.prototype._init=function(){this._location=s.DOM.getLocation(),this._history=s.DOM.getHistory()},t.prototype.getBaseHrefFromDOM=function(){return s.DOM.getBaseHref()},t.prototype.onPopState=function(t){s.DOM.getGlobalEventTarget("window").addEventListener("popstate",t,!1)},t.prototype.onHashChange=function(t){s.DOM.getGlobalEventTarget("window").addEventListener("hashchange",t,!1)},Object.defineProperty(t.prototype,"pathname",{get:function(){return this._location.pathname},set:function(t){this._location.pathname=t},enumerable:!0,configurable:!0}),Object.defineProperty(t.prototype,"search",{get:function(){return this._location.search},enumerable:!0,configurable:!0}),Object.defineProperty(t.prototype,"hash",{get:function(){return this._location.hash},enumerable:!0,configurable:!0}),t.prototype.pushState=function(t,e,r){this._history.pushState(t,e,r)},t.prototype.replaceState=function(t,e,r){this._history.replaceState(t,e,r)},t.prototype.forward=function(){this._history.forward()},t.prototype.back=function(){this._history.back()},t=a([u.Injectable(),i("design:paramtypes",[])],t)}();return e.PlatformLocation=c,n.define=o,r.exports}),System.register("angular2/src/router/route_recognizer",["angular2/src/facade/lang","angular2/src/facade/exceptions","angular2/src/facade/promise","angular2/src/facade/collection","angular2/src/router/instruction","angular2/src/router/path_recognizer"],!0,function(t,e,r){var n=System.global,o=n.define;n.define=void 0;var a=this&&this.__extends||function(t,e){function r(){this.constructor=t}for(var n in e)e.hasOwnProperty(n)&&(t[n]=e[n]);t.prototype=null===e?Object.create(e):(r.prototype=e.prototype,new r)},i=t("angular2/src/facade/lang"),s=t("angular2/src/facade/exceptions"),u=t("angular2/src/facade/promise"),c=t("angular2/src/facade/collection"),l=t("angular2/src/router/instruction"),p=t("angular2/src/router/path_recognizer"),f=function(){function t(){}return t}();e.RouteMatch=f;var h=function(t){function e(e,r,n){t.call(this),this.instruction=e,this.remaining=r,this.remainingAux=n}return a(e,t),e}(f);e.PathMatch=h;var g=function(t){function e(e,r){t.call(this),this.redirectTo=e,this.specificity=r}return a(e,t),e}(f);e.RedirectMatch=g;var m=function(){function t(t,e){this.path=t,this.redirectTo=e,this._pathRecognizer=new p.PathRecognizer(t),this.hash=this._pathRecognizer.hash}return t.prototype.recognize=function(t){var e=null;return i.isPresent(this._pathRecognizer.recognize(t))&&(e=new g(this.redirectTo,this._pathRecognizer.specificity)),u.PromiseWrapper.resolve(e)},t.prototype.generate=function(t){throw new s.BaseException("Tried to generate a redirect.")},t}();e.RedirectRecognizer=m;var d=function(){function t(t,e){this.path=t,this.handler=e,this.terminal=!0,this._cache=new c.Map,this._pathRecognizer=new p.PathRecognizer(t),this.specificity=this._pathRecognizer.specificity,this.hash=this._pathRecognizer.hash,this.terminal=this._pathRecognizer.terminal}return t.prototype.recognize=function(t){var e=this,r=this._pathRecognizer.recognize(t);return i.isBlank(r)?null:this.handler.resolveComponentType().then(function(t){var n=e._getInstruction(r.urlPath,r.urlParams,r.allParams);return new h(n,r.nextSegment,r.auxiliary)})},t.prototype.generate=function(t){var e=this._pathRecognizer.generate(t),r=e.urlPath,n=e.urlParams;return this._getInstruction(r,n,t)},t.prototype.generateComponentPathValues=function(t){return this._pathRecognizer.generate(t)},t.prototype._getInstruction=function(t,e,r){if(i.isBlank(this.handler.componentType))throw new s.BaseException("Tried to get instruction before the type was loaded.");var n=t+"?"+e.join("?");if(this._cache.has(n))return this._cache.get(n);var o=new l.ComponentInstruction(t,e,this.handler.data,this.handler.componentType,this.terminal,this.specificity,r);return this._cache.set(n,o),o},t}();return e.RouteRecognizer=d,n.define=o,r.exports}),System.register("angular2/src/router/route_registry",["angular2/src/facade/collection","angular2/src/facade/async","angular2/src/facade/lang","angular2/src/facade/exceptions","angular2/src/core/reflection/reflection","angular2/core","angular2/src/router/route_config_impl","angular2/src/router/route_recognizer","angular2/src/router/component_recognizer","angular2/src/router/instruction","angular2/src/router/route_config_nomalizer","angular2/src/router/url_parser"],!0,function(t,e,r){function n(t){return t.reduce(function(t,e){if(h.isString(e)){var r=e;return t.concat(r.split("/"))}return t.push(e),t},[])}function o(t){return p.ListWrapper.maximum(t,function(t){return t.specificity})}function a(t,e){if(h.isType(t)){var r=m.reflector.annotations(t);if(h.isPresent(r))for(var n=0;n<r.length;n++){var o=r[n];if(o instanceof y.RouteConfig)throw new g.BaseException('Child routes are not allowed for "'+e+'". Use "..." on the parent\'s route path.')}}}var i=System.global,s=i.define;i.define=void 0;var u=this&&this.__decorate||function(t,e,r,n){var o,a=arguments.length,i=3>a?e:null===n?n=Object.getOwnPropertyDescriptor(e,r):n;if("object"==typeof Reflect&&"function"==typeof Reflect.decorate)i=Reflect.decorate(t,e,r,n);else for(var s=t.length-1;s>=0;s--)(o=t[s])&&(i=(3>a?o(i):a>3?o(e,r,i):o(e,r))||i);return a>3&&i&&Object.defineProperty(e,r,i),i},c=this&&this.__metadata||function(t,e){return"object"==typeof Reflect&&"function"==typeof Reflect.metadata?Reflect.metadata(t,e):void 0},l=this&&this.__param||function(t,e){return function(r,n){e(r,n,t)}},p=t("angular2/src/facade/collection"),f=t("angular2/src/facade/async"),h=t("angular2/src/facade/lang"),g=t("angular2/src/facade/exceptions"),m=t("angular2/src/core/reflection/reflection"),d=t("angular2/core"),y=t("angular2/src/router/route_config_impl"),_=t("angular2/src/router/route_recognizer"),v=t("angular2/src/router/component_recognizer"),R=t("angular2/src/router/instruction"),P=t("angular2/src/router/route_config_nomalizer"),x=t("angular2/src/router/url_parser"),S=f.PromiseWrapper.resolve(null);e.ROUTER_PRIMARY_COMPONENT=h.CONST_EXPR(new d.OpaqueToken("RouterPrimaryComponent"));var b=function(){function t(t){this._rootComponent=t,this._rules=new p.Map}return t.prototype.config=function(t,e){e=P.normalizeRouteConfig(e,this),e instanceof y.Route?P.assertComponentExists(e.component,e.path):e instanceof y.AuxRoute&&P.assertComponentExists(e.component,e.path);var r=this._rules.get(t);h.isBlank(r)&&(r=new v.ComponentRecognizer,this._rules.set(t,r));var n=r.config(e);e instanceof y.Route&&(n?a(e.component,e.path):this.configFromComponent(e.component))},t.prototype.configFromComponent=function(t){var e=this;if(h.isType(t)&&!this._rules.has(t)){var r=m.reflector.annotations(t);if(h.isPresent(r))for(var n=0;n<r.length;n++){var o=r[n];if(o instanceof y.RouteConfig){var a=o.configs;a.forEach(function(r){return e.config(t,r)})}}}},t.prototype.recognize=function(t,e){var r=x.parser.parse(t);return this._recognize(r,e)},t.prototype._recognize=function(t,e,r){var n=this;void 0===r&&(r=!1);var a=e.length>0?e[e.length-1].component.componentType:this._rootComponent,i=this._rules.get(a);if(h.isBlank(i))return S;var s=r?i.recognizeAuxiliary(t):i.recognize(t),u=s.map(function(t){return t.then(function(t){if(t instanceof _.PathMatch){var r=e.length>0?[e[e.length-1]]:[],o=n._auxRoutesToUnresolved(t.remainingAux,r),a=new R.ResolvedInstruction(t.instruction,null,o);if(t.instruction.terminal)return a;var i=e.concat([a]);return n._recognize(t.remaining,i).then(function(t){return h.isBlank(t)?null:t instanceof R.RedirectInstruction?t:(a.child=t,a)})}if(t instanceof _.RedirectMatch){var a=n.generate(t.redirectTo,e);return new R.RedirectInstruction(a.component,a.child,a.auxInstruction)}})});return!h.isBlank(t)&&""!=t.path||0!=s.length?f.PromiseWrapper.all(u).then(o):f.PromiseWrapper.resolve(this.generateDefault(a))},t.prototype._auxRoutesToUnresolved=function(t,e){var r=this,n={};return t.forEach(function(t){n[t.path]=new R.UnresolvedInstruction(function(){return r._recognize(t,e,!0)})}),n},t.prototype.generate=function(t,e,r){void 0===r&&(r=!1);var o=n(t),a=p.ListWrapper.first(o),i=p.ListWrapper.slice(o,1);if(""==a)e=[];else if(".."==a){for(e.pop();".."==p.ListWrapper.first(i);)if(i=p.ListWrapper.slice(i,1),e.pop(),e.length<=0)throw new g.BaseException('Link "'+p.ListWrapper.toJSON(t)+'" has too many "../" segments.')}else if("."!=a){var s=this._rootComponent,u=null;e.length>1?(s=e[e.length-1].component.componentType,u=e[e.length-2].component.componentType):1==e.length&&(s=e[0].component.componentType,u=this._rootComponent);var c=this.hasRoute(a,s),l=h.isPresent(u)&&this.hasRoute(a,u);if(l&&c){var f='Link "'+p.ListWrapper.toJSON(t)+'" is ambiguous, use "./" or "../" to disambiguate.';throw new g.BaseException(f)}l&&e.pop(),i=t}if(""==i[i.length-1]&&i.pop(),i.length<1){var f='Link "'+p.ListWrapper.toJSON(t)+'" must include a route name.';throw new g.BaseException(f)}for(var m=this._generate(i,e,r),d=e.length-1;d>=0;d--){var y=e[d];m=y.replaceChild(m)}return m},t.prototype._generate=function(t,e,r){var n=this;void 0===r&&(r=!1);var o=e.length>0?e[e.length-1].component.componentType:this._rootComponent;if(0==t.length)return this.generateDefault(o);var a=0,i=t[a];if(!h.isString(i))throw new g.BaseException('Unexpected segment "'+i+'" in link DSL. Expected a string.');if(""==i||"."==i||".."==i)throw new g.BaseException('"'+i+'/" is only allowed at the beginning of a link DSL.');var s={};if(a+1<t.length){var u=t[a+1];h.isStringMap(u)&&!h.isArray(u)&&(s=u,a+=1)}for(var c,l={};a+1<t.length&&h.isArray(c=t[a+1]);){var f=e.length>0?[e[e.length-1]]:[],m=this._generate(c,f,!0);l[m.component.urlPath]=m,a+=1}var d=this._rules.get(o);if(h.isBlank(d))throw new g.BaseException('Component "'+h.getTypeNameForDebugging(o)+'" has no route config.');var y=(r?d.auxNames:d.names).get(i);if(!h.isPresent(y))throw new g.BaseException('Component "'+h.getTypeNameForDebugging(o)+'" has no route named "'+i+'".');if(!h.isPresent(y.handler.componentType)){var _=y.generateComponentPathValues(s);return new R.UnresolvedInstruction(function(){return y.handler.resolveComponentType().then(function(o){return n._generate(t,e,r)})},_.urlPath,_.urlParams)}var v=r?d.generateAuxiliary(i,s):d.generate(i,s),P=t.slice(a+1),x=new R.ResolvedInstruction(v,null,l);if(h.isPresent(v.componentType)){var S=null;if(a+1<t.length){var b=e.concat([x]);S=this._generate(P,b)}else if(!v.terminal&&(S=this.generateDefault(v.componentType),h.isBlank(S)))throw new g.BaseException('Link "'+p.ListWrapper.toJSON(t)+'" does not resolve to a terminal instruction.');x.child=S}return x},t.prototype.hasRoute=function(t,e){var r=this._rules.get(e);return h.isBlank(r)?!1:r.hasRoute(t)},t.prototype.generateDefault=function(t){var e=this;if(h.isBlank(t))return null;var r=this._rules.get(t);if(h.isBlank(r)||h.isBlank(r.defaultRoute))return null;var n=null;if(h.isPresent(r.defaultRoute.handler.componentType)){var o=r.defaultRoute.generate({});return r.defaultRoute.terminal||(n=this.generateDefault(r.defaultRoute.handler.componentType)),new R.DefaultInstruction(o,n)}return new R.UnresolvedInstruction(function(){return r.defaultRoute.handler.resolveComponentType().then(function(r){return e.generateDefault(t)})})},t=u([d.Injectable(),l(0,d.Inject(e.ROUTER_PRIMARY_COMPONENT)),c("design:paramtypes",[h.Type])],t)}();return e.RouteRegistry=b,i.define=s,r.exports}),System.register("angular2/src/router/router",["angular2/src/facade/async","angular2/src/facade/collection","angular2/src/facade/lang","angular2/src/facade/exceptions","angular2/core","angular2/src/router/route_registry","angular2/src/router/location","angular2/src/router/route_lifecycle_reflector"],!0,function(t,e,r){function n(t,e){var r=_;return f.isPresent(t.child)&&(r=n(t.child,f.isPresent(e)?e.child:null)),r.then(function(r){if(0==r)return!1;if(t.component.reuse)return!0;var n=y.getCanActivateHook(t.component.componentType);return f.isPresent(n)?n(t.component,f.isPresent(e)?e.component:null):!0})}var o=System.global,a=o.define;o.define=void 0;var i=this&&this.__extends||function(t,e){function r(){this.constructor=t}for(var n in e)e.hasOwnProperty(n)&&(t[n]=e[n]);t.prototype=null===e?Object.create(e):(r.prototype=e.prototype,new r)},s=this&&this.__decorate||function(t,e,r,n){var o,a=arguments.length,i=3>a?e:null===n?n=Object.getOwnPropertyDescriptor(e,r):n;if("object"==typeof Reflect&&"function"==typeof Reflect.decorate)i=Reflect.decorate(t,e,r,n);else for(var s=t.length-1;s>=0;s--)(o=t[s])&&(i=(3>a?o(i):a>3?o(e,r,i):o(e,r))||i);return a>3&&i&&Object.defineProperty(e,r,i),i},u=this&&this.__metadata||function(t,e){return"object"==typeof Reflect&&"function"==typeof Reflect.metadata?Reflect.metadata(t,e):void 0},c=this&&this.__param||function(t,e){return function(r,n){e(r,n,t)}},l=t("angular2/src/facade/async"),p=t("angular2/src/facade/collection"),f=t("angular2/src/facade/lang"),h=t("angular2/src/facade/exceptions"),g=t("angular2/core"),m=t("angular2/src/router/route_registry"),d=t("angular2/src/router/location"),y=t("angular2/src/router/route_lifecycle_reflector"),_=l.PromiseWrapper.resolve(!0),v=l.PromiseWrapper.resolve(!1),R=function(){function t(t,e,r){this.registry=t,this.parent=e,this.hostComponent=r,this.navigating=!1,this._currentInstruction=null,this._currentNavigation=_,this._outlet=null,this._auxRouters=new p.Map,this._subject=new l.EventEmitter}return t.prototype.childRouter=function(t){return this._childRouter=new x(this,t)},t.prototype.auxRouter=function(t){return new x(this,t)},t.prototype.registerPrimaryOutlet=function(t){if(f.isPresent(t.name))throw new h.BaseException("registerPrimaryOutlet expects to be called with an unnamed outlet.");return this._outlet=t,f.isPresent(this._currentInstruction)?this.commit(this._currentInstruction,!1):_},t.prototype.registerAuxOutlet=function(t){var e=t.name;if(f.isBlank(e))throw new h.BaseException("registerAuxOutlet expects to be called with an outlet with a name.");var r=this.auxRouter(this.hostComponent);this._auxRouters.set(e,r),r._outlet=t;var n;return f.isPresent(this._currentInstruction)&&f.isPresent(n=this._currentInstruction.auxInstruction[e])?r.commit(n):_},t.prototype.isRouteActive=function(t){for(var e=this;f.isPresent(e.parent)&&f.isPresent(t.child);)e=e.parent,t=t.child;return f.isPresent(this._currentInstruction)&&this._currentInstruction.component==t.component},t.prototype.config=function(t){var e=this;return t.forEach(function(t){e.registry.config(e.hostComponent,t)}),this.renavigate()},t.prototype.navigate=function(t){var e=this.generate(t);return this.navigateByInstruction(e,!1)},t.prototype.navigateByUrl=function(t,e){var r=this;return void 0===e&&(e=!1),this._currentNavigation=this._currentNavigation.then(function(n){return r.lastNavigationAttempt=t,r._startNavigating(),r._afterPromiseFinishNavigating(r.recognize(t).then(function(t){return f.isBlank(t)?!1:r._navigate(t,e)}))})},t.prototype.navigateByInstruction=function(t,e){var r=this;return void 0===e&&(e=!1),f.isBlank(t)?v:this._currentNavigation=this._currentNavigation.then(function(n){return r._startNavigating(),r._afterPromiseFinishNavigating(r._navigate(t,e))})},t.prototype._navigate=function(t,e){var r=this;return this._settleInstruction(t).then(function(e){return r._routerCanReuse(t)}).then(function(e){return r._canActivate(t)}).then(function(n){return n?r._routerCanDeactivate(t).then(function(n){return n?r.commit(t,e).then(function(e){return r._emitNavigationFinish(t.toRootUrl()),!0}):void 0}):!1})},t.prototype._settleInstruction=function(t){var e=this;return t.resolveComponent().then(function(r){t.component.reuse=!1;var n=[];return f.isPresent(t.child)&&n.push(e._settleInstruction(t.child)),p.StringMapWrapper.forEach(t.auxInstruction,function(t,r){n.push(e._settleInstruction(t))}),l.PromiseWrapper.all(n)})},t.prototype._emitNavigationFinish=function(t){l.ObservableWrapper.callEmit(this._subject,t)},t.prototype._afterPromiseFinishNavigating=function(t){var e=this;return l.PromiseWrapper.catchError(t.then(function(t){return e._finishNavigating()}),function(t){throw e._finishNavigating(),t})},t.prototype._routerCanReuse=function(t){var e=this;return f.isBlank(this._outlet)?v:this._outlet.routerCanReuse(t.component).then(function(r){return t.component.reuse=r,r&&f.isPresent(e._childRouter)&&f.isPresent(t.child)?e._childRouter._routerCanReuse(t.child):void 0})},t.prototype._canActivate=function(t){return n(t,this._currentInstruction)},t.prototype._routerCanDeactivate=function(t){var e=this;if(f.isBlank(this._outlet))return _;var r,n=null,o=!1,a=null;return f.isPresent(t)&&(n=t.child,a=t.component,o=t.component.reuse),r=o?_:this._outlet.routerCanDeactivate(a),r.then(function(t){return 0==t?!1:f.isPresent(e._childRouter)?e._childRouter._routerCanDeactivate(n):!0})},t.prototype.commit=function(t,e){var r=this;void 0===e&&(e=!1),this._currentInstruction=t;var n=_;if(f.isPresent(this._outlet)){var o=t.component;n=o.reuse?this._outlet.reuse(o):this.deactivate(t).then(function(t){return r._outlet.activate(o)}),f.isPresent(t.child)&&(n=n.then(function(e){return f.isPresent(r._childRouter)?r._childRouter.commit(t.child):void 0}))}var a=[];return this._auxRouters.forEach(function(e,r){f.isPresent(t.auxInstruction[r])&&a.push(e.commit(t.auxInstruction[r]))}),n.then(function(t){return l.PromiseWrapper.all(a)})},t.prototype._startNavigating=function(){this.navigating=!0},t.prototype._finishNavigating=function(){this.navigating=!1},t.prototype.subscribe=function(t){return l.ObservableWrapper.subscribe(this._subject,t)},t.prototype.deactivate=function(t){var e=this,r=null,n=null;f.isPresent(t)&&(r=t.child,n=t.component);var o=_;return f.isPresent(this._childRouter)&&(o=this._childRouter.deactivate(r)),f.isPresent(this._outlet)&&(o=o.then(function(t){return e._outlet.deactivate(n)})),o},t.prototype.recognize=function(t){var e=this._getAncestorInstructions();return this.registry.recognize(t,e)},t.prototype._getAncestorInstructions=function(){for(var t=[],e=this;f.isPresent(e.parent)&&f.isPresent(e.parent._currentInstruction);)e=e.parent,t.unshift(e._currentInstruction);return t},t.prototype.renavigate=function(){return f.isBlank(this.lastNavigationAttempt)?this._currentNavigation:this.navigateByUrl(this.lastNavigationAttempt)},t.prototype.generate=function(t){var e=this._getAncestorInstructions();return this.registry.generate(t,e)},t}();e.Router=R;var P=function(t){function e(e,r,n){var o=this;t.call(this,e,null,n),this._location=r,this._locationSub=this._location.subscribe(function(t){o.recognize(t.url).then(function(e){o.navigateByInstruction(e,f.isPresent(t.pop)).then(function(r){if(!f.isPresent(t.pop)||"hashchange"==t.type){var n=e.toUrlPath(),a=e.toUrlQuery();n.length>0&&(n="/"+n),"hashchange"==t.type?e.toRootUrl()!=o._location.path()&&o._location.replaceState(n,a):o._location.go(n,a)}})})}),this.registry.configFromComponent(n),this.navigateByUrl(r.path())}return i(e,t),e.prototype.commit=function(e,r){var n=this;void 0===r&&(r=!1);var o=e.toUrlPath(),a=e.toUrlQuery();o.length>0&&(o="/"+o);var i=t.prototype.commit.call(this,e);return r||(i=i.then(function(t){n._location.go(o,a)})),i},e.prototype.dispose=function(){f.isPresent(this._locationSub)&&(l.ObservableWrapper.dispose(this._locationSub),this._locationSub=null)},e=s([g.Injectable(),c(2,g.Inject(m.ROUTER_PRIMARY_COMPONENT)),u("design:paramtypes",[m.RouteRegistry,d.Location,f.Type])],e)}(R);e.RootRouter=P;var x=function(t){function e(e,r){t.call(this,e.registry,e,r),this.parent=e}return i(e,t),e.prototype.navigateByUrl=function(t,e){return void 0===e&&(e=!1),this.parent.navigateByUrl(t,e)},e.prototype.navigateByInstruction=function(t,e){return void 0===e&&(e=!1),this.parent.navigateByInstruction(t,e)},e}(R);return o.define=a,r.exports}),System.register("angular2/router",["angular2/src/router/router","angular2/src/router/router_outlet","angular2/src/router/router_link","angular2/src/router/instruction","angular2/src/router/platform_location","angular2/src/router/route_registry","angular2/src/router/location_strategy","angular2/src/router/hash_location_strategy","angular2/src/router/path_location_strategy","angular2/src/router/location","angular2/src/router/route_config_decorator","angular2/src/router/route_definition","angular2/src/router/lifecycle_annotations","angular2/src/router/instruction","angular2/core","angular2/src/router/platform_location","angular2/src/router/location_strategy","angular2/src/router/path_location_strategy","angular2/src/router/router","angular2/src/router/router_outlet","angular2/src/router/router_link","angular2/src/router/route_registry","angular2/src/router/location","angular2/core","angular2/src/facade/lang","angular2/src/facade/exceptions"],!0,function(t,e,r){
-function n(t){for(var r in t)e.hasOwnProperty(r)||(e[r]=t[r])}function o(t,e,r,n){var o=new b.RootRouter(t,e,r);return n.registerDisposeListener(function(){return o.dispose()}),o}function a(t){if(0==t.componentTypes.length)throw new k.BaseException("Bootstrap at least one component before injecting Router.");return t.componentTypes[0]}var i=System.global,s=i.define;i.define=void 0;var u=t("angular2/src/router/router");e.Router=u.Router;var c=t("angular2/src/router/router_outlet");e.RouterOutlet=c.RouterOutlet;var l=t("angular2/src/router/router_link");e.RouterLink=l.RouterLink;var p=t("angular2/src/router/instruction");e.RouteParams=p.RouteParams,e.RouteData=p.RouteData;var f=t("angular2/src/router/platform_location");e.PlatformLocation=f.PlatformLocation;var h=t("angular2/src/router/route_registry");e.RouteRegistry=h.RouteRegistry,e.ROUTER_PRIMARY_COMPONENT=h.ROUTER_PRIMARY_COMPONENT;var g=t("angular2/src/router/location_strategy");e.LocationStrategy=g.LocationStrategy,e.APP_BASE_HREF=g.APP_BASE_HREF;var m=t("angular2/src/router/hash_location_strategy");e.HashLocationStrategy=m.HashLocationStrategy;var d=t("angular2/src/router/path_location_strategy");e.PathLocationStrategy=d.PathLocationStrategy;var y=t("angular2/src/router/location");e.Location=y.Location,n(t("angular2/src/router/route_config_decorator")),n(t("angular2/src/router/route_definition"));var _=t("angular2/src/router/lifecycle_annotations");e.CanActivate=_.CanActivate;var v=t("angular2/src/router/instruction");e.Instruction=v.Instruction,e.ComponentInstruction=v.ComponentInstruction;var R=t("angular2/core");e.OpaqueToken=R.OpaqueToken;var P=t("angular2/src/router/platform_location"),x=t("angular2/src/router/location_strategy"),S=t("angular2/src/router/path_location_strategy"),b=t("angular2/src/router/router"),w=t("angular2/src/router/router_outlet"),O=t("angular2/src/router/router_link"),T=t("angular2/src/router/route_registry"),E=t("angular2/src/router/location"),C=t("angular2/core"),A=t("angular2/src/facade/lang"),k=t("angular2/src/facade/exceptions");return e.ROUTER_DIRECTIVES=A.CONST_EXPR([w.RouterOutlet,O.RouterLink]),e.ROUTER_PROVIDERS=A.CONST_EXPR([T.RouteRegistry,A.CONST_EXPR(new C.Provider(x.LocationStrategy,{useClass:S.PathLocationStrategy})),P.PlatformLocation,E.Location,A.CONST_EXPR(new C.Provider(b.Router,{useFactory:o,deps:A.CONST_EXPR([T.RouteRegistry,E.Location,T.ROUTER_PRIMARY_COMPONENT,C.ApplicationRef])})),A.CONST_EXPR(new C.Provider(T.ROUTER_PRIMARY_COMPONENT,{useFactory:a,deps:A.CONST_EXPR([C.ApplicationRef])}))]),e.ROUTER_BINDINGS=e.ROUTER_PROVIDERS,i.define=s,r.exports});
+"format register";
+System.register("angular2/src/router/router_link_transform", ["angular2/compiler", "angular2/src/core/change_detection/parser/ast", "angular2/src/facade/exceptions", "angular2/core", "angular2/src/core/change_detection/parser/parser"], true, function(require, exports, module) {
+  var global = System.global,
+      __define = global.define;
+  global.define = undefined;
+  var __extends = (this && this.__extends) || function(d, b) {
+    for (var p in b)
+      if (b.hasOwnProperty(p))
+        d[p] = b[p];
+    function __() {
+      this.constructor = d;
+    }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+  };
+  var __decorate = (this && this.__decorate) || function(decorators, target, key, desc) {
+    var c = arguments.length,
+        r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc,
+        d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function")
+      r = Reflect.decorate(decorators, target, key, desc);
+    else
+      for (var i = decorators.length - 1; i >= 0; i--)
+        if (d = decorators[i])
+          r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+  };
+  var __metadata = (this && this.__metadata) || function(k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function")
+      return Reflect.metadata(k, v);
+  };
+  var compiler_1 = require("angular2/compiler");
+  var ast_1 = require("angular2/src/core/change_detection/parser/ast");
+  var exceptions_1 = require("angular2/src/facade/exceptions");
+  var core_1 = require("angular2/core");
+  var parser_1 = require("angular2/src/core/change_detection/parser/parser");
+  var FixedPart = (function() {
+    function FixedPart(value) {
+      this.value = value;
+    }
+    return FixedPart;
+  })();
+  var AuxiliaryStart = (function() {
+    function AuxiliaryStart() {}
+    return AuxiliaryStart;
+  })();
+  var AuxiliaryEnd = (function() {
+    function AuxiliaryEnd() {}
+    return AuxiliaryEnd;
+  })();
+  var Params = (function() {
+    function Params(ast) {
+      this.ast = ast;
+    }
+    return Params;
+  })();
+  var RouterLinkLexer = (function() {
+    function RouterLinkLexer(parser, exp) {
+      this.parser = parser;
+      this.exp = exp;
+      this.index = 0;
+    }
+    RouterLinkLexer.prototype.tokenize = function() {
+      var tokens = [];
+      while (this.index < this.exp.length) {
+        tokens.push(this._parseToken());
+      }
+      return tokens;
+    };
+    RouterLinkLexer.prototype._parseToken = function() {
+      var c = this.exp[this.index];
+      if (c == '[') {
+        this.index++;
+        return new AuxiliaryStart();
+      } else if (c == ']') {
+        this.index++;
+        return new AuxiliaryEnd();
+      } else if (c == '(') {
+        return this._parseParams();
+      } else if (c == '/' && this.index !== 0) {
+        this.index++;
+        return this._parseFixedPart();
+      } else {
+        return this._parseFixedPart();
+      }
+    };
+    RouterLinkLexer.prototype._parseParams = function() {
+      var start = this.index;
+      for (; this.index < this.exp.length; ++this.index) {
+        var c = this.exp[this.index];
+        if (c == ')') {
+          var paramsContent = this.exp.substring(start + 1, this.index);
+          this.index++;
+          return new Params(this.parser.parseBinding("{" + paramsContent + "}", null).ast);
+        }
+      }
+      throw new exceptions_1.BaseException("Cannot find ')'");
+    };
+    RouterLinkLexer.prototype._parseFixedPart = function() {
+      var start = this.index;
+      var sawNonSlash = false;
+      for (; this.index < this.exp.length; ++this.index) {
+        var c = this.exp[this.index];
+        if (c == '(' || c == '[' || c == ']' || (c == '/' && sawNonSlash)) {
+          break;
+        }
+        if (c != '.' && c != '/') {
+          sawNonSlash = true;
+        }
+      }
+      var fixed = this.exp.substring(start, this.index);
+      if (start === this.index || !sawNonSlash || fixed.startsWith('//')) {
+        throw new exceptions_1.BaseException("Invalid router link");
+      }
+      return new FixedPart(fixed);
+    };
+    return RouterLinkLexer;
+  })();
+  var RouterLinkAstGenerator = (function() {
+    function RouterLinkAstGenerator(tokens) {
+      this.tokens = tokens;
+      this.index = 0;
+    }
+    RouterLinkAstGenerator.prototype.generate = function() {
+      return this._genAuxiliary();
+    };
+    RouterLinkAstGenerator.prototype._genAuxiliary = function() {
+      var arr = [];
+      for (; this.index < this.tokens.length; this.index++) {
+        var r = this.tokens[this.index];
+        if (r instanceof FixedPart) {
+          arr.push(new ast_1.LiteralPrimitive(r.value));
+        } else if (r instanceof Params) {
+          arr.push(r.ast);
+        } else if (r instanceof AuxiliaryEnd) {
+          break;
+        } else if (r instanceof AuxiliaryStart) {
+          this.index++;
+          arr.push(this._genAuxiliary());
+        }
+      }
+      return new ast_1.LiteralArray(arr);
+    };
+    return RouterLinkAstGenerator;
+  })();
+  var RouterLinkAstTransformer = (function(_super) {
+    __extends(RouterLinkAstTransformer, _super);
+    function RouterLinkAstTransformer(parser) {
+      _super.call(this);
+      this.parser = parser;
+    }
+    RouterLinkAstTransformer.prototype.visitQuote = function(ast) {
+      if (ast.prefix == "route") {
+        return parseRouterLinkExpression(this.parser, ast.uninterpretedExpression);
+      } else {
+        return _super.prototype.visitQuote.call(this, ast);
+      }
+    };
+    return RouterLinkAstTransformer;
+  })(ast_1.AstTransformer);
+  function parseRouterLinkExpression(parser, exp) {
+    var tokens = new RouterLinkLexer(parser, exp.trim()).tokenize();
+    return new RouterLinkAstGenerator(tokens).generate();
+  }
+  exports.parseRouterLinkExpression = parseRouterLinkExpression;
+  var RouterLinkTransform = (function() {
+    function RouterLinkTransform(parser) {
+      this.astTransformer = new RouterLinkAstTransformer(parser);
+    }
+    RouterLinkTransform.prototype.visitNgContent = function(ast, context) {
+      return ast;
+    };
+    RouterLinkTransform.prototype.visitEmbeddedTemplate = function(ast, context) {
+      return ast;
+    };
+    RouterLinkTransform.prototype.visitElement = function(ast, context) {
+      var _this = this;
+      var updatedChildren = ast.children.map(function(c) {
+        return c.visit(_this, context);
+      });
+      var updatedInputs = ast.inputs.map(function(c) {
+        return c.visit(_this, context);
+      });
+      var updatedDirectives = ast.directives.map(function(c) {
+        return c.visit(_this, context);
+      });
+      return new compiler_1.ElementAst(ast.name, ast.attrs, updatedInputs, ast.outputs, ast.exportAsVars, updatedDirectives, updatedChildren, ast.ngContentIndex, ast.sourceSpan);
+    };
+    RouterLinkTransform.prototype.visitVariable = function(ast, context) {
+      return ast;
+    };
+    RouterLinkTransform.prototype.visitEvent = function(ast, context) {
+      return ast;
+    };
+    RouterLinkTransform.prototype.visitElementProperty = function(ast, context) {
+      return ast;
+    };
+    RouterLinkTransform.prototype.visitAttr = function(ast, context) {
+      return ast;
+    };
+    RouterLinkTransform.prototype.visitBoundText = function(ast, context) {
+      return ast;
+    };
+    RouterLinkTransform.prototype.visitText = function(ast, context) {
+      return ast;
+    };
+    RouterLinkTransform.prototype.visitDirective = function(ast, context) {
+      var _this = this;
+      var updatedInputs = ast.inputs.map(function(c) {
+        return c.visit(_this, context);
+      });
+      return new compiler_1.DirectiveAst(ast.directive, updatedInputs, ast.hostProperties, ast.hostEvents, ast.exportAsVars, ast.sourceSpan);
+    };
+    RouterLinkTransform.prototype.visitDirectiveProperty = function(ast, context) {
+      var transformedValue = ast.value.visit(this.astTransformer);
+      return new compiler_1.BoundDirectivePropertyAst(ast.directiveName, ast.templateName, transformedValue, ast.sourceSpan);
+    };
+    RouterLinkTransform = __decorate([core_1.Injectable(), __metadata('design:paramtypes', [parser_1.Parser])], RouterLinkTransform);
+    return RouterLinkTransform;
+  })();
+  exports.RouterLinkTransform = RouterLinkTransform;
+  global.define = __define;
+  return module.exports;
+});
+
+System.register("angular2/router/router_link_dsl", ["angular2/compiler", "angular2/core", "angular2/src/router/router_link_transform", "angular2/src/facade/lang", "angular2/src/router/router_link_transform"], true, function(require, exports, module) {
+  var global = System.global,
+      __define = global.define;
+  global.define = undefined;
+  var compiler_1 = require("angular2/compiler");
+  var core_1 = require("angular2/core");
+  var router_link_transform_1 = require("angular2/src/router/router_link_transform");
+  var lang_1 = require("angular2/src/facade/lang");
+  var router_link_transform_2 = require("angular2/src/router/router_link_transform");
+  exports.RouterLinkTransform = router_link_transform_2.RouterLinkTransform;
+  exports.ROUTER_LINK_DSL_PROVIDER = lang_1.CONST_EXPR(new core_1.Provider(compiler_1.TEMPLATE_TRANSFORMS, {
+    useClass: router_link_transform_1.RouterLinkTransform,
+    multi: true
+  }));
+  global.define = __define;
+  return module.exports;
+});
+
+System.register("angular2/src/router/route_config_impl", ["angular2/src/facade/lang"], true, function(require, exports, module) {
+  var global = System.global,
+      __define = global.define;
+  global.define = undefined;
+  var __decorate = (this && this.__decorate) || function(decorators, target, key, desc) {
+    var c = arguments.length,
+        r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc,
+        d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function")
+      r = Reflect.decorate(decorators, target, key, desc);
+    else
+      for (var i = decorators.length - 1; i >= 0; i--)
+        if (d = decorators[i])
+          r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+  };
+  var __metadata = (this && this.__metadata) || function(k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function")
+      return Reflect.metadata(k, v);
+  };
+  var lang_1 = require("angular2/src/facade/lang");
+  var RouteConfig = (function() {
+    function RouteConfig(configs) {
+      this.configs = configs;
+    }
+    RouteConfig = __decorate([lang_1.CONST(), __metadata('design:paramtypes', [Array])], RouteConfig);
+    return RouteConfig;
+  })();
+  exports.RouteConfig = RouteConfig;
+  var Route = (function() {
+    function Route(_a) {
+      var path = _a.path,
+          component = _a.component,
+          name = _a.name,
+          data = _a.data,
+          useAsDefault = _a.useAsDefault;
+      this.aux = null;
+      this.loader = null;
+      this.redirectTo = null;
+      this.path = path;
+      this.component = component;
+      this.name = name;
+      this.data = data;
+      this.useAsDefault = useAsDefault;
+    }
+    Route = __decorate([lang_1.CONST(), __metadata('design:paramtypes', [Object])], Route);
+    return Route;
+  })();
+  exports.Route = Route;
+  var AuxRoute = (function() {
+    function AuxRoute(_a) {
+      var path = _a.path,
+          component = _a.component,
+          name = _a.name;
+      this.data = null;
+      this.aux = null;
+      this.loader = null;
+      this.redirectTo = null;
+      this.useAsDefault = false;
+      this.path = path;
+      this.component = component;
+      this.name = name;
+    }
+    AuxRoute = __decorate([lang_1.CONST(), __metadata('design:paramtypes', [Object])], AuxRoute);
+    return AuxRoute;
+  })();
+  exports.AuxRoute = AuxRoute;
+  var AsyncRoute = (function() {
+    function AsyncRoute(_a) {
+      var path = _a.path,
+          loader = _a.loader,
+          name = _a.name,
+          data = _a.data,
+          useAsDefault = _a.useAsDefault;
+      this.aux = null;
+      this.path = path;
+      this.loader = loader;
+      this.name = name;
+      this.data = data;
+      this.useAsDefault = useAsDefault;
+    }
+    AsyncRoute = __decorate([lang_1.CONST(), __metadata('design:paramtypes', [Object])], AsyncRoute);
+    return AsyncRoute;
+  })();
+  exports.AsyncRoute = AsyncRoute;
+  var Redirect = (function() {
+    function Redirect(_a) {
+      var path = _a.path,
+          redirectTo = _a.redirectTo;
+      this.name = null;
+      this.loader = null;
+      this.data = null;
+      this.aux = null;
+      this.useAsDefault = false;
+      this.path = path;
+      this.redirectTo = redirectTo;
+    }
+    Redirect = __decorate([lang_1.CONST(), __metadata('design:paramtypes', [Object])], Redirect);
+    return Redirect;
+  })();
+  exports.Redirect = Redirect;
+  global.define = __define;
+  return module.exports;
+});
+
+System.register("angular2/src/router/instruction", ["angular2/src/facade/collection", "angular2/src/facade/lang", "angular2/src/facade/async"], true, function(require, exports, module) {
+  var global = System.global,
+      __define = global.define;
+  global.define = undefined;
+  var __extends = (this && this.__extends) || function(d, b) {
+    for (var p in b)
+      if (b.hasOwnProperty(p))
+        d[p] = b[p];
+    function __() {
+      this.constructor = d;
+    }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+  };
+  var collection_1 = require("angular2/src/facade/collection");
+  var lang_1 = require("angular2/src/facade/lang");
+  var async_1 = require("angular2/src/facade/async");
+  var RouteParams = (function() {
+    function RouteParams(params) {
+      this.params = params;
+    }
+    RouteParams.prototype.get = function(param) {
+      return lang_1.normalizeBlank(collection_1.StringMapWrapper.get(this.params, param));
+    };
+    return RouteParams;
+  })();
+  exports.RouteParams = RouteParams;
+  var RouteData = (function() {
+    function RouteData(data) {
+      if (data === void 0) {
+        data = lang_1.CONST_EXPR({});
+      }
+      this.data = data;
+    }
+    RouteData.prototype.get = function(key) {
+      return lang_1.normalizeBlank(collection_1.StringMapWrapper.get(this.data, key));
+    };
+    return RouteData;
+  })();
+  exports.RouteData = RouteData;
+  exports.BLANK_ROUTE_DATA = new RouteData();
+  var Instruction = (function() {
+    function Instruction(component, child, auxInstruction) {
+      this.component = component;
+      this.child = child;
+      this.auxInstruction = auxInstruction;
+    }
+    Object.defineProperty(Instruction.prototype, "urlPath", {
+      get: function() {
+        return lang_1.isPresent(this.component) ? this.component.urlPath : '';
+      },
+      enumerable: true,
+      configurable: true
+    });
+    Object.defineProperty(Instruction.prototype, "urlParams", {
+      get: function() {
+        return lang_1.isPresent(this.component) ? this.component.urlParams : [];
+      },
+      enumerable: true,
+      configurable: true
+    });
+    Object.defineProperty(Instruction.prototype, "specificity", {
+      get: function() {
+        var total = '';
+        if (lang_1.isPresent(this.component)) {
+          total += this.component.specificity;
+        }
+        if (lang_1.isPresent(this.child)) {
+          total += this.child.specificity;
+        }
+        return total;
+      },
+      enumerable: true,
+      configurable: true
+    });
+    Instruction.prototype.toRootUrl = function() {
+      return this.toUrlPath() + this.toUrlQuery();
+    };
+    Instruction.prototype._toNonRootUrl = function() {
+      return this._stringifyPathMatrixAuxPrefixed() + (lang_1.isPresent(this.child) ? this.child._toNonRootUrl() : '');
+    };
+    Instruction.prototype.toUrlQuery = function() {
+      return this.urlParams.length > 0 ? ('?' + this.urlParams.join('&')) : '';
+    };
+    Instruction.prototype.replaceChild = function(child) {
+      return new ResolvedInstruction(this.component, child, this.auxInstruction);
+    };
+    Instruction.prototype.toUrlPath = function() {
+      return this.urlPath + this._stringifyAux() + (lang_1.isPresent(this.child) ? this.child._toNonRootUrl() : '');
+    };
+    Instruction.prototype.toLinkUrl = function() {
+      return this.urlPath + this._stringifyAux() + (lang_1.isPresent(this.child) ? this.child._toLinkUrl() : '');
+    };
+    Instruction.prototype._toLinkUrl = function() {
+      return this._stringifyPathMatrixAuxPrefixed() + (lang_1.isPresent(this.child) ? this.child._toLinkUrl() : '');
+    };
+    Instruction.prototype._stringifyPathMatrixAuxPrefixed = function() {
+      var primary = this._stringifyPathMatrixAux();
+      if (primary.length > 0) {
+        primary = '/' + primary;
+      }
+      return primary;
+    };
+    Instruction.prototype._stringifyMatrixParams = function() {
+      return this.urlParams.length > 0 ? (';' + this.urlParams.join(';')) : '';
+    };
+    Instruction.prototype._stringifyPathMatrixAux = function() {
+      if (lang_1.isBlank(this.component)) {
+        return '';
+      }
+      return this.urlPath + this._stringifyMatrixParams() + this._stringifyAux();
+    };
+    Instruction.prototype._stringifyAux = function() {
+      var routes = [];
+      collection_1.StringMapWrapper.forEach(this.auxInstruction, function(auxInstruction, _) {
+        routes.push(auxInstruction._stringifyPathMatrixAux());
+      });
+      if (routes.length > 0) {
+        return '(' + routes.join('//') + ')';
+      }
+      return '';
+    };
+    return Instruction;
+  })();
+  exports.Instruction = Instruction;
+  var ResolvedInstruction = (function(_super) {
+    __extends(ResolvedInstruction, _super);
+    function ResolvedInstruction(component, child, auxInstruction) {
+      _super.call(this, component, child, auxInstruction);
+    }
+    ResolvedInstruction.prototype.resolveComponent = function() {
+      return async_1.PromiseWrapper.resolve(this.component);
+    };
+    return ResolvedInstruction;
+  })(Instruction);
+  exports.ResolvedInstruction = ResolvedInstruction;
+  var DefaultInstruction = (function(_super) {
+    __extends(DefaultInstruction, _super);
+    function DefaultInstruction(component, child) {
+      _super.call(this, component, child, {});
+    }
+    DefaultInstruction.prototype.resolveComponent = function() {
+      return async_1.PromiseWrapper.resolve(this.component);
+    };
+    DefaultInstruction.prototype.toLinkUrl = function() {
+      return '';
+    };
+    DefaultInstruction.prototype._toLinkUrl = function() {
+      return '';
+    };
+    return DefaultInstruction;
+  })(Instruction);
+  exports.DefaultInstruction = DefaultInstruction;
+  var UnresolvedInstruction = (function(_super) {
+    __extends(UnresolvedInstruction, _super);
+    function UnresolvedInstruction(_resolver, _urlPath, _urlParams) {
+      if (_urlPath === void 0) {
+        _urlPath = '';
+      }
+      if (_urlParams === void 0) {
+        _urlParams = lang_1.CONST_EXPR([]);
+      }
+      _super.call(this, null, null, {});
+      this._resolver = _resolver;
+      this._urlPath = _urlPath;
+      this._urlParams = _urlParams;
+    }
+    Object.defineProperty(UnresolvedInstruction.prototype, "urlPath", {
+      get: function() {
+        if (lang_1.isPresent(this.component)) {
+          return this.component.urlPath;
+        }
+        if (lang_1.isPresent(this._urlPath)) {
+          return this._urlPath;
+        }
+        return '';
+      },
+      enumerable: true,
+      configurable: true
+    });
+    Object.defineProperty(UnresolvedInstruction.prototype, "urlParams", {
+      get: function() {
+        if (lang_1.isPresent(this.component)) {
+          return this.component.urlParams;
+        }
+        if (lang_1.isPresent(this._urlParams)) {
+          return this._urlParams;
+        }
+        return [];
+      },
+      enumerable: true,
+      configurable: true
+    });
+    UnresolvedInstruction.prototype.resolveComponent = function() {
+      var _this = this;
+      if (lang_1.isPresent(this.component)) {
+        return async_1.PromiseWrapper.resolve(this.component);
+      }
+      return this._resolver().then(function(resolution) {
+        _this.child = resolution.child;
+        return _this.component = resolution.component;
+      });
+    };
+    return UnresolvedInstruction;
+  })(Instruction);
+  exports.UnresolvedInstruction = UnresolvedInstruction;
+  var RedirectInstruction = (function(_super) {
+    __extends(RedirectInstruction, _super);
+    function RedirectInstruction(component, child, auxInstruction, _specificity) {
+      _super.call(this, component, child, auxInstruction);
+      this._specificity = _specificity;
+    }
+    Object.defineProperty(RedirectInstruction.prototype, "specificity", {
+      get: function() {
+        return this._specificity;
+      },
+      enumerable: true,
+      configurable: true
+    });
+    return RedirectInstruction;
+  })(ResolvedInstruction);
+  exports.RedirectInstruction = RedirectInstruction;
+  var ComponentInstruction = (function() {
+    function ComponentInstruction(urlPath, urlParams, data, componentType, terminal, specificity, params) {
+      if (params === void 0) {
+        params = null;
+      }
+      this.urlPath = urlPath;
+      this.urlParams = urlParams;
+      this.componentType = componentType;
+      this.terminal = terminal;
+      this.specificity = specificity;
+      this.params = params;
+      this.reuse = false;
+      this.routeData = lang_1.isPresent(data) ? data : exports.BLANK_ROUTE_DATA;
+    }
+    return ComponentInstruction;
+  })();
+  exports.ComponentInstruction = ComponentInstruction;
+  global.define = __define;
+  return module.exports;
+});
+
+System.register("angular2/src/router/url_parser", ["angular2/src/facade/collection", "angular2/src/facade/lang", "angular2/src/facade/exceptions"], true, function(require, exports, module) {
+  var global = System.global,
+      __define = global.define;
+  global.define = undefined;
+  var __extends = (this && this.__extends) || function(d, b) {
+    for (var p in b)
+      if (b.hasOwnProperty(p))
+        d[p] = b[p];
+    function __() {
+      this.constructor = d;
+    }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+  };
+  var collection_1 = require("angular2/src/facade/collection");
+  var lang_1 = require("angular2/src/facade/lang");
+  var exceptions_1 = require("angular2/src/facade/exceptions");
+  var Url = (function() {
+    function Url(path, child, auxiliary, params) {
+      if (child === void 0) {
+        child = null;
+      }
+      if (auxiliary === void 0) {
+        auxiliary = lang_1.CONST_EXPR([]);
+      }
+      if (params === void 0) {
+        params = null;
+      }
+      this.path = path;
+      this.child = child;
+      this.auxiliary = auxiliary;
+      this.params = params;
+    }
+    Url.prototype.toString = function() {
+      return this.path + this._matrixParamsToString() + this._auxToString() + this._childString();
+    };
+    Url.prototype.segmentToString = function() {
+      return this.path + this._matrixParamsToString();
+    };
+    Url.prototype._auxToString = function() {
+      return this.auxiliary.length > 0 ? ('(' + this.auxiliary.map(function(sibling) {
+        return sibling.toString();
+      }).join('//') + ')') : '';
+    };
+    Url.prototype._matrixParamsToString = function() {
+      if (lang_1.isBlank(this.params)) {
+        return '';
+      }
+      return ';' + serializeParams(this.params).join(';');
+    };
+    Url.prototype._childString = function() {
+      return lang_1.isPresent(this.child) ? ('/' + this.child.toString()) : '';
+    };
+    return Url;
+  })();
+  exports.Url = Url;
+  var RootUrl = (function(_super) {
+    __extends(RootUrl, _super);
+    function RootUrl(path, child, auxiliary, params) {
+      if (child === void 0) {
+        child = null;
+      }
+      if (auxiliary === void 0) {
+        auxiliary = lang_1.CONST_EXPR([]);
+      }
+      if (params === void 0) {
+        params = null;
+      }
+      _super.call(this, path, child, auxiliary, params);
+    }
+    RootUrl.prototype.toString = function() {
+      return this.path + this._auxToString() + this._childString() + this._queryParamsToString();
+    };
+    RootUrl.prototype.segmentToString = function() {
+      return this.path + this._queryParamsToString();
+    };
+    RootUrl.prototype._queryParamsToString = function() {
+      if (lang_1.isBlank(this.params)) {
+        return '';
+      }
+      return '?' + serializeParams(this.params).join('&');
+    };
+    return RootUrl;
+  })(Url);
+  exports.RootUrl = RootUrl;
+  function pathSegmentsToUrl(pathSegments) {
+    var url = new Url(pathSegments[pathSegments.length - 1]);
+    for (var i = pathSegments.length - 2; i >= 0; i -= 1) {
+      url = new Url(pathSegments[i], url);
+    }
+    return url;
+  }
+  exports.pathSegmentsToUrl = pathSegmentsToUrl;
+  var SEGMENT_RE = lang_1.RegExpWrapper.create('^[^\\/\\(\\)\\?;=&#]+');
+  function matchUrlSegment(str) {
+    var match = lang_1.RegExpWrapper.firstMatch(SEGMENT_RE, str);
+    return lang_1.isPresent(match) ? match[0] : '';
+  }
+  var UrlParser = (function() {
+    function UrlParser() {}
+    UrlParser.prototype.peekStartsWith = function(str) {
+      return this._remaining.startsWith(str);
+    };
+    UrlParser.prototype.capture = function(str) {
+      if (!this._remaining.startsWith(str)) {
+        throw new exceptions_1.BaseException("Expected \"" + str + "\".");
+      }
+      this._remaining = this._remaining.substring(str.length);
+    };
+    UrlParser.prototype.parse = function(url) {
+      this._remaining = url;
+      if (url == '' || url == '/') {
+        return new Url('');
+      }
+      return this.parseRoot();
+    };
+    UrlParser.prototype.parseRoot = function() {
+      if (this.peekStartsWith('/')) {
+        this.capture('/');
+      }
+      var path = matchUrlSegment(this._remaining);
+      this.capture(path);
+      var aux = [];
+      if (this.peekStartsWith('(')) {
+        aux = this.parseAuxiliaryRoutes();
+      }
+      if (this.peekStartsWith(';')) {
+        this.parseMatrixParams();
+      }
+      var child = null;
+      if (this.peekStartsWith('/') && !this.peekStartsWith('//')) {
+        this.capture('/');
+        child = this.parseSegment();
+      }
+      var queryParams = null;
+      if (this.peekStartsWith('?')) {
+        queryParams = this.parseQueryParams();
+      }
+      return new RootUrl(path, child, aux, queryParams);
+    };
+    UrlParser.prototype.parseSegment = function() {
+      if (this._remaining.length == 0) {
+        return null;
+      }
+      if (this.peekStartsWith('/')) {
+        this.capture('/');
+      }
+      var path = matchUrlSegment(this._remaining);
+      this.capture(path);
+      var matrixParams = null;
+      if (this.peekStartsWith(';')) {
+        matrixParams = this.parseMatrixParams();
+      }
+      var aux = [];
+      if (this.peekStartsWith('(')) {
+        aux = this.parseAuxiliaryRoutes();
+      }
+      var child = null;
+      if (this.peekStartsWith('/') && !this.peekStartsWith('//')) {
+        this.capture('/');
+        child = this.parseSegment();
+      }
+      return new Url(path, child, aux, matrixParams);
+    };
+    UrlParser.prototype.parseQueryParams = function() {
+      var params = {};
+      this.capture('?');
+      this.parseParam(params);
+      while (this._remaining.length > 0 && this.peekStartsWith('&')) {
+        this.capture('&');
+        this.parseParam(params);
+      }
+      return params;
+    };
+    UrlParser.prototype.parseMatrixParams = function() {
+      var params = {};
+      while (this._remaining.length > 0 && this.peekStartsWith(';')) {
+        this.capture(';');
+        this.parseParam(params);
+      }
+      return params;
+    };
+    UrlParser.prototype.parseParam = function(params) {
+      var key = matchUrlSegment(this._remaining);
+      if (lang_1.isBlank(key)) {
+        return ;
+      }
+      this.capture(key);
+      var value = true;
+      if (this.peekStartsWith('=')) {
+        this.capture('=');
+        var valueMatch = matchUrlSegment(this._remaining);
+        if (lang_1.isPresent(valueMatch)) {
+          value = valueMatch;
+          this.capture(value);
+        }
+      }
+      params[key] = value;
+    };
+    UrlParser.prototype.parseAuxiliaryRoutes = function() {
+      var routes = [];
+      this.capture('(');
+      while (!this.peekStartsWith(')') && this._remaining.length > 0) {
+        routes.push(this.parseSegment());
+        if (this.peekStartsWith('//')) {
+          this.capture('//');
+        }
+      }
+      this.capture(')');
+      return routes;
+    };
+    return UrlParser;
+  })();
+  exports.UrlParser = UrlParser;
+  exports.parser = new UrlParser();
+  function serializeParams(paramMap) {
+    var params = [];
+    if (lang_1.isPresent(paramMap)) {
+      collection_1.StringMapWrapper.forEach(paramMap, function(value, key) {
+        if (value == true) {
+          params.push(key);
+        } else {
+          params.push(key + '=' + value);
+        }
+      });
+    }
+    return params;
+  }
+  exports.serializeParams = serializeParams;
+  global.define = __define;
+  return module.exports;
+});
+
+System.register("angular2/src/router/async_route_handler", ["angular2/src/facade/lang", "angular2/src/router/instruction"], true, function(require, exports, module) {
+  var global = System.global,
+      __define = global.define;
+  global.define = undefined;
+  var lang_1 = require("angular2/src/facade/lang");
+  var instruction_1 = require("angular2/src/router/instruction");
+  var AsyncRouteHandler = (function() {
+    function AsyncRouteHandler(_loader, data) {
+      if (data === void 0) {
+        data = null;
+      }
+      this._loader = _loader;
+      this._resolvedComponent = null;
+      this.data = lang_1.isPresent(data) ? new instruction_1.RouteData(data) : instruction_1.BLANK_ROUTE_DATA;
+    }
+    AsyncRouteHandler.prototype.resolveComponentType = function() {
+      var _this = this;
+      if (lang_1.isPresent(this._resolvedComponent)) {
+        return this._resolvedComponent;
+      }
+      return this._resolvedComponent = this._loader().then(function(componentType) {
+        _this.componentType = componentType;
+        return componentType;
+      });
+    };
+    return AsyncRouteHandler;
+  })();
+  exports.AsyncRouteHandler = AsyncRouteHandler;
+  global.define = __define;
+  return module.exports;
+});
+
+System.register("angular2/src/router/sync_route_handler", ["angular2/src/facade/async", "angular2/src/facade/lang", "angular2/src/router/instruction"], true, function(require, exports, module) {
+  var global = System.global,
+      __define = global.define;
+  global.define = undefined;
+  var async_1 = require("angular2/src/facade/async");
+  var lang_1 = require("angular2/src/facade/lang");
+  var instruction_1 = require("angular2/src/router/instruction");
+  var SyncRouteHandler = (function() {
+    function SyncRouteHandler(componentType, data) {
+      this.componentType = componentType;
+      this._resolvedComponent = null;
+      this._resolvedComponent = async_1.PromiseWrapper.resolve(componentType);
+      this.data = lang_1.isPresent(data) ? new instruction_1.RouteData(data) : instruction_1.BLANK_ROUTE_DATA;
+    }
+    SyncRouteHandler.prototype.resolveComponentType = function() {
+      return this._resolvedComponent;
+    };
+    return SyncRouteHandler;
+  })();
+  exports.SyncRouteHandler = SyncRouteHandler;
+  global.define = __define;
+  return module.exports;
+});
+
+System.register("angular2/src/router/route_config_decorator", ["angular2/src/router/route_config_impl", "angular2/src/core/util/decorators", "angular2/src/router/route_config_impl"], true, function(require, exports, module) {
+  var global = System.global,
+      __define = global.define;
+  global.define = undefined;
+  var route_config_impl_1 = require("angular2/src/router/route_config_impl");
+  var decorators_1 = require("angular2/src/core/util/decorators");
+  var route_config_impl_2 = require("angular2/src/router/route_config_impl");
+  exports.Route = route_config_impl_2.Route;
+  exports.Redirect = route_config_impl_2.Redirect;
+  exports.AuxRoute = route_config_impl_2.AuxRoute;
+  exports.AsyncRoute = route_config_impl_2.AsyncRoute;
+  exports.RouteConfig = decorators_1.makeDecorator(route_config_impl_1.RouteConfig);
+  global.define = __define;
+  return module.exports;
+});
+
+System.register("angular2/src/router/location_strategy", ["angular2/src/facade/lang", "angular2/core"], true, function(require, exports, module) {
+  var global = System.global,
+      __define = global.define;
+  global.define = undefined;
+  var lang_1 = require("angular2/src/facade/lang");
+  var core_1 = require("angular2/core");
+  var LocationStrategy = (function() {
+    function LocationStrategy() {}
+    return LocationStrategy;
+  })();
+  exports.LocationStrategy = LocationStrategy;
+  exports.APP_BASE_HREF = lang_1.CONST_EXPR(new core_1.OpaqueToken('appBaseHref'));
+  function normalizeQueryParams(params) {
+    return (params.length > 0 && params.substring(0, 1) != '?') ? ('?' + params) : params;
+  }
+  exports.normalizeQueryParams = normalizeQueryParams;
+  function joinWithSlash(start, end) {
+    if (start.length == 0) {
+      return end;
+    }
+    if (end.length == 0) {
+      return start;
+    }
+    var slashes = 0;
+    if (start.endsWith('/')) {
+      slashes++;
+    }
+    if (end.startsWith('/')) {
+      slashes++;
+    }
+    if (slashes == 2) {
+      return start + end.substring(1);
+    }
+    if (slashes == 1) {
+      return start + end;
+    }
+    return start + '/' + end;
+  }
+  exports.joinWithSlash = joinWithSlash;
+  global.define = __define;
+  return module.exports;
+});
+
+System.register("angular2/src/router/lifecycle_annotations_impl", ["angular2/src/facade/lang"], true, function(require, exports, module) {
+  var global = System.global,
+      __define = global.define;
+  global.define = undefined;
+  var __decorate = (this && this.__decorate) || function(decorators, target, key, desc) {
+    var c = arguments.length,
+        r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc,
+        d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function")
+      r = Reflect.decorate(decorators, target, key, desc);
+    else
+      for (var i = decorators.length - 1; i >= 0; i--)
+        if (d = decorators[i])
+          r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+  };
+  var __metadata = (this && this.__metadata) || function(k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function")
+      return Reflect.metadata(k, v);
+  };
+  var lang_1 = require("angular2/src/facade/lang");
+  var RouteLifecycleHook = (function() {
+    function RouteLifecycleHook(name) {
+      this.name = name;
+    }
+    RouteLifecycleHook = __decorate([lang_1.CONST(), __metadata('design:paramtypes', [String])], RouteLifecycleHook);
+    return RouteLifecycleHook;
+  })();
+  exports.RouteLifecycleHook = RouteLifecycleHook;
+  var CanActivate = (function() {
+    function CanActivate(fn) {
+      this.fn = fn;
+    }
+    CanActivate = __decorate([lang_1.CONST(), __metadata('design:paramtypes', [Function])], CanActivate);
+    return CanActivate;
+  })();
+  exports.CanActivate = CanActivate;
+  exports.routerCanReuse = lang_1.CONST_EXPR(new RouteLifecycleHook("routerCanReuse"));
+  exports.routerCanDeactivate = lang_1.CONST_EXPR(new RouteLifecycleHook("routerCanDeactivate"));
+  exports.routerOnActivate = lang_1.CONST_EXPR(new RouteLifecycleHook("routerOnActivate"));
+  exports.routerOnReuse = lang_1.CONST_EXPR(new RouteLifecycleHook("routerOnReuse"));
+  exports.routerOnDeactivate = lang_1.CONST_EXPR(new RouteLifecycleHook("routerOnDeactivate"));
+  global.define = __define;
+  return module.exports;
+});
+
+System.register("angular2/src/router/lifecycle_annotations", ["angular2/src/core/util/decorators", "angular2/src/router/lifecycle_annotations_impl", "angular2/src/router/lifecycle_annotations_impl"], true, function(require, exports, module) {
+  var global = System.global,
+      __define = global.define;
+  global.define = undefined;
+  var decorators_1 = require("angular2/src/core/util/decorators");
+  var lifecycle_annotations_impl_1 = require("angular2/src/router/lifecycle_annotations_impl");
+  var lifecycle_annotations_impl_2 = require("angular2/src/router/lifecycle_annotations_impl");
+  exports.routerCanReuse = lifecycle_annotations_impl_2.routerCanReuse;
+  exports.routerCanDeactivate = lifecycle_annotations_impl_2.routerCanDeactivate;
+  exports.routerOnActivate = lifecycle_annotations_impl_2.routerOnActivate;
+  exports.routerOnReuse = lifecycle_annotations_impl_2.routerOnReuse;
+  exports.routerOnDeactivate = lifecycle_annotations_impl_2.routerOnDeactivate;
+  exports.CanActivate = decorators_1.makeDecorator(lifecycle_annotations_impl_1.CanActivate);
+  global.define = __define;
+  return module.exports;
+});
+
+System.register("angular2/src/router/router_link", ["angular2/core", "angular2/src/facade/lang", "angular2/src/router/router", "angular2/src/router/location"], true, function(require, exports, module) {
+  var global = System.global,
+      __define = global.define;
+  global.define = undefined;
+  var __decorate = (this && this.__decorate) || function(decorators, target, key, desc) {
+    var c = arguments.length,
+        r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc,
+        d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function")
+      r = Reflect.decorate(decorators, target, key, desc);
+    else
+      for (var i = decorators.length - 1; i >= 0; i--)
+        if (d = decorators[i])
+          r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+  };
+  var __metadata = (this && this.__metadata) || function(k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function")
+      return Reflect.metadata(k, v);
+  };
+  var core_1 = require("angular2/core");
+  var lang_1 = require("angular2/src/facade/lang");
+  var router_1 = require("angular2/src/router/router");
+  var location_1 = require("angular2/src/router/location");
+  var RouterLink = (function() {
+    function RouterLink(_router, _location) {
+      var _this = this;
+      this._router = _router;
+      this._location = _location;
+      this._router.subscribe(function(_) {
+        return _this._updateLink();
+      });
+    }
+    RouterLink.prototype._updateLink = function() {
+      this._navigationInstruction = this._router.generate(this._routeParams);
+      var navigationHref = this._navigationInstruction.toLinkUrl();
+      this.visibleHref = this._location.prepareExternalUrl(navigationHref);
+    };
+    Object.defineProperty(RouterLink.prototype, "isRouteActive", {
+      get: function() {
+        return this._router.isRouteActive(this._navigationInstruction);
+      },
+      enumerable: true,
+      configurable: true
+    });
+    Object.defineProperty(RouterLink.prototype, "routeParams", {
+      set: function(changes) {
+        this._routeParams = changes;
+        this._updateLink();
+      },
+      enumerable: true,
+      configurable: true
+    });
+    RouterLink.prototype.onClick = function() {
+      if (!lang_1.isString(this.target) || this.target == '_self') {
+        this._router.navigateByInstruction(this._navigationInstruction);
+        return false;
+      }
+      return true;
+    };
+    RouterLink = __decorate([core_1.Directive({
+      selector: '[routerLink]',
+      inputs: ['routeParams: routerLink', 'target: target'],
+      host: {
+        '(click)': 'onClick()',
+        '[attr.href]': 'visibleHref',
+        '[class.router-link-active]': 'isRouteActive'
+      }
+    }), __metadata('design:paramtypes', [router_1.Router, location_1.Location])], RouterLink);
+    return RouterLink;
+  })();
+  exports.RouterLink = RouterLink;
+  global.define = __define;
+  return module.exports;
+});
+
+System.register("angular2/src/router/hash_location_strategy", ["angular2/core", "angular2/src/router/location_strategy", "angular2/src/facade/lang", "angular2/src/router/platform_location"], true, function(require, exports, module) {
+  var global = System.global,
+      __define = global.define;
+  global.define = undefined;
+  var __extends = (this && this.__extends) || function(d, b) {
+    for (var p in b)
+      if (b.hasOwnProperty(p))
+        d[p] = b[p];
+    function __() {
+      this.constructor = d;
+    }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+  };
+  var __decorate = (this && this.__decorate) || function(decorators, target, key, desc) {
+    var c = arguments.length,
+        r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc,
+        d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function")
+      r = Reflect.decorate(decorators, target, key, desc);
+    else
+      for (var i = decorators.length - 1; i >= 0; i--)
+        if (d = decorators[i])
+          r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+  };
+  var __metadata = (this && this.__metadata) || function(k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function")
+      return Reflect.metadata(k, v);
+  };
+  var __param = (this && this.__param) || function(paramIndex, decorator) {
+    return function(target, key) {
+      decorator(target, key, paramIndex);
+    };
+  };
+  var core_1 = require("angular2/core");
+  var location_strategy_1 = require("angular2/src/router/location_strategy");
+  var lang_1 = require("angular2/src/facade/lang");
+  var platform_location_1 = require("angular2/src/router/platform_location");
+  var HashLocationStrategy = (function(_super) {
+    __extends(HashLocationStrategy, _super);
+    function HashLocationStrategy(_platformLocation, _baseHref) {
+      _super.call(this);
+      this._platformLocation = _platformLocation;
+      this._baseHref = '';
+      if (lang_1.isPresent(_baseHref)) {
+        this._baseHref = _baseHref;
+      }
+    }
+    HashLocationStrategy.prototype.onPopState = function(fn) {
+      this._platformLocation.onPopState(fn);
+      this._platformLocation.onHashChange(fn);
+    };
+    HashLocationStrategy.prototype.getBaseHref = function() {
+      return this._baseHref;
+    };
+    HashLocationStrategy.prototype.path = function() {
+      var path = this._platformLocation.hash;
+      return (path.length > 0 ? path.substring(1) : path) + location_strategy_1.normalizeQueryParams(this._platformLocation.search);
+    };
+    HashLocationStrategy.prototype.prepareExternalUrl = function(internal) {
+      var url = location_strategy_1.joinWithSlash(this._baseHref, internal);
+      return url.length > 0 ? ('#' + url) : url;
+    };
+    HashLocationStrategy.prototype.pushState = function(state, title, path, queryParams) {
+      var url = this.prepareExternalUrl(path + location_strategy_1.normalizeQueryParams(queryParams));
+      if (url.length == 0) {
+        url = this._platformLocation.pathname;
+      }
+      this._platformLocation.pushState(state, title, url);
+    };
+    HashLocationStrategy.prototype.replaceState = function(state, title, path, queryParams) {
+      var url = this.prepareExternalUrl(path + location_strategy_1.normalizeQueryParams(queryParams));
+      if (url.length == 0) {
+        url = this._platformLocation.pathname;
+      }
+      this._platformLocation.replaceState(state, title, url);
+    };
+    HashLocationStrategy.prototype.forward = function() {
+      this._platformLocation.forward();
+    };
+    HashLocationStrategy.prototype.back = function() {
+      this._platformLocation.back();
+    };
+    HashLocationStrategy = __decorate([core_1.Injectable(), __param(1, core_1.Optional()), __param(1, core_1.Inject(location_strategy_1.APP_BASE_HREF)), __metadata('design:paramtypes', [platform_location_1.PlatformLocation, String])], HashLocationStrategy);
+    return HashLocationStrategy;
+  })(location_strategy_1.LocationStrategy);
+  exports.HashLocationStrategy = HashLocationStrategy;
+  global.define = __define;
+  return module.exports;
+});
+
+System.register("angular2/src/router/path_location_strategy", ["angular2/core", "angular2/src/facade/lang", "angular2/src/facade/exceptions", "angular2/src/router/location_strategy", "angular2/src/router/platform_location"], true, function(require, exports, module) {
+  var global = System.global,
+      __define = global.define;
+  global.define = undefined;
+  var __extends = (this && this.__extends) || function(d, b) {
+    for (var p in b)
+      if (b.hasOwnProperty(p))
+        d[p] = b[p];
+    function __() {
+      this.constructor = d;
+    }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+  };
+  var __decorate = (this && this.__decorate) || function(decorators, target, key, desc) {
+    var c = arguments.length,
+        r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc,
+        d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function")
+      r = Reflect.decorate(decorators, target, key, desc);
+    else
+      for (var i = decorators.length - 1; i >= 0; i--)
+        if (d = decorators[i])
+          r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+  };
+  var __metadata = (this && this.__metadata) || function(k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function")
+      return Reflect.metadata(k, v);
+  };
+  var __param = (this && this.__param) || function(paramIndex, decorator) {
+    return function(target, key) {
+      decorator(target, key, paramIndex);
+    };
+  };
+  var core_1 = require("angular2/core");
+  var lang_1 = require("angular2/src/facade/lang");
+  var exceptions_1 = require("angular2/src/facade/exceptions");
+  var location_strategy_1 = require("angular2/src/router/location_strategy");
+  var platform_location_1 = require("angular2/src/router/platform_location");
+  var PathLocationStrategy = (function(_super) {
+    __extends(PathLocationStrategy, _super);
+    function PathLocationStrategy(_platformLocation, href) {
+      _super.call(this);
+      this._platformLocation = _platformLocation;
+      if (lang_1.isBlank(href)) {
+        href = this._platformLocation.getBaseHrefFromDOM();
+      }
+      if (lang_1.isBlank(href)) {
+        throw new exceptions_1.BaseException("No base href set. Please provide a value for the APP_BASE_HREF token or add a base element to the document.");
+      }
+      this._baseHref = href;
+    }
+    PathLocationStrategy.prototype.onPopState = function(fn) {
+      this._platformLocation.onPopState(fn);
+      this._platformLocation.onHashChange(fn);
+    };
+    PathLocationStrategy.prototype.getBaseHref = function() {
+      return this._baseHref;
+    };
+    PathLocationStrategy.prototype.prepareExternalUrl = function(internal) {
+      return location_strategy_1.joinWithSlash(this._baseHref, internal);
+    };
+    PathLocationStrategy.prototype.path = function() {
+      return this._platformLocation.pathname + location_strategy_1.normalizeQueryParams(this._platformLocation.search);
+    };
+    PathLocationStrategy.prototype.pushState = function(state, title, url, queryParams) {
+      var externalUrl = this.prepareExternalUrl(url + location_strategy_1.normalizeQueryParams(queryParams));
+      this._platformLocation.pushState(state, title, externalUrl);
+    };
+    PathLocationStrategy.prototype.replaceState = function(state, title, url, queryParams) {
+      var externalUrl = this.prepareExternalUrl(url + location_strategy_1.normalizeQueryParams(queryParams));
+      this._platformLocation.replaceState(state, title, externalUrl);
+    };
+    PathLocationStrategy.prototype.forward = function() {
+      this._platformLocation.forward();
+    };
+    PathLocationStrategy.prototype.back = function() {
+      this._platformLocation.back();
+    };
+    PathLocationStrategy = __decorate([core_1.Injectable(), __param(1, core_1.Optional()), __param(1, core_1.Inject(location_strategy_1.APP_BASE_HREF)), __metadata('design:paramtypes', [platform_location_1.PlatformLocation, String])], PathLocationStrategy);
+    return PathLocationStrategy;
+  })(location_strategy_1.LocationStrategy);
+  exports.PathLocationStrategy = PathLocationStrategy;
+  global.define = __define;
+  return module.exports;
+});
+
+System.register("angular2/src/router/route_definition", [], true, function(require, exports, module) {
+  var global = System.global,
+      __define = global.define;
+  global.define = undefined;
+  global.define = __define;
+  return module.exports;
+});
+
+System.register("angular2/src/router/path_recognizer", ["angular2/src/facade/lang", "angular2/src/facade/exceptions", "angular2/src/facade/collection", "angular2/src/router/url_parser"], true, function(require, exports, module) {
+  var global = System.global,
+      __define = global.define;
+  global.define = undefined;
+  var lang_1 = require("angular2/src/facade/lang");
+  var exceptions_1 = require("angular2/src/facade/exceptions");
+  var collection_1 = require("angular2/src/facade/collection");
+  var url_parser_1 = require("angular2/src/router/url_parser");
+  var TouchMap = (function() {
+    function TouchMap(map) {
+      var _this = this;
+      this.map = {};
+      this.keys = {};
+      if (lang_1.isPresent(map)) {
+        collection_1.StringMapWrapper.forEach(map, function(value, key) {
+          _this.map[key] = lang_1.isPresent(value) ? value.toString() : null;
+          _this.keys[key] = true;
+        });
+      }
+    }
+    TouchMap.prototype.get = function(key) {
+      collection_1.StringMapWrapper.delete(this.keys, key);
+      return this.map[key];
+    };
+    TouchMap.prototype.getUnused = function() {
+      var _this = this;
+      var unused = {};
+      var keys = collection_1.StringMapWrapper.keys(this.keys);
+      keys.forEach(function(key) {
+        return unused[key] = collection_1.StringMapWrapper.get(_this.map, key);
+      });
+      return unused;
+    };
+    return TouchMap;
+  })();
+  function normalizeString(obj) {
+    if (lang_1.isBlank(obj)) {
+      return null;
+    } else {
+      return obj.toString();
+    }
+  }
+  var ContinuationSegment = (function() {
+    function ContinuationSegment() {
+      this.name = '';
+    }
+    ContinuationSegment.prototype.generate = function(params) {
+      return '';
+    };
+    ContinuationSegment.prototype.match = function(path) {
+      return true;
+    };
+    return ContinuationSegment;
+  })();
+  var StaticSegment = (function() {
+    function StaticSegment(path) {
+      this.path = path;
+      this.name = '';
+    }
+    StaticSegment.prototype.match = function(path) {
+      return path == this.path;
+    };
+    StaticSegment.prototype.generate = function(params) {
+      return this.path;
+    };
+    return StaticSegment;
+  })();
+  var DynamicSegment = (function() {
+    function DynamicSegment(name) {
+      this.name = name;
+    }
+    DynamicSegment.prototype.match = function(path) {
+      return path.length > 0;
+    };
+    DynamicSegment.prototype.generate = function(params) {
+      if (!collection_1.StringMapWrapper.contains(params.map, this.name)) {
+        throw new exceptions_1.BaseException("Route generator for '" + this.name + "' was not included in parameters passed.");
+      }
+      return normalizeString(params.get(this.name));
+    };
+    return DynamicSegment;
+  })();
+  var StarSegment = (function() {
+    function StarSegment(name) {
+      this.name = name;
+    }
+    StarSegment.prototype.match = function(path) {
+      return true;
+    };
+    StarSegment.prototype.generate = function(params) {
+      return normalizeString(params.get(this.name));
+    };
+    return StarSegment;
+  })();
+  var paramMatcher = /^:([^\/]+)$/g;
+  var wildcardMatcher = /^\*([^\/]+)$/g;
+  function parsePathString(route) {
+    if (route.startsWith("/")) {
+      route = route.substring(1);
+    }
+    var segments = splitBySlash(route);
+    var results = [];
+    var specificity = '';
+    if (segments.length == 0) {
+      specificity += '2';
+    }
+    var limit = segments.length - 1;
+    for (var i = 0; i <= limit; i++) {
+      var segment = segments[i],
+          match;
+      if (lang_1.isPresent(match = lang_1.RegExpWrapper.firstMatch(paramMatcher, segment))) {
+        results.push(new DynamicSegment(match[1]));
+        specificity += '1';
+      } else if (lang_1.isPresent(match = lang_1.RegExpWrapper.firstMatch(wildcardMatcher, segment))) {
+        results.push(new StarSegment(match[1]));
+        specificity += '0';
+      } else if (segment == '...') {
+        if (i < limit) {
+          throw new exceptions_1.BaseException("Unexpected \"...\" before the end of the path for \"" + route + "\".");
+        }
+        results.push(new ContinuationSegment());
+      } else {
+        results.push(new StaticSegment(segment));
+        specificity += '2';
+      }
+    }
+    return {
+      'segments': results,
+      'specificity': specificity
+    };
+  }
+  function pathDslHash(segments) {
+    return segments.map(function(segment) {
+      if (segment instanceof StarSegment) {
+        return '*';
+      } else if (segment instanceof ContinuationSegment) {
+        return '...';
+      } else if (segment instanceof DynamicSegment) {
+        return ':';
+      } else if (segment instanceof StaticSegment) {
+        return segment.path;
+      }
+    }).join('/');
+  }
+  function splitBySlash(url) {
+    return url.split('/');
+  }
+  var RESERVED_CHARS = lang_1.RegExpWrapper.create('//|\\(|\\)|;|\\?|=');
+  function assertPath(path) {
+    if (lang_1.StringWrapper.contains(path, '#')) {
+      throw new exceptions_1.BaseException("Path \"" + path + "\" should not include \"#\". Use \"HashLocationStrategy\" instead.");
+    }
+    var illegalCharacter = lang_1.RegExpWrapper.firstMatch(RESERVED_CHARS, path);
+    if (lang_1.isPresent(illegalCharacter)) {
+      throw new exceptions_1.BaseException("Path \"" + path + "\" contains \"" + illegalCharacter[0] + "\" which is not allowed in a route config.");
+    }
+  }
+  var PathRecognizer = (function() {
+    function PathRecognizer(path) {
+      this.path = path;
+      this.terminal = true;
+      assertPath(path);
+      var parsed = parsePathString(path);
+      this._segments = parsed['segments'];
+      this.specificity = parsed['specificity'];
+      this.hash = pathDslHash(this._segments);
+      var lastSegment = this._segments[this._segments.length - 1];
+      this.terminal = !(lastSegment instanceof ContinuationSegment);
+    }
+    PathRecognizer.prototype.recognize = function(beginningSegment) {
+      var nextSegment = beginningSegment;
+      var currentSegment;
+      var positionalParams = {};
+      var captured = [];
+      for (var i = 0; i < this._segments.length; i += 1) {
+        var segment = this._segments[i];
+        currentSegment = nextSegment;
+        if (segment instanceof ContinuationSegment) {
+          break;
+        }
+        if (lang_1.isPresent(currentSegment)) {
+          captured.push(currentSegment.path);
+          if (segment instanceof StarSegment) {
+            positionalParams[segment.name] = currentSegment.toString();
+            nextSegment = null;
+            break;
+          }
+          if (segment instanceof DynamicSegment) {
+            positionalParams[segment.name] = currentSegment.path;
+          } else if (!segment.match(currentSegment.path)) {
+            return null;
+          }
+          nextSegment = currentSegment.child;
+        } else if (!segment.match('')) {
+          return null;
+        }
+      }
+      if (this.terminal && lang_1.isPresent(nextSegment)) {
+        return null;
+      }
+      var urlPath = captured.join('/');
+      var auxiliary;
+      var urlParams;
+      var allParams;
+      if (lang_1.isPresent(currentSegment)) {
+        var paramsSegment = beginningSegment instanceof url_parser_1.RootUrl ? beginningSegment : currentSegment;
+        allParams = lang_1.isPresent(paramsSegment.params) ? collection_1.StringMapWrapper.merge(paramsSegment.params, positionalParams) : positionalParams;
+        urlParams = url_parser_1.serializeParams(paramsSegment.params);
+        auxiliary = currentSegment.auxiliary;
+      } else {
+        allParams = positionalParams;
+        auxiliary = [];
+        urlParams = [];
+      }
+      return {
+        urlPath: urlPath,
+        urlParams: urlParams,
+        allParams: allParams,
+        auxiliary: auxiliary,
+        nextSegment: nextSegment
+      };
+    };
+    PathRecognizer.prototype.generate = function(params) {
+      var paramTokens = new TouchMap(params);
+      var path = [];
+      for (var i = 0; i < this._segments.length; i++) {
+        var segment = this._segments[i];
+        if (!(segment instanceof ContinuationSegment)) {
+          path.push(segment.generate(paramTokens));
+        }
+      }
+      var urlPath = path.join('/');
+      var nonPositionalParams = paramTokens.getUnused();
+      var urlParams = url_parser_1.serializeParams(nonPositionalParams);
+      return {
+        urlPath: urlPath,
+        urlParams: urlParams
+      };
+    };
+    return PathRecognizer;
+  })();
+  exports.PathRecognizer = PathRecognizer;
+  global.define = __define;
+  return module.exports;
+});
+
+System.register("angular2/src/router/component_recognizer", ["angular2/src/facade/lang", "angular2/src/facade/exceptions", "angular2/src/facade/collection", "angular2/src/facade/async", "angular2/src/router/route_recognizer", "angular2/src/router/route_config_impl", "angular2/src/router/async_route_handler", "angular2/src/router/sync_route_handler"], true, function(require, exports, module) {
+  var global = System.global,
+      __define = global.define;
+  global.define = undefined;
+  var lang_1 = require("angular2/src/facade/lang");
+  var exceptions_1 = require("angular2/src/facade/exceptions");
+  var collection_1 = require("angular2/src/facade/collection");
+  var async_1 = require("angular2/src/facade/async");
+  var route_recognizer_1 = require("angular2/src/router/route_recognizer");
+  var route_config_impl_1 = require("angular2/src/router/route_config_impl");
+  var async_route_handler_1 = require("angular2/src/router/async_route_handler");
+  var sync_route_handler_1 = require("angular2/src/router/sync_route_handler");
+  var ComponentRecognizer = (function() {
+    function ComponentRecognizer() {
+      this.names = new collection_1.Map();
+      this.auxNames = new collection_1.Map();
+      this.auxRoutes = new collection_1.Map();
+      this.matchers = [];
+      this.defaultRoute = null;
+    }
+    ComponentRecognizer.prototype.config = function(config) {
+      var handler;
+      if (lang_1.isPresent(config.name) && config.name[0].toUpperCase() != config.name[0]) {
+        var suggestedName = config.name[0].toUpperCase() + config.name.substring(1);
+        throw new exceptions_1.BaseException("Route \"" + config.path + "\" with name \"" + config.name + "\" does not begin with an uppercase letter. Route names should be CamelCase like \"" + suggestedName + "\".");
+      }
+      if (config instanceof route_config_impl_1.AuxRoute) {
+        handler = new sync_route_handler_1.SyncRouteHandler(config.component, config.data);
+        var path = config.path.startsWith('/') ? config.path.substring(1) : config.path;
+        var recognizer = new route_recognizer_1.RouteRecognizer(config.path, handler);
+        this.auxRoutes.set(path, recognizer);
+        if (lang_1.isPresent(config.name)) {
+          this.auxNames.set(config.name, recognizer);
+        }
+        return recognizer.terminal;
+      }
+      var useAsDefault = false;
+      if (config instanceof route_config_impl_1.Redirect) {
+        var redirector = new route_recognizer_1.RedirectRecognizer(config.path, config.redirectTo);
+        this._assertNoHashCollision(redirector.hash, config.path);
+        this.matchers.push(redirector);
+        return true;
+      }
+      if (config instanceof route_config_impl_1.Route) {
+        handler = new sync_route_handler_1.SyncRouteHandler(config.component, config.data);
+        useAsDefault = lang_1.isPresent(config.useAsDefault) && config.useAsDefault;
+      } else if (config instanceof route_config_impl_1.AsyncRoute) {
+        handler = new async_route_handler_1.AsyncRouteHandler(config.loader, config.data);
+        useAsDefault = lang_1.isPresent(config.useAsDefault) && config.useAsDefault;
+      }
+      var recognizer = new route_recognizer_1.RouteRecognizer(config.path, handler);
+      this._assertNoHashCollision(recognizer.hash, config.path);
+      if (useAsDefault) {
+        if (lang_1.isPresent(this.defaultRoute)) {
+          throw new exceptions_1.BaseException("Only one route can be default");
+        }
+        this.defaultRoute = recognizer;
+      }
+      this.matchers.push(recognizer);
+      if (lang_1.isPresent(config.name)) {
+        this.names.set(config.name, recognizer);
+      }
+      return recognizer.terminal;
+    };
+    ComponentRecognizer.prototype._assertNoHashCollision = function(hash, path) {
+      this.matchers.forEach(function(matcher) {
+        if (hash == matcher.hash) {
+          throw new exceptions_1.BaseException("Configuration '" + path + "' conflicts with existing route '" + matcher.path + "'");
+        }
+      });
+    };
+    ComponentRecognizer.prototype.recognize = function(urlParse) {
+      var solutions = [];
+      this.matchers.forEach(function(routeRecognizer) {
+        var pathMatch = routeRecognizer.recognize(urlParse);
+        if (lang_1.isPresent(pathMatch)) {
+          solutions.push(pathMatch);
+        }
+      });
+      if (solutions.length == 0 && lang_1.isPresent(urlParse) && urlParse.auxiliary.length > 0) {
+        return [async_1.PromiseWrapper.resolve(new route_recognizer_1.PathMatch(null, null, urlParse.auxiliary))];
+      }
+      return solutions;
+    };
+    ComponentRecognizer.prototype.recognizeAuxiliary = function(urlParse) {
+      var routeRecognizer = this.auxRoutes.get(urlParse.path);
+      if (lang_1.isPresent(routeRecognizer)) {
+        return [routeRecognizer.recognize(urlParse)];
+      }
+      return [async_1.PromiseWrapper.resolve(null)];
+    };
+    ComponentRecognizer.prototype.hasRoute = function(name) {
+      return this.names.has(name);
+    };
+    ComponentRecognizer.prototype.componentLoaded = function(name) {
+      return this.hasRoute(name) && lang_1.isPresent(this.names.get(name).handler.componentType);
+    };
+    ComponentRecognizer.prototype.loadComponent = function(name) {
+      return this.names.get(name).handler.resolveComponentType();
+    };
+    ComponentRecognizer.prototype.generate = function(name, params) {
+      var pathRecognizer = this.names.get(name);
+      if (lang_1.isBlank(pathRecognizer)) {
+        return null;
+      }
+      return pathRecognizer.generate(params);
+    };
+    ComponentRecognizer.prototype.generateAuxiliary = function(name, params) {
+      var pathRecognizer = this.auxNames.get(name);
+      if (lang_1.isBlank(pathRecognizer)) {
+        return null;
+      }
+      return pathRecognizer.generate(params);
+    };
+    return ComponentRecognizer;
+  })();
+  exports.ComponentRecognizer = ComponentRecognizer;
+  global.define = __define;
+  return module.exports;
+});
+
+System.register("angular2/src/router/route_config_nomalizer", ["angular2/src/router/route_config_decorator", "angular2/src/facade/lang", "angular2/src/facade/exceptions"], true, function(require, exports, module) {
+  var global = System.global,
+      __define = global.define;
+  global.define = undefined;
+  var route_config_decorator_1 = require("angular2/src/router/route_config_decorator");
+  var lang_1 = require("angular2/src/facade/lang");
+  var exceptions_1 = require("angular2/src/facade/exceptions");
+  function normalizeRouteConfig(config, registry) {
+    if (config instanceof route_config_decorator_1.AsyncRoute) {
+      var wrappedLoader = wrapLoaderToReconfigureRegistry(config.loader, registry);
+      return new route_config_decorator_1.AsyncRoute({
+        path: config.path,
+        loader: wrappedLoader,
+        name: config.name,
+        data: config.data,
+        useAsDefault: config.useAsDefault
+      });
+    }
+    if (config instanceof route_config_decorator_1.Route || config instanceof route_config_decorator_1.Redirect || config instanceof route_config_decorator_1.AuxRoute) {
+      return config;
+    }
+    if ((+!!config.component) + (+!!config.redirectTo) + (+!!config.loader) != 1) {
+      throw new exceptions_1.BaseException("Route config should contain exactly one \"component\", \"loader\", or \"redirectTo\" property.");
+    }
+    if (config.as && config.name) {
+      throw new exceptions_1.BaseException("Route config should contain exactly one \"as\" or \"name\" property.");
+    }
+    if (config.as) {
+      config.name = config.as;
+    }
+    if (config.loader) {
+      var wrappedLoader = wrapLoaderToReconfigureRegistry(config.loader, registry);
+      return new route_config_decorator_1.AsyncRoute({
+        path: config.path,
+        loader: wrappedLoader,
+        name: config.name,
+        useAsDefault: config.useAsDefault
+      });
+    }
+    if (config.aux) {
+      return new route_config_decorator_1.AuxRoute({
+        path: config.aux,
+        component: config.component,
+        name: config.name
+      });
+    }
+    if (config.component) {
+      if (typeof config.component == 'object') {
+        var componentDefinitionObject = config.component;
+        if (componentDefinitionObject.type == 'constructor') {
+          return new route_config_decorator_1.Route({
+            path: config.path,
+            component: componentDefinitionObject.constructor,
+            name: config.name,
+            data: config.data,
+            useAsDefault: config.useAsDefault
+          });
+        } else if (componentDefinitionObject.type == 'loader') {
+          return new route_config_decorator_1.AsyncRoute({
+            path: config.path,
+            loader: componentDefinitionObject.loader,
+            name: config.name,
+            useAsDefault: config.useAsDefault
+          });
+        } else {
+          throw new exceptions_1.BaseException("Invalid component type \"" + componentDefinitionObject.type + "\". Valid types are \"constructor\" and \"loader\".");
+        }
+      }
+      return new route_config_decorator_1.Route(config);
+    }
+    if (config.redirectTo) {
+      return new route_config_decorator_1.Redirect({
+        path: config.path,
+        redirectTo: config.redirectTo
+      });
+    }
+    return config;
+  }
+  exports.normalizeRouteConfig = normalizeRouteConfig;
+  function wrapLoaderToReconfigureRegistry(loader, registry) {
+    return function() {
+      return loader().then(function(componentType) {
+        registry.configFromComponent(componentType);
+        return componentType;
+      });
+    };
+  }
+  function assertComponentExists(component, path) {
+    if (!lang_1.isType(component)) {
+      throw new exceptions_1.BaseException("Component for route \"" + path + "\" is not defined, or is not a class.");
+    }
+  }
+  exports.assertComponentExists = assertComponentExists;
+  global.define = __define;
+  return module.exports;
+});
+
+System.register("angular2/src/router/location", ["angular2/src/router/location_strategy", "angular2/src/facade/async", "angular2/core"], true, function(require, exports, module) {
+  var global = System.global,
+      __define = global.define;
+  global.define = undefined;
+  var __decorate = (this && this.__decorate) || function(decorators, target, key, desc) {
+    var c = arguments.length,
+        r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc,
+        d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function")
+      r = Reflect.decorate(decorators, target, key, desc);
+    else
+      for (var i = decorators.length - 1; i >= 0; i--)
+        if (d = decorators[i])
+          r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+  };
+  var __metadata = (this && this.__metadata) || function(k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function")
+      return Reflect.metadata(k, v);
+  };
+  var location_strategy_1 = require("angular2/src/router/location_strategy");
+  var async_1 = require("angular2/src/facade/async");
+  var core_1 = require("angular2/core");
+  var Location = (function() {
+    function Location(platformStrategy) {
+      var _this = this;
+      this.platformStrategy = platformStrategy;
+      this._subject = new async_1.EventEmitter();
+      var browserBaseHref = this.platformStrategy.getBaseHref();
+      this._baseHref = stripTrailingSlash(stripIndexHtml(browserBaseHref));
+      this.platformStrategy.onPopState(function(ev) {
+        async_1.ObservableWrapper.callEmit(_this._subject, {
+          'url': _this.path(),
+          'pop': true,
+          'type': ev.type
+        });
+      });
+    }
+    Location.prototype.path = function() {
+      return this.normalize(this.platformStrategy.path());
+    };
+    Location.prototype.normalize = function(url) {
+      return stripTrailingSlash(_stripBaseHref(this._baseHref, stripIndexHtml(url)));
+    };
+    Location.prototype.prepareExternalUrl = function(url) {
+      if (url.length > 0 && !url.startsWith('/')) {
+        url = '/' + url;
+      }
+      return this.platformStrategy.prepareExternalUrl(url);
+    };
+    Location.prototype.go = function(path, query) {
+      if (query === void 0) {
+        query = '';
+      }
+      this.platformStrategy.pushState(null, '', path, query);
+    };
+    Location.prototype.replaceState = function(path, query) {
+      if (query === void 0) {
+        query = '';
+      }
+      this.platformStrategy.replaceState(null, '', path, query);
+    };
+    Location.prototype.forward = function() {
+      this.platformStrategy.forward();
+    };
+    Location.prototype.back = function() {
+      this.platformStrategy.back();
+    };
+    Location.prototype.subscribe = function(onNext, onThrow, onReturn) {
+      if (onThrow === void 0) {
+        onThrow = null;
+      }
+      if (onReturn === void 0) {
+        onReturn = null;
+      }
+      return async_1.ObservableWrapper.subscribe(this._subject, onNext, onThrow, onReturn);
+    };
+    Location = __decorate([core_1.Injectable(), __metadata('design:paramtypes', [location_strategy_1.LocationStrategy])], Location);
+    return Location;
+  })();
+  exports.Location = Location;
+  function _stripBaseHref(baseHref, url) {
+    if (baseHref.length > 0 && url.startsWith(baseHref)) {
+      return url.substring(baseHref.length);
+    }
+    return url;
+  }
+  function stripIndexHtml(url) {
+    if (/\/index.html$/g.test(url)) {
+      return url.substring(0, url.length - 11);
+    }
+    return url;
+  }
+  function stripTrailingSlash(url) {
+    if (/\/$/g.test(url)) {
+      url = url.substring(0, url.length - 1);
+    }
+    return url;
+  }
+  global.define = __define;
+  return module.exports;
+});
+
+System.register("angular2/src/router/route_lifecycle_reflector", ["angular2/src/facade/lang", "angular2/src/router/lifecycle_annotations_impl", "angular2/src/core/reflection/reflection"], true, function(require, exports, module) {
+  var global = System.global,
+      __define = global.define;
+  global.define = undefined;
+  var lang_1 = require("angular2/src/facade/lang");
+  var lifecycle_annotations_impl_1 = require("angular2/src/router/lifecycle_annotations_impl");
+  var reflection_1 = require("angular2/src/core/reflection/reflection");
+  function hasLifecycleHook(e, type) {
+    if (!(type instanceof lang_1.Type))
+      return false;
+    return e.name in type.prototype;
+  }
+  exports.hasLifecycleHook = hasLifecycleHook;
+  function getCanActivateHook(type) {
+    var annotations = reflection_1.reflector.annotations(type);
+    for (var i = 0; i < annotations.length; i += 1) {
+      var annotation = annotations[i];
+      if (annotation instanceof lifecycle_annotations_impl_1.CanActivate) {
+        return annotation.fn;
+      }
+    }
+    return null;
+  }
+  exports.getCanActivateHook = getCanActivateHook;
+  global.define = __define;
+  return module.exports;
+});
+
+System.register("angular2/src/router/router_outlet", ["angular2/src/facade/async", "angular2/src/facade/collection", "angular2/src/facade/lang", "angular2/src/facade/exceptions", "angular2/core", "angular2/src/router/router", "angular2/src/router/instruction", "angular2/src/router/lifecycle_annotations", "angular2/src/router/route_lifecycle_reflector"], true, function(require, exports, module) {
+  var global = System.global,
+      __define = global.define;
+  global.define = undefined;
+  var __decorate = (this && this.__decorate) || function(decorators, target, key, desc) {
+    var c = arguments.length,
+        r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc,
+        d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function")
+      r = Reflect.decorate(decorators, target, key, desc);
+    else
+      for (var i = decorators.length - 1; i >= 0; i--)
+        if (d = decorators[i])
+          r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+  };
+  var __metadata = (this && this.__metadata) || function(k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function")
+      return Reflect.metadata(k, v);
+  };
+  var __param = (this && this.__param) || function(paramIndex, decorator) {
+    return function(target, key) {
+      decorator(target, key, paramIndex);
+    };
+  };
+  var async_1 = require("angular2/src/facade/async");
+  var collection_1 = require("angular2/src/facade/collection");
+  var lang_1 = require("angular2/src/facade/lang");
+  var exceptions_1 = require("angular2/src/facade/exceptions");
+  var core_1 = require("angular2/core");
+  var routerMod = require("angular2/src/router/router");
+  var instruction_1 = require("angular2/src/router/instruction");
+  var hookMod = require("angular2/src/router/lifecycle_annotations");
+  var route_lifecycle_reflector_1 = require("angular2/src/router/route_lifecycle_reflector");
+  var _resolveToTrue = async_1.PromiseWrapper.resolve(true);
+  var RouterOutlet = (function() {
+    function RouterOutlet(_elementRef, _loader, _parentRouter, nameAttr) {
+      this._elementRef = _elementRef;
+      this._loader = _loader;
+      this._parentRouter = _parentRouter;
+      this.name = null;
+      this._componentRef = null;
+      this._currentInstruction = null;
+      if (lang_1.isPresent(nameAttr)) {
+        this.name = nameAttr;
+        this._parentRouter.registerAuxOutlet(this);
+      } else {
+        this._parentRouter.registerPrimaryOutlet(this);
+      }
+    }
+    RouterOutlet.prototype.activate = function(nextInstruction) {
+      var _this = this;
+      var previousInstruction = this._currentInstruction;
+      this._currentInstruction = nextInstruction;
+      var componentType = nextInstruction.componentType;
+      var childRouter = this._parentRouter.childRouter(componentType);
+      var providers = core_1.Injector.resolve([core_1.provide(instruction_1.RouteData, {useValue: nextInstruction.routeData}), core_1.provide(instruction_1.RouteParams, {useValue: new instruction_1.RouteParams(nextInstruction.params)}), core_1.provide(routerMod.Router, {useValue: childRouter})]);
+      return this._loader.loadNextToLocation(componentType, this._elementRef, providers).then(function(componentRef) {
+        _this._componentRef = componentRef;
+        if (route_lifecycle_reflector_1.hasLifecycleHook(hookMod.routerOnActivate, componentType)) {
+          return _this._componentRef.instance.routerOnActivate(nextInstruction, previousInstruction);
+        }
+      });
+    };
+    RouterOutlet.prototype.reuse = function(nextInstruction) {
+      var previousInstruction = this._currentInstruction;
+      this._currentInstruction = nextInstruction;
+      if (lang_1.isBlank(this._componentRef)) {
+        throw new exceptions_1.BaseException("Cannot reuse an outlet that does not contain a component.");
+      }
+      return async_1.PromiseWrapper.resolve(route_lifecycle_reflector_1.hasLifecycleHook(hookMod.routerOnReuse, this._currentInstruction.componentType) ? this._componentRef.instance.routerOnReuse(nextInstruction, previousInstruction) : true);
+    };
+    RouterOutlet.prototype.deactivate = function(nextInstruction) {
+      var _this = this;
+      var next = _resolveToTrue;
+      if (lang_1.isPresent(this._componentRef) && lang_1.isPresent(this._currentInstruction) && route_lifecycle_reflector_1.hasLifecycleHook(hookMod.routerOnDeactivate, this._currentInstruction.componentType)) {
+        next = async_1.PromiseWrapper.resolve(this._componentRef.instance.routerOnDeactivate(nextInstruction, this._currentInstruction));
+      }
+      return next.then(function(_) {
+        if (lang_1.isPresent(_this._componentRef)) {
+          _this._componentRef.dispose();
+          _this._componentRef = null;
+        }
+      });
+    };
+    RouterOutlet.prototype.routerCanDeactivate = function(nextInstruction) {
+      if (lang_1.isBlank(this._currentInstruction)) {
+        return _resolveToTrue;
+      }
+      if (route_lifecycle_reflector_1.hasLifecycleHook(hookMod.routerCanDeactivate, this._currentInstruction.componentType)) {
+        return async_1.PromiseWrapper.resolve(this._componentRef.instance.routerCanDeactivate(nextInstruction, this._currentInstruction));
+      }
+      return _resolveToTrue;
+    };
+    RouterOutlet.prototype.routerCanReuse = function(nextInstruction) {
+      var result;
+      if (lang_1.isBlank(this._currentInstruction) || this._currentInstruction.componentType != nextInstruction.componentType) {
+        result = false;
+      } else if (route_lifecycle_reflector_1.hasLifecycleHook(hookMod.routerCanReuse, this._currentInstruction.componentType)) {
+        result = this._componentRef.instance.routerCanReuse(nextInstruction, this._currentInstruction);
+      } else {
+        result = nextInstruction == this._currentInstruction || (lang_1.isPresent(nextInstruction.params) && lang_1.isPresent(this._currentInstruction.params) && collection_1.StringMapWrapper.equals(nextInstruction.params, this._currentInstruction.params));
+      }
+      return async_1.PromiseWrapper.resolve(result);
+    };
+    RouterOutlet = __decorate([core_1.Directive({selector: 'router-outlet'}), __param(3, core_1.Attribute('name')), __metadata('design:paramtypes', [core_1.ElementRef, core_1.DynamicComponentLoader, routerMod.Router, String])], RouterOutlet);
+    return RouterOutlet;
+  })();
+  exports.RouterOutlet = RouterOutlet;
+  global.define = __define;
+  return module.exports;
+});
+
+System.register("angular2/src/router/platform_location", ["angular2/src/platform/dom/dom_adapter", "angular2/core"], true, function(require, exports, module) {
+  var global = System.global,
+      __define = global.define;
+  global.define = undefined;
+  var __decorate = (this && this.__decorate) || function(decorators, target, key, desc) {
+    var c = arguments.length,
+        r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc,
+        d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function")
+      r = Reflect.decorate(decorators, target, key, desc);
+    else
+      for (var i = decorators.length - 1; i >= 0; i--)
+        if (d = decorators[i])
+          r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+  };
+  var __metadata = (this && this.__metadata) || function(k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function")
+      return Reflect.metadata(k, v);
+  };
+  var dom_adapter_1 = require("angular2/src/platform/dom/dom_adapter");
+  var core_1 = require("angular2/core");
+  var PlatformLocation = (function() {
+    function PlatformLocation() {
+      this._init();
+    }
+    PlatformLocation.prototype._init = function() {
+      this._location = dom_adapter_1.DOM.getLocation();
+      this._history = dom_adapter_1.DOM.getHistory();
+    };
+    PlatformLocation.prototype.getBaseHrefFromDOM = function() {
+      return dom_adapter_1.DOM.getBaseHref();
+    };
+    PlatformLocation.prototype.onPopState = function(fn) {
+      dom_adapter_1.DOM.getGlobalEventTarget('window').addEventListener('popstate', fn, false);
+    };
+    PlatformLocation.prototype.onHashChange = function(fn) {
+      dom_adapter_1.DOM.getGlobalEventTarget('window').addEventListener('hashchange', fn, false);
+    };
+    Object.defineProperty(PlatformLocation.prototype, "pathname", {
+      get: function() {
+        return this._location.pathname;
+      },
+      set: function(newPath) {
+        this._location.pathname = newPath;
+      },
+      enumerable: true,
+      configurable: true
+    });
+    Object.defineProperty(PlatformLocation.prototype, "search", {
+      get: function() {
+        return this._location.search;
+      },
+      enumerable: true,
+      configurable: true
+    });
+    Object.defineProperty(PlatformLocation.prototype, "hash", {
+      get: function() {
+        return this._location.hash;
+      },
+      enumerable: true,
+      configurable: true
+    });
+    PlatformLocation.prototype.pushState = function(state, title, url) {
+      this._history.pushState(state, title, url);
+    };
+    PlatformLocation.prototype.replaceState = function(state, title, url) {
+      this._history.replaceState(state, title, url);
+    };
+    PlatformLocation.prototype.forward = function() {
+      this._history.forward();
+    };
+    PlatformLocation.prototype.back = function() {
+      this._history.back();
+    };
+    PlatformLocation = __decorate([core_1.Injectable(), __metadata('design:paramtypes', [])], PlatformLocation);
+    return PlatformLocation;
+  })();
+  exports.PlatformLocation = PlatformLocation;
+  global.define = __define;
+  return module.exports;
+});
+
+System.register("angular2/src/router/route_recognizer", ["angular2/src/facade/lang", "angular2/src/facade/exceptions", "angular2/src/facade/promise", "angular2/src/facade/collection", "angular2/src/router/instruction", "angular2/src/router/path_recognizer"], true, function(require, exports, module) {
+  var global = System.global,
+      __define = global.define;
+  global.define = undefined;
+  var __extends = (this && this.__extends) || function(d, b) {
+    for (var p in b)
+      if (b.hasOwnProperty(p))
+        d[p] = b[p];
+    function __() {
+      this.constructor = d;
+    }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+  };
+  var lang_1 = require("angular2/src/facade/lang");
+  var exceptions_1 = require("angular2/src/facade/exceptions");
+  var promise_1 = require("angular2/src/facade/promise");
+  var collection_1 = require("angular2/src/facade/collection");
+  var instruction_1 = require("angular2/src/router/instruction");
+  var path_recognizer_1 = require("angular2/src/router/path_recognizer");
+  var RouteMatch = (function() {
+    function RouteMatch() {}
+    return RouteMatch;
+  })();
+  exports.RouteMatch = RouteMatch;
+  var PathMatch = (function(_super) {
+    __extends(PathMatch, _super);
+    function PathMatch(instruction, remaining, remainingAux) {
+      _super.call(this);
+      this.instruction = instruction;
+      this.remaining = remaining;
+      this.remainingAux = remainingAux;
+    }
+    return PathMatch;
+  })(RouteMatch);
+  exports.PathMatch = PathMatch;
+  var RedirectMatch = (function(_super) {
+    __extends(RedirectMatch, _super);
+    function RedirectMatch(redirectTo, specificity) {
+      _super.call(this);
+      this.redirectTo = redirectTo;
+      this.specificity = specificity;
+    }
+    return RedirectMatch;
+  })(RouteMatch);
+  exports.RedirectMatch = RedirectMatch;
+  var RedirectRecognizer = (function() {
+    function RedirectRecognizer(path, redirectTo) {
+      this.path = path;
+      this.redirectTo = redirectTo;
+      this._pathRecognizer = new path_recognizer_1.PathRecognizer(path);
+      this.hash = this._pathRecognizer.hash;
+    }
+    RedirectRecognizer.prototype.recognize = function(beginningSegment) {
+      var match = null;
+      if (lang_1.isPresent(this._pathRecognizer.recognize(beginningSegment))) {
+        match = new RedirectMatch(this.redirectTo, this._pathRecognizer.specificity);
+      }
+      return promise_1.PromiseWrapper.resolve(match);
+    };
+    RedirectRecognizer.prototype.generate = function(params) {
+      throw new exceptions_1.BaseException("Tried to generate a redirect.");
+    };
+    return RedirectRecognizer;
+  })();
+  exports.RedirectRecognizer = RedirectRecognizer;
+  var RouteRecognizer = (function() {
+    function RouteRecognizer(path, handler) {
+      this.path = path;
+      this.handler = handler;
+      this.terminal = true;
+      this._cache = new collection_1.Map();
+      this._pathRecognizer = new path_recognizer_1.PathRecognizer(path);
+      this.specificity = this._pathRecognizer.specificity;
+      this.hash = this._pathRecognizer.hash;
+      this.terminal = this._pathRecognizer.terminal;
+    }
+    RouteRecognizer.prototype.recognize = function(beginningSegment) {
+      var _this = this;
+      var res = this._pathRecognizer.recognize(beginningSegment);
+      if (lang_1.isBlank(res)) {
+        return null;
+      }
+      return this.handler.resolveComponentType().then(function(_) {
+        var componentInstruction = _this._getInstruction(res['urlPath'], res['urlParams'], res['allParams']);
+        return new PathMatch(componentInstruction, res['nextSegment'], res['auxiliary']);
+      });
+    };
+    RouteRecognizer.prototype.generate = function(params) {
+      var generated = this._pathRecognizer.generate(params);
+      var urlPath = generated['urlPath'];
+      var urlParams = generated['urlParams'];
+      return this._getInstruction(urlPath, urlParams, params);
+    };
+    RouteRecognizer.prototype.generateComponentPathValues = function(params) {
+      return this._pathRecognizer.generate(params);
+    };
+    RouteRecognizer.prototype._getInstruction = function(urlPath, urlParams, params) {
+      if (lang_1.isBlank(this.handler.componentType)) {
+        throw new exceptions_1.BaseException("Tried to get instruction before the type was loaded.");
+      }
+      var hashKey = urlPath + '?' + urlParams.join('?');
+      if (this._cache.has(hashKey)) {
+        return this._cache.get(hashKey);
+      }
+      var instruction = new instruction_1.ComponentInstruction(urlPath, urlParams, this.handler.data, this.handler.componentType, this.terminal, this.specificity, params);
+      this._cache.set(hashKey, instruction);
+      return instruction;
+    };
+    return RouteRecognizer;
+  })();
+  exports.RouteRecognizer = RouteRecognizer;
+  global.define = __define;
+  return module.exports;
+});
+
+System.register("angular2/src/router/route_registry", ["angular2/src/facade/collection", "angular2/src/facade/async", "angular2/src/facade/lang", "angular2/src/facade/exceptions", "angular2/src/core/reflection/reflection", "angular2/core", "angular2/src/router/route_config_impl", "angular2/src/router/route_recognizer", "angular2/src/router/component_recognizer", "angular2/src/router/instruction", "angular2/src/router/route_config_nomalizer", "angular2/src/router/url_parser"], true, function(require, exports, module) {
+  var global = System.global,
+      __define = global.define;
+  global.define = undefined;
+  var __decorate = (this && this.__decorate) || function(decorators, target, key, desc) {
+    var c = arguments.length,
+        r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc,
+        d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function")
+      r = Reflect.decorate(decorators, target, key, desc);
+    else
+      for (var i = decorators.length - 1; i >= 0; i--)
+        if (d = decorators[i])
+          r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+  };
+  var __metadata = (this && this.__metadata) || function(k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function")
+      return Reflect.metadata(k, v);
+  };
+  var __param = (this && this.__param) || function(paramIndex, decorator) {
+    return function(target, key) {
+      decorator(target, key, paramIndex);
+    };
+  };
+  var collection_1 = require("angular2/src/facade/collection");
+  var async_1 = require("angular2/src/facade/async");
+  var lang_1 = require("angular2/src/facade/lang");
+  var exceptions_1 = require("angular2/src/facade/exceptions");
+  var reflection_1 = require("angular2/src/core/reflection/reflection");
+  var core_1 = require("angular2/core");
+  var route_config_impl_1 = require("angular2/src/router/route_config_impl");
+  var route_recognizer_1 = require("angular2/src/router/route_recognizer");
+  var component_recognizer_1 = require("angular2/src/router/component_recognizer");
+  var instruction_1 = require("angular2/src/router/instruction");
+  var route_config_nomalizer_1 = require("angular2/src/router/route_config_nomalizer");
+  var url_parser_1 = require("angular2/src/router/url_parser");
+  var _resolveToNull = async_1.PromiseWrapper.resolve(null);
+  exports.ROUTER_PRIMARY_COMPONENT = lang_1.CONST_EXPR(new core_1.OpaqueToken('RouterPrimaryComponent'));
+  var RouteRegistry = (function() {
+    function RouteRegistry(_rootComponent) {
+      this._rootComponent = _rootComponent;
+      this._rules = new collection_1.Map();
+    }
+    RouteRegistry.prototype.config = function(parentComponent, config) {
+      config = route_config_nomalizer_1.normalizeRouteConfig(config, this);
+      if (config instanceof route_config_impl_1.Route) {
+        route_config_nomalizer_1.assertComponentExists(config.component, config.path);
+      } else if (config instanceof route_config_impl_1.AuxRoute) {
+        route_config_nomalizer_1.assertComponentExists(config.component, config.path);
+      }
+      var recognizer = this._rules.get(parentComponent);
+      if (lang_1.isBlank(recognizer)) {
+        recognizer = new component_recognizer_1.ComponentRecognizer();
+        this._rules.set(parentComponent, recognizer);
+      }
+      var terminal = recognizer.config(config);
+      if (config instanceof route_config_impl_1.Route) {
+        if (terminal) {
+          assertTerminalComponent(config.component, config.path);
+        } else {
+          this.configFromComponent(config.component);
+        }
+      }
+    };
+    RouteRegistry.prototype.configFromComponent = function(component) {
+      var _this = this;
+      if (!lang_1.isType(component)) {
+        return ;
+      }
+      if (this._rules.has(component)) {
+        return ;
+      }
+      var annotations = reflection_1.reflector.annotations(component);
+      if (lang_1.isPresent(annotations)) {
+        for (var i = 0; i < annotations.length; i++) {
+          var annotation = annotations[i];
+          if (annotation instanceof route_config_impl_1.RouteConfig) {
+            var routeCfgs = annotation.configs;
+            routeCfgs.forEach(function(config) {
+              return _this.config(component, config);
+            });
+          }
+        }
+      }
+    };
+    RouteRegistry.prototype.recognize = function(url, ancestorInstructions) {
+      var parsedUrl = url_parser_1.parser.parse(url);
+      return this._recognize(parsedUrl, []);
+    };
+    RouteRegistry.prototype._recognize = function(parsedUrl, ancestorInstructions, _aux) {
+      var _this = this;
+      if (_aux === void 0) {
+        _aux = false;
+      }
+      var parentInstruction = collection_1.ListWrapper.last(ancestorInstructions);
+      var parentComponent = lang_1.isPresent(parentInstruction) ? parentInstruction.component.componentType : this._rootComponent;
+      var componentRecognizer = this._rules.get(parentComponent);
+      if (lang_1.isBlank(componentRecognizer)) {
+        return _resolveToNull;
+      }
+      var possibleMatches = _aux ? componentRecognizer.recognizeAuxiliary(parsedUrl) : componentRecognizer.recognize(parsedUrl);
+      var matchPromises = possibleMatches.map(function(candidate) {
+        return candidate.then(function(candidate) {
+          if (candidate instanceof route_recognizer_1.PathMatch) {
+            var auxParentInstructions = ancestorInstructions.length > 0 ? [collection_1.ListWrapper.last(ancestorInstructions)] : [];
+            var auxInstructions = _this._auxRoutesToUnresolved(candidate.remainingAux, auxParentInstructions);
+            var instruction = new instruction_1.ResolvedInstruction(candidate.instruction, null, auxInstructions);
+            if (lang_1.isBlank(candidate.instruction) || candidate.instruction.terminal) {
+              return instruction;
+            }
+            var newAncestorComponents = ancestorInstructions.concat([instruction]);
+            return _this._recognize(candidate.remaining, newAncestorComponents).then(function(childInstruction) {
+              if (lang_1.isBlank(childInstruction)) {
+                return null;
+              }
+              if (childInstruction instanceof instruction_1.RedirectInstruction) {
+                return childInstruction;
+              }
+              instruction.child = childInstruction;
+              return instruction;
+            });
+          }
+          if (candidate instanceof route_recognizer_1.RedirectMatch) {
+            var instruction = _this.generate(candidate.redirectTo, ancestorInstructions.concat([null]));
+            return new instruction_1.RedirectInstruction(instruction.component, instruction.child, instruction.auxInstruction, candidate.specificity);
+          }
+        });
+      });
+      if ((lang_1.isBlank(parsedUrl) || parsedUrl.path == '') && possibleMatches.length == 0) {
+        return async_1.PromiseWrapper.resolve(this.generateDefault(parentComponent));
+      }
+      return async_1.PromiseWrapper.all(matchPromises).then(mostSpecific);
+    };
+    RouteRegistry.prototype._auxRoutesToUnresolved = function(auxRoutes, parentInstructions) {
+      var _this = this;
+      var unresolvedAuxInstructions = {};
+      auxRoutes.forEach(function(auxUrl) {
+        unresolvedAuxInstructions[auxUrl.path] = new instruction_1.UnresolvedInstruction(function() {
+          return _this._recognize(auxUrl, parentInstructions, true);
+        });
+      });
+      return unresolvedAuxInstructions;
+    };
+    RouteRegistry.prototype.generate = function(linkParams, ancestorInstructions, _aux) {
+      if (_aux === void 0) {
+        _aux = false;
+      }
+      var params = splitAndFlattenLinkParams(linkParams);
+      var prevInstruction;
+      if (collection_1.ListWrapper.first(params) == '') {
+        params.shift();
+        prevInstruction = collection_1.ListWrapper.first(ancestorInstructions);
+        ancestorInstructions = [];
+      } else {
+        prevInstruction = ancestorInstructions.length > 0 ? ancestorInstructions.pop() : null;
+        if (collection_1.ListWrapper.first(params) == '.') {
+          params.shift();
+        } else if (collection_1.ListWrapper.first(params) == '..') {
+          while (collection_1.ListWrapper.first(params) == '..') {
+            if (ancestorInstructions.length <= 0) {
+              throw new exceptions_1.BaseException("Link \"" + collection_1.ListWrapper.toJSON(linkParams) + "\" has too many \"../\" segments.");
+            }
+            prevInstruction = ancestorInstructions.pop();
+            params = collection_1.ListWrapper.slice(params, 1);
+          }
+        } else {
+          var routeName = collection_1.ListWrapper.first(params);
+          var parentComponentType = this._rootComponent;
+          var grandparentComponentType = null;
+          if (ancestorInstructions.length > 1) {
+            var parentComponentInstruction = ancestorInstructions[ancestorInstructions.length - 1];
+            var grandComponentInstruction = ancestorInstructions[ancestorInstructions.length - 2];
+            parentComponentType = parentComponentInstruction.component.componentType;
+            grandparentComponentType = grandComponentInstruction.component.componentType;
+          } else if (ancestorInstructions.length == 1) {
+            parentComponentType = ancestorInstructions[0].component.componentType;
+            grandparentComponentType = this._rootComponent;
+          }
+          var childRouteExists = this.hasRoute(routeName, parentComponentType);
+          var parentRouteExists = lang_1.isPresent(grandparentComponentType) && this.hasRoute(routeName, grandparentComponentType);
+          if (parentRouteExists && childRouteExists) {
+            var msg = "Link \"" + collection_1.ListWrapper.toJSON(linkParams) + "\" is ambiguous, use \"./\" or \"../\" to disambiguate.";
+            throw new exceptions_1.BaseException(msg);
+          }
+          if (parentRouteExists) {
+            prevInstruction = ancestorInstructions.pop();
+          }
+        }
+      }
+      if (params[params.length - 1] == '') {
+        params.pop();
+      }
+      if (params.length > 0 && params[0] == '') {
+        params.shift();
+      }
+      if (params.length < 1) {
+        var msg = "Link \"" + collection_1.ListWrapper.toJSON(linkParams) + "\" must include a route name.";
+        throw new exceptions_1.BaseException(msg);
+      }
+      var generatedInstruction = this._generate(params, ancestorInstructions, prevInstruction, _aux, linkParams);
+      for (var i = ancestorInstructions.length - 1; i >= 0; i--) {
+        var ancestorInstruction = ancestorInstructions[i];
+        if (lang_1.isBlank(ancestorInstruction)) {
+          break;
+        }
+        generatedInstruction = ancestorInstruction.replaceChild(generatedInstruction);
+      }
+      return generatedInstruction;
+    };
+    RouteRegistry.prototype._generate = function(linkParams, ancestorInstructions, prevInstruction, _aux, _originalLink) {
+      var _this = this;
+      if (_aux === void 0) {
+        _aux = false;
+      }
+      var parentComponentType = this._rootComponent;
+      var componentInstruction = null;
+      var auxInstructions = {};
+      var parentInstruction = collection_1.ListWrapper.last(ancestorInstructions);
+      if (lang_1.isPresent(parentInstruction) && lang_1.isPresent(parentInstruction.component)) {
+        parentComponentType = parentInstruction.component.componentType;
+      }
+      if (linkParams.length == 0) {
+        var defaultInstruction = this.generateDefault(parentComponentType);
+        if (lang_1.isBlank(defaultInstruction)) {
+          throw new exceptions_1.BaseException("Link \"" + collection_1.ListWrapper.toJSON(_originalLink) + "\" does not resolve to a terminal instruction.");
+        }
+        return defaultInstruction;
+      }
+      if (lang_1.isPresent(prevInstruction) && !_aux) {
+        auxInstructions = collection_1.StringMapWrapper.merge(prevInstruction.auxInstruction, auxInstructions);
+        componentInstruction = prevInstruction.component;
+      }
+      var componentRecognizer = this._rules.get(parentComponentType);
+      if (lang_1.isBlank(componentRecognizer)) {
+        throw new exceptions_1.BaseException("Component \"" + lang_1.getTypeNameForDebugging(parentComponentType) + "\" has no route config.");
+      }
+      var linkParamIndex = 0;
+      var routeParams = {};
+      if (linkParamIndex < linkParams.length && lang_1.isString(linkParams[linkParamIndex])) {
+        var routeName = linkParams[linkParamIndex];
+        if (routeName == '' || routeName == '.' || routeName == '..') {
+          throw new exceptions_1.BaseException("\"" + routeName + "/\" is only allowed at the beginning of a link DSL.");
+        }
+        linkParamIndex += 1;
+        if (linkParamIndex < linkParams.length) {
+          var linkParam = linkParams[linkParamIndex];
+          if (lang_1.isStringMap(linkParam) && !lang_1.isArray(linkParam)) {
+            routeParams = linkParam;
+            linkParamIndex += 1;
+          }
+        }
+        var routeRecognizer = (_aux ? componentRecognizer.auxNames : componentRecognizer.names).get(routeName);
+        if (lang_1.isBlank(routeRecognizer)) {
+          throw new exceptions_1.BaseException("Component \"" + lang_1.getTypeNameForDebugging(parentComponentType) + "\" has no route named \"" + routeName + "\".");
+        }
+        if (lang_1.isBlank(routeRecognizer.handler.componentType)) {
+          var compInstruction = routeRecognizer.generateComponentPathValues(routeParams);
+          return new instruction_1.UnresolvedInstruction(function() {
+            return routeRecognizer.handler.resolveComponentType().then(function(_) {
+              return _this._generate(linkParams, ancestorInstructions, prevInstruction, _aux, _originalLink);
+            });
+          }, compInstruction['urlPath'], compInstruction['urlParams']);
+        }
+        componentInstruction = _aux ? componentRecognizer.generateAuxiliary(routeName, routeParams) : componentRecognizer.generate(routeName, routeParams);
+      }
+      while (linkParamIndex < linkParams.length && lang_1.isArray(linkParams[linkParamIndex])) {
+        var auxParentInstruction = [parentInstruction];
+        var auxInstruction = this._generate(linkParams[linkParamIndex], auxParentInstruction, null, true, _originalLink);
+        auxInstructions[auxInstruction.component.urlPath] = auxInstruction;
+        linkParamIndex += 1;
+      }
+      var instruction = new instruction_1.ResolvedInstruction(componentInstruction, null, auxInstructions);
+      if (lang_1.isPresent(componentInstruction) && lang_1.isPresent(componentInstruction.componentType)) {
+        var childInstruction = null;
+        if (componentInstruction.terminal) {
+          if (linkParamIndex >= linkParams.length) {}
+        } else {
+          var childAncestorComponents = ancestorInstructions.concat([instruction]);
+          var remainingLinkParams = linkParams.slice(linkParamIndex);
+          childInstruction = this._generate(remainingLinkParams, childAncestorComponents, null, false, _originalLink);
+        }
+        instruction.child = childInstruction;
+      }
+      return instruction;
+    };
+    RouteRegistry.prototype.hasRoute = function(name, parentComponent) {
+      var componentRecognizer = this._rules.get(parentComponent);
+      if (lang_1.isBlank(componentRecognizer)) {
+        return false;
+      }
+      return componentRecognizer.hasRoute(name);
+    };
+    RouteRegistry.prototype.generateDefault = function(componentCursor) {
+      var _this = this;
+      if (lang_1.isBlank(componentCursor)) {
+        return null;
+      }
+      var componentRecognizer = this._rules.get(componentCursor);
+      if (lang_1.isBlank(componentRecognizer) || lang_1.isBlank(componentRecognizer.defaultRoute)) {
+        return null;
+      }
+      var defaultChild = null;
+      if (lang_1.isPresent(componentRecognizer.defaultRoute.handler.componentType)) {
+        var componentInstruction = componentRecognizer.defaultRoute.generate({});
+        if (!componentRecognizer.defaultRoute.terminal) {
+          defaultChild = this.generateDefault(componentRecognizer.defaultRoute.handler.componentType);
+        }
+        return new instruction_1.DefaultInstruction(componentInstruction, defaultChild);
+      }
+      return new instruction_1.UnresolvedInstruction(function() {
+        return componentRecognizer.defaultRoute.handler.resolveComponentType().then(function(_) {
+          return _this.generateDefault(componentCursor);
+        });
+      });
+    };
+    RouteRegistry = __decorate([core_1.Injectable(), __param(0, core_1.Inject(exports.ROUTER_PRIMARY_COMPONENT)), __metadata('design:paramtypes', [lang_1.Type])], RouteRegistry);
+    return RouteRegistry;
+  })();
+  exports.RouteRegistry = RouteRegistry;
+  function splitAndFlattenLinkParams(linkParams) {
+    return linkParams.reduce(function(accumulation, item) {
+      if (lang_1.isString(item)) {
+        var strItem = item;
+        return accumulation.concat(strItem.split('/'));
+      }
+      accumulation.push(item);
+      return accumulation;
+    }, []);
+  }
+  function mostSpecific(instructions) {
+    instructions = instructions.filter(function(instruction) {
+      return lang_1.isPresent(instruction);
+    });
+    if (instructions.length == 0) {
+      return null;
+    }
+    if (instructions.length == 1) {
+      return instructions[0];
+    }
+    var first = instructions[0];
+    var rest = instructions.slice(1);
+    return rest.reduce(function(instruction, contender) {
+      if (compareSpecificityStrings(contender.specificity, instruction.specificity) == -1) {
+        return contender;
+      }
+      return instruction;
+    }, first);
+  }
+  function compareSpecificityStrings(a, b) {
+    var l = lang_1.Math.min(a.length, b.length);
+    for (var i = 0; i < l; i += 1) {
+      var ai = lang_1.StringWrapper.charCodeAt(a, i);
+      var bi = lang_1.StringWrapper.charCodeAt(b, i);
+      var difference = bi - ai;
+      if (difference != 0) {
+        return difference;
+      }
+    }
+    return a.length - b.length;
+  }
+  function assertTerminalComponent(component, path) {
+    if (!lang_1.isType(component)) {
+      return ;
+    }
+    var annotations = reflection_1.reflector.annotations(component);
+    if (lang_1.isPresent(annotations)) {
+      for (var i = 0; i < annotations.length; i++) {
+        var annotation = annotations[i];
+        if (annotation instanceof route_config_impl_1.RouteConfig) {
+          throw new exceptions_1.BaseException("Child routes are not allowed for \"" + path + "\". Use \"...\" on the parent's route path.");
+        }
+      }
+    }
+  }
+  global.define = __define;
+  return module.exports;
+});
+
+System.register("angular2/src/router/router", ["angular2/src/facade/async", "angular2/src/facade/collection", "angular2/src/facade/lang", "angular2/src/facade/exceptions", "angular2/core", "angular2/src/router/route_registry", "angular2/src/router/location", "angular2/src/router/route_lifecycle_reflector"], true, function(require, exports, module) {
+  var global = System.global,
+      __define = global.define;
+  global.define = undefined;
+  var __extends = (this && this.__extends) || function(d, b) {
+    for (var p in b)
+      if (b.hasOwnProperty(p))
+        d[p] = b[p];
+    function __() {
+      this.constructor = d;
+    }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+  };
+  var __decorate = (this && this.__decorate) || function(decorators, target, key, desc) {
+    var c = arguments.length,
+        r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc,
+        d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function")
+      r = Reflect.decorate(decorators, target, key, desc);
+    else
+      for (var i = decorators.length - 1; i >= 0; i--)
+        if (d = decorators[i])
+          r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+  };
+  var __metadata = (this && this.__metadata) || function(k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function")
+      return Reflect.metadata(k, v);
+  };
+  var __param = (this && this.__param) || function(paramIndex, decorator) {
+    return function(target, key) {
+      decorator(target, key, paramIndex);
+    };
+  };
+  var async_1 = require("angular2/src/facade/async");
+  var collection_1 = require("angular2/src/facade/collection");
+  var lang_1 = require("angular2/src/facade/lang");
+  var exceptions_1 = require("angular2/src/facade/exceptions");
+  var core_1 = require("angular2/core");
+  var route_registry_1 = require("angular2/src/router/route_registry");
+  var location_1 = require("angular2/src/router/location");
+  var route_lifecycle_reflector_1 = require("angular2/src/router/route_lifecycle_reflector");
+  var _resolveToTrue = async_1.PromiseWrapper.resolve(true);
+  var _resolveToFalse = async_1.PromiseWrapper.resolve(false);
+  var Router = (function() {
+    function Router(registry, parent, hostComponent) {
+      this.registry = registry;
+      this.parent = parent;
+      this.hostComponent = hostComponent;
+      this.navigating = false;
+      this._currentInstruction = null;
+      this._currentNavigation = _resolveToTrue;
+      this._outlet = null;
+      this._auxRouters = new collection_1.Map();
+      this._subject = new async_1.EventEmitter();
+    }
+    Router.prototype.childRouter = function(hostComponent) {
+      return this._childRouter = new ChildRouter(this, hostComponent);
+    };
+    Router.prototype.auxRouter = function(hostComponent) {
+      return new ChildRouter(this, hostComponent);
+    };
+    Router.prototype.registerPrimaryOutlet = function(outlet) {
+      if (lang_1.isPresent(outlet.name)) {
+        throw new exceptions_1.BaseException("registerPrimaryOutlet expects to be called with an unnamed outlet.");
+      }
+      this._outlet = outlet;
+      if (lang_1.isPresent(this._currentInstruction)) {
+        return this.commit(this._currentInstruction, false);
+      }
+      return _resolveToTrue;
+    };
+    Router.prototype.registerAuxOutlet = function(outlet) {
+      var outletName = outlet.name;
+      if (lang_1.isBlank(outletName)) {
+        throw new exceptions_1.BaseException("registerAuxOutlet expects to be called with an outlet with a name.");
+      }
+      var router = this.auxRouter(this.hostComponent);
+      this._auxRouters.set(outletName, router);
+      router._outlet = outlet;
+      var auxInstruction;
+      if (lang_1.isPresent(this._currentInstruction) && lang_1.isPresent(auxInstruction = this._currentInstruction.auxInstruction[outletName])) {
+        return router.commit(auxInstruction);
+      }
+      return _resolveToTrue;
+    };
+    Router.prototype.isRouteActive = function(instruction) {
+      var router = this;
+      while (lang_1.isPresent(router.parent) && lang_1.isPresent(instruction.child)) {
+        router = router.parent;
+        instruction = instruction.child;
+      }
+      return lang_1.isPresent(this._currentInstruction) && this._currentInstruction.component == instruction.component;
+    };
+    Router.prototype.config = function(definitions) {
+      var _this = this;
+      definitions.forEach(function(routeDefinition) {
+        _this.registry.config(_this.hostComponent, routeDefinition);
+      });
+      return this.renavigate();
+    };
+    Router.prototype.navigate = function(linkParams) {
+      var instruction = this.generate(linkParams);
+      return this.navigateByInstruction(instruction, false);
+    };
+    Router.prototype.navigateByUrl = function(url, _skipLocationChange) {
+      var _this = this;
+      if (_skipLocationChange === void 0) {
+        _skipLocationChange = false;
+      }
+      return this._currentNavigation = this._currentNavigation.then(function(_) {
+        _this.lastNavigationAttempt = url;
+        _this._startNavigating();
+        return _this._afterPromiseFinishNavigating(_this.recognize(url).then(function(instruction) {
+          if (lang_1.isBlank(instruction)) {
+            return false;
+          }
+          return _this._navigate(instruction, _skipLocationChange);
+        }));
+      });
+    };
+    Router.prototype.navigateByInstruction = function(instruction, _skipLocationChange) {
+      var _this = this;
+      if (_skipLocationChange === void 0) {
+        _skipLocationChange = false;
+      }
+      if (lang_1.isBlank(instruction)) {
+        return _resolveToFalse;
+      }
+      return this._currentNavigation = this._currentNavigation.then(function(_) {
+        _this._startNavigating();
+        return _this._afterPromiseFinishNavigating(_this._navigate(instruction, _skipLocationChange));
+      });
+    };
+    Router.prototype._navigate = function(instruction, _skipLocationChange) {
+      var _this = this;
+      return this._settleInstruction(instruction).then(function(_) {
+        return _this._routerCanReuse(instruction);
+      }).then(function(_) {
+        return _this._canActivate(instruction);
+      }).then(function(result) {
+        if (!result) {
+          return false;
+        }
+        return _this._routerCanDeactivate(instruction).then(function(result) {
+          if (result) {
+            return _this.commit(instruction, _skipLocationChange).then(function(_) {
+              _this._emitNavigationFinish(instruction.toRootUrl());
+              return true;
+            });
+          }
+        });
+      });
+    };
+    Router.prototype._settleInstruction = function(instruction) {
+      var _this = this;
+      return instruction.resolveComponent().then(function(_) {
+        var unsettledInstructions = [];
+        if (lang_1.isPresent(instruction.component)) {
+          instruction.component.reuse = false;
+        }
+        if (lang_1.isPresent(instruction.child)) {
+          unsettledInstructions.push(_this._settleInstruction(instruction.child));
+        }
+        collection_1.StringMapWrapper.forEach(instruction.auxInstruction, function(instruction, _) {
+          unsettledInstructions.push(_this._settleInstruction(instruction));
+        });
+        return async_1.PromiseWrapper.all(unsettledInstructions);
+      });
+    };
+    Router.prototype._emitNavigationFinish = function(url) {
+      async_1.ObservableWrapper.callEmit(this._subject, url);
+    };
+    Router.prototype._afterPromiseFinishNavigating = function(promise) {
+      var _this = this;
+      return async_1.PromiseWrapper.catchError(promise.then(function(_) {
+        return _this._finishNavigating();
+      }), function(err) {
+        _this._finishNavigating();
+        throw err;
+      });
+    };
+    Router.prototype._routerCanReuse = function(instruction) {
+      var _this = this;
+      if (lang_1.isBlank(this._outlet)) {
+        return _resolveToFalse;
+      }
+      if (lang_1.isBlank(instruction.component)) {
+        return _resolveToTrue;
+      }
+      return this._outlet.routerCanReuse(instruction.component).then(function(result) {
+        instruction.component.reuse = result;
+        if (result && lang_1.isPresent(_this._childRouter) && lang_1.isPresent(instruction.child)) {
+          return _this._childRouter._routerCanReuse(instruction.child);
+        }
+      });
+    };
+    Router.prototype._canActivate = function(nextInstruction) {
+      return canActivateOne(nextInstruction, this._currentInstruction);
+    };
+    Router.prototype._routerCanDeactivate = function(instruction) {
+      var _this = this;
+      if (lang_1.isBlank(this._outlet)) {
+        return _resolveToTrue;
+      }
+      var next;
+      var childInstruction = null;
+      var reuse = false;
+      var componentInstruction = null;
+      if (lang_1.isPresent(instruction)) {
+        childInstruction = instruction.child;
+        componentInstruction = instruction.component;
+        reuse = lang_1.isBlank(instruction.component) || instruction.component.reuse;
+      }
+      if (reuse) {
+        next = _resolveToTrue;
+      } else {
+        next = this._outlet.routerCanDeactivate(componentInstruction);
+      }
+      return next.then(function(result) {
+        if (result == false) {
+          return false;
+        }
+        if (lang_1.isPresent(_this._childRouter)) {
+          return _this._childRouter._routerCanDeactivate(childInstruction);
+        }
+        return true;
+      });
+    };
+    Router.prototype.commit = function(instruction, _skipLocationChange) {
+      var _this = this;
+      if (_skipLocationChange === void 0) {
+        _skipLocationChange = false;
+      }
+      this._currentInstruction = instruction;
+      var next = _resolveToTrue;
+      if (lang_1.isPresent(this._outlet) && lang_1.isPresent(instruction.component)) {
+        var componentInstruction = instruction.component;
+        if (componentInstruction.reuse) {
+          next = this._outlet.reuse(componentInstruction);
+        } else {
+          next = this.deactivate(instruction).then(function(_) {
+            return _this._outlet.activate(componentInstruction);
+          });
+        }
+        if (lang_1.isPresent(instruction.child)) {
+          next = next.then(function(_) {
+            if (lang_1.isPresent(_this._childRouter)) {
+              return _this._childRouter.commit(instruction.child);
+            }
+          });
+        }
+      }
+      var promises = [];
+      this._auxRouters.forEach(function(router, name) {
+        if (lang_1.isPresent(instruction.auxInstruction[name])) {
+          promises.push(router.commit(instruction.auxInstruction[name]));
+        }
+      });
+      return next.then(function(_) {
+        return async_1.PromiseWrapper.all(promises);
+      });
+    };
+    Router.prototype._startNavigating = function() {
+      this.navigating = true;
+    };
+    Router.prototype._finishNavigating = function() {
+      this.navigating = false;
+    };
+    Router.prototype.subscribe = function(onNext) {
+      return async_1.ObservableWrapper.subscribe(this._subject, onNext);
+    };
+    Router.prototype.deactivate = function(instruction) {
+      var _this = this;
+      var childInstruction = null;
+      var componentInstruction = null;
+      if (lang_1.isPresent(instruction)) {
+        childInstruction = instruction.child;
+        componentInstruction = instruction.component;
+      }
+      var next = _resolveToTrue;
+      if (lang_1.isPresent(this._childRouter)) {
+        next = this._childRouter.deactivate(childInstruction);
+      }
+      if (lang_1.isPresent(this._outlet)) {
+        next = next.then(function(_) {
+          return _this._outlet.deactivate(componentInstruction);
+        });
+      }
+      return next;
+    };
+    Router.prototype.recognize = function(url) {
+      var ancestorComponents = this._getAncestorInstructions();
+      return this.registry.recognize(url, ancestorComponents);
+    };
+    Router.prototype._getAncestorInstructions = function() {
+      var ancestorInstructions = [this._currentInstruction];
+      var ancestorRouter = this;
+      while (lang_1.isPresent(ancestorRouter = ancestorRouter.parent)) {
+        ancestorInstructions.unshift(ancestorRouter._currentInstruction);
+      }
+      return ancestorInstructions;
+    };
+    Router.prototype.renavigate = function() {
+      if (lang_1.isBlank(this.lastNavigationAttempt)) {
+        return this._currentNavigation;
+      }
+      return this.navigateByUrl(this.lastNavigationAttempt);
+    };
+    Router.prototype.generate = function(linkParams) {
+      var ancestorInstructions = this._getAncestorInstructions();
+      return this.registry.generate(linkParams, ancestorInstructions);
+    };
+    return Router;
+  })();
+  exports.Router = Router;
+  var RootRouter = (function(_super) {
+    __extends(RootRouter, _super);
+    function RootRouter(registry, location, primaryComponent) {
+      var _this = this;
+      _super.call(this, registry, null, primaryComponent);
+      this._location = location;
+      this._locationSub = this._location.subscribe(function(change) {
+        _this.recognize(change['url']).then(function(instruction) {
+          _this.navigateByInstruction(instruction, lang_1.isPresent(change['pop'])).then(function(_) {
+            if (lang_1.isPresent(change['pop']) && change['type'] != 'hashchange') {
+              return ;
+            }
+            var emitPath = instruction.toUrlPath();
+            var emitQuery = instruction.toUrlQuery();
+            if (emitPath.length > 0) {
+              emitPath = '/' + emitPath;
+            }
+            if (change['type'] == 'hashchange') {
+              if (instruction.toRootUrl() != _this._location.path()) {
+                _this._location.replaceState(emitPath, emitQuery);
+              }
+            } else {
+              _this._location.go(emitPath, emitQuery);
+            }
+          });
+        });
+      });
+      this.registry.configFromComponent(primaryComponent);
+      this.navigateByUrl(location.path());
+    }
+    RootRouter.prototype.commit = function(instruction, _skipLocationChange) {
+      var _this = this;
+      if (_skipLocationChange === void 0) {
+        _skipLocationChange = false;
+      }
+      var emitPath = instruction.toUrlPath();
+      var emitQuery = instruction.toUrlQuery();
+      if (emitPath.length > 0) {
+        emitPath = '/' + emitPath;
+      }
+      var promise = _super.prototype.commit.call(this, instruction);
+      if (!_skipLocationChange) {
+        promise = promise.then(function(_) {
+          _this._location.go(emitPath, emitQuery);
+        });
+      }
+      return promise;
+    };
+    RootRouter.prototype.dispose = function() {
+      if (lang_1.isPresent(this._locationSub)) {
+        async_1.ObservableWrapper.dispose(this._locationSub);
+        this._locationSub = null;
+      }
+    };
+    RootRouter = __decorate([core_1.Injectable(), __param(2, core_1.Inject(route_registry_1.ROUTER_PRIMARY_COMPONENT)), __metadata('design:paramtypes', [route_registry_1.RouteRegistry, location_1.Location, lang_1.Type])], RootRouter);
+    return RootRouter;
+  })(Router);
+  exports.RootRouter = RootRouter;
+  var ChildRouter = (function(_super) {
+    __extends(ChildRouter, _super);
+    function ChildRouter(parent, hostComponent) {
+      _super.call(this, parent.registry, parent, hostComponent);
+      this.parent = parent;
+    }
+    ChildRouter.prototype.navigateByUrl = function(url, _skipLocationChange) {
+      if (_skipLocationChange === void 0) {
+        _skipLocationChange = false;
+      }
+      return this.parent.navigateByUrl(url, _skipLocationChange);
+    };
+    ChildRouter.prototype.navigateByInstruction = function(instruction, _skipLocationChange) {
+      if (_skipLocationChange === void 0) {
+        _skipLocationChange = false;
+      }
+      return this.parent.navigateByInstruction(instruction, _skipLocationChange);
+    };
+    return ChildRouter;
+  })(Router);
+  function canActivateOne(nextInstruction, prevInstruction) {
+    var next = _resolveToTrue;
+    if (lang_1.isBlank(nextInstruction.component)) {
+      return next;
+    }
+    if (lang_1.isPresent(nextInstruction.child)) {
+      next = canActivateOne(nextInstruction.child, lang_1.isPresent(prevInstruction) ? prevInstruction.child : null);
+    }
+    return next.then(function(result) {
+      if (result == false) {
+        return false;
+      }
+      if (nextInstruction.component.reuse) {
+        return true;
+      }
+      var hook = route_lifecycle_reflector_1.getCanActivateHook(nextInstruction.component.componentType);
+      if (lang_1.isPresent(hook)) {
+        return hook(nextInstruction.component, lang_1.isPresent(prevInstruction) ? prevInstruction.component : null);
+      }
+      return true;
+    });
+  }
+  global.define = __define;
+  return module.exports;
+});
+
+System.register("angular2/router", ["angular2/src/router/router", "angular2/src/router/router_outlet", "angular2/src/router/router_link", "angular2/src/router/instruction", "angular2/src/router/platform_location", "angular2/src/router/route_registry", "angular2/src/router/location_strategy", "angular2/src/router/hash_location_strategy", "angular2/src/router/path_location_strategy", "angular2/src/router/location", "angular2/src/router/route_config_decorator", "angular2/src/router/route_definition", "angular2/src/router/lifecycle_annotations", "angular2/src/router/instruction", "angular2/core", "angular2/src/router/platform_location", "angular2/src/router/location_strategy", "angular2/src/router/path_location_strategy", "angular2/src/router/router", "angular2/src/router/router_outlet", "angular2/src/router/router_link", "angular2/src/router/route_registry", "angular2/src/router/location", "angular2/core", "angular2/src/facade/lang", "angular2/src/facade/exceptions"], true, function(require, exports, module) {
+  var global = System.global,
+      __define = global.define;
+  global.define = undefined;
+  function __export(m) {
+    for (var p in m)
+      if (!exports.hasOwnProperty(p))
+        exports[p] = m[p];
+  }
+  var router_1 = require("angular2/src/router/router");
+  exports.Router = router_1.Router;
+  var router_outlet_1 = require("angular2/src/router/router_outlet");
+  exports.RouterOutlet = router_outlet_1.RouterOutlet;
+  var router_link_1 = require("angular2/src/router/router_link");
+  exports.RouterLink = router_link_1.RouterLink;
+  var instruction_1 = require("angular2/src/router/instruction");
+  exports.RouteParams = instruction_1.RouteParams;
+  exports.RouteData = instruction_1.RouteData;
+  var platform_location_1 = require("angular2/src/router/platform_location");
+  exports.PlatformLocation = platform_location_1.PlatformLocation;
+  var route_registry_1 = require("angular2/src/router/route_registry");
+  exports.RouteRegistry = route_registry_1.RouteRegistry;
+  exports.ROUTER_PRIMARY_COMPONENT = route_registry_1.ROUTER_PRIMARY_COMPONENT;
+  var location_strategy_1 = require("angular2/src/router/location_strategy");
+  exports.LocationStrategy = location_strategy_1.LocationStrategy;
+  exports.APP_BASE_HREF = location_strategy_1.APP_BASE_HREF;
+  var hash_location_strategy_1 = require("angular2/src/router/hash_location_strategy");
+  exports.HashLocationStrategy = hash_location_strategy_1.HashLocationStrategy;
+  var path_location_strategy_1 = require("angular2/src/router/path_location_strategy");
+  exports.PathLocationStrategy = path_location_strategy_1.PathLocationStrategy;
+  var location_1 = require("angular2/src/router/location");
+  exports.Location = location_1.Location;
+  __export(require("angular2/src/router/route_config_decorator"));
+  __export(require("angular2/src/router/route_definition"));
+  var lifecycle_annotations_1 = require("angular2/src/router/lifecycle_annotations");
+  exports.CanActivate = lifecycle_annotations_1.CanActivate;
+  var instruction_2 = require("angular2/src/router/instruction");
+  exports.Instruction = instruction_2.Instruction;
+  exports.ComponentInstruction = instruction_2.ComponentInstruction;
+  var core_1 = require("angular2/core");
+  exports.OpaqueToken = core_1.OpaqueToken;
+  var platform_location_2 = require("angular2/src/router/platform_location");
+  var location_strategy_2 = require("angular2/src/router/location_strategy");
+  var path_location_strategy_2 = require("angular2/src/router/path_location_strategy");
+  var router_2 = require("angular2/src/router/router");
+  var router_outlet_2 = require("angular2/src/router/router_outlet");
+  var router_link_2 = require("angular2/src/router/router_link");
+  var route_registry_2 = require("angular2/src/router/route_registry");
+  var location_2 = require("angular2/src/router/location");
+  var core_2 = require("angular2/core");
+  var lang_1 = require("angular2/src/facade/lang");
+  var exceptions_1 = require("angular2/src/facade/exceptions");
+  exports.ROUTER_DIRECTIVES = lang_1.CONST_EXPR([router_outlet_2.RouterOutlet, router_link_2.RouterLink]);
+  exports.ROUTER_PROVIDERS = lang_1.CONST_EXPR([route_registry_2.RouteRegistry, lang_1.CONST_EXPR(new core_2.Provider(location_strategy_2.LocationStrategy, {useClass: path_location_strategy_2.PathLocationStrategy})), platform_location_2.PlatformLocation, location_2.Location, lang_1.CONST_EXPR(new core_2.Provider(router_2.Router, {
+    useFactory: routerFactory,
+    deps: lang_1.CONST_EXPR([route_registry_2.RouteRegistry, location_2.Location, route_registry_2.ROUTER_PRIMARY_COMPONENT, core_2.ApplicationRef])
+  })), lang_1.CONST_EXPR(new core_2.Provider(route_registry_2.ROUTER_PRIMARY_COMPONENT, {
+    useFactory: routerPrimaryComponentFactory,
+    deps: lang_1.CONST_EXPR([core_2.ApplicationRef])
+  }))]);
+  exports.ROUTER_BINDINGS = exports.ROUTER_PROVIDERS;
+  function routerFactory(registry, location, primaryComponent, appRef) {
+    var rootRouter = new router_2.RootRouter(registry, location, primaryComponent);
+    appRef.registerDisposeListener(function() {
+      return rootRouter.dispose();
+    });
+    return rootRouter;
+  }
+  function routerPrimaryComponentFactory(app) {
+    if (app.componentTypes.length == 0) {
+      throw new exceptions_1.BaseException("Bootstrap at least one component before injecting Router.");
+    }
+    return app.componentTypes[0];
+  }
+  global.define = __define;
+  return module.exports;
+});
+
+//# sourceMappingURLDisabled=router.dev.js.map
