@@ -29,12 +29,14 @@ require('rxjs/Rx');
 //import 'rxjs/add/operator/retry';
 var App = (function () {
     function App(_authService) {
-        var _this = this;
         this._authService = _authService;
+    }
+    App.prototype.ngOnInit = function () {
+        var _this = this;
         this._authService.authUser$.subscribe(function (user) { return _this.authUser = user; });
         this._authService.loadAuthUser();
         this.navOpen = false;
-    }
+    };
     App.prototype.logout = function () {
         this._authService.logout();
     };

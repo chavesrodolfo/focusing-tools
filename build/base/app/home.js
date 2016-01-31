@@ -14,6 +14,8 @@ var interfaces_1 = require('./interfaces/interfaces');
 var Home = (function () {
     function Home(_notificationService) {
         this._notificationService = _notificationService;
+    }
+    Home.prototype.ngOnInit = function () {
         this.notificationsEnabled = false;
         this.notificationsSupported = true;
         if (this._notificationService.hasPermission() === interfaces_1.NotificationPermission.GRANTED) {
@@ -22,7 +24,7 @@ var Home = (function () {
         if (this._notificationService.hasPermission() === interfaces_1.NotificationPermission.UNSUPPORTED) {
             this.notificationsSupported = false;
         }
-    }
+    };
     Home.prototype.enableNotifications = function () {
         this._notificationService.requestPermission();
     };

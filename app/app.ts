@@ -35,7 +35,9 @@ class App {
     authUser: AuthUser;
     navOpen: boolean;
     
-    constructor(private _authService: AuthService) {
+    constructor(private _authService: AuthService) { }
+    
+    ngOnInit() {
         this._authService.authUser$.subscribe(user => this.authUser = user);
         this._authService.loadAuthUser();
         this.navOpen = false;

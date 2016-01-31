@@ -26,7 +26,7 @@ var NotificationService = (function () {
     };
     NotificationService.prototype.requestPermission = function () {
         Notification.requestPermission(function (permission) {
-            alert(permission);
+            console.log(permission);
         });
     };
     NotificationService.prototype.openNotification = function (message, body) {

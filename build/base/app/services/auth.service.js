@@ -25,7 +25,6 @@ var AuthService = (function () {
             }
         });
     }
-    ;
     Object.defineProperty(AuthService.prototype, "userSession", {
         get: function () {
             return this._firebaseRef.getAuth();

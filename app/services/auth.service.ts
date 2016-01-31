@@ -6,7 +6,7 @@ declare let Firebase;
 
 @Injectable()
 export class AuthService {
-	authUser$: Observable<any>;;
+	authUser$: Observable<any>;
     private _firebaseRef: any;
 	private _authUserObserver: any;
 
@@ -24,7 +24,7 @@ export class AuthService {
 		});
     }
 
-	get userSession(): AuthUser { // dep
+	get userSession(): AuthUser {
 		return this._firebaseRef.getAuth();
 	}
 
