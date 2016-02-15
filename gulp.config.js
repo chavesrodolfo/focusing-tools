@@ -1,5 +1,9 @@
 module.exports = {
     app: { baseName: 'app' },
+    server: {
+        baseDir: './',
+        proxy: ''
+    },
     sass: {
         src: ['./styles/**/*.scss'],
         lintSrc: [
