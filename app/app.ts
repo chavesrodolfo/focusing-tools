@@ -1,3 +1,5 @@
+///<reference path="../node_modules/angular2/typings/browser.d.ts"/>
+
 import {Component, bind} from 'angular2/core';
 import {FORM_BINDINGS} from 'angular2/common';
 import {bootstrap} from 'angular2/platform/browser';
@@ -16,10 +18,10 @@ import {FocusUserImageCmp} from './components/focus-user-image.component';
 // Temp import all operators see issues 
 // https://github.com/ReactiveX/RxJS/issues/1010 
 // https://github.com/escardin/angular2-community-faq/blob/master/rxjs_operators.md
+// import 'rxjs/add/operator/share'; 
+// import 'rxjs/add/operator/map';
+// import 'rxjs/add/operator/retry';
 import 'rxjs/Rx';
-//import 'rxjs/add/operator/share'; 
-//import 'rxjs/add/operator/map';
-//import 'rxjs/add/operator/retry';
 
 @Component({
     selector: 'focus-app',
