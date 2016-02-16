@@ -78,7 +78,7 @@ gulp.task('_test', 'Run unit tests for build', (done) => {
 
 gulp.task('_ts-lint', 'Lint TypeScript for style & syntax errors', () => {
     let tasks = CONFIGS.map(config => {
-        return gulp.src(config.typescript.src).pipe(tslint()).pipe(tslint.report('prose').on('error', () => {}));
+        return gulp.src(config.typescript.src).pipe(tslint()).pipe(tslint.report('prose').on('error', () => { }));
     });
 
     return merge(tasks);
@@ -174,12 +174,19 @@ gulp.task('_build.fonts', 'Move fonts to build', () => {
 });
 
 gulp.task('_browser-sync', 'Start up browser sync localhost', () => {
-    browserSync.init({
-        server: {
-            baseDir: "./"
-        },
-        logFileChanges: false
-    });
+    if (CONFIGS[0].server.proxy) {
+        browserSync.init({
+            proxy: CONFIGS[0].server.proxy,
+            logFileChanges: false
+        });
+    } else {
+        browserSync.init({
+            server: {
+                baseDir: CONFIGS[0].server.baseDir
+            },
+            logFileChanges: false
+        });
+    }
 });
 
 gulp.task('_browser-sync-reload', 'Reload browsers connected to browser sync', () => {
@@ -207,6 +214,7 @@ gulp.task('_update.template-version', 'Create version for HTML template referenc
         return gulp.src(config.html.templateUrlReferences)
                 // Update referenced static template versions
                 .pipe(replace(new RegExp(`templateUrl: '${config.app.baseName}/`), `templateUrl: '${config.buildLocations.html}`))
+                .pipe(replace(/wwwroot\//g, ''))
                 .pipe(replace(/\.html/g, '.html?v=' + getVersion()))
                 .pipe(gulp.dest(config.buildLocations.typescript));
     });
@@ -223,7 +231,8 @@ function build(done) {
 }
 
 function injectVersion(filepath) {
-    arguments[0] = filepath + '?v=' + getVersion();
+    // remove web root path and then add version 
+    arguments[0] = filepath.replace(/wwwroot\//g, '') + '?v=' + getVersion();
     return inject.transform.apply(inject.transform, arguments);
 }
 

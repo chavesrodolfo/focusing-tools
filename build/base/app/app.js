@@ -1,3 +1,4 @@
+///<reference path="../node_modules/angular2/typings/browser.d.ts"/>
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -23,18 +24,20 @@ var focus_user_image_component_1 = require('./components/focus-user-image.compon
 // Temp import all operators see issues 
 // https://github.com/ReactiveX/RxJS/issues/1010 
 // https://github.com/escardin/angular2-community-faq/blob/master/rxjs_operators.md
+// import 'rxjs/add/operator/share'; 
+// import 'rxjs/add/operator/map';
+// import 'rxjs/add/operator/retry';
 require('rxjs/Rx');
-//import 'rxjs/add/operator/share'; 
-//import 'rxjs/add/operator/map';
-//import 'rxjs/add/operator/retry';
 var App = (function () {
     function App(_authService) {
-        var _this = this;
         this._authService = _authService;
+    }
+    App.prototype.ngOnInit = function () {
+        var _this = this;
         this._authService.authUser$.subscribe(function (user) { return _this.authUser = user; });
         this._authService.loadAuthUser();
         this.navOpen = false;
-    }
+    };
     App.prototype.logout = function () {
         this._authService.logout();
     };

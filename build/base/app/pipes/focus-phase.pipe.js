@@ -28,7 +28,6 @@ var FocusPhasePipe = (function () {
         }
     };
     FocusPhasePipe = __decorate([
-        // https://github.com/chjj/marked
         core_1.Pipe({
             name: 'phasetype'
         }), 

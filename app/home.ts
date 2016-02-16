@@ -14,8 +14,9 @@ export class Home {
     notificationsEnabled: boolean;
     notificationsSupported: boolean;
 
-    constructor(
-        private _notificationService: NotificationService) {
+    constructor(private _notificationService: NotificationService) { }
+    
+    ngOnInit() {
         this.notificationsEnabled = false;
         this.notificationsSupported = true;
 

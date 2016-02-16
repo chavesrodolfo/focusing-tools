@@ -17,8 +17,9 @@ export class Stats {
     
     constructor(
         private _authService: AuthService,
-        private _dataService: DataService) {
-
+        private _dataService: DataService) { }
+    
+    ngOnInit() {
         this._dataService.focusPhases$.subscribe(focusPhases => this.focusPhases = focusPhases);
         this._dataService.loadFocusPhases();
 

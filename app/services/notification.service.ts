@@ -19,7 +19,7 @@ export class NotificationService {
 
 	requestPermission() {
 		Notification.requestPermission(permission => {
-			alert(permission);
+			console.log(permission);
 		});
 	}
 

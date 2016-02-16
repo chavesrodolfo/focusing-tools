@@ -14,14 +14,16 @@ var interfaces_1 = require('./interfaces/interfaces');
 var auth_service_1 = require('./services/auth.service');
 var Stats = (function () {
     function Stats(_authService, _dataService) {
-        var _this = this;
         this._authService = _authService;
         this._dataService = _dataService;
+    }
+    Stats.prototype.ngOnInit = function () {
+        var _this = this;
         this._dataService.focusPhases$.subscribe(function (focusPhases) { return _this.focusPhases = focusPhases; });
         this._dataService.loadFocusPhases();
         this._authService.authUser$.subscribe(function (authUser) { return _this.authUser = authUser; });
         this._authService.loadAuthUser();
-    }
+    };
     Stats.prototype.loginTwitter = function () {
         this._authService.login(interfaces_1.AuthType.TWITTER);
     };
