@@ -21,6 +21,10 @@ var about_1 = require('./about');
 var home_1 = require('./home');
 var stats_1 = require('./stats');
 var focus_user_image_component_1 = require('./components/focus-user-image.component');
+// Temp import all operators see issues https://github.com/ReactiveX/RxJS/issues/1010, https://github.com/escardin/angular2-community-faq/blob/master/rxjs_operators.md
+// import 'rxjs/add/operator/share'; 
+// import 'rxjs/add/operator/map';
+// import 'rxjs/add/operator/retry';
 require('rxjs/Rx');
 var App = (function () {
     function App(_authService) {

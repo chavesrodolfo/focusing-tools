@@ -44,7 +44,7 @@ var TimerService = (function () {
         var _this = this;
         this.clockRunning = true;
         this._runningTime.setMinutes(mins);
-        this._runningTime.setSeconds(1);
+        this._runningTime.setSeconds(1); // test until ready for mins
         this._interval = setInterval(function () {
             if (_this._timerFinished()) {
                 _this.stopTimer();

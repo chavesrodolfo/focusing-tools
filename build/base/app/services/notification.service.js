@@ -38,6 +38,7 @@ var NotificationService = (function () {
         });
     };
     NotificationService = __decorate([
+        // Browser W3C Spec Notification API
         core_1.Injectable(), 
         __metadata('design:paramtypes', [])
     ], NotificationService);
