@@ -1,4 +1,4 @@
-{
+﻿{
   "compilerOptions": {
     "declaration": false,
     "emitDecoratorMetadata": true,
@@ -9,5 +9,9 @@
     "removeComments": true,
     "target": "es5"
   },
-  "version": "1.6.2"
+  "exclude": [
+    "node_modules",
+    "typings/browser.d.ts",
+    "typings/browser/**"
+  ]
 }

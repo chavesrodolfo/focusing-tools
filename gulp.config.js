@@ -14,8 +14,7 @@ module.exports = {
         ]
     },
     typescript: {
-        src: ['./app/**/*.ts', './app/**/*.spec.ts'],
-        typings: ['./typings/**/*.d.ts']
+        src: ['./app/**/*.ts', './app/**/*.spec.ts']
     },
     images: {
         src: ['assets/images/**/*']
@@ -47,7 +46,7 @@ module.exports = {
     buildLocations: {
         html: './build/base/app/',
         index: './',
-        typescript: './build/base/app/',
+        typescript: './build/base/',
         css: './build/base/styles/',
         img: './build/base/assets/images/',
         js: './build/base/assets/javascript/',

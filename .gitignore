@@ -46,6 +46,7 @@ Temporary Items
 
 # Project Build Files
 /node_modules/*
+/typings/*
 
 # WebStorm Solution
 .idea/
