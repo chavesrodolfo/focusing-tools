@@ -1,4 +1,4 @@
-///<reference path="../node_modules/angular2/typings/browser.d.ts"/>
+"use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -21,12 +21,6 @@ var about_1 = require('./about');
 var home_1 = require('./home');
 var stats_1 = require('./stats');
 var focus_user_image_component_1 = require('./components/focus-user-image.component');
-// Temp import all operators see issues 
-// https://github.com/ReactiveX/RxJS/issues/1010 
-// https://github.com/escardin/angular2-community-faq/blob/master/rxjs_operators.md
-// import 'rxjs/add/operator/share'; 
-// import 'rxjs/add/operator/map';
-// import 'rxjs/add/operator/retry';
 require('rxjs/Rx');
 var App = (function () {
     function App(_authService) {
@@ -55,7 +49,7 @@ var App = (function () {
         __metadata('design:paramtypes', [auth_service_1.AuthService])
     ], App);
     return App;
-})();
+}());
 browser_1.bootstrap(App, [
     router_1.ROUTER_BINDINGS,
     common_1.FORM_BINDINGS,

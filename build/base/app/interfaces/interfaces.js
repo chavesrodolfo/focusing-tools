@@ -1,3 +1,4 @@
+"use strict";
 (function (PhaseType) {
     PhaseType[PhaseType["FOCUS"] = 0] = "FOCUS";
     PhaseType[PhaseType["SHORT_BREAK"] = 1] = "SHORT_BREAK";

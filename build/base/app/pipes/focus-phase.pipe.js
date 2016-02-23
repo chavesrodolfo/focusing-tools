@@ -1,3 +1,4 @@
+"use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -15,16 +16,12 @@ var FocusPhasePipe = (function () {
         switch (val) {
             case 0:
                 return 'Pomodoro';
-                break;
             case 1:
                 return 'Short Break';
-                break;
             case 2:
                 return 'Long Break';
-                break;
             default:
                 return 'Error';
-                break;
         }
     };
     FocusPhasePipe = __decorate([
@@ -34,5 +31,5 @@ var FocusPhasePipe = (function () {
         __metadata('design:paramtypes', [])
     ], FocusPhasePipe);
     return FocusPhasePipe;
-})();
+}());
 exports.FocusPhasePipe = FocusPhasePipe;

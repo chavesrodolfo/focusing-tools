@@ -8,16 +8,12 @@ export class FocusPhasePipe {
 		switch(val) {
 			case 0:
 				return 'Pomodoro';
-				break;
 			case 1:
 				return 'Short Break';
-				break;
 			case 2: 
 				return 'Long Break';
-				break;
 			default:
 				return 'Error';
-				break;
 		}
     }
 }
