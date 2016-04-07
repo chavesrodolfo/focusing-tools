@@ -1,15 +1,19 @@
-<div *ngIf="!authUser">
+<div *ngIf="!(authUser | async)">
 	<p>Login to track your progress!</p>
 	<button (click)="loginTwitter()" class="btn">Login with Twitter</button>
 	<button (click)="loginGithub()" class="btn">Login with Github</button>
 </div>
 
-<p *ngIf="authUser">
+<p *ngIf="authUser | async">
 	Logged in with {{authUser.provider}}
 </p>
 
+<div>
+    <canvas #canvas></canvas>
+</div>
+
 <ul *ngIf="focusPhases">
-	<li *ngFor="#phase of focusPhases">
+	<li *ngFor="#phase of focusPhases | async">
 		<focus-phase [focusPhase]="phase"></focus-phase>
 		<br />
 		<br />

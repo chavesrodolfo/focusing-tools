@@ -21,7 +21,15 @@ var TimerService = (function () {
         this.runningTime$ = new Observable_1.Observable(function (observer) { return _this._timerObserver = observer; });
         this.runningTime$.subscribe();
         this.stopTimer();
+        this._selectedTime = null;
     }
+    Object.defineProperty(TimerService.prototype, "runningPhaseType", {
+        get: function () {
+            return this._selectedTime;
+        },
+        enumerable: true,
+        configurable: true
+    });
     TimerService.prototype.startTimer = function (time) {
         if (this.clockRunning) {
             this.stopTimer();
@@ -39,11 +47,13 @@ var TimerService = (function () {
         this._runningTime.setSeconds(0);
         this._timerObserver.next(this._runningTime);
         this.clockRunning = false;
+        this._selectedTime = null;
     };
-    TimerService.prototype._startTimer = function (mins) {
+    TimerService.prototype._startTimer = function (phaseType) {
         var _this = this;
+        this._selectedTime = phaseType;
         this.clockRunning = true;
-        this._runningTime.setMinutes(mins);
+        this._runningTime.setMinutes(phaseType);
         this._runningTime.setSeconds(1); // test until ready for mins
         this._interval = setInterval(function () {
             if (_this._timerFinished()) {
@@ -63,15 +73,15 @@ var TimerService = (function () {
         var phaseType = null;
         var message = null;
         switch (this._selectedTime) {
-            case 1:
+            case interfaces_1.PhaseType.FOCUS:
                 phaseType = interfaces_1.PhaseType.FOCUS;
                 message = 'Focus Phase Complete!';
                 break;
-            case 5:
+            case interfaces_1.PhaseType.SHORT_BREAK:
                 phaseType = interfaces_1.PhaseType.SHORT_BREAK;
                 message = 'Short Break Complete!';
                 break;
-            case 15:
+            case interfaces_1.PhaseType.LONG_BREAK:
                 phaseType = interfaces_1.PhaseType.LONG_BREAK;
                 message = 'Long Break Complete!';
                 break;

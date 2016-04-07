@@ -1,6 +1,7 @@
 import {Component, EventEmitter} from 'angular2/core';
 import {Title} from 'angular2/platform/browser';
 import {TimerService} from '../services/timer.service';
+import {PhaseType} from '../interfaces/interfaces';
 
 @Component({
     selector: 'focus-timer',
@@ -10,6 +11,7 @@ import {TimerService} from '../services/timer.service';
 export class FocusTimerCmp {
     runningTime: Date;
     timeCompleted: EventEmitter<boolean>;
+    phaseType: PhaseType;
     focusRunning: boolean;
     shortRunning: boolean;
     longRunning: boolean;
@@ -26,52 +28,37 @@ export class FocusTimerCmp {
         
         this.clockRunning = false;
         this._timerService.runningTime$.subscribe(time => this._calcTime(time));
-        this._enableButtons();
+        this.phaseType = this._timerService.runningPhaseType;
     }
 
     startFocus() {
         if (this.clockRunning) {
             this._timerService.stopTimer();
-            this._enableButtons();
         } else {
-            this._timerService.startTimer(25);
-            this._disableButtons();
-            this.focusRunning = true;
+            this._timerService.startTimer(PhaseType.FOCUS);
         }
+        
+        this.phaseType = this._timerService.runningPhaseType;
     }
 
     startShortBreak() {
         if (this.clockRunning) {
             this._timerService.stopTimer();
-            this._enableButtons();
         } else {
-            this._timerService.startTimer(5);
-            this._disableButtons();
-            this.shortRunning = true;
+            this._timerService.startTimer(PhaseType.SHORT_BREAK);
         }
+        
+        this.phaseType = this._timerService.runningPhaseType;
     }
 
     startLongBreak() {
         if (this.clockRunning) {
             this._timerService.stopTimer();
-            this._enableButtons();
         } else {
-            this._timerService.startTimer(15);
-            this._disableButtons();
-            this.longRunning = true;
+            this._timerService.startTimer(PhaseType.LONG_BREAK);
         }
-    }
-
-    private _disableButtons() {
-        this.focusRunning = false;
-        this.shortRunning = false;
-        this.longRunning = false;
-    }
-
-    private _enableButtons() {
-        this.focusRunning = true;
-        this.shortRunning = true;
-        this.longRunning = true;
+        
+        this.phaseType = this._timerService.runningPhaseType;
     }
 
     private _calcTime(time: Date) {
@@ -81,7 +68,6 @@ export class FocusTimerCmp {
         
         if (this.runningTime.getSeconds() === 0 && this.runningTime.getMinutes() === 0) {
             this.timeCompleted.next(true);
-            this._enableButtons();
             this.clockRunning = false;
             document.title = 'Focus Time Management';
         }

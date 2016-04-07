@@ -20,10 +20,14 @@ var Stats = (function () {
     }
     Stats.prototype.ngOnInit = function () {
         var _this = this;
-        this._dataService.focusPhases$.subscribe(function (focusPhases) { return _this.focusPhases = focusPhases; });
+        this.focusPhases = this._dataService.focusPhases$;
         this._dataService.loadFocusPhases();
-        this._authService.authUser$.subscribe(function (authUser) { return _this.authUser = authUser; });
-        this._authService.loadAuthUser();
+        this.authUser = this._authService.authUser$;
+        // this._authService.loadAuthUser();
+        setTimeout(function () { return _this._authService.loadAuthUser(); }, 0); // hack need to fix
+    };
+    Stats.prototype.ngAfterViewInit = function () {
+        this._setUpHistory();
     };
     Stats.prototype.loginTwitter = function () {
         this._authService.login(interfaces_1.AuthType.TWITTER);
@@ -31,6 +35,41 @@ var Stats = (function () {
     Stats.prototype.loginGithub = function () {
         this._authService.login(interfaces_1.AuthType.GITHUB);
     };
+    Stats.prototype._setUpHistory = function () {
+        var _this = this;
+        var labels = [];
+        var today = new Date();
+        for (var i = 0; i <= 7; i++) {
+            var newDate = Date.now() + -i * 24 * 3600 * 1000; // date 5 days ago in milliseconds UTC
+            labels.push(new Date(newDate).toUTCString());
+        }
+        var data = {
+            labels: labels,
+            datasets: [
+                {
+                    label: "Focus",
+                    fillColor: "rgba(220,220,220,0.2)",
+                    strokeColor: "#d76450",
+                    pointColor: "#d76450",
+                    pointStrokeColor: "#fff",
+                    pointHighlightFill: "#fff",
+                    pointHighlightStroke: "rgba(220,220,220,1)",
+                    data: [65, 59, 80, 81, 56, 55, 40]
+                }
+            ]
+        };
+        setTimeout(function () {
+            var ctx = _this.canvas.nativeElement.getContext('2d');
+            var options = {
+                responsive: true
+            };
+            var myLineChart = new Chart(ctx).Line(data, options);
+        }, 0);
+    };
+    __decorate([
+        core_1.ViewChild('canvas'), 
+        __metadata('design:type', Object)
+    ], Stats.prototype, "canvas", void 0);
     Stats = __decorate([
         core_1.Component({
             selector: 'focus-stats',

@@ -10,6 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('angular2/core');
 var timer_service_1 = require('../services/timer.service');
+var interfaces_1 = require('../interfaces/interfaces');
 var FocusTimerCmp = (function () {
     function FocusTimerCmp(_timerService) {
         var _this = this;
@@ -20,50 +21,34 @@ var FocusTimerCmp = (function () {
         this.runningTime.setSeconds(0);
         this.clockRunning = false;
         this._timerService.runningTime$.subscribe(function (time) { return _this._calcTime(time); });
-        this._enableButtons();
+        this.phaseType = this._timerService.runningPhaseType;
     }
     FocusTimerCmp.prototype.startFocus = function () {
         if (this.clockRunning) {
             this._timerService.stopTimer();
-            this._enableButtons();
         }
         else {
-            this._timerService.startTimer(25);
-            this._disableButtons();
-            this.focusRunning = true;
+            this._timerService.startTimer(interfaces_1.PhaseType.FOCUS);
         }
+        this.phaseType = this._timerService.runningPhaseType;
     };
     FocusTimerCmp.prototype.startShortBreak = function () {
         if (this.clockRunning) {
             this._timerService.stopTimer();
-            this._enableButtons();
         }
         else {
-            this._timerService.startTimer(5);
-            this._disableButtons();
-            this.shortRunning = true;
+            this._timerService.startTimer(interfaces_1.PhaseType.SHORT_BREAK);
         }
+        this.phaseType = this._timerService.runningPhaseType;
     };
     FocusTimerCmp.prototype.startLongBreak = function () {
         if (this.clockRunning) {
             this._timerService.stopTimer();
-            this._enableButtons();
         }
         else {
-            this._timerService.startTimer(15);
-            this._disableButtons();
-            this.longRunning = true;
+            this._timerService.startTimer(interfaces_1.PhaseType.LONG_BREAK);
         }
-    };
-    FocusTimerCmp.prototype._disableButtons = function () {
-        this.focusRunning = false;
-        this.shortRunning = false;
-        this.longRunning = false;
-    };
-    FocusTimerCmp.prototype._enableButtons = function () {
-        this.focusRunning = true;
-        this.shortRunning = true;
-        this.longRunning = true;
+        this.phaseType = this._timerService.runningPhaseType;
     };
     FocusTimerCmp.prototype._calcTime = function (time) {
         this.runningTime = time;
@@ -71,7 +56,6 @@ var FocusTimerCmp = (function () {
         document.title = this.runningTime.getMinutes() + ":" + this.runningTime.getSeconds();
         if (this.runningTime.getSeconds() === 0 && this.runningTime.getMinutes() === 0) {
             this.timeCompleted.next(true);
-            this._enableButtons();
             this.clockRunning = false;
             document.title = 'Focus Time Management';
         }

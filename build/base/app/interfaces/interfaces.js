@@ -1,9 +1,9 @@
 "use strict";
 (function (PhaseType) {
-    PhaseType[PhaseType["FOCUS"] = 0] = "FOCUS";
-    PhaseType[PhaseType["SHORT_BREAK"] = 1] = "SHORT_BREAK";
-    PhaseType[PhaseType["LONG_BREAK"] = 2] = "LONG_BREAK";
-    PhaseType[PhaseType["CUSTOM_BREAK"] = 3] = "CUSTOM_BREAK";
+    PhaseType[PhaseType["FOCUS"] = 25] = "FOCUS";
+    PhaseType[PhaseType["SHORT_BREAK"] = 5] = "SHORT_BREAK";
+    PhaseType[PhaseType["LONG_BREAK"] = 15] = "LONG_BREAK";
+    PhaseType[PhaseType["CUSTOM_BREAK"] = null] = "CUSTOM_BREAK";
 })(exports.PhaseType || (exports.PhaseType = {}));
 var PhaseType = exports.PhaseType;
 ;

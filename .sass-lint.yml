@@ -44,10 +44,6 @@ rules:
 
   # Styles
   property-sort-order: 0
-  clean-import-paths:
-  - 1
-  - 
-    leading-underscore: true
 
   # disabling indentation because of VS issues but the rule applies
   indentation:

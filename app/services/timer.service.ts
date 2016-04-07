@@ -10,7 +10,7 @@ export class TimerService {
     runningTime$: Observable<Date>;
     focusRunning: boolean;
     clockRunning: boolean;
-
+    
     private _timerObserver: any;
     private _runningTime: Date;
     private _interval: any;
@@ -23,6 +23,11 @@ export class TimerService {
         this.runningTime$ = new Observable(observer => this._timerObserver = observer);
         this.runningTime$.subscribe();
         this.stopTimer();
+        this._selectedTime = null;
+    }
+    
+    get runningPhaseType() {
+        return this._selectedTime;
     }
 
     startTimer(time: number) {
@@ -42,11 +47,13 @@ export class TimerService {
         this._runningTime.setSeconds(0);
         this._timerObserver.next(this._runningTime);
         this.clockRunning = false;
+        this._selectedTime = null;
     }
 
-    private _startTimer(mins: number) {
+    private _startTimer(phaseType: PhaseType) {
+        this._selectedTime = phaseType;
         this.clockRunning = true;
-        this._runningTime.setMinutes(mins);
+        this._runningTime.setMinutes(phaseType);
         this._runningTime.setSeconds(1); // test until ready for mins
 
         this._interval = setInterval(() => {
@@ -70,15 +77,15 @@ export class TimerService {
         let message = null;
 
         switch (this._selectedTime) {
-            case 1:
+            case PhaseType.FOCUS:
                 phaseType = PhaseType.FOCUS;
                 message = 'Focus Phase Complete!';
                 break;
-            case 5:
+            case PhaseType.SHORT_BREAK:
                 phaseType = PhaseType.SHORT_BREAK;
                 message = 'Short Break Complete!';
                 break;
-            case 15:
+            case PhaseType.LONG_BREAK:
                 phaseType = PhaseType.LONG_BREAK;
                 message = 'Long Break Complete!';
                 break;
@@ -91,4 +98,6 @@ export class TimerService {
         this._dataService.addFocusPhase({ phaseType, dateCreated: Firebase.ServerValue.TIMESTAMP });
         this._notificationService.openNotification(message);
     }
+    
+    private getPhaseTypeMins
 }

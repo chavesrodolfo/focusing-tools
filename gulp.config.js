@@ -38,7 +38,8 @@ module.exports = {
             // Libs
             './assets/javascript/firebase/firebase-client.js',
             './assets/javascript/notification/notification.js',
-        
+            './node_modules/chart.js/Chart.min.js',
+            
             // Angular 2 Deps
             './node_modules/es6-shim/es6-shim.js',
             './node_modules/angular2/bundles/angular2-polyfills.js',
