@@ -28,7 +28,6 @@ var AuthService = (function () {
         configurable: true
     });
     AuthService.prototype.loadAuthUser = function () {
-        console.log(this._firebaseRef.getAuth());
         this._authUserObserver.next(this._firebaseRef.getAuth());
     };
     AuthService.prototype.login = function (authType) {

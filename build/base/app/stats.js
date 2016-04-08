@@ -17,10 +17,12 @@ var Stats = (function () {
     function Stats(_authService, _dataService) {
         this._authService = _authService;
         this._dataService = _dataService;
+        this.focusPhases = [];
     }
     Stats.prototype.ngOnInit = function () {
+        var _this = this;
         this.userSession = this._authService.userSession;
-        this.focusPhases = this._dataService.focusPhases$;
+        this._dataService.focusPhases$.subscribe(function (phases) { return _this.focusPhases = phases; });
         this._dataService.loadFocusPhases();
     };
     Stats.prototype.ngAfterViewInit = function () {
@@ -41,7 +43,6 @@ var Stats = (function () {
                 var date = new Date(phase.dateCreated);
                 var formattedDate = date.getDay() + "-" + date.getMonth() + "-" + date.getFullYear();
                 labels.push(formattedDate);
-                console.log(phase.phaseType);
                 data.push(phase.phaseType);
             }
         });
@@ -70,15 +71,19 @@ var Stats = (function () {
     Stats.prototype._setUpHistory = function () {
         var _this = this;
         this._dataService.focusPhases$.subscribe(function (phases) {
-            if (_this.chart && _this.chart.destroy) {
-                _this.chart.destroy();
-            }
+            console.log(phases);
+            // if (this.chart && this.chart.destroy) {
+            //     this.chart.destroy();
+            // }
             var data = _this._createGraphData(phases);
             var ctx = _this.canvas.nativeElement.getContext('2d');
             var options = {
                 responsive: true
             };
-            _this.chart = new Chart(ctx).Line(data, options);
+            setTimeout(function () {
+                console.log('run');
+                _this.chart = new Chart(ctx).Line(data, options);
+            }, 2000);
         });
     };
     __decorate([

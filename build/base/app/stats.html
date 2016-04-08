@@ -7,7 +7,7 @@
     <button (click)="loginGithub()" class="btn">Login with Github</button>
 </div>
 
-<div *ngIf="userSession">
+<div [hidden]="!userSession">
     <p>
         Logged In: {{userSession?.provider}}
         <br />
@@ -15,13 +15,13 @@
 
     <h1>Focused Time</h1>
     <div>
-        <canvas #canvas></canvas>
+        <canvas #canvas id="canvas"></canvas>
     </div>
 
     <br /><br />
 
-    <ul *ngIf="focusPhases">
-        <li *ngFor="#phase of focusPhases | async">
+    <ul *ngIf="focusPhases.length">
+        <li *ngFor="#phase of focusPhases">
             <focus-phase [focusPhase]="phase"></focus-phase>
             <br />
             <br />

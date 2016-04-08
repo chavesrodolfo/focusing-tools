@@ -23,7 +23,6 @@ export class AuthService {
 	}
 
 	loadAuthUser() {
-        console.log(this._firebaseRef.getAuth());
 		this._authUserObserver.next(this._firebaseRef.getAuth());
 	}
 

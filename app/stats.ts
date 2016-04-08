@@ -16,7 +16,7 @@ declare let Chart;
 export class Stats {
     @ViewChild('canvas') canvas;
     userSession: any;
-    focusPhases: Observable<any>;
+    focusPhases: any[] = [];
     chart: any;
 
     constructor(
@@ -25,7 +25,7 @@ export class Stats {
 
     ngOnInit() {
         this.userSession = this._authService.userSession;
-        this.focusPhases = this._dataService.focusPhases$;
+        this._dataService.focusPhases$.subscribe(phases => this.focusPhases = phases);
         this._dataService.loadFocusPhases();
     }
 
@@ -51,8 +51,6 @@ export class Stats {
                 let date = new Date(phase.dateCreated);
                 let formattedDate = `${date.getDay()}-${date.getMonth()}-${date.getFullYear()}`;
                 labels.push(formattedDate);
-
-                console.log(phase.phaseType);
                 data.push(phase.phaseType);
             }
         });
@@ -83,9 +81,11 @@ export class Stats {
 
     private _setUpHistory() {
         this._dataService.focusPhases$.subscribe(phases => {
-            if (this.chart && this.chart.destroy) {
-                this.chart.destroy();
-            }
+            console.log(phases);
+            
+            // if (this.chart && this.chart.destroy) {
+            //     this.chart.destroy();
+            // }
 
             let data = this._createGraphData(phases);
             let ctx = this.canvas.nativeElement.getContext('2d');
@@ -93,7 +93,10 @@ export class Stats {
                 responsive: true
             };
 
-            this.chart = new Chart(ctx).Line(data, options);
+            setTimeout(() => {
+                console.log('run');
+                this.chart = new Chart(ctx).Line(data, options);
+            }, 2000);
         });
     }
 }
