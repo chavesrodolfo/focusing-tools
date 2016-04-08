@@ -36,6 +36,7 @@ var TimerService = (function () {
         }
         else {
             this._startTimer(time);
+            // this._startTimer(0);
             this._selectedTime = time;
             this.focusRunning = true;
         }
@@ -86,7 +87,7 @@ var TimerService = (function () {
                 message = 'Long Break Complete!';
                 break;
             default:
-                phaseType = interfaces_1.PhaseType.CUSTOM_BREAK;
+                phaseType = interfaces_1.PhaseType.FOCUS;
                 message = 'Custom Brake Complete!';
                 break;
         }

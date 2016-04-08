@@ -9,19 +9,20 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('angular2/core');
+var interfaces_1 = require('../interfaces/interfaces');
 var FocusPhasePipe = (function () {
     function FocusPhasePipe() {
     }
     FocusPhasePipe.prototype.transform = function (val, args) {
         switch (val) {
-            case 0:
+            case interfaces_1.PhaseType.FOCUS:
                 return 'Pomodoro';
-            case 1:
+            case interfaces_1.PhaseType.SHORT_BREAK:
                 return 'Short Break';
-            case 2:
+            case interfaces_1.PhaseType.LONG_BREAK:
                 return 'Long Break';
             default:
-                return 'Error';
+                return 'Custom';
         }
     };
     FocusPhasePipe = __decorate([

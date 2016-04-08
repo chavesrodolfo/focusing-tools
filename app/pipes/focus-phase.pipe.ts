@@ -1,19 +1,20 @@
 import {Pipe} from 'angular2/core';
+import {PhaseType} from '../interfaces/interfaces';
 
 @Pipe({
     name: 'phasetype'
 })
 export class FocusPhasePipe {
-    transform(val, args) {
+    transform(val: PhaseType, args) {
 		switch(val) {
-			case 0:
+			case PhaseType.FOCUS:
 				return 'Pomodoro';
-			case 1:
+			case PhaseType.SHORT_BREAK:
 				return 'Short Break';
-			case 2: 
+			case PhaseType.LONG_BREAK: 
 				return 'Long Break';
 			default:
-				return 'Error';
+				return 'Custom';
 		}
     }
 }

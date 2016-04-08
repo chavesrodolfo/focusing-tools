@@ -30,11 +30,12 @@ export class TimerService {
         return this._selectedTime;
     }
 
-    startTimer(time: number) {
+    startTimer(time: PhaseType) {
         if (this.clockRunning) {
             this.stopTimer();
         } else {
             this._startTimer(time);
+            // this._startTimer(0);
             this._selectedTime = time;
             this.focusRunning = true;
         }
@@ -90,7 +91,7 @@ export class TimerService {
                 message = 'Long Break Complete!';
                 break;
             default:
-                phaseType = PhaseType.CUSTOM_BREAK;
+                phaseType = PhaseType.FOCUS;
                 message = 'Custom Brake Complete!';
                 break;
         }

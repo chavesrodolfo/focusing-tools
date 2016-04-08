@@ -1,5 +1,6 @@
 import {Injectable} from 'angular2/core';
 import {Observable} from 'rxjs/Observable';
+import 'rxjs/add/operator/startWith';
 import {AuthUser, AuthType} from '../interfaces/interfaces';
 
 declare let Firebase;
@@ -14,14 +15,7 @@ export class AuthService {
         this._firebaseRef = new Firebase('https://focus-app.firebaseio.com/');
 		this.authUser$ = new Observable(observer => this._authUserObserver = observer).share();
 		this.authUser$.subscribe();
-
-		this._firebaseRef.onAuth(authData => {
-			if (authData) {
-				this._authUserObserver.next(authData);
-			} else {
-				this._authUserObserver.next(null);
-			}
-		});
+		this._firebaseRef.onAuth(authData => this._authUserObserver.next(authData));
     }
 
 	get userSession(): AuthUser {
@@ -29,6 +23,7 @@ export class AuthService {
 	}
 
 	loadAuthUser() {
+        console.log(this._firebaseRef.getAuth());
 		this._authUserObserver.next(this._firebaseRef.getAuth());
 	}
 

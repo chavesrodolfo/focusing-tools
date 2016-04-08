@@ -19,12 +19,9 @@ var Stats = (function () {
         this._dataService = _dataService;
     }
     Stats.prototype.ngOnInit = function () {
-        var _this = this;
+        this.userSession = this._authService.userSession;
         this.focusPhases = this._dataService.focusPhases$;
         this._dataService.loadFocusPhases();
-        this.authUser = this._authService.authUser$;
-        // this._authService.loadAuthUser();
-        setTimeout(function () { return _this._authService.loadAuthUser(); }, 0); // hack need to fix
     };
     Stats.prototype.ngAfterViewInit = function () {
         this._setUpHistory();
@@ -35,15 +32,26 @@ var Stats = (function () {
     Stats.prototype.loginGithub = function () {
         this._authService.login(interfaces_1.AuthType.GITHUB);
     };
-    Stats.prototype._setUpHistory = function () {
-        var _this = this;
+    Stats.prototype._createGraphData = function (phases) {
         var labels = [];
+        var data = [];
         var today = new Date();
-        for (var i = 0; i <= 7; i++) {
-            var newDate = Date.now() + -i * 24 * 3600 * 1000; // date 5 days ago in milliseconds UTC
-            labels.push(new Date(newDate).toUTCString());
-        }
-        var data = {
+        phases.forEach(function (phase) {
+            if (phase.phaseType === interfaces_1.PhaseType.FOCUS) {
+                var date = new Date(phase.dateCreated);
+                var formattedDate = date.getDay() + "-" + date.getMonth() + "-" + date.getFullYear();
+                labels.push(formattedDate);
+                console.log(phase.phaseType);
+                data.push(phase.phaseType);
+            }
+        });
+        // for (let i = 0; i < 7; i++) {
+        //     let newDate = Date.now() + -i * 24 * 3600 * 1000;
+        //     let date = new Date(newDate);
+        //     let formattedDate = `${date.getDay()}-${date.getMonth()}-${date.getFullYear()}`;
+        //     labels.push(formattedDate);
+        // }
+        return {
             labels: labels,
             datasets: [
                 {
@@ -52,19 +60,26 @@ var Stats = (function () {
                     strokeColor: "#d76450",
                     pointColor: "#d76450",
                     pointStrokeColor: "#fff",
-                    pointHighlightFill: "#fff",
+                    pointHighlightFill: "#d76450",
                     pointHighlightStroke: "rgba(220,220,220,1)",
-                    data: [65, 59, 80, 81, 56, 55, 40]
+                    data: data
                 }
             ]
         };
-        setTimeout(function () {
+    };
+    Stats.prototype._setUpHistory = function () {
+        var _this = this;
+        this._dataService.focusPhases$.subscribe(function (phases) {
+            if (_this.chart && _this.chart.destroy) {
+                _this.chart.destroy();
+            }
+            var data = _this._createGraphData(phases);
             var ctx = _this.canvas.nativeElement.getContext('2d');
             var options = {
                 responsive: true
             };
-            var myLineChart = new Chart(ctx).Line(data, options);
-        }, 0);
+            _this.chart = new Chart(ctx).Line(data, options);
+        });
     };
     __decorate([
         core_1.ViewChild('canvas'), 

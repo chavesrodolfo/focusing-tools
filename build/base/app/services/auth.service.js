@@ -10,6 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('angular2/core');
 var Observable_1 = require('rxjs/Observable');
+require('rxjs/add/operator/startWith');
 var interfaces_1 = require('../interfaces/interfaces');
 var AuthService = (function () {
     function AuthService() {
@@ -17,14 +18,7 @@ var AuthService = (function () {
         this._firebaseRef = new Firebase('https://focus-app.firebaseio.com/');
         this.authUser$ = new Observable_1.Observable(function (observer) { return _this._authUserObserver = observer; }).share();
         this.authUser$.subscribe();
-        this._firebaseRef.onAuth(function (authData) {
-            if (authData) {
-                _this._authUserObserver.next(authData);
-            }
-            else {
-                _this._authUserObserver.next(null);
-            }
-        });
+        this._firebaseRef.onAuth(function (authData) { return _this._authUserObserver.next(authData); });
     }
     Object.defineProperty(AuthService.prototype, "userSession", {
         get: function () {
@@ -34,6 +28,7 @@ var AuthService = (function () {
         configurable: true
     });
     AuthService.prototype.loadAuthUser = function () {
+        console.log(this._firebaseRef.getAuth());
         this._authUserObserver.next(this._firebaseRef.getAuth());
     };
     AuthService.prototype.login = function (authType) {
