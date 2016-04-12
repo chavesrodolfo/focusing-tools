@@ -46,12 +46,6 @@ var Stats = (function () {
                 data.push(phase.phaseType);
             }
         });
-        // for (let i = 0; i < 7; i++) {
-        //     let newDate = Date.now() + -i * 24 * 3600 * 1000;
-        //     let date = new Date(newDate);
-        //     let formattedDate = `${date.getDay()}-${date.getMonth()}-${date.getFullYear()}`;
-        //     labels.push(formattedDate);
-        // }
         return {
             labels: labels,
             datasets: [
@@ -71,19 +65,15 @@ var Stats = (function () {
     Stats.prototype._setUpHistory = function () {
         var _this = this;
         this._dataService.focusPhases$.subscribe(function (phases) {
-            console.log(phases);
             // if (this.chart && this.chart.destroy) {
             //     this.chart.destroy();
             // }
-            var data = _this._createGraphData(phases);
+            var data = _this._createGraphData(_this.focusPhases);
             var ctx = _this.canvas.nativeElement.getContext('2d');
             var options = {
                 responsive: true
             };
-            setTimeout(function () {
-                console.log('run');
-                _this.chart = new Chart(ctx).Line(data, options);
-            }, 2000);
+            _this.chart = new Chart(ctx).Line(data, options);
         });
     };
     __decorate([

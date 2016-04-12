@@ -18,7 +18,7 @@ export class Stats {
     userSession: any;
     focusPhases: any[] = [];
     chart: any;
-
+    
     constructor(
         private _authService: AuthService,
         private _dataService: DataService) { }
@@ -55,13 +55,6 @@ export class Stats {
             }
         });
 
-        // for (let i = 0; i < 7; i++) {
-        //     let newDate = Date.now() + -i * 24 * 3600 * 1000;
-        //     let date = new Date(newDate);
-        //     let formattedDate = `${date.getDay()}-${date.getMonth()}-${date.getFullYear()}`;
-        //     labels.push(formattedDate);
-        // }
-
         return {
             labels,
             datasets: [
@@ -81,22 +74,17 @@ export class Stats {
 
     private _setUpHistory() {
         this._dataService.focusPhases$.subscribe(phases => {
-            console.log(phases);
-            
             // if (this.chart && this.chart.destroy) {
             //     this.chart.destroy();
             // }
 
-            let data = this._createGraphData(phases);
+            let data = this._createGraphData(this.focusPhases);
             let ctx = this.canvas.nativeElement.getContext('2d');
             let options = {
                 responsive: true
             };
 
-            setTimeout(() => {
-                console.log('run');
-                this.chart = new Chart(ctx).Line(data, options);
-            }, 2000);
+            this.chart = new Chart(ctx).Line(data, options);
         });
     }
 }
