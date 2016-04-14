@@ -20,13 +20,6 @@ var AuthService = (function () {
         this.authUser$.subscribe();
         this._firebaseRef.onAuth(function (authData) { return _this._authUserObserver.next(authData); });
     }
-    Object.defineProperty(AuthService.prototype, "userSession", {
-        get: function () {
-            return this._firebaseRef.getAuth();
-        },
-        enumerable: true,
-        configurable: true
-    });
     AuthService.prototype.loadAuthUser = function () {
         this._authUserObserver.next(this._firebaseRef.getAuth());
     };

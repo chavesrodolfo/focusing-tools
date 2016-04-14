@@ -1,28 +1,24 @@
-<!--{{userSession | json}}
-<br /><br />
-{{focusPhases | async | json}}-->
-<div *ngIf="!userSession">
+<div *ngIf="!user">
     <p>Login to track your progress!</p>
     <button (click)="loginTwitter()" class="btn">Login with Twitter</button>
     <button (click)="loginGithub()" class="btn">Login with Github</button>
 </div>
 
-<div [hidden]="!userSession">
+<div *ngIf="user">
     <p>
-        Logged In: {{userSession?.provider}}
-        <br />
+        Logged In: {{user.provider}}
     </p>
 
     <h1>Focused Time</h1>
     
-    <div>
+    <!--<div>
         <canvas #canvas id="canvas"></canvas>
     </div>
 
-    <br /><br />
+    <br /><br />-->
 
-    <ul *ngIf="focusPhases.length">
-        <li *ngFor="#phase of focusPhases">
+    <ul *ngIf="phases?.length">
+        <li *ngFor="#phase of phases">
             <focus-phase [focusPhase]="phase"></focus-phase>
             <br />
             <br />

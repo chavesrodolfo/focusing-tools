@@ -18,10 +18,6 @@ export class AuthService {
 		this._firebaseRef.onAuth(authData => this._authUserObserver.next(authData));
     }
 
-	get userSession(): AuthUser {
-		return this._firebaseRef.getAuth();
-	}
-
 	loadAuthUser() {
 		this._authUserObserver.next(this._firebaseRef.getAuth());
 	}

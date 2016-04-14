@@ -36,7 +36,6 @@ var TimerService = (function () {
         }
         else {
             this._startTimer(time);
-            // this._startTimer(0);
             this._selectedTime = time;
             this.focusRunning = true;
         }

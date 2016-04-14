@@ -15,22 +15,35 @@ declare let Chart;
 })
 export class Stats {
     @ViewChild('canvas') canvas;
-    userSession: any;
-    focusPhases: any[] = [];
+    user: any;
+    phases: any[];
+    userSubscription: any;
+    focusSubscription: any;
     chart: any;
-    
+
     constructor(
         private _authService: AuthService,
-        private _dataService: DataService) { }
+        private _dataService: DataService) {
+
+        this.focusSubscription = this._authService.authUser$.subscribe(user => this.user = user);
+        this.userSubscription = this._dataService.focusPhases$.subscribe(phases => {
+            this.phases = phases;
+            // this._setUpHistory();
+        });
+    }
 
     ngOnInit() {
-        this.userSession = this._authService.userSession;
-        this._dataService.focusPhases$.subscribe(phases => this.focusPhases = phases);
+        this._authService.loadAuthUser();
         this._dataService.loadFocusPhases();
     }
 
+    ngOnDestroy() {
+        this.focusSubscription.unsubscribe();
+        this.userSubscription.unsubscribe();
+    }
+
     ngAfterViewInit() {
-        this._setUpHistory();
+        
     }
 
     loginTwitter() {
@@ -73,18 +86,15 @@ export class Stats {
     }
 
     private _setUpHistory() {
-        this._dataService.focusPhases$.subscribe(phases => {
-            // if (this.chart && this.chart.destroy) {
-            //     this.chart.destroy();
-            // }
-
-            let data = this._createGraphData(this.focusPhases);
+        if (this.phases) {
+            console.log(this.phases);
+            let data = this._createGraphData(this.phases);
             let ctx = this.canvas.nativeElement.getContext('2d');
             let options = {
                 responsive: true
             };
 
             this.chart = new Chart(ctx).Line(data, options);
-        });
+        }
     }
 }

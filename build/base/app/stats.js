@@ -15,18 +15,24 @@ var interfaces_1 = require('./interfaces/interfaces');
 var auth_service_1 = require('./services/auth.service');
 var Stats = (function () {
     function Stats(_authService, _dataService) {
+        var _this = this;
         this._authService = _authService;
         this._dataService = _dataService;
-        this.focusPhases = [];
+        this.focusSubscription = this._authService.authUser$.subscribe(function (user) { return _this.user = user; });
+        this.userSubscription = this._dataService.focusPhases$.subscribe(function (phases) {
+            _this.phases = phases;
+            // this._setUpHistory();
+        });
     }
     Stats.prototype.ngOnInit = function () {
-        var _this = this;
-        this.userSession = this._authService.userSession;
-        this._dataService.focusPhases$.subscribe(function (phases) { return _this.focusPhases = phases; });
+        this._authService.loadAuthUser();
         this._dataService.loadFocusPhases();
     };
+    Stats.prototype.ngOnDestroy = function () {
+        this.focusSubscription.unsubscribe();
+        this.userSubscription.unsubscribe();
+    };
     Stats.prototype.ngAfterViewInit = function () {
-        this._setUpHistory();
     };
     Stats.prototype.loginTwitter = function () {
         this._authService.login(interfaces_1.AuthType.TWITTER);
@@ -63,18 +69,15 @@ var Stats = (function () {
         };
     };
     Stats.prototype._setUpHistory = function () {
-        var _this = this;
-        this._dataService.focusPhases$.subscribe(function (phases) {
-            // if (this.chart && this.chart.destroy) {
-            //     this.chart.destroy();
-            // }
-            var data = _this._createGraphData(_this.focusPhases);
-            var ctx = _this.canvas.nativeElement.getContext('2d');
+        if (this.phases) {
+            console.log(this.phases);
+            var data = this._createGraphData(this.phases);
+            var ctx = this.canvas.nativeElement.getContext('2d');
             var options = {
                 responsive: true
             };
-            _this.chart = new Chart(ctx).Line(data, options);
-        });
+            this.chart = new Chart(ctx).Line(data, options);
+        }
     };
     __decorate([
         core_1.ViewChild('canvas'), 
