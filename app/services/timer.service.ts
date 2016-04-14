@@ -10,7 +10,7 @@ export class TimerService {
     runningTime$: Observable<Date>;
     focusRunning: boolean;
     clockRunning: boolean;
-    
+
     private _timerObserver: any;
     private _runningTime: Date;
     private _interval: any;
@@ -25,7 +25,7 @@ export class TimerService {
         this.stopTimer();
         this._selectedTime = null;
     }
-    
+
     get runningPhaseType() {
         return this._selectedTime;
     }
@@ -47,7 +47,6 @@ export class TimerService {
         this._runningTime.setSeconds(0);
         this._timerObserver.next(this._runningTime);
         this.clockRunning = false;
-        this._selectedTime = null;
     }
 
     private _startTimer(phaseType: PhaseType) {
@@ -75,7 +74,7 @@ export class TimerService {
     private _saveTime() {
         let phaseType = null;
         let message = null;
-
+        
         switch (this._selectedTime) {
             case PhaseType.FOCUS:
                 phaseType = PhaseType.FOCUS;
@@ -90,14 +89,15 @@ export class TimerService {
                 message = 'Long Break Complete!';
                 break;
             default:
-                phaseType = PhaseType.FOCUS;
+                phaseType = this._selectedTime;
                 message = 'Custom Brake Complete!';
                 break;
         }
 
+        this._selectedTime = null;
         this._dataService.addFocusPhase({ phaseType, dateCreated: Firebase.ServerValue.TIMESTAMP });
         this._notificationService.openNotification(message);
     }
-    
+
     private getPhaseTypeMins
 }

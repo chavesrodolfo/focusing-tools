@@ -1,16 +1,15 @@
-import {Component, EventEmitter} from 'angular2/core';
+import {Component, EventEmitter, Output} from 'angular2/core';
 import {Title} from 'angular2/platform/browser';
 import {TimerService} from '../services/timer.service';
 import {PhaseType} from '../interfaces/interfaces';
 
 @Component({
     selector: 'focus-timer',
-    templateUrl: 'app/components/focus-timer.component.html',
-    events: ['timeCompleted']
+    templateUrl: 'app/components/focus-timer.component.html'
 })
 export class FocusTimerCmp {
     runningTime: Date;
-    timeCompleted: EventEmitter<boolean>;
+    @Output() timeCompleted: EventEmitter<boolean>;
     phaseType: PhaseType;
     focusRunning: boolean;
     shortRunning: boolean;
@@ -68,6 +67,7 @@ export class FocusTimerCmp {
         
         if (this.runningTime.getSeconds() === 0 && this.runningTime.getMinutes() === 0) {
             this.timeCompleted.next(true);
+            this.phaseType = null;
             this.clockRunning = false;
             document.title = 'Focus Time Management';
         }

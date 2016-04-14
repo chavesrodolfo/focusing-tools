@@ -56,15 +56,19 @@ var FocusTimerCmp = (function () {
         document.title = this.runningTime.getMinutes() + ":" + this.runningTime.getSeconds();
         if (this.runningTime.getSeconds() === 0 && this.runningTime.getMinutes() === 0) {
             this.timeCompleted.next(true);
+            this.phaseType = null;
             this.clockRunning = false;
             document.title = 'Focus Time Management';
         }
     };
+    __decorate([
+        core_1.Output(), 
+        __metadata('design:type', core_1.EventEmitter)
+    ], FocusTimerCmp.prototype, "timeCompleted", void 0);
     FocusTimerCmp = __decorate([
         core_1.Component({
             selector: 'focus-timer',
-            templateUrl: 'app/components/focus-timer.component.html',
-            events: ['timeCompleted']
+            templateUrl: 'app/components/focus-timer.component.html'
         }), 
         __metadata('design:paramtypes', [timer_service_1.TimerService])
     ], FocusTimerCmp);

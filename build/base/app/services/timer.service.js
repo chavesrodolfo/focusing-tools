@@ -47,7 +47,6 @@ var TimerService = (function () {
         this._runningTime.setSeconds(0);
         this._timerObserver.next(this._runningTime);
         this.clockRunning = false;
-        this._selectedTime = null;
     };
     TimerService.prototype._startTimer = function (phaseType) {
         var _this = this;
@@ -86,10 +85,11 @@ var TimerService = (function () {
                 message = 'Long Break Complete!';
                 break;
             default:
-                phaseType = interfaces_1.PhaseType.FOCUS;
+                phaseType = this._selectedTime;
                 message = 'Custom Brake Complete!';
                 break;
         }
+        this._selectedTime = null;
         this._dataService.addFocusPhase({ phaseType: phaseType, dateCreated: Firebase.ServerValue.TIMESTAMP });
         this._notificationService.openNotification(message);
     };
