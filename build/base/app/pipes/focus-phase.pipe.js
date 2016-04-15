@@ -16,7 +16,7 @@ var FocusPhasePipe = (function () {
     FocusPhasePipe.prototype.transform = function (val, args) {
         switch (val) {
             case interfaces_1.PhaseType.FOCUS:
-                return 'Pomodoro';
+                return 'Focused';
             case interfaces_1.PhaseType.SHORT_BREAK:
                 return 'Short Break';
             case interfaces_1.PhaseType.LONG_BREAK:

@@ -47,6 +47,7 @@ export class TimerService {
         this._runningTime.setSeconds(0);
         this._timerObserver.next(this._runningTime);
         this.clockRunning = false;
+        this._selectedTime = null;
     }
 
     private _startTimer(phaseType: PhaseType) {
@@ -57,8 +58,8 @@ export class TimerService {
 
         this._interval = setInterval(() => {
             if (this._timerFinished()) {
-                this.stopTimer();
                 this._saveTime();
+                this.stopTimer();
             } else {
                 this._runningTime = new Date(this._runningTime.getTime() - 1000);
             }

@@ -15,11 +15,13 @@ declare let Chart;
 })
 export class Stats {
     @ViewChild('canvas') canvas;
+    graphCreated: boolean = false;
     user: any;
     phases: any[];
     userSubscription: any;
     focusSubscription: any;
     chart: any;
+    totalFocusedTime: number = 0;
 
     constructor(
         private _authService: AuthService,
@@ -28,7 +30,8 @@ export class Stats {
         this.focusSubscription = this._authService.authUser$.subscribe(user => this.user = user);
         this.userSubscription = this._dataService.focusPhases$.subscribe(phases => {
             this.phases = phases;
-            // this._setUpHistory();
+            this._setUpHistory();
+            // this.totalFocusedTime = data.reduce((a, b) => a + b) * PhaseType.FOCUS;
         });
     }
 
@@ -43,7 +46,7 @@ export class Stats {
     }
 
     ngAfterViewInit() {
-        
+        this._setUpHistory();
     }
 
     loginTwitter() {
@@ -54,20 +57,35 @@ export class Stats {
         this._authService.login(AuthType.GITHUB);
     }
 
+    // Yeah, I know working on cleaning this up to a service...
     private _createGraphData(phases: any[]) {
         let labels = [];
         let data = [];
+        let dates = [];
+
         let today = new Date();
+        let year = today.getFullYear();
+        let month = today.getMonth();
+        let date = today.getDate();
 
-        phases.forEach(phase => {
-            if (phase.phaseType === PhaseType.FOCUS) {
-                let date = new Date(phase.dateCreated);
-                let formattedDate = `${date.getDay()}-${date.getMonth()}-${date.getFullYear()}`;
-                labels.push(formattedDate);
-                data.push(phase.phaseType);
-            }
+        for (let i = 0; i < 14; i++) {
+            let day = new Date(year, month, date - i);
+            labels.push(`${day.getUTCDate()}-${day.getUTCMonth() + 1}-${day.getUTCFullYear()}`);
+            dates.push(day);
+            data.push(0);
+        }
+        
+        dates.forEach((day, i) => {
+            phases.forEach((phase, j) => {
+                if (this._isSameDay(day, new Date(phase.dateCreated))) {
+                    data[i] = data[i] + 1;
+                }
+            });
         });
-
+        
+        labels.reverse();
+        data.reverse();
+        
         return {
             labels,
             datasets: [
@@ -85,16 +103,24 @@ export class Stats {
         };
     }
 
+    private _isSameDay(d1, d2) {
+        if ((d1.getDay() === d2.getDay()) && (d1.getMonth() === d2.getMonth()) && (d1.getYear() === d2.getYear())) {
+            return true;
+        }
+
+        return false;
+    }
+
     private _setUpHistory() {
-        if (this.phases) {
-            console.log(this.phases);
-            let data = this._createGraphData(this.phases);
+        if (this.phases && this.canvas && this.graphCreated === false) {
+                let data = this._createGraphData(this.phases);
             let ctx = this.canvas.nativeElement.getContext('2d');
             let options = {
                 responsive: true
             };
 
             this.chart = new Chart(ctx).Line(data, options);
+            this.graphCreated = true;
         }
     }
 }

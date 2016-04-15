@@ -47,6 +47,7 @@ var TimerService = (function () {
         this._runningTime.setSeconds(0);
         this._timerObserver.next(this._runningTime);
         this.clockRunning = false;
+        this._selectedTime = null;
     };
     TimerService.prototype._startTimer = function (phaseType) {
         var _this = this;
@@ -56,8 +57,8 @@ var TimerService = (function () {
         this._runningTime.setSeconds(1); // test until ready for mins
         this._interval = setInterval(function () {
             if (_this._timerFinished()) {
-                _this.stopTimer();
                 _this._saveTime();
+                _this.stopTimer();
             }
             else {
                 _this._runningTime = new Date(_this._runningTime.getTime() - 1000);

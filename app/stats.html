@@ -1,27 +1,29 @@
 <div *ngIf="!user">
-    <p>Login to track your progress!</p>
+    <p>Login to track your progress for free!</p>
     <button (click)="loginTwitter()" class="btn">Login with Twitter</button>
     <button (click)="loginGithub()" class="btn">Login with Github</button>
 </div>
 
 <div *ngIf="user">
-    <p>
-        Logged In: {{user.provider}}
-    </p>
-
     <h1>Focused Time</h1>
-    
-    <!--<div>
+    <div class="float-center col-9--max">
         <canvas #canvas id="canvas"></canvas>
     </div>
 
-    <br /><br />-->
+    <!--<p>
+        Total Focused time last 14 days: {{totalFocusedTime}} mins
+    </p>-->
+    <p>
+        Logged in with {{user.provider}}
+    </p>
+    
+    <br /><br />
 
-    <ul *ngIf="phases?.length">
+    <!--<ul *ngIf="phases?.length">
         <li *ngFor="#phase of phases">
             <focus-phase [focusPhase]="phase"></focus-phase>
             <br />
             <br />
         </li>
-    </ul>
+    </ul>-->
 </div>

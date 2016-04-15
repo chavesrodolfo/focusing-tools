@@ -43,7 +43,13 @@ var App = (function () {
         core_1.Component({
             selector: 'focus-app',
             templateUrl: 'app/app.html',
-            directives: [router_1.RouterOutlet, router_1.RouterLink, focus_user_image_component_1.FocusUserImageCmp]
+            directives: [router_1.RouterOutlet, router_1.RouterLink, focus_user_image_component_1.FocusUserImageCmp],
+            providers: [
+                data_service_1.DataService,
+                auth_service_1.AuthService,
+                timer_service_1.TimerService,
+                notification_service_1.NotificationService
+            ]
         }),
         router_1.RouteConfig([
             { path: '/', component: home_1.Home, as: 'Home' },
@@ -58,12 +64,5 @@ browser_1.bootstrap(App, [
     router_1.ROUTER_BINDINGS,
     common_1.FORM_BINDINGS,
     http_1.HTTP_BINDINGS,
-    core_1.bind(router_1.ROUTER_PRIMARY_COMPONENT).toValue(App),
-    core_1.bind(router_1.LocationStrategy).toClass(router_1.HashLocationStrategy),
-    [
-        data_service_1.DataService,
-        auth_service_1.AuthService,
-        timer_service_1.TimerService,
-        notification_service_1.NotificationService
-    ]
+    core_1.bind(router_1.LocationStrategy).toClass(router_1.HashLocationStrategy)
 ]);

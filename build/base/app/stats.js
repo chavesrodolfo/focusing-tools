@@ -18,10 +18,13 @@ var Stats = (function () {
         var _this = this;
         this._authService = _authService;
         this._dataService = _dataService;
+        this.graphCreated = false;
+        this.totalFocusedTime = 0;
         this.focusSubscription = this._authService.authUser$.subscribe(function (user) { return _this.user = user; });
         this.userSubscription = this._dataService.focusPhases$.subscribe(function (phases) {
             _this.phases = phases;
-            // this._setUpHistory();
+            _this._setUpHistory();
+            // this.totalFocusedTime = data.reduce((a, b) => a + b) * PhaseType.FOCUS;
         });
     }
     Stats.prototype.ngOnInit = function () {
@@ -33,6 +36,7 @@ var Stats = (function () {
         this.userSubscription.unsubscribe();
     };
     Stats.prototype.ngAfterViewInit = function () {
+        this._setUpHistory();
     };
     Stats.prototype.loginTwitter = function () {
         this._authService.login(interfaces_1.AuthType.TWITTER);
@@ -40,18 +44,31 @@ var Stats = (function () {
     Stats.prototype.loginGithub = function () {
         this._authService.login(interfaces_1.AuthType.GITHUB);
     };
+    // Yeah, I know working on cleaning this up to a service...
     Stats.prototype._createGraphData = function (phases) {
+        var _this = this;
         var labels = [];
         var data = [];
+        var dates = [];
         var today = new Date();
-        phases.forEach(function (phase) {
-            if (phase.phaseType === interfaces_1.PhaseType.FOCUS) {
-                var date = new Date(phase.dateCreated);
-                var formattedDate = date.getDay() + "-" + date.getMonth() + "-" + date.getFullYear();
-                labels.push(formattedDate);
-                data.push(phase.phaseType);
-            }
+        var year = today.getFullYear();
+        var month = today.getMonth();
+        var date = today.getDate();
+        for (var i = 0; i < 14; i++) {
+            var day = new Date(year, month, date - i);
+            labels.push(day.getUTCDate() + "-" + (day.getUTCMonth() + 1) + "-" + day.getUTCFullYear());
+            dates.push(day);
+            data.push(0);
+        }
+        dates.forEach(function (day, i) {
+            phases.forEach(function (phase, j) {
+                if (_this._isSameDay(day, new Date(phase.dateCreated))) {
+                    data[i] = data[i] + 1;
+                }
+            });
         });
+        labels.reverse();
+        data.reverse();
         return {
             labels: labels,
             datasets: [
@@ -68,15 +85,21 @@ var Stats = (function () {
             ]
         };
     };
+    Stats.prototype._isSameDay = function (d1, d2) {
+        if ((d1.getDay() === d2.getDay()) && (d1.getMonth() === d2.getMonth()) && (d1.getYear() === d2.getYear())) {
+            return true;
+        }
+        return false;
+    };
     Stats.prototype._setUpHistory = function () {
-        if (this.phases) {
-            console.log(this.phases);
+        if (this.phases && this.canvas && this.graphCreated === false) {
             var data = this._createGraphData(this.phases);
             var ctx = this.canvas.nativeElement.getContext('2d');
             var options = {
                 responsive: true
             };
             this.chart = new Chart(ctx).Line(data, options);
+            this.graphCreated = true;
         }
     };
     __decorate([

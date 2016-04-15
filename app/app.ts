@@ -22,7 +22,13 @@ import 'rxjs/Rx';
 @Component({
     selector: 'focus-app',
     templateUrl: 'app/app.html',
-    directives: [RouterOutlet, RouterLink, FocusUserImageCmp]
+    directives: [RouterOutlet, RouterLink, FocusUserImageCmp],
+    providers: [
+        DataService,
+        AuthService,
+        TimerService,
+        NotificationService
+    ]
 })
 @RouteConfig([
     { path: '/', component: Home, as: 'Home' },
@@ -50,12 +56,5 @@ bootstrap(App, [
     ROUTER_BINDINGS,
     FORM_BINDINGS,
     HTTP_BINDINGS,
-    bind(ROUTER_PRIMARY_COMPONENT).toValue(App),
-    bind(LocationStrategy).toClass(HashLocationStrategy),
-    [
-        DataService,
-        AuthService,
-        TimerService,
-        NotificationService
-    ]
+    bind(LocationStrategy).toClass(HashLocationStrategy)
 ]);

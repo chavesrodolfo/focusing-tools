@@ -8,7 +8,7 @@ export class FocusPhasePipe {
     transform(val: PhaseType, args) {
 		switch(val) {
 			case PhaseType.FOCUS:
-				return 'Pomodoro';
+				return 'Focused';
 			case PhaseType.SHORT_BREAK:
 				return 'Short Break';
 			case PhaseType.LONG_BREAK: 
