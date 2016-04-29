@@ -28,7 +28,7 @@ module.exports = {
     html: {
         src: ['./app/**/*.html', '!app/index.html'],
         rootSrc: './app/index.html',
-        templateUrlReferences: ['build/app/**/*.js']
+        templateUrlReferences: ['dist/app/**/*.js']
     },
     font: {
         src: ['./assets/fonts/**/*.*']
@@ -51,13 +51,13 @@ module.exports = {
         ]
     },
     buildLocations: {
-        html: './build/base/app/',
+        html: './dist/base/app/',
         index: './',
-        typescript: './build/base/app/',
-        css: './build/base/styles/',
-        img: './build/base/assets/images/',
-        js: './build/base/assets/javascript/',
-        fonts: './build/base/assets/fonts/',
-        clean: './build/base/**/*'
+        typescript: './dist/base/app/',
+        css: './dist/base/styles/',
+        img: './dist/base/assets/images/',
+        js: './dist/base/assets/javascript/',
+        fonts: './dist/base/assets/fonts/',
+        clean: './dist/base/**/*'
     }
 }

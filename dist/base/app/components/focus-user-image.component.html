@@ -1,0 +1,4 @@
+<span *ngIf="authUser">
+	<img [src]="authUser.twitter.profileImageURL" *ngIf="authUser.twitter" />
+	<img [src]="authUser.github.profileImageURL" *ngIf="authUser.github" />
+</span>

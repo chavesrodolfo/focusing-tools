@@ -4,6 +4,7 @@ import {DataService} from './services/data.service';
 import {AuthUser, AuthType, NotificationPermission, PhaseType} from './interfaces/interfaces';
 import {AuthService} from './services/auth.service';
 import {Observable} from 'rxjs/Observable';
+import {FocusPhase} from './interfaces/interfaces';
 
 declare let Firebase;
 declare let Chart;
@@ -28,7 +29,7 @@ export class Stats {
         private _dataService: DataService) {
 
         this.focusSubscription = this._authService.authUser$.subscribe(user => this.user = user);
-        this.userSubscription = this._dataService.focusPhases$.subscribe(phases => {
+        this.userSubscription = this._dataService.focusPhases$.subscribe((phases: FocusPhase[]) => {
             this.phases = phases;
             this._setUpHistory();
             // this.totalFocusedTime = data.reduce((a, b) => a + b) * PhaseType.FOCUS;

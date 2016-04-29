@@ -9,7 +9,7 @@ import {PhaseType} from '../interfaces/interfaces';
 })
 export class FocusTimerCmp {
     runningTime: Date;
-    @Output() timeCompleted: EventEmitter<boolean>;
+    @Output() timeCompleted: EventEmitter<boolean | {}>;
     phaseType: PhaseType;
     focusRunning: boolean;
     shortRunning: boolean;
@@ -26,7 +26,7 @@ export class FocusTimerCmp {
         this.runningTime.setSeconds(0);
         
         this.clockRunning = false;
-        this._timerService.runningTime$.subscribe(time => this._calcTime(time));
+        this._timerService.runningTime$.subscribe((time: Date) => this._calcTime(time));
         this.phaseType = this._timerService.runningPhaseType;
     }
 

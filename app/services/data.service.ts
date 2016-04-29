@@ -7,7 +7,7 @@ declare let Firebase;
 
 @Injectable()
 export class DataService {
-    focusPhases$: Observable<Array<FocusPhase>>;
+    focusPhases$: Observable<Array<FocusPhase> | {}>;
     private _focusPhasesObserver: any;
     private _firebaseRef: any;
     private _authUser: AuthUser;

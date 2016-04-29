@@ -1,7 +1,8 @@
 import {Component, bind} from 'angular2/core';
 import {FORM_BINDINGS} from 'angular2/common';
 import {bootstrap} from 'angular2/platform/browser';
-import {RouteConfig, RouterOutlet, RouterLink, ROUTER_BINDINGS, ROUTER_PRIMARY_COMPONENT, LocationStrategy, HashLocationStrategy} from 'angular2/router';
+import {RouteConfig, RouterOutlet, RouterLink, ROUTER_BINDINGS, ROUTER_PRIMARY_COMPONENT} from 'angular2/router';
+import {LocationStrategy, HashLocationStrategy} from 'angular2/platform/common';
 import {HTTP_BINDINGS} from 'angular2/http';
 import {DataService} from './services/data.service';
 import {AuthService} from './services/auth.service';
@@ -13,7 +14,6 @@ import {Stats} from './stats';
 import {AuthUser} from './interfaces/interfaces';
 import {FocusUserImageCmp} from './components/focus-user-image.component';
 
-// Temp import all operators see issues https://github.com/ReactiveX/RxJS/issues/1010, https://github.com/escardin/angular2-community-faq/blob/master/rxjs_operators.md
 // import 'rxjs/add/operator/share'; 
 // import 'rxjs/add/operator/map';
 // import 'rxjs/add/operator/retry';

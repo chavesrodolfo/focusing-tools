@@ -7,7 +7,7 @@ declare let Firebase;
 
 @Injectable()
 export class TimerService {
-    runningTime$: Observable<Date>;
+    runningTime$: Observable<Date | {}>;
     focusRunning: boolean;
     clockRunning: boolean;
 
