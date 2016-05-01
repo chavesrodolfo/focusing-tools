@@ -9,6 +9,8 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "serve": "gulp build--dev && gulp watch",
+    "build": "gulp build",
     "postinstall": "typings install"
   },
   "author": "",
