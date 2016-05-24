@@ -1,0 +1,1 @@
+/Users/coryrylan/Documents/repos/focus/node_modules/@angular/compiler/testing/schema_registry_mock.js

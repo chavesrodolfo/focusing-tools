@@ -1,0 +1,1 @@
+{"version":3,"file":"index.js","sourceRoot":"","sources":["index.ts"],"names":[],"mappings":";AAAA,2CAAwC,8BAA8B,CAAC;AAA9D,uFAA8D","sourcesContent":["export { FocusUserImageComponent } from './focus-user-image.component';\n"]}

@@ -1,0 +1,1 @@
+/Users/coryrylan/Documents/repos/focus/node_modules/angularfire2/utils/firebase_list_factory.js

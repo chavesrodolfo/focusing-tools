@@ -1,2 +1,0 @@
-# FOCUS
-Work in progress.
