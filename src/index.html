@@ -48,15 +48,16 @@
 </head>
 
 <body>
-  <focus-app>
+  <app-root>
     <div class="text-center">
       <h1 style="font-family: Helvetica, Arial, sans-serif; font-weight: 200; margin: 60px 0; display: block;">Focus</h1>
       <svg class="spinner" width="65px" height="65px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
         <circle class="circle" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30"></circle>
       </svg>
     </div>
-  </focus-app>
+  </app-root>
 
+  <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=Intl.~locale.en"></script>
   {{#each scripts.polyfills}}
   <script src="{{.}}"></script>{{/each}}
   <script>

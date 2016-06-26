@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { DataService } from './data.service';
-import { NotificationService } from './notification.service';
+
+import { NotificationService, DataService } from '../../shared';
 import { PhaseType } from '../../interfaces/interfaces';
+
 declare let Firebase;
 
 @Injectable()
@@ -17,8 +18,8 @@ export class TimerService {
   private _selectedTime: number;
 
   constructor(
-    private _dataService: DataService,
-    private _notificationService: NotificationService) {
+    private dataService: DataService,
+    private notificationService: NotificationService) {
 
     this.runningTime$ = new Observable(observer => this._timerObserver = observer);
     this.runningTime$.subscribe();
@@ -96,8 +97,8 @@ export class TimerService {
     }
 
     this._selectedTime = null;
-    this._dataService.addFocusPhase({ phaseType, dateCreated: Firebase.ServerValue.TIMESTAMP });
-    this._notificationService.openNotification(message);
+    this.dataService.addFocusPhase({ phaseType, dateCreated: Firebase.ServerValue.TIMESTAMP });
+    this.notificationService.openNotification(message);
   }
 
   private getPhaseTypeMins

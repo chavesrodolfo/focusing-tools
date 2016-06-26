@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+
+import { NotificationService } from '../shared';
 import { FocusTimerComponent } from '../shared/components/focus-timer';
-import { NotificationService } from '../shared/services/notification.service';
 import { NotificationPermission } from '../interfaces/interfaces';
 declare let Firebase;
 

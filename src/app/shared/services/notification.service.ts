@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
+
 import { NotificationPermission } from '../../interfaces/interfaces';
 
 import 'notification'; // Browser W3C Spec Notification API Polyfill

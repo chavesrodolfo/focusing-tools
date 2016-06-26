@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+
+import { FocusPhasePipe } from '../../../shared';
 import { PhaseType } from '../../../interfaces/interfaces';
-import { FocusPhasePipe } from '../../pipes/focus-phase.pipe';
 
 @Component({
   moduleId: module.id,
@@ -10,8 +11,8 @@ import { FocusPhasePipe } from '../../pipes/focus-phase.pipe';
 })
 export class FocusPhaseComponent implements OnInit {
   focusPhase: any;
-  
-  constructor() {}
+
+  constructor() { }
 
   ngOnInit() {
   }

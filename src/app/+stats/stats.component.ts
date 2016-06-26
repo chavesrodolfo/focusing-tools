@@ -1,9 +1,20 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
+
+import {
+  AuthService,
+  DataService
+} from '../shared';
+
 import { FocusPhaseComponent } from '../shared/components/focus-phase';
-import { DataService } from '../shared/services/data.service';
-import { AuthService } from '../shared/services/auth.service';
-import { AuthUser, AuthType, NotificationPermission, PhaseType, FocusPhase } from '../interfaces/interfaces';
+
+import {
+  AuthUser,
+  AuthType,
+  NotificationPermission,
+  PhaseType,
+  FocusPhase
+} from '../interfaces/interfaces';
 
 import 'chartjs';
 declare let Chart;

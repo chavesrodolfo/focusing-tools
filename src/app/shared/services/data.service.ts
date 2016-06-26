@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { AngularFire } from 'angularfire2';
 
-import { AuthService } from './auth.service';
+import { AuthService } from '../../shared';
 import { AuthUser, FocusPhase, PhaseType } from '../../interfaces/interfaces';
 
 @Injectable()

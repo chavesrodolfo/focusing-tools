@@ -1,5 +1,6 @@
 import {Component, OnInit, EventEmitter, Output} from '@angular/core';
-import { TimerService } from '../../services/timer.service';
+
+import { TimerService } from '../../../shared';
 import { PhaseType } from '../../../interfaces/interfaces';
 
 @Component({
@@ -20,15 +21,15 @@ export class FocusTimerComponent implements OnInit {
   private _selectedTime: number;
   private _interval: any;
 
-  constructor(private _timerService: TimerService) {
+  constructor(private timerService: TimerService) {
     this.timeCompleted = new EventEmitter();
     this.runningTime = new Date();
     this.runningTime.setMinutes(0);
     this.runningTime.setSeconds(0);
 
     this.clockRunning = false;
-    this._timerService.runningTime$.subscribe((time: Date) => this._calcTime(time));
-    this.phaseType = this._timerService.runningPhaseType;
+    this.timerService.runningTime$.subscribe((time: Date) => this._calcTime(time));
+    this.phaseType = this.timerService.runningPhaseType;
   }
 
   ngOnInit() {
@@ -36,32 +37,32 @@ export class FocusTimerComponent implements OnInit {
 
   startFocus() {
     if (this.clockRunning) {
-      this._timerService.stopTimer();
+      this.timerService.stopTimer();
     } else {
-      this._timerService.startTimer(PhaseType.FOCUS);
+      this.timerService.startTimer(PhaseType.FOCUS);
     }
 
-    this.phaseType = this._timerService.runningPhaseType;
+    this.phaseType = this.timerService.runningPhaseType;
   }
 
   startShortBreak() {
     if (this.clockRunning) {
-      this._timerService.stopTimer();
+      this.timerService.stopTimer();
     } else {
-      this._timerService.startTimer(PhaseType.SHORT_BREAK);
+      this.timerService.startTimer(PhaseType.SHORT_BREAK);
     }
 
-    this.phaseType = this._timerService.runningPhaseType;
+    this.phaseType = this.timerService.runningPhaseType;
   }
 
   startLongBreak() {
     if (this.clockRunning) {
-      this._timerService.stopTimer();
+      this.timerService.stopTimer();
     } else {
-      this._timerService.startTimer(PhaseType.LONG_BREAK);
+      this.timerService.startTimer(PhaseType.LONG_BREAK);
     }
 
-    this.phaseType = this._timerService.runningPhaseType;
+    this.phaseType = this.timerService.runningPhaseType;
   }
 
   private _calcTime(time: Date) {
