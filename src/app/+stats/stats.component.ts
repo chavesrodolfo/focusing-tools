@@ -72,7 +72,11 @@ export class StatsComponent implements OnInit {
       let ctx = this.canvas.nativeElement.getContext('2d');
       let options = { responsive: true };
 
-      this.chart = new Chart(ctx).Line(data, options);
+      this.chart = new Chart(ctx, {
+        type: 'line',
+        data,
+        options
+      });
     }
   }
 

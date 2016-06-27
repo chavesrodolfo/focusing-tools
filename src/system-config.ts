@@ -16,7 +16,7 @@ const map: any = {
 /** User packages configuration. */
 const packages: any = {
   angularfire2: { defaultExtension: 'js', main: 'angularfire2.js' },
-  chartjs: { defaultExtension: 'js', main: 'Chart.min.js' },
+  chartjs: { defaultExtension: 'js', main: 'dist/Chart.min.js' },
   notification: { defaultExtension: 'js', main: 'notification.js' }
 };
 

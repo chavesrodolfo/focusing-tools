@@ -19,7 +19,7 @@ module.exports = function (defaults) {
       'angularfire2/**/*.+(js|js.map)',
       'firebase/lib/*.js',
       'notification-polyfill/notification.js',
-      'chart.js/Chart.min.js',
+      'chart.js/dist/Chart.min.js',
     ],
     sassCompiler: {
       cacheExclude: [/\/_[^\/]+$/]
