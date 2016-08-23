@@ -1,1 +1,0 @@
-/Users/coryrylan/Documents/repos/focus/node_modules/firebase/lib/firebase-node.js

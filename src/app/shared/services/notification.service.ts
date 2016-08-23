@@ -3,7 +3,7 @@ import { Observable } from 'rxjs/Observable';
 
 import { NotificationPermission } from '../../interfaces/interfaces';
 
-import 'notification'; // Browser W3C Spec Notification API Polyfill
+// import 'notification'; // Browser W3C Spec Notification API Polyfill
 declare let Notification;
 
 @Injectable()

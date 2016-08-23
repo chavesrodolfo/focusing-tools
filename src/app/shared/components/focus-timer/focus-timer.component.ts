@@ -1,13 +1,12 @@
 import {Component, OnInit, EventEmitter, Output} from '@angular/core';
 
-import { TimerService } from '../../../shared';
+import { TimerService } from '../../../shared/services/timer.service';
 import { PhaseType } from '../../../interfaces/interfaces';
 
 @Component({
-  moduleId: module.id,
   selector: 'app-focus-timer',
   templateUrl: 'focus-timer.component.html',
-  styleUrls: ['focus-timer.component.css']
+  styleUrls: ['focus-timer.component.scss']
 })
 export class FocusTimerComponent implements OnInit {
   runningTime: Date;

@@ -1,14 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
-  moduleId: module.id,
   selector: 'app-focus-user-image',
   templateUrl: 'focus-user-image.component.html',
-  styleUrls: ['focus-user-image.component.css'],
-  inputs: ['authUser']
+  styleUrls: ['focus-user-image.component.scss']
 })
 export class FocusUserImageComponent implements OnInit {
-  authUser: any;
+  @Input() authUser: any;
   constructor() {}
 
   ngOnInit() {

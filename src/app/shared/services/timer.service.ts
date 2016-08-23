@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 
-import { NotificationService, DataService } from '../../shared';
+import { DataService } from './data.service';
+import { NotificationService } from './notification.service';
 import { PhaseType } from '../../interfaces/interfaces';
 
 declare let Firebase;

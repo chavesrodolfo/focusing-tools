@@ -1,1 +1,0 @@
-/Users/coryrylan/Documents/repos/focus/node_modules/@angular/compiler/testing/directive_resolver_mock.js

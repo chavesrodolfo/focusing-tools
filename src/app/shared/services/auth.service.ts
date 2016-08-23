@@ -34,7 +34,7 @@ export class AuthService {
 			provider: authType
 		}).then((authData: any) => {
 			authData.auth.token.firebase = null; // remove array
-			this.angularFire.object('/users/' + authData.uid + '/authData').set(authData);
+			this.angularFire.database.object('/users/' + authData.uid + '/authData').set(authData);
 		}).catch(err => console.log('Login Failed', err));
 	}
 }

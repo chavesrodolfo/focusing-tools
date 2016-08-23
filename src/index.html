@@ -21,13 +21,12 @@
         (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
         m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
         })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
         ga('create', 'UA-36671151-8', 'auto');
         ga('send', 'pageview');
   </script>
 
   <!-- temp: css files will version and inline -->
-  <link href="/app/styles/app.css" rel="stylesheet" />
+  <!--<link href="/app/styles/app.css" rel="stylesheet" />-->
   <link href='https://fonts.googleapis.com/css?family=Lato:400,300' rel='stylesheet' type='text/css'>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
   <style>
@@ -41,10 +40,6 @@
       display: block !important;
     }
   </style>
-
-  {{#unless environment.production}}
-  <script src="/ember-cli-live-reload.js" type="text/javascript"></script>
-  {{/unless}}
 </head>
 
 <body>
@@ -56,15 +51,5 @@
       </svg>
     </div>
   </app-root>
-
-  <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=Intl.~locale.en"></script>
-  {{#each scripts.polyfills}}
-  <script src="{{.}}"></script>{{/each}}
-  <script>
-    System.import('system-config.js').then(function () {
-      System.import('main');
-    }).catch(console.error.bind(console));
-  </script>
 </body>
-
 </html>
