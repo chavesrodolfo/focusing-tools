@@ -10,20 +10,23 @@ export class DataService {
   private authUser: AuthUser;
 
   constructor(private angularFire: AngularFire, private authService: AuthService) {
-    this.authService.authUser$.subscribe(authUser => this.authUser = authUser);
+    this.authService.authUser.subscribe(authUser => this.authUser = authUser);
   }
 
   get focusPhases$(): Observable<FocusPhase[] | any[]> {
-    if (this.authService.isLoggedIn()) {
-      return this.angularFire.database.list(`/users/${this.authUser.uid}/focusPhases`);
-    } else {
-      return Observable.of([]);
-    }
+    return this.authService.authUser.flatMap(user => {
+      console.log(user);
+      if (user) {
+        return this.angularFire.database.list(`/users/${this.authUser.uid}/focusPhases`);
+      } else {
+        return Observable.of([]);
+      }
+    });
   }
 
   addFocusPhase(focusPhase: FocusPhase) {
-    if (this.authService.isLoggedIn()) {
-      this.angularFire.database.list(`/users/${this.authUser.uid}/focusPhases`).push(focusPhase);
-    }
+    this.authService.authUser.subscribe(user => {
+      return this.angularFire.database.list(`/users/${this.authUser.uid}/focusPhases`).push(focusPhase);
+    });
   }
 }

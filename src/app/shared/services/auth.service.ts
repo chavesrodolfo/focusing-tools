@@ -7,17 +7,17 @@ import { AuthUser, AuthType } from '../../interfaces/interfaces';
 
 @Injectable()
 export class AuthService {
-	authUser$: Observable<any>;
+	authUser: Observable<any>;
 
-    constructor(private firebaseAuth: FirebaseAuth, private angularFire: AngularFire) {
-		this.authUser$ = firebaseAuth;
-    }
+	constructor(private firebaseAuth: FirebaseAuth, private angularFire: AngularFire) {
+		this.authUser = firebaseAuth;
+	}
 
 	login(authType: AuthType) {
 		if (authType === AuthType.TWITTER) {
-			this._login(AuthProviders.Twitter);
+			return this.firebaseLogin(AuthProviders.Twitter);
 		} else if (authType === AuthType.GITHUB) {
-			this._login(AuthProviders.Github);
+			return this.firebaseLogin(AuthProviders.Github);
 		}
 	}
 
@@ -25,13 +25,9 @@ export class AuthService {
 		this.firebaseAuth.logout();
 	}
 
-	isLoggedIn() {
-		return !!this.firebaseAuth.getAuth();
-	}
-
-	private _login(authType: AuthProviders) {
-		this.firebaseAuth.login({
-			provider: authType
+	private firebaseLogin(authType: AuthProviders) {
+		return this.firebaseAuth.login({
+			provider: authType,
 		}).then((authData: any) => {
 			authData.auth.token.firebase = null; // remove array
 			this.angularFire.database.object('/users/' + authData.uid + '/authData').set(authData);

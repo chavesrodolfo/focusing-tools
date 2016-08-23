@@ -1,29 +1,10 @@
-<div *ngIf="!(user$ | async)">
-    <p>Login to track your progress for free!</p>
-    <button (click)="loginTwitter()" class="btn">Login with Twitter</button>
-    <button (click)="loginGithub()" class="btn">Login with Github</button>
+<h1>Focused Time</h1>
+<div class="float-center col-9--max">
+  <canvas #canvas id="canvas"></canvas>
 </div>
 
-<div *ngIf="user$ | async">
-    <h1>Focused Time</h1>
-    <div class="float-center col-9--max">
-        <canvas #canvas id="canvas"></canvas>
-    </div>
+<p>
+  Logged in with {{(user$ | async)?.auth.provider}}
+</p>
 
-    <!--<p>
-        Total Focused time last 14 days: {{totalFocusedTime}} mins
-    </p>-->
-    <p>
-        Logged in with {{(user$ | async)?.auth.provider}}
-    </p>
-    
-    <br /><br />
-
-    <!--<ul *ngIf="phases?.length">
-        <li *ngFor="let phase of phases">
-            <focus-phase [focusPhase]="phase"></focus-phase>
-            <br />
-            <br />
-        </li>
-    </ul>-->
-</div>
+<br /><br />

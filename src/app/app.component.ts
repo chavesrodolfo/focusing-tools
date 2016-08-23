@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
 
 import { AuthService } from './shared/services/auth.service';
 import { AuthUser } from './interfaces/interfaces';
@@ -12,7 +12,8 @@ import 'rxjs/Rx';
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
-  styleUrls: ['app.component.scss']
+  styleUrls: ['app.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class AppComponent {
   title = 'focus works!';
@@ -22,7 +23,7 @@ export class AppComponent {
   constructor(private authService: AuthService) { }
 
   ngOnInit() {
-    this.authService.authUser$.subscribe(user => this.authUser = user);
+    this.authService.authUser.subscribe(user => this.authUser = user);
     this.navOpen = false;
   }
 

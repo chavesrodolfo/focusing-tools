@@ -3,9 +3,6 @@ import { Observable } from 'rxjs/Observable';
 
 import { AuthService } from '../shared/services/auth.service';
 import { DataService } from '../shared/services/data.service';
-
-import { FocusPhaseComponent } from '../shared/components/focus-phase';
-
 import {
   AuthUser,
   AuthType,
@@ -39,11 +36,11 @@ export class StatsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.user$ = this.authService.authUser$;
+    this.user$ = this.authService.authUser;
   }
 
   ngAfterViewInit() {
-    this.userSubscription = this.authService.authUser$.subscribe(() => {
+    this.userSubscription = this.authService.authUser.subscribe(() => {
       this.focusSubscription = this.dataService.focusPhases$.subscribe((phases: FocusPhase[]) => {
         this._setUpHistory(phases);
       });
@@ -53,14 +50,6 @@ export class StatsComponent implements OnInit {
   ngOnDestroy() {
     this.focusSubscription.unsubscribe();
     this.userSubscription.unsubscribe();
-  }
-
-  loginTwitter() {
-    this.authService.login(AuthType.TWITTER);
-  }
-
-  loginGithub() {
-    this.authService.login(AuthType.GITHUB);
   }
 
   // Yeah, I know working on cleaning this up to a service...
