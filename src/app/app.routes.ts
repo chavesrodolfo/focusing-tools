@@ -12,4 +12,3 @@ export const routes: RouterConfig = [
   { path: 'stats', component: StatsComponent, canActivate: [AuthGuard] },
   { path: 'login', component: LoginComponent }
 ];
- 

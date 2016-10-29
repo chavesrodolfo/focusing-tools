@@ -9,14 +9,16 @@ export class AuthGuard implements CanActivate {
   constructor(private router: Router, private authService: AuthService) { }
 
   canActivate() {
-    return Observable.of(true);
-    //return this.authService.authUser.map(user => {
-      // if (user) {
-      //   return Observable.of(true);
-      // } else {
-      //   this.router.navigate(['/login']);
-      //   return Observable.of(false);
-      // }
-    //});
+    return this.authService.authUser.map(user => {
+      // console.log(user);
+      if (user) {
+        console.log(1);
+        return true;
+      } else {
+        console.log(2);
+        this.router.navigate(['/login']);
+        return false;
+      }
+    });
   }
 }
