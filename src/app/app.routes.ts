@@ -1,12 +1,12 @@
-import { provideRouter, RouterConfig } from '@angular/router';
+import { Routes } from '@angular/router';
 
-import { AboutComponent } from './about';
-import { HomeComponent } from './home';
-import { StatsComponent } from './stats';
-import { LoginComponent } from './login';
+import { AboutComponent } from './about/about.component';
+import { HomeComponent } from './home/home.component';
+import { StatsComponent } from './stats/stats.component';
+import { LoginComponent } from './login/login.component';
 import { AuthGuard } from './app.guards';
 
-export const routes: RouterConfig = [
+export const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'about', component: AboutComponent },
   { path: 'stats', component: StatsComponent, canActivate: [AuthGuard] },

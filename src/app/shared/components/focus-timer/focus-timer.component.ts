@@ -5,8 +5,8 @@ import { PhaseType } from '../../../interfaces/interfaces';
 
 @Component({
   selector: 'app-focus-timer',
-  templateUrl: 'focus-timer.component.html',
-  styleUrls: ['focus-timer.component.scss']
+  templateUrl: './focus-timer.component.html',
+  styleUrls: ['./focus-timer.component.scss']
 })
 export class FocusTimerComponent implements OnInit {
   runningTime: Date;

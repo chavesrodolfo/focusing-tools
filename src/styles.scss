@@ -1,5 +1,5 @@
 @import 'styles/_normalize';
-@import '../../../node_modules/core-flex-grid/src/core-flex-grid';
+@import '../node_modules/blueprint-css/src/blueprint';
 @import 'styles/_config';
 @import 'styles/_typography';
 @import 'styles/_layout';
@@ -7,4 +7,4 @@
 @import 'styles/components/_loaders';
 @import 'styles/components/_focus-timer'; 
 @import 'styles/components/_buttons';
-@import '../../../node_modules/core-flex-grid/src/_utility';
+@import '../node_modules/blueprint-css/src/_utility';

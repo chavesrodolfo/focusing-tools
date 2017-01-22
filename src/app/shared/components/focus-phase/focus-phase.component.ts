@@ -5,8 +5,8 @@ import { PhaseType } from '../../../interfaces/interfaces';
 
 @Component({
   selector: 'app-focus-phase',
-  templateUrl: 'focus-phase.component.html',
-  styleUrls: ['focus-phase.component.scss']
+  templateUrl: './focus-phase.component.html',
+  styleUrls: ['./focus-phase.component.scss']
 })
 export class FocusPhaseComponent implements OnInit {
   focusPhase: any;

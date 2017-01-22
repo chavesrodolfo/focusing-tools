@@ -6,8 +6,8 @@ import { AuthService } from '../shared/services/auth.service';
 
 @Component({
   selector: 'app-login',
-  templateUrl: 'login.component.html',
-  styleUrls: ['login.component.scss']
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
 
@@ -15,10 +15,10 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     this.authService.authUser.subscribe(user => {
-      if(user) {
+      if (user) {
         this.router.navigate(['/']);
       }
-    })
+    });
   }
 
   loginTwitter() {
