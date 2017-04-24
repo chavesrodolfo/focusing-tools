@@ -1,82 +1,47 @@
-body {
-	display: flex;
- 	min-height: 100vh;
-  	flex-direction: column;
+.float-right {
+  float: right;
 }
 
-focus-app {
-	flex: 1;
-	overflow: auto;
+.nav-list {
+  overflow: hidden;
+
+  &__item {
+    display: block;
+    width: 100%;
+    padding: 16px 12px;
+    text-decoration: none;
+    min-width: 200px;
+    text-align: left;
+    color: $color-red;
+    font-size: 1em;
+    font-weight: normal;
+    border: 0;
+    background-color: transparent;
+
+    &:hover {
+      background-color: $color-light-grey;
+    }
+  }
+
+  &__item-image {
+    max-width: 45px;
+    width: 100%;
+    float: right;
+    border-radius: 50%;
+    margin: -10px 6px 0 0;
+  }
 }
 
-.app-header {
-	background-color: $color-focus-red;
-	color: $color-focus-white;
-	padding: 10px 12px 10px 12px;
-	position: fixed;
-    left: 0;
-    right: 0;
+.nav-list-large {
+  &__item {
+    min-width: 120px;
+  }
+
+  &__item__image {
+    max-width: 36px;
+    float: right;
+    margin-bottom: 0;
+    margin-top: 5px;
+    border-radius: 50%;
+  }
 }
-
-.app-main {
-	padding: 60px 12px 15px 12px;
-	
-	@media (min-width: $md-break) {
-		padding: 80px 15px 15px 15px;
-	}
-}
-
-.logo {
-	font-weight: 100;
-	font-size: 1.8em;
-	display: inline-block;
-	margin: 0;
-	color: $color-focus-white;
-	text-decoration: none;
-	border-bottom: 1px solid transparent;
-	margin-right: 10px;
-	
-	&:hover {
-		border-bottom: 1px solid $color-focus-white;
-	}
-	
-	@media (min-width: $md-break) {
-		font-size: 3em;
-	}
-}
-
-
-.logout-group {
-	display: block;
-	float: right;
-	padding-top: 5px;
-		
-	&__image {
-		img {
-			border-radius: 50%;
-			display: block;
-			float: right;
-			max-width: 50px;
-		}
-	}
-	
-	&__link {
-		color: $color-focus-white;	
-		background: none;
-		border: 0;
-		padding: 4px 10px;
-		text-decoration: none;
-		margin-top: 11px;
-		float: right;
-		
-		&:hover {
-			text-decoration: underline;
-		}
-	}
-}
-
-.app-footer {
-	background-color: $color-focus-off-white;
-	padding: 10px;
-}
-

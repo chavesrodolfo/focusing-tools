@@ -1,8 +1,0 @@
-<div class="focus-timer">
-	<div class="focus-timer__time">
-		{{runningTime | date: 'mm:ss'}}
-	</div>
-	<button (click)="startFocus()" [disabled]="(phaseType !== 25) && (phaseType !== null)" class="btn"><i class="fa fa-play"></i>&nbsp; 25 mins</button>
-	<button (click)="startShortBreak()" [disabled]="(phaseType !== 5) && (phaseType !== null)" class="btn"><i class="fa fa-pause"></i>&nbsp; 5 mins</button>
-	<button (click)="startLongBreak()" [disabled]="(phaseType !== 15) && (phaseType !== null)" class="btn"><i class="fa fa-pause"></i>&nbsp; 15 mins</button>
-</div>

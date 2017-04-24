@@ -1,7 +1,10 @@
+import { NotificationService } from './../common/core/services/notification.service';
+import { TimerHistory } from './../common/core/interfaces';
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
 
-import { NotificationService } from '../shared/services/notification.service';
-import { NotificationPermission } from '../interfaces/interfaces';
+import { TimerService } from './../common/core/services/timer.service';
+import { TimerType } from './../common/core/interfaces';
 
 @Component({
   selector: 'app-home',
@@ -9,25 +12,36 @@ import { NotificationPermission } from '../interfaces/interfaces';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-  notificationsEnabled: boolean;
-  notificationsSupported: boolean;
+  currentTime: Observable<Date>;
+  timerType: Observable<TimerType>;
+  timerHistory: Observable<TimerHistory[]>;
+  notificationsEnabled: Observable<boolean>;
 
-  constructor(private notificationService: NotificationService) { }
+  constructor(private timerService: TimerService, private notificationService: NotificationService) { }
 
   ngOnInit() {
-    this.notificationsEnabled = false;
-    this.notificationsSupported = true;
+    this.currentTime = this.timerService.currentTime;
+    this.timerType = this.timerService.timerType;
+    this.notificationsEnabled = this.notificationService.notificationsEnabled;
+  }
 
-    if (this.notificationService.hasPermission() === NotificationPermission.GRANTED) {
-      this.notificationsEnabled = true;
-    }
+  startStandardTimer() {
+    this.timerService.startStandardTimer();
+  }
 
-    if (this.notificationService.hasPermission() === NotificationPermission.UNSUPPORTED) {
-      this.notificationsSupported = false;
-    }
+  startLongBreakTimer() {
+    this.timerService.startLongBreakTimer();
+  }
+
+  startShortBreakTimer() {
+    this.timerService.startShortBreakTimer();
   }
 
   enableNotifications() {
     this.notificationService.requestPermission();
+  }
+
+  private stopTimer() {
+    this.timerService.stopTimer();
   }
 }

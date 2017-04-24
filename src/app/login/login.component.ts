@@ -1,31 +1,39 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs/Subscription';
+import { AngularFireAuth } from 'angularfire2';
 
-import { AuthType } from '../interfaces/interfaces';
-import { AuthService } from '../shared/services/auth.service';
+import { AuthService } from './../common/core/services/auth.service';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, OnDestroy {
+  auth: AngularFireAuth;
+  authSubscription: Subscription;
 
-  constructor(private router: Router, private authService: AuthService) { }
+  constructor(
+    private authService: AuthService,
+    private router: Router) { }
 
   ngOnInit() {
-    this.authService.authUser.subscribe(user => {
-      if (user) {
-        this.router.navigate(['/']);
-      }
-    });
+    this.auth = this.authService.auth;
+
+    this.authSubscription = this.authService.isLoggedIn
+      .subscribe(loggedIn => this.router.navigate(['history']));
   }
 
-  loginTwitter() {
-    this.authService.login(AuthType.TWITTER);
+  ngOnDestroy() {
+    this.authSubscription.unsubscribe();
   }
 
-  loginGithub() {
-    this.authService.login(AuthType.GITHUB);
+  loginGoogle() {
+    this.authService.loginGoogle();
+  }
+
+  logout() {
+    this.authService.logout();
   }
 }

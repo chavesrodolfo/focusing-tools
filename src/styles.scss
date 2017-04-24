@@ -1,10 +1,9 @@
-@import 'styles/_normalize';
-@import '../node_modules/blueprint-css/src/blueprint';
-@import 'styles/_config';
-@import 'styles/_typography';
-@import 'styles/_layout';
-@import 'styles/_nav';
-@import 'styles/components/_loaders';
-@import 'styles/components/_focus-timer'; 
-@import 'styles/components/_buttons';
-@import '../node_modules/blueprint-css/src/_utility';
+/* You can add global styles to this file, and also import other style files */
+
+@import '~normalize.css/normalize';
+@import './styles/_theme';
+@import './styles/_variables';
+@import './styles/_typography';
+@import './styles/_base';
+@import './styles/_layout';
+@import './styles/_spinner';

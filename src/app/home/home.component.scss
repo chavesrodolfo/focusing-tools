@@ -1,0 +1,10 @@
+.time {
+  font-size: 5em;
+  font-weight: normal;
+  text-align: center;
+  line-height: 1.5em;
+
+  @media (min-width: 580px) {
+    font-size: 7em;
+  }
+}

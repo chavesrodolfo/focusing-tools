@@ -1,33 +1,26 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Router } from '@angular/router';
+import { Observable } from 'rxjs/Observable';
 
-import { AuthService } from './shared/services/auth.service';
-import { AuthUser } from './interfaces/interfaces';
-
-// import 'rxjs/add/operator/share'; 
-// import 'rxjs/add/operator/map';
-// import 'rxjs/add/operator/retry';
-// import 'rxjs/add/operator/of';
-import 'rxjs/Rx';
+import { AuthService } from './common/core/services/auth.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
-  encapsulation: ViewEncapsulation.None
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppComponent {
-  title = 'focus works!';
-  authUser: AuthUser;
-  navOpen: boolean;
+  isLoggedIn: Observable<boolean>;
+  profileImg: Observable<string>;
 
-  constructor(private authService: AuthService) { }
-
-  ngOnInit() {
-    this.authService.authUser.subscribe(user => this.authUser = user);
-    this.navOpen = false;
+  constructor(private router: Router, private authService: AuthService) {
+    this.isLoggedIn = this.authService.isLoggedIn;
+    this.profileImg = this.authService.auth.map(auth => auth ? auth.auth.photoURL : '/assets/images/icon.png');
   }
 
   logout() {
     this.authService.logout();
+    this.router.navigate(['']);
   }
 }

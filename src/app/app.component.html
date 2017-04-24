@@ -1,39 +1,42 @@
-<header class="app-header">
-  <div class="container" [class.open-nav]="navOpen">
-    <!-- Mobile Nav -->
-    <div class="menu-overlay" (click)="navOpen = !navOpen"></div>
-    <button class="menu-btn" (click)="navOpen = !navOpen"><i class="fa fa-bars"></i></button>
-    <nav class="nav" (click)="navOpen = !navOpen">
-      <a [routerLink]="['./']" class="nav__link">Focus</a>
-      <a [routerLink]="['./stats']" class="nav__link">Stats</a>
-      <a [routerLink]="['./about']" class="nav__link">About</a>
+<md-sidenav-container>
+  <md-sidenav #sidenav class="nav-list">
+    <a routerLink="/" class="nav-list__item" (click)="sidenav.close()">Home</a>
+    <a routerLink="history" class="nav-list__item" (click)="sidenav.close()">History</a>
+    <a routerLink="about" class="nav-list__item" (click)="sidenav.close()">About</a>
+    <a routerLink="login" *ngIf="!(isLoggedIn | async)" class="nav-list__item" (click)="sidenav.close()">Login</a>
+    <button (click)="logout(); sidenav.close();" *ngIf="isLoggedIn | async" class="nav-list__item">
+      <img [src]="profileImg | async" placeholder="Profile Image" class="nav-list__item-image" /> Logout
+    </button>
+  </md-sidenav>
 
-      <div class="logout-group">
-        <button (click)="logout()" *ngIf="authUser" class="logout-group__link">Logout</button>
-        <a [routerLink]="['./stats']" *ngIf="!authUser" class="logout-group__link">Login</a>
-        <app-focus-user-image [authUser]="authUser" class="logout-group__image"></app-focus-user-image>
+  <header>
+    <md-toolbar fxLayout="column" color="primary" class="mat-elevation-z6">
+      <a routerLink="/" class="link-light">NG-Focus</a>
+
+      <button md-button fxFlex="60px" fxHide="false" fxHide.gt-sm (click)="sidenav.open()" class="float-right menu-btn">
+        <md-icon>menu</md-icon>
+      </button>
+
+      <div fxFlex="60px" fxShow="false" fxShow.gt-sm class="menu-btn">
+        <md-menu #appMenu="mdMenu" class="nav-list-large">
+          <a md-menu-item routerLink="/" (click)="sidenav.close()" class="nav-list-large__item">Home</a>
+          <a md-menu-item routerLink="history" (click)="sidenav.close()" class="nav-list-large__item">History</a>
+          <a md-menu-item routerLink="about" (click)="sidenav.close()" class="nav-list-large__item">About</a>
+          <a md-menu-item routerLink="login" *ngIf="!(isLoggedIn | async)" (click)="sidenav.close()" class="nav-list-large__item">Login</a>
+          <button md-menu-item (click)="logout(); sidenav.close();" *ngIf="isLoggedIn | async" class="nav-list-large__item">
+            <img [src]="profileImg | async" placeholder="Profile Image" class="nav-list-large__item__image" /> Logout
+          </button>
+        </md-menu>
+        <button md-icon-button [mdMenuTriggerFor]="appMenu">
+          <md-icon>more_vert</md-icon>
+        </button>
       </div>
-    </nav>
-
-    <!-- Large Nav -->
-    <a [routerLink]="['./']">
-      <h1 class="logo">Focus</h1>
-    </a>
-    <nav class="large-nav">
-      <a [routerLink]="['./stats']" class="large-nav__link">Stats</a>
-      <a [routerLink]="['./about']" class="large-nav__link">About</a>
-
-      <div class="logout-group">
-        <button (click)="logout()" *ngIf="authUser" class="logout-group__link">Logout</button>
-        <a [routerLink]="['./stats']" *ngIf="!authUser" class="logout-group__link">Login</a>
-        <app-focus-user-image [authUser]="authUser" class="logout-group__image"></app-focus-user-image>
-      </div>
-    </nav>
-  </div>
-</header>
-
-<div class="container">
-  <main class="app-main">
-    <router-outlet></router-outlet>
+    </md-toolbar>
+  </header>
+  <main>
+    <div class="container">
+      <router-outlet></router-outlet>
+    </div>
   </main>
-</div>
+  <footer></footer>
+</md-sidenav-container>

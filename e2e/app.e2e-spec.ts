@@ -1,10 +1,10 @@
-import { FocusPage } from './app.po';
+import { NgTomatoPage } from './app.po';
 
-describe('focus App', function() {
-  let page: FocusPage;
+describe('ng-tomato App', () => {
+  let page: NgTomatoPage;
 
   beforeEach(() => {
-    page = new FocusPage();
+    page = new NgTomatoPage();
   });
 
   it('should display message saying app works', () => {

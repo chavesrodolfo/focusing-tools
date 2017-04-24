@@ -1,11 +1,148 @@
+html {
+  font-size: 16px;
+  line-height: 1.5rem;
+}
+
+h1, h2, h3, h4, h5, h6, hgroup,
+ul, ol, dl, blockquote, p, address,
+table, fieldset, figure, pre, .header, img {
+  margin: 0;
+  margin-bottom: 1.5rem;
+}
+
 body {
-	font-family: 'Lato', Arial, Helvetica, sans-serif;
+  font-family: 'Lato', Helvetica, Arial, 'Lucida Grande', sans-serif;
+  font-weight: 300;
+  font-size: 16px;
+  color: $color-type;
+}
+
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+  margin: 0 0 6px 0;
+  font-weight: 400;
+  line-height: 1.2em;
+  display: block;
+}
+
+h1, .h1 {
+  font-size: 1.35em;
+}
+
+h2, .h2 {
+  font-size: 1.25em;
+}
+
+h3, .h3 {
+  font-size: 1.15em;
+}
+
+h4, .h4 {
+  font-size: 1.1em;
+}
+
+h5, .h5, h6, .h6 {
+  font-size: 1.05em;
+}
+
+@media (min-width: 49em) {
+  h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+    margin: 0 0 16px 0;
+  }
+}
+
+@media (min-width: 37em) {
+  h1, h2, h4 {
+    font-weight: bold;
+  }
+
+  h1, .h1 {
+    font-size: 1.75em;
+  }
+
+  h2, .h2 {
+    font-size: 1.37em;
+  }
+
+  h3, .h3 {
+    font-size: 1.25em;
+  }
+
+
+  h4, .h4 {
+    font-size: 1.125em;
+  }
+
+  h5, .h5 {
+    font-size: 0.875em;
+  }
+
+  h6, .h6 {
+    font-size: 0.75em;
+  }
+}
+
+blockquote {
+  q {
+    display: block;
+    margin-bottom: 12px;
+    font-style: italic;
+  }
+
+  cite {
+    display: block;
+  }
+}
+
+strong, .strong {
+  font-weight: bold;
+}
+
+.invert-link, .btn-link.invert-link {
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+a, .link, .btn-link {
+  color: $color-red;
+  text-decoration: underline;
+  cursor: pointer;
+  background: transparent;
+  border: 0;
+  padding-top: 6px;
+
+  &:hover {
+    color: darken($color-red, 20%);
+  }
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.italic {
+  font-style: italic;
+}
+
+.nowrap {
+  white-space: nowrap;
+}
+
+.break-word {
+  -ms-word-wrap: break-word;
+  word-wrap: break-word;
 }
 
 .text-center {
-	text-align: center;
+  text-align: center;
 }
 
-a {
-	color: $color-focus-red;
+.text-right {
+  text-align: right;
+}
+
+.text-left {
+  text-align: left;
 }

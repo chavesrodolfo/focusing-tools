@@ -1,12 +1,20 @@
-<app-focus-timer></app-focus-timer>
+<div class="time">{{currentTime | async | date: 'mm:ss'}}</div>
 
-<div class="clear-both"></div>
+<div class="text-center">
+  <button md-raised-button size="large" color="primary" [disabled]="(timerType | async) !== null && (timerType | async) !== 25" (click)="startStandardTimer()"><md-icon>play_arrow</md-icon> 25 Mins</button>
+  <button md-raised-button [disabled]="(timerType | async) !== null && (timerType | async) !== 5" (click)="startShortBreakTimer()"><md-icon>pause</md-icon> 5 Mins</button>
+  <button md-raised-button [disabled]="(timerType | async) !== null && (timerType | async) !== 15" (click)="startLongBreakTimer()"><md-icon>pause</md-icon> 15 Mins</button>
 
-<div *ngIf="notificationsSupported && !notificationsEnabled">
-  <br />
-  <button (click)="enableNotifications()" class="btn float-center">Enable Notifications</button>
+  <br><br>
+
+  <ng-container *ngIf="notificationsEnabled | async; else showNotificationsButton">
+    Notifications Enabled
+  </ng-container>
+  <ng-template #showNotificationsButton>
+    <button md-raised-button (click)="enableNotifications()">Enable Notifications</button>
+  </ng-template>
 </div>
 
-<div *ngIf="notificationsEnabled" class="text-center">
-  <br /> Notifications Enabled
-</div>
+<span class="app-action">
+  <button md-fab color="primary" [disabled]="(timerType | async) !== null && (timerType | async) !== 25" (click)="startStandardTimer()"><md-icon>play_arrow</md-icon></button>
+</span>

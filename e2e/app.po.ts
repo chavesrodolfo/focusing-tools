@@ -1,6 +1,6 @@
 import { browser, element, by } from 'protractor';
 
-export class FocusPage {
+export class NgTomatoPage {
   navigateTo() {
     return browser.get('/');
   }
