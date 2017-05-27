@@ -14,10 +14,21 @@ export class HistoryComponent implements OnInit {
   totalMinutes: Observable<number>;
 
   constructor(private historyService: HistoryService) {
-    this.timerHistory = this.historyService.history;
-    this.totalMinutes = this.historyService.totalMinutes;
+    this.timerHistory = this.historyService.history.map(this.filterPastWeek);
+    this.totalMinutes = this.timerHistory.map(this.pastWeekTotalMins);
   }
 
   ngOnInit() {
+  }
+
+  filterPastWeek(timerHistory: TimerHistory[]): TimerHistory[] {
+    const date = new Date();
+    const sevenDaysAgo = new Date(date.getTime() - (7 * 24 * 60 * 60 * 1000));
+    return timerHistory.filter(history => new Date(history.date) > sevenDaysAgo);
+  }
+
+  pastWeekTotalMins(timerHistory: TimerHistory[]): number {
+    return timerHistory.reduce((total, next) =>
+      next.type === 25 ? total + next.type : total, 0);
   }
 }

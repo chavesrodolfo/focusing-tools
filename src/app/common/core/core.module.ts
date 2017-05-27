@@ -1,5 +1,5 @@
 import { NgModule, ModuleWithProviders } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe} from '@angular/common';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
@@ -25,6 +25,7 @@ export class CoreModule {
     return {
       ngModule: CoreModule,
       providers: [
+        DatePipe,
         AuthGuard,
         AuthService,
         TimerService,

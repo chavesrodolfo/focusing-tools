@@ -1,4 +1,6 @@
 import { Injectable } from '@angular/core';
+import { Title } from '@angular/platform-browser';
+import { DatePipe } from '@angular/common';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import * as Push from 'push.js';
@@ -16,10 +18,12 @@ export class TimerService {
   private timer = null;
 
   constructor(
+    private title: Title,
+    private datePipe: DatePipe,
     private store: Store<AppState>,
     private historyService: HistoryService,
     private notificationService: NotificationService) {
-    this.currentTime = this.store.select(state => state.timer.activeTime);
+    this.currentTime = this.store.select(state => state.timer.activeTime).do(t => this.setTitle(t));
     this.timerType = this.store.select(state => state.timer.timerType);
   }
 
@@ -76,5 +80,10 @@ export class TimerService {
 
   private timeIsComplete(time: Date) {
     return time.getSeconds() === 0 && time.getMinutes() === 0;
+  }
+
+  private setTitle(date: Date) {
+    const time = this.datePipe.transform(date, 'mm:ss');
+    time !== '00:00' ? this.title.setTitle(time) : this.title.setTitle('NG Focus Time Management');
   }
 }

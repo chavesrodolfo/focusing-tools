@@ -9,7 +9,6 @@ import { AuthService } from './auth.service';
 @Injectable()
 export class HistoryService {
   history: Observable<TimerHistory[]>;
-  totalMinutes: Observable<number>;
 
   constructor(
     private angularFireDatabase: AngularFireDatabase,
@@ -26,10 +25,6 @@ export class HistoryService {
         return Observable.of([]);
       }
     });
-
-    this.totalMinutes = this.history.map(history =>
-      history.reduce((total, next) =>
-        next.type === 25 ? total + next.type : total, 0));
   }
 
   addHistory(history: TimerHistory) {
