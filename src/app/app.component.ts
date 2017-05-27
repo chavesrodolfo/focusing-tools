@@ -16,7 +16,7 @@ export class AppComponent {
 
   constructor(private router: Router, private authService: AuthService) {
     this.isLoggedIn = this.authService.isLoggedIn;
-    this.profileImg = this.authService.auth.map(auth => auth ? auth.auth.photoURL : '/assets/images/icon.png');
+    this.profileImg = this.authService.user.map(user => user ? user.photoURL : '/assets/images/icon.png');
   }
 
   logout() {

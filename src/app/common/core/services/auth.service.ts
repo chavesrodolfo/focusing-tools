@@ -1,25 +1,23 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { AngularFire, FirebaseListObservable, AuthProviders, AuthMethods, AngularFireAuth } from 'angularfire2';
+import { AngularFireAuth } from 'angularfire2/auth';
+import * as firebase from 'firebase/app';
 
 @Injectable()
 export class AuthService {
-  auth: AngularFireAuth;
+  user: Observable<firebase.User>;
   isLoggedIn: Observable<boolean>;
 
-  constructor(public angularFire: AngularFire) {
-    this.auth = this.angularFire.auth;
-    this.isLoggedIn = this.angularFire.auth.map(auth => auth && !!auth.uid);
+  constructor(public angularFireAuth: AngularFireAuth) {
+    this.user = this.angularFireAuth.authState;
+    this.isLoggedIn = this.angularFireAuth.authState.map(auth => auth && !!auth.uid);
   }
 
   loginGoogle() {
-    this.angularFire.auth.login({
-      provider: AuthProviders.Google,
-      method: AuthMethods.Redirect,
-    });
+    this.angularFireAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
   }
 
   logout() {
-    this.angularFire.auth.logout();
+    this.angularFireAuth.auth.signOut();
   }
 }

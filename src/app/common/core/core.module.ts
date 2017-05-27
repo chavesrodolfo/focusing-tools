@@ -1,29 +1,22 @@
 import { NgModule, ModuleWithProviders } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AngularFireModule, AuthProviders, AuthMethods } from 'angularfire2';
+import { AngularFireModule } from 'angularfire2';
+import { AngularFireDatabaseModule } from 'angularfire2/database';
+import { AngularFireAuthModule } from 'angularfire2/auth';
 
+import { environment } from './../../../environments/environment';
 import { AuthService } from './services/auth.service';
 import { TimerService } from './services/timer.service';
 import { HistoryService } from './services/history.service';
 import { NotificationService } from './services/notification.service';
 import { AuthGuard } from './route-guards';
 
-const firebaseConfig = {
-  apiKey: 'AIzaSyBjpfpwIXBRVDbhcEJIrbYrky28EymohMA',
-  authDomain: 'ng-focus.firebaseapp.com',
-  databaseURL: 'https://ng-focus.firebaseio.com',
-  storageBucket: 'ng-focus.appspot.com'
-};
-
-const firebaseAuthConfig = {
-  provider: AuthProviders.Google,
-  method: AuthMethods.Redirect
-};
-
 @NgModule({
   imports: [
     CommonModule,
-    AngularFireModule.initializeApp(firebaseConfig, firebaseAuthConfig)
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireDatabaseModule,
+    AngularFireAuthModule
   ],
   declarations: []
 })

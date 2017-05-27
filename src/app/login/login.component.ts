@@ -1,7 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
-import { AngularFireAuth } from 'angularfire2';
+import * as firebase from 'firebase/app';
 
 import { AuthService } from './../common/core/services/auth.service';
 
@@ -11,7 +12,7 @@ import { AuthService } from './../common/core/services/auth.service';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit, OnDestroy {
-  auth: AngularFireAuth;
+  user: Observable<firebase.User>;
   authSubscription: Subscription;
 
   constructor(
@@ -19,7 +20,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     private router: Router) { }
 
   ngOnInit() {
-    this.auth = this.authService.auth;
+    this.user = this.authService.user;
 
     this.authSubscription = this.authService.isLoggedIn
       .subscribe(loggedIn => this.router.navigate(['history']));

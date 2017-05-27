@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
-import { AngularFire } from 'angularfire2';
 import * as Push from 'push.js';
 
 import { NotificationService } from './notification.service';
@@ -17,7 +16,6 @@ export class TimerService {
   private timer = null;
 
   constructor(
-    private angularFire: AngularFire,
     private store: Store<AppState>,
     private historyService: HistoryService,
     private notificationService: NotificationService) {
