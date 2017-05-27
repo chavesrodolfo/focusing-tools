@@ -8,6 +8,7 @@ module.exports = {
     'dist/**.js',
     'dist/**.css',
     'dist/**.woff2',
-    'dist/assets/images/icon.png'
+    'dist/assets/images/icon.png',
+    'dist/assets/audio/chime.mp3'
   ]
 };

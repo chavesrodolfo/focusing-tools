@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
+import { Howl } from 'howler';
 import * as Push from 'push.js';
 
 import { AppState } from './../store/app.state';
@@ -18,6 +19,7 @@ export class NotificationService {
     } else {
       this.store.dispatch(new SetNotificationsStatusAction(false));
     }
+
   }
 
   requestPermission() {
@@ -29,8 +31,22 @@ export class NotificationService {
   }
 
   notify() {
+    this.chimeNotify();
+    this.pushNotify();
+  }
+
+  private chimeNotify() {
+    new Howl({
+      src: ['assets/audio/chime.mp3'],
+      sprite: {
+        chime: [0, 1500]
+      }
+    }).play('chime');
+  }
+
+  private pushNotify() {
     Push.create('Focus Time Complete', {
-      body: 'Take a Break!',
+      body: 'Times Up!',
       icon: '/assets/images/icon.png',
       timeout: 4000,
       onClick: function () {
