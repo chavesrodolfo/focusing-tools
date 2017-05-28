@@ -1,6 +1,6 @@
 module.exports = {
   navigateFallback: '/index.html',
-  navigateFallbackWhitelist: [/\/__/],
+  navigateFallbackWhitelist: [/^(?!\/__)/],
   stripPrefix: 'dist',
   root: 'dist/',
   staticFileGlobs: [
@@ -9,6 +9,7 @@ module.exports = {
     'dist/**.css',
     'dist/**.woff2',
     'dist/assets/images/icon.png',
-    'dist/assets/audio/chime.mp3'
+    'dist/assets/audio/chime.mp3',
+    'dist/assets/fonts/**/**.woff2'
   ]
 };
