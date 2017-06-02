@@ -84,6 +84,6 @@ export class TimerService {
 
   private setTitle(date: Date) {
     const time = this.datePipe.transform(date, 'mm:ss');
-    time !== '00:00' ? this.title.setTitle(time) : this.title.setTitle('NG Focus Time Management');
+    time !== '00:00' ? this.title.setTitle(time) : this.title.setTitle('Focusing Tools - A Time Management App');
   }
 }

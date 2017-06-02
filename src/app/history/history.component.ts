@@ -74,7 +74,6 @@ export class HistoryComponent implements OnInit {
       });
     });
 
-    console.log(graphData);
     return [graphData];
   }
 

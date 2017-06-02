@@ -1,13 +1,13 @@
 {
-  "name": "NG-Focus",
-  "short_name": "NG-Focus",
+  "name": "Focusing Tools",
+  "short_name": "Focusing Tools",
   "theme_color": "#f44336",
   "background_color": "#f44336",
   "display": "standalone",
   "orientation": "portrait",
   "Scope": "/",
   "start_url": "/",
-  "description":"NG-Focus is a time management application",
+  "description":"Focusing Tools is a time management application",
   "icons": [
     {
       "src": "assets/images/icons/icon-72x72.png",

@@ -50,11 +50,9 @@ export class AppComponent implements OnInit {
   setNav() {
     const viewport = this.getViewport();
     if (viewport.width > 959) {
-      console.log('open');
       this.sidenav.mode = 'push';
-      this.sidenav.open().then(i => console.log(i));
+      this.sidenav.open();
     } else {
-      console.log('close');
       this.sidenav.mode = 'over';
       this.sidenav.close();
     }
