@@ -17,6 +17,7 @@ import { HomeComponent } from './home/home.component';
 import { AboutComponent } from './about/about.component';
 import { LoginComponent } from './login/login.component';
 import { HistoryComponent } from './history/history.component';
+import { MeditateComponent } from './meditate/meditate.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { HistoryComponent } from './history/history.component';
     HomeComponent,
     AboutComponent,
     LoginComponent,
-    HistoryComponent
+    HistoryComponent,
+    MeditateComponent
   ],
   imports: [
     BrowserModule,
