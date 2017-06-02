@@ -1,0 +1,16 @@
+@media (min-width: 960px) {
+  .mat-sidenav-container {
+    .mat-sidenav {
+      z-index: 0;
+    }
+
+    .mat-sidenav-backdrop.mat-sidenav-shown {
+      visibility: hidden;
+    }
+
+    .mat-sidenav-content {
+      padding-right: 214px;
+      padding-left: 8px;
+    }
+  }
+}

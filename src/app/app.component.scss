@@ -1,6 +1,28 @@
+@import './../styles/_variables';
+
 .menu-btn {
-  margin-left: auto;
-  min-width: 60px;
+  min-width: 32px;
   padding: 4px;
-  margin-right: -9px;
+  margin-right: 14px;
 }
+
+.side-nav-logo {
+  overflow: auto;
+  padding: 13px;
+  border-bottom: 1px solid $color-grey;
+
+  &__img {
+    max-width: 38px;
+    margin-right: 8px;
+    width: 100%;
+    margin-bottom: 0;
+    float: left;
+  }
+
+  &__name {
+    margin-top: 8px;
+    display: block;
+    float: left;
+  }
+}
+

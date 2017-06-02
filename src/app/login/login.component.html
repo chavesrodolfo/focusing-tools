@@ -1,5 +1,9 @@
 <h1>Login</h1>
 <br>
+
+<p>
+  Login to save task and productivity history for free!
+</p>
 <button md-raised-button *ngIf="!(user | async)?.uid" (click)="loginGoogle()">Login With Google</button>
 
 <ng-container *ngIf="(user | async)?.uid">
@@ -8,3 +12,7 @@
 
   <button md-raised-button (click)="logout()">Logout</button>
 </ng-container>
+
+<span class="app-action">
+  <a routerLink="/" md-fab color="primary"><md-icon>play_arrow</md-icon></a>
+</span>

@@ -11,13 +11,17 @@ body {
   margin: 0;
 }
 
+button, a {
+  cursor: pointer;
+}
+
 app-root, main, md-sidenav-container {
   -webkit-box-flex: 1 0 auto;
   -ms-flex: 1 0 auto;
   flex: 1 0 auto;
   -webkit-flex: 1 0 auto;
   min-height: 100vh;
-  min-height: calc(100vh - 80px); // extra for fab
+  min-height: calc(100vh - 85px); // extra for fab
 
   @media (min-width: 580px) {
     min-height: calc(100vh - 110px);
@@ -57,6 +61,11 @@ header {
   position: fixed;
   bottom: 20px;
   right: 20px;
+
+
+  @media (min-width: 960px) {
+    right: 248px;
+  }
 }
 
 .container {
