@@ -1,4 +1,3 @@
-import { NotificationService } from './../common/core/services/notification.service';
 import { TimerHistory } from './../common/core/interfaces';
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
@@ -15,14 +14,12 @@ export class HomeComponent implements OnInit {
   currentTime: Observable<Date>;
   timerType: Observable<TimerType>;
   timerHistory: Observable<TimerHistory[]>;
-  notificationsEnabled: Observable<boolean>;
 
-  constructor(private timerService: TimerService, private notificationService: NotificationService) { }
+  constructor(private timerService: TimerService) { }
 
   ngOnInit() {
     this.currentTime = this.timerService.currentTime;
     this.timerType = this.timerService.timerType;
-    this.notificationsEnabled = this.notificationService.notificationsEnabled;
   }
 
   startStandardTimer() {
@@ -35,10 +32,6 @@ export class HomeComponent implements OnInit {
 
   startShortBreakTimer() {
     this.timerService.startShortBreakTimer();
-  }
-
-  enableNotifications() {
-    this.notificationService.requestPermission();
   }
 
   private stopTimer() {

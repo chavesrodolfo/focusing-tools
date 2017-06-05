@@ -18,6 +18,7 @@ import { AboutComponent } from './about/about.component';
 import { LoginComponent } from './login/login.component';
 import { HistoryComponent } from './history/history.component';
 import { MeditateComponent } from './meditate/meditate.component';
+import { SettingsComponent } from './settings/settings.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { MeditateComponent } from './meditate/meditate.component';
     AboutComponent,
     LoginComponent,
     HistoryComponent,
-    MeditateComponent
+    MeditateComponent,
+    SettingsComponent
   ],
   imports: [
     BrowserModule,

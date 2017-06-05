@@ -1,0 +1,6 @@
+<ng-container *ngIf="notificationsEnabled | async; else showNotificationsButton">
+  Notifications Enabled
+</ng-container>
+<ng-template #showNotificationsButton>
+  <button md-raised-button (click)="enableNotifications()">Enable Notifications</button>
+</ng-template>

@@ -1,9 +1,14 @@
 @import './../styles/_variables';
 
-.menu-btn {
+.menu-btn, .menu-btn--right {
   min-width: 32px;
   padding: 4px;
   margin-right: 14px;
+}
+
+.menu-btn--right {
+  margin-left: auto;
+  margin-right: 221px;
 }
 
 .side-nav-logo {

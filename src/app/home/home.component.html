@@ -4,15 +4,6 @@
   <button md-raised-button size="large" color="primary" [disabled]="(timerType | async) !== null && (timerType | async) !== 25" (click)="startStandardTimer()"><md-icon>play_arrow</md-icon> 25 Mins</button>
   <button md-raised-button [disabled]="(timerType | async) !== null && (timerType | async) !== 5" (click)="startShortBreakTimer()"><md-icon>pause</md-icon> 5 Mins</button>
   <button md-raised-button [disabled]="(timerType | async) !== null && (timerType | async) !== 15" (click)="startLongBreakTimer()"><md-icon>pause</md-icon> 15 Mins</button>
-
-  <br><br>
-
-  <ng-container *ngIf="notificationsEnabled | async; else showNotificationsButton">
-    Notifications Enabled
-  </ng-container>
-  <ng-template #showNotificationsButton>
-    <button md-raised-button (click)="enableNotifications()">Enable Notifications</button>
-  </ng-template>
 </div>
 
 <span class="app-action">

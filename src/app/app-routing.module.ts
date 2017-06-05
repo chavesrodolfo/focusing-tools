@@ -6,6 +6,7 @@ import { MeditateComponent } from './meditate/meditate.component';
 import { AboutComponent } from './about/about.component';
 import { LoginComponent } from './login/login.component';
 import { HistoryComponent } from './history/history.component';
+import { SettingsComponent } from './settings/settings.component';
 import { AuthGuard } from './common/core/route-guards';
 
 const routes: Routes = [
@@ -13,6 +14,7 @@ const routes: Routes = [
   { path: 'meditate', component: MeditateComponent },
   { path: 'about', component: AboutComponent },
   { path: 'history', component: HistoryComponent, canActivate: [AuthGuard] },
+  { path: 'settings', component: SettingsComponent },
   { path: 'login', component: LoginComponent }
 ];
 

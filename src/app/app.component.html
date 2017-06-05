@@ -7,9 +7,10 @@
     <a routerLink="/" class="nav-list__item" (click)="closeNav()">Focus</a>
     <a routerLink="meditate" class="nav-list__item" (click)="closeNav()">Meditate</a>
     <a routerLink="history" class="nav-list__item" (click)="closeNav()">History</a>
-    <a routerLink="about" class="nav-list__item" (click)="closeNav()">About</a>
-    <a routerLink="login" *ngIf="!(isLoggedIn | async)" class="nav-list__item" (click)="closeNav()">Login</a>
-    <button (click)="logout(); closeNav()" *ngIf="isLoggedIn | async" class="nav-list__item">
+    <a routerLink="settings" fxShow="true" fxHide.gt-sm class="nav-list__item" (click)="closeNav()">Settings</a>
+    <a routerLink="about" fxShow="true" fxHide.gt-sm class="nav-list__item" (click)="closeNav()">About</a>
+    <a routerLink="login" fxShow="true" fxHide.gt-sm *ngIf="!(isLoggedIn | async)" class="nav-list__item" (click)="closeNav()">Login</a>
+    <button fxShow="true" fxHide.gt-sm (click)="logout(); closeNav()" *ngIf="isLoggedIn | async" class="nav-list__item">
       Logout<!--<img [src]="profileImg | async" placeholder="Profile Image" class="nav-list__item-image" />-->
     </button>
   </md-sidenav>
@@ -22,11 +23,10 @@
 
       <a routerLink="/" fxHide="false" fxHide.gt-sm class="link-light">Focus</a>
 
-      <!--<div fxShow="false" fxShow.gt-sm class="menu-btn">
+      <div fxShow="false" fxShow.gt-sm class="menu-btn--right">
         <md-menu #appMenu="mdMenu" class="nav-list-large">
-          <a md-menu-item routerLink="/" (click)="closeNav()" class="nav-list-large__item">Home</a>
-          <a md-menu-item routerLink="history" (click)="closeNav()" class="nav-list-large__item">History</a>
-          <a md-menu-item routerLink="about" (click)="closeNav()" class="nav-list-large__item">About</a>
+          <a md-menu-item routerLink="settings" class="nav-list-large__item" (click)="closeNav()">Settings</a>
+          <a md-menu-item routerLink="about" class="nav-list-large__item" (click)="closeNav()">About</a>
           <a md-menu-item routerLink="login" *ngIf="!(isLoggedIn | async)" (click)="closeNav()" class="nav-list-large__item">Login</a>
           <button md-menu-item (click)="logout(); closeNav();" *ngIf="isLoggedIn | async" class="nav-list-large__item">
             <img [src]="profileImg | async" placeholder="Profile Image" class="nav-list-large__item__image" /> Logout
@@ -35,7 +35,7 @@
         <button md-icon-button [mdMenuTriggerFor]="appMenu">
           <md-icon>more_vert</md-icon>
         </button>
-      </div>-->
+      </div>
     </md-toolbar>
   </header>
   <main>
