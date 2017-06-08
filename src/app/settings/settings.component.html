@@ -1,6 +1,12 @@
-<ng-container *ngIf="notificationsEnabled | async; else showNotificationsButton">
-  Notifications Enabled
+<h1>App Settings</h1>
+<br>
+<ng-container *ngIf="settings | async; let settings">
+  <span *ngIf="settings.notificationsEnabled">Notifications Enabled</span>
+  <button *ngIf="!settings.notificationsEnabled" md-raised-button (click)="enableNotifications()">Enable Notifications</button>
+
+  <br><br>
+
+  <form [formGroup]="settingsForm">
+    <md-checkbox formControlName="soundEnabled">Notification Sound</md-checkbox>
+  </form>
 </ng-container>
-<ng-template #showNotificationsButton>
-  <button md-raised-button (click)="enableNotifications()">Enable Notifications</button>
-</ng-template>

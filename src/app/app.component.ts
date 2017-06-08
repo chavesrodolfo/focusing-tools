@@ -3,9 +3,6 @@ import { Component, ChangeDetectionStrategy, ViewChild, OnInit, HostListener } f
 import { Router } from '@angular/router';
 import { MdSidenav } from '@angular/material';
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/observable/fromEvent';
-import 'rxjs/add/operator/startWith';
 
 import { AuthService } from './common/core/services/auth.service';
 

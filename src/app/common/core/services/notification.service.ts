@@ -5,28 +5,27 @@ import { Howl } from 'howler';
 import * as Push from 'push.js';
 
 import { AppState } from './../store/app.state';
-import { SetNotificationsStatusAction } from './../store/notification/actions';
+import { SetAppSettingsNotificationStatusAction } from './../store/settings/actions';
 
 @Injectable()
 export class NotificationService {
   notificationsEnabled: Observable<boolean>;
 
   constructor(private store: Store<AppState>) {
-    this.notificationsEnabled = this.store.select(state => state.notification.notificationsEnabled);
+    this.notificationsEnabled = this.store.select(state => state.settings.notificationsEnabled);
 
     if (Push.Permission.get() === Push.Permission.GRANTED) {
-      this.store.dispatch(new SetNotificationsStatusAction(true));
+      this.store.dispatch(new SetAppSettingsNotificationStatusAction(true));
     } else {
-      this.store.dispatch(new SetNotificationsStatusAction(false));
+      this.store.dispatch(new SetAppSettingsNotificationStatusAction(false));
     }
-
   }
 
   requestPermission() {
     Push.Permission.request(() => {
-      this.store.dispatch(new SetNotificationsStatusAction(true));
+      this.store.dispatch(new SetAppSettingsNotificationStatusAction(true));
     }, () => {
-      this.store.dispatch(new SetNotificationsStatusAction(false));
+      this.store.dispatch(new SetAppSettingsNotificationStatusAction(false));
     });
   }
 
@@ -36,12 +35,16 @@ export class NotificationService {
   }
 
   private chimeNotify() {
-    new Howl({
-      src: ['assets/audio/chime.mp3'],
-      sprite: {
-        chime: [0, 1500]
+    this.store.select(state => state.settings.soundEnabled).first().subscribe(soundEnabled => {
+      if (soundEnabled) {
+        new Howl({
+          src: ['assets/audio/chime.mp3'],
+          sprite: {
+            chime: [0, 1500]
+          }
+        }).play('chime');
       }
-    }).play('chime');
+    });
   }
 
   private pushNotify() {

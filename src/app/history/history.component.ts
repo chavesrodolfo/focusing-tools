@@ -2,8 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import * as addDays from 'date-fns/add_days';
 import * as isSameDay from 'date-fns/is_same_day';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/startWith';
 
 import { TimerHistory } from './../common/core/interfaces';
 import { HistoryService } from './../common/core/services/history.service';

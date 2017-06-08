@@ -1,13 +1,17 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MdButtonModule, MdIconModule, MdToolbarModule, MdSidenavModule, MdMenuModule } from '@angular/material';
-import { StoreModule } from '@ngrx/store';
+import { MdButtonModule, MdIconModule, MdToolbarModule, MdSidenavModule, MdMenuModule, MdCheckboxModule } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import 'hammerjs';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/switchMap';
+import 'rxjs/add/operator/first';
+import 'rxjs/add/operator/do';
+import 'rxjs/add/observable/fromEvent';
+import 'rxjs/add/operator/startWith';
 
-import { reducer } from './common/core/store/app.state';
 import { AppRoutingModule } from './app-routing.module';
 import { SharedModule } from './common/shared/shared.module';
 import { CoreModule } from './common/core/core.module';
@@ -35,7 +39,6 @@ import { SettingsComponent } from './settings/settings.component';
     BrowserAnimationsModule,
     FlexLayoutModule,
     NgxChartsModule,
-    StoreModule.provideStore(reducer),
     AppRoutingModule,
     CoreModule.forRoot(),
     SharedModule,
@@ -45,7 +48,8 @@ import { SettingsComponent } from './settings/settings.component';
     MdIconModule,
     MdToolbarModule,
     MdSidenavModule,
-    MdMenuModule
+    MdMenuModule,
+    MdCheckboxModule
   ],
   providers: [],
   bootstrap: [AppComponent]

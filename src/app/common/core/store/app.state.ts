@@ -4,19 +4,20 @@ import { storeFreeze } from 'ngrx-store-freeze';
 import { environment } from './../../../../environments/environment';
 
 import { State as TimerState } from './timer/state';
-import { State as NotificationState } from './notification/state';
+import { State as SettingsState } from './settings/state';
 
 import { reducer as timerReducer } from './timer/reducer';
-import { reducer as notificationReducer } from './notification/reducer';
+import { reducer as settingsReducer } from './settings/reducer';
+
 
 export interface AppState {
   timer: TimerState;
-  notification: NotificationState;
+  settings: SettingsState;
 }
 
 const reducers = {
   timer: timerReducer,
-  notification: notificationReducer
+  settings: settingsReducer
 };
 
 const developmentReducer: ActionReducer<AppState> = compose(storeFreeze, combineReducers)(reducers);

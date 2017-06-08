@@ -21,7 +21,11 @@ const components = [
     ...components
   ],
   exports: [
-    ...components
+    ...components,
+    CommonModule,
+    RouterModule,
+    HttpModule,
+    ReactiveFormsModule
   ]
 })
 export class SharedModule { }

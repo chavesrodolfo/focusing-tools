@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/switchMap';
 import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
 
 import { TimerHistory } from './../interfaces';
