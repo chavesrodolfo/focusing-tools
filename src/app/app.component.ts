@@ -9,6 +9,8 @@ import 'rxjs/add/operator/startWith';
 
 import { AuthService } from './common/core/services/auth.service';
 
+const desktopBreak = 959;
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -26,6 +28,7 @@ export class AppComponent implements OnInit {
     this.setNav();
     this.isLoggedIn = this.authService.isLoggedIn;
     this.profileImg = this.authService.user.map(user => user ? user.photoURL : '/assets/images/icon.png');
+    this.sidenav.onClose.subscribe(i => this.getViewport().width > desktopBreak ? this.sidenav.open() : null);
   }
 
   @HostListener('window:resize', ['$event'])
@@ -41,7 +44,7 @@ export class AppComponent implements OnInit {
   closeNav() {
     if (typeof window !== 'undefined') {
       const width = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
-      if (width < 960) {
+      if (width <= desktopBreak) {
         this.sidenav.close();
       }
     }
@@ -49,7 +52,7 @@ export class AppComponent implements OnInit {
 
   setNav() {
     const viewport = this.getViewport();
-    if (viewport.width > 959) {
+    if (viewport.width > desktopBreak) {
       this.sidenav.mode = 'push';
       this.sidenav.open();
     } else {
