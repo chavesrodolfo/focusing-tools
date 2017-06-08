@@ -27,7 +27,7 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     this.setNav();
     this.isLoggedIn = this.authService.isLoggedIn;
-    this.profileImg = this.authService.user.map(user => user ? user.photoURL : '/assets/images/icon.png');
+    this.profileImg = this.authService.user.map(user => user ? user.photoURL : '/assets/images/icon.svg');
     this.sidenav.onClose.subscribe(i => this.getViewport().width > desktopBreak ? this.sidenav.open() : null);
   }
 

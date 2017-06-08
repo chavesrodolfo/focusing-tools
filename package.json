@@ -11,7 +11,7 @@
     "e2e": "protractor",
     "build": "ng build",
     "build--prod": "npm run lint && ng build --prod --no-sourcemap --stats-json && npm run sw",
-    "sw": "sw-precache --root=dist --config=sw-precache-config.js",
+    "sw": "node workbox-build.js",
     "deploy": "npm run build--prod && firebase deploy",
     "bundle-report": "webpack-bundle-analyzer dist/stats.json"
   },
