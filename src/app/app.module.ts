@@ -1,7 +1,10 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MdButtonModule, MdIconModule, MdToolbarModule, MdSidenavModule, MdMenuModule, MdCheckboxModule } from '@angular/material';
+import {
+  MdButtonModule, MdIconModule, MdToolbarModule,
+  MdSidenavModule, MdMenuModule, MdCheckboxModule, MdRadioModule, MdSelectModule
+} from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import 'hammerjs';
@@ -49,7 +52,9 @@ import { SettingsComponent } from './settings/settings.component';
     MdToolbarModule,
     MdSidenavModule,
     MdMenuModule,
-    MdCheckboxModule
+    MdCheckboxModule,
+    MdRadioModule,
+    MdSelectModule
   ],
   providers: [],
   bootstrap: [AppComponent]

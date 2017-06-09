@@ -8,3 +8,9 @@
     font-size: 7em;
   }
 }
+
+@media (max-width: 360px) {
+  .timer-buttons md-icon {
+    display: none;
+  }
+}
