@@ -2,6 +2,7 @@ const swBuild = require('workbox-build');
 
 swBuild.generateSW({
   navigateFallback: 'index.html',
+  navigateFallbackWhitelist: [/^(?!\/__)/],
   globDirectory: './dist',
   globPatterns: [
     'index.html',
