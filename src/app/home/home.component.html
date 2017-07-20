@@ -1,11 +1,22 @@
-<div class="time">{{currentTime | async | date: 'mm:ss'}}</div>
+<div class="timer">
+  <div class="timer__controls">
+    <div class="time">{{currentTime | async | date: 'mm:ss'}}</div>
+    <div class="timer-buttons text-center">
+      <button md-raised-button size="large" color="primary" [disabled]="(timerType | async) !== null && (timerType | async) !== 25" (click)="startStandardTimer()"><md-icon>play_arrow</md-icon> 25 Mins</button>
+      <button md-raised-button [disabled]="(timerType | async) !== null && (timerType | async) !== 5" (click)="startShortBreakTimer()"><md-icon>pause</md-icon> 5 Mins</button>
+      <button md-raised-button [disabled]="(timerType | async) !== null && (timerType | async) !== 15" (click)="startLongBreakTimer()"><md-icon>pause</md-icon> 15 Mins</button>
+    </div>
 
-<div class="timer-buttons text-center">
-  <button md-raised-button size="large" color="primary" [disabled]="(timerType | async) !== null && (timerType | async) !== 25" (click)="startStandardTimer()"><md-icon>play_arrow</md-icon> 25 Mins</button>
-  <button md-raised-button [disabled]="(timerType | async) !== null && (timerType | async) !== 5" (click)="startShortBreakTimer()"><md-icon>pause</md-icon> 5 Mins</button>
-  <button md-raised-button [disabled]="(timerType | async) !== null && (timerType | async) !== 15" (click)="startLongBreakTimer()"><md-icon>pause</md-icon> 15 Mins</button>
+    <span class="app-action">
+      <button md-fab color="primary" [disabled]="(timerType | async) !== null && (timerType | async) !== 25" (click)="startStandardTimer()"><md-icon>play_arrow</md-icon></button>
+    </span>
+  </div>
+
+  <ngx-charts-pie-chart
+    class="chart"
+    [scheme]="colorScheme"
+    [doughnut]="true"
+    [arcWidth]="0.03"
+    [results]="progress | async">
+  </ngx-charts-pie-chart>
 </div>
-
-<span class="app-action">
-  <button md-fab color="primary" [disabled]="(timerType | async) !== null && (timerType | async) !== 25" (click)="startStandardTimer()"><md-icon>play_arrow</md-icon></button>
-</span>

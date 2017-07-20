@@ -1,5 +1,5 @@
-import { initialState, State } from './state';
 import { ActionTypes } from './actions';
+import { State, initialState } from './state';
 
 export function reducer(state = initialState, action: any): State {
   switch (action.type) {

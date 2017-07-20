@@ -1,28 +1,28 @@
-<h1>Meditation</h1>
-<p>Coming Soon!</p>
+<h1>Meditation &amp; Background Noise</h1>
+
 <br>
-<!--<form [formGroup]="meditateForm" (ngSubmit)="submit()">
+<form [formGroup]="meditateForm" (ngSubmit)="submit()">
   <md-radio-group formControlName="audioType">
     <div fxLayout="row" fxLayoutWrap="wrap">
-      <div fxFlex="100" fxFlex.gt-xs="50" fxFlex.gt-sm="25">
+      <div fxFlex="50" fxFlex.gt-xs="50" fxFlex.gt-sm="25">
         <div class="meditate">
           <img src="assets/images/meditate/rain.svg" alt="">
           <md-radio-button value="rain">Rain</md-radio-button>
         </div>
       </div>
-      <div fxFlex="100" fxFlex.gt-xs="50" fxFlex.gt-sm="25">
+      <div fxFlex="50" fxFlex.gt-xs="50" fxFlex.gt-sm="25">
         <div class="meditate">
           <img src="assets/images/meditate/ocean.svg" alt="">
           <md-radio-button value="ocean">Ocean</md-radio-button>
         </div>
       </div>
-      <div fxFlex="100" fxFlex.gt-xs="50" fxFlex.gt-sm="25">
+      <div fxFlex="50" fxFlex.gt-xs="50" fxFlex.gt-sm="25">
         <div class="meditate">
           <img src="assets/images/meditate/outdoors.svg" alt="">
           <md-radio-button value="outdoors">Outdoors</md-radio-button>
         </div>
       </div>
-      <div fxFlex="100" fxFlex.gt-xs="50" fxFlex.gt-sm="25">
+      <div fxFlex="50" fxFlex.gt-xs="50" fxFlex.gt-sm="25">
         <div class="meditate">
           <img src="assets/images/meditate/white-noise.svg" alt="">
           <md-radio-button value="whiteNoise">White Noise</md-radio-button>
@@ -34,7 +34,7 @@
   <br>
 
   <div class="timer">
-    <md-select formControlName="time" placeholder="Time">
+    <!-- <md-select formControlName="time" placeholder="Time">
       <md-option [value]="5">5 mins</md-option>
       <md-option [value]="10">10 mins</md-option>
       <md-option [value]="15">15 mins</md-option>
@@ -43,7 +43,13 @@
       <md-option [value]="45">45 mins</md-option>
       <md-option [value]="60">60 mins</md-option>
     </md-select>
-    &nbsp;&nbsp;
-    <button md-raised-button color="primary"><md-icon>play_arrow</md-icon> Start</button>
+    &nbsp;&nbsp; -->
+    <button *ngIf="!(sound | async)" md-raised-button color="primary">
+      <md-icon>play_arrow</md-icon> Play
+      <div *ngIf="sound | async"><md-icon>pause_arrow</md-icon> Pause</div>
+    </button>
+    <button *ngIf="sound | async" md-raised-button color="primary">
+      <md-icon>pause_arrow</md-icon> Pause
+    </button>
   </div>
-</form>-->
+</form>

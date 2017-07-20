@@ -23,7 +23,8 @@ export class TimerService {
     private store: Store<AppState>,
     private historyService: HistoryService,
     private notificationService: NotificationService) {
-    this.currentTime = this.store.select(state => state.timer.activeTime).do(t => this.setTitle(t));
+    this.currentTime = this.store.select(state => state.timer.activeTime)
+      .do(t => this.setTitle(t));
     this.timerType = this.store.select(state => state.timer.timerType);
   }
 

@@ -6,12 +6,12 @@ export interface State {
   timerHistory: TimerHistory[];
 };
 
-const time = new Date();
-time.setMinutes(0);
-time.setSeconds(0);
+const activeTime = new Date();
+activeTime.setMinutes(0);
+activeTime.setSeconds(0);
 
 export const initialState: State = {
-  activeTime: time,
+  activeTime,
   timerType: null,
   timerHistory: []
 };

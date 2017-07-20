@@ -6,7 +6,7 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
-import { reducer } from './store/app.state';
+import { reducers, state } from './store/app.state';
 import { environment } from './../../../environments/environment';
 import { AuthService } from './services/auth.service';
 import { TimerService } from './services/timer.service';
@@ -21,8 +21,8 @@ import { AuthGuard } from './route-guards';
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireDatabaseModule,
     AngularFireAuthModule,
-    StoreModule.provideStore(reducer),
-    StoreDevtoolsModule.instrumentOnlyWithExtension({ maxAge: 10 })
+    StoreModule.forRoot(reducers),
+    !environment.production ? StoreDevtoolsModule.instrument({ maxAge: 50 }) : []
   ],
   declarations: []
 })

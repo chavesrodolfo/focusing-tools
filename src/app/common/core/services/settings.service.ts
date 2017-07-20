@@ -6,7 +6,7 @@ import * as Push from 'push.js';
 
 import { AppState } from './../store/app.state';
 import { State as AppSettings } from './../store/settings/state';
-import { SetAppSettingsAction } from './../store/settings/actions';
+import { SetAppSettingsAction, SetAppSettingsSound } from './../store/settings/actions';
 
 @Injectable()
 export class SettingsService {
@@ -18,5 +18,9 @@ export class SettingsService {
 
   updateSettings(settings: AppSettings) {
     this.store.dispatch(new SetAppSettingsAction(settings));
+  }
+
+  updateSound(soundSettings: { sound: Howl, soundType: string}) {
+    this.store.dispatch(new SetAppSettingsSound(soundSettings));
   }
 }

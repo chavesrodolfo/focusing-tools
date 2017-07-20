@@ -1,10 +1,12 @@
+$break: 580px;
+
 .time {
   font-size: 5em;
   font-weight: normal;
   text-align: center;
   line-height: 1.5em;
 
-  @media (min-width: 580px) {
+  @media (min-width: $break) {
     font-size: 7em;
   }
 }
@@ -13,4 +15,38 @@
   .timer-buttons md-icon {
     display: none;
   }
+}
+
+.timer {
+  position: relative;
+  max-width: 440px;
+  margin: 0 auto;
+  min-height: 500px;
+
+  @media (min-width: $break) {
+    margin-top: 60px;
+  }
+
+  @media (min-width: 1100px) and (min-height: 700px) {
+    margin-top: 80px;
+  }
+}
+
+.chart {
+  display: none;
+  z-index: -1;
+  overflow: auto;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  margin-top: -105px;
+
+  @media (min-width: $break) {
+    display: block;
+  }
+}
+
+.timer__controls {
+  z-index: 2;
+  margin-top: 40px;
 }

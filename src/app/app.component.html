@@ -10,6 +10,7 @@
     <a routerLink="settings" fxShow="true" fxHide.gt-sm class="nav-list__item" (click)="closeNav()">Settings</a>
     <a routerLink="about" fxShow="true" fxHide.gt-sm class="nav-list__item" (click)="closeNav()">About</a>
     <a routerLink="login" fxShow="true" fxHide.gt-sm *ngIf="!(isLoggedIn | async)" class="nav-list__item" (click)="closeNav()">Login</a>
+    <button class="nav-list__item" fxShow="true" fxHide.gt-sm (click)="share()">Share</button>
     <button fxShow="true" fxHide.gt-sm (click)="logout(); closeNav()" *ngIf="isLoggedIn | async" class="nav-list__item">
       Logout<!--<img [src]="profileImg | async" placeholder="Profile Image" class="nav-list__item-image" />-->
     </button>
@@ -28,6 +29,7 @@
           <a md-menu-item routerLink="settings" class="nav-list-large__item" (click)="closeNav()">Settings</a>
           <a md-menu-item routerLink="about" class="nav-list-large__item" (click)="closeNav()">About</a>
           <a md-menu-item routerLink="login" *ngIf="!(isLoggedIn | async)" (click)="closeNav()" class="nav-list-large__item">Login</a>
+          <button (click)="share()" md-menu-item>Share</button>
           <button md-menu-item (click)="logout(); closeNav();" *ngIf="isLoggedIn | async" class="nav-list-large__item">
             <img [src]="profileImg | async" placeholder="Profile Image" class="nav-list-large__item__image" /> Logout
           </button>
@@ -41,6 +43,8 @@
   <main>
     <div class="container">
       <router-outlet></router-outlet>
+
+      <app-google-adsense></app-google-adsense>
     </div>
   </main>
   <footer></footer>

@@ -33,6 +33,20 @@ export class AppComponent implements OnInit {
     this.setNav();
   }
 
+  share() {
+    if ((navigator as any).share) {
+      (navigator as any).share({
+        title: document.title,
+        text: 'Checkout https://focusing.tools a helpful app for focusing and getting things done!',
+        url: 'https://focusing.tools'
+      }).then(() => console.log('Successful share'))
+        .catch(error => console.log('Error sharing:', error));
+    } else {
+      // tslint:disable-next-line
+      window.open('https://twitter.com/home?status=Checkout%20https%3A//focusing.tools%20a%20helpful%20app%20for%20focusing%20and%20getting%20things%20done!', '_blank');
+    }
+  }
+
   logout() {
     this.authService.logout();
     this.router.navigate(['']);
