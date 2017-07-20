@@ -40,12 +40,13 @@
       </div>
     </md-toolbar>
   </header>
-  <main>
-    <div class="container">
-      <router-outlet></router-outlet>
-
-      <app-google-adsense></app-google-adsense>
-    </div>
-  </main>
+  <div class="scroll">
+    <main>
+      <div class="container">
+        <router-outlet></router-outlet>
+        <app-google-adsense></app-google-adsense>
+      </div>
+    </main>
+  </div>
   <footer></footer>
 </md-sidenav-container>

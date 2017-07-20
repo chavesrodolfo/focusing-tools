@@ -1,31 +1,30 @@
-body {
-  min-height: 100vh;
-  display: -ms-flexbox;
-  display: -webkit-box;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-flex-direction: column;
-  -ms-flex-direction: column;
-  flex-direction: column;
-  min-height: 100vh;
-  margin: 0;
+
+.mat-sidenav-container, .mat-sidenav-content {
+  height: initial;
+  position: fixed !important;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  overflow: hidden !important;
+}
+
+.scroll {
+  overflow-y: auto;
+  top: 0px;
+  bottom: 0px;
+  left: 0;
+  right: 0;
+  position: fixed;
+  z-index: -1;
+
+  @media (min-width: 960px) {
+    right: 224px;
+  }
 }
 
 button, a {
   cursor: pointer;
-}
-
-app-root, main, md-sidenav-container {
-  -webkit-box-flex: 1 0 auto;
-  -ms-flex: 1 0 auto;
-  flex: 1 0 auto;
-  -webkit-flex: 1 0 auto;
-  min-height: 100vh;
-  min-height: calc(100vh - 85px); // extra for fab
-
-  @media (min-width: 580px) {
-    min-height: calc(100vh - 110px);
-  }
 }
 
 main {
