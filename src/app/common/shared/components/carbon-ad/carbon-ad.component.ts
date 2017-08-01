@@ -2,20 +2,21 @@ import { Component, OnInit, AfterViewInit, ElementRef } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
-  selector: 'app-google-adsense',
-  templateUrl: './google-adsense.component.html',
-  styleUrls: ['./google-adsense.component.scss']
+  selector: 'app-carbon-ad',
+  templateUrl: './carbon-ad.component.html',
+  styleUrls: ['./carbon-ad.component.scss']
 })
-export class GoogleAdsenseComponent implements OnInit, AfterViewInit {
+export class CarbonAdComponent implements OnInit, AfterViewInit {
   constructor(private elementRef: ElementRef) {
   }
 
   ngAfterViewInit() {
     const s = document.createElement('script');
+    s.async = true;
+    s.id = '_carbonads_js';
     s.type = 'text/javascript';
-    s.src = '//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js';
+    s.src = '//cdn.carbonads.com/carbon.js?zoneid=1673&serve=C6AILKT&placement=coryrylancom';
     this.elementRef.nativeElement.appendChild(s);
-    ((window as any).adsbygoogle = (window as any).adsbygoogle || []).push({});
   }
 
   ngOnInit() {

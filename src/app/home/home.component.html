@@ -8,7 +8,7 @@
     </div>
 
     <span class="app-action">
-      <button md-fab color="primary" [disabled]="(timerType | async) !== null && (timerType | async) !== 25" (click)="startStandardTimer()"><md-icon>play_arrow</md-icon></button>
+      <button aria-label="Start" md-fab color="primary" [disabled]="(timerType | async) !== null && (timerType | async) !== 25" (click)="startStandardTimer()"><md-icon>play_arrow</md-icon></button>
     </span>
   </div>
 

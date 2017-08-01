@@ -18,7 +18,7 @@
 
   <header>
     <md-toolbar fxLayout="column" color="primary" class="mat-elevation-z6">
-      <button md-button fxHide="false" fxHide.gt-sm (click)="sidenav.open()" class="float-right menu-btn">
+      <button aria-label="Menu" md-button fxHide="false" fxHide.gt-sm (click)="sidenav.open()" class="float-right menu-btn">
         <md-icon>menu</md-icon>
       </button>
 
@@ -44,7 +44,7 @@
     <main>
       <div class="container">
         <router-outlet></router-outlet>
-        <app-google-adsense></app-google-adsense>
+        <app-carbon-ad></app-carbon-ad>
       </div>
     </main>
   </div>

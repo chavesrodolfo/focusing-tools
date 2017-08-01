@@ -5,11 +5,11 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { TimerComponent } from './components/timer/timer.component';
-import { GoogleAdsenseComponent } from './components/google-adsense/google-adsense.component';
+import { CarbonAdComponent } from './components/carbon-ad/carbon-ad.component';
 
 const components = [
   TimerComponent,
-  GoogleAdsenseComponent
+  CarbonAdComponent
 ];
 
 @NgModule({
