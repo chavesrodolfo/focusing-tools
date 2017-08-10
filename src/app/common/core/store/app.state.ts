@@ -17,7 +17,7 @@ export interface AppState {
 export const state: AppState = {
   timer: timerState,
   settings: settingsState
-}
+};
 
 export const reducers = {
   timer: timerReducer,

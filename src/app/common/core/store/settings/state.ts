@@ -5,7 +5,7 @@ export interface State {
   soundEnabled?: boolean;
   sound?: Howl;
   soundType?: string;
-};
+}
 
 export const initialState: State = {
   notificationsEnabled: false,

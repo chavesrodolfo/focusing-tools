@@ -4,7 +4,7 @@ export interface State {
   activeTime?: Date;
   timerType?: TimerType;
   timerHistory: TimerHistory[];
-};
+}
 
 const activeTime = new Date();
 activeTime.setMinutes(0);
