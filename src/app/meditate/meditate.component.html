@@ -2,54 +2,54 @@
 
 <br>
 <form [formGroup]="meditateForm" (ngSubmit)="submit()">
-  <md-radio-group formControlName="audioType">
+  <mat-radio-group formControlName="audioType">
     <div fxLayout="row" fxLayoutWrap="wrap">
       <div fxFlex="50" fxFlex.gt-xs="50" fxFlex.gt-sm="25">
         <div class="meditate">
           <img src="assets/images/meditate/rain.svg" alt="">
-          <md-radio-button value="rain">Rain</md-radio-button>
+          <mat-radio-button value="rain">Rain</mat-radio-button>
         </div>
       </div>
       <div fxFlex="50" fxFlex.gt-xs="50" fxFlex.gt-sm="25">
         <div class="meditate">
           <img src="assets/images/meditate/ocean.svg" alt="">
-          <md-radio-button value="ocean">Ocean</md-radio-button>
+          <mat-radio-button value="ocean">Ocean</mat-radio-button>
         </div>
       </div>
       <div fxFlex="50" fxFlex.gt-xs="50" fxFlex.gt-sm="25">
         <div class="meditate">
           <img src="assets/images/meditate/outdoors.svg" alt="">
-          <md-radio-button value="outdoors">Outdoors</md-radio-button>
+          <mat-radio-button value="outdoors">Outdoors</mat-radio-button>
         </div>
       </div>
       <div fxFlex="50" fxFlex.gt-xs="50" fxFlex.gt-sm="25">
         <div class="meditate">
           <img src="assets/images/meditate/white-noise.svg" alt="">
-          <md-radio-button value="whiteNoise">White Noise</md-radio-button>
+          <mat-radio-button value="whiteNoise">White Noise</mat-radio-button>
         </div>
       </div>
     </div>
-  </md-radio-group>
+  </mat-radio-group>
 
   <br>
 
   <div class="timer">
-    <!-- <md-select formControlName="time" placeholder="Time">
-      <md-option [value]="5">5 mins</md-option>
-      <md-option [value]="10">10 mins</md-option>
-      <md-option [value]="15">15 mins</md-option>
-      <md-option [value]="20">20 mins</md-option>
-      <md-option [value]="30">30 mins</md-option>
-      <md-option [value]="45">45 mins</md-option>
-      <md-option [value]="60">60 mins</md-option>
-    </md-select>
+    <!-- <mat-select formControlName="time" placeholder="Time">
+      <mat-option [value]="5">5 mins</mat-option>
+      <mat-option [value]="10">10 mins</mat-option>
+      <mat-option [value]="15">15 mins</mat-option>
+      <mat-option [value]="20">20 mins</mat-option>
+      <mat-option [value]="30">30 mins</mat-option>
+      <mat-option [value]="45">45 mins</mat-option>
+      <mat-option [value]="60">60 mins</mat-option>
+    </mat-select>
     &nbsp;&nbsp; -->
-    <button *ngIf="!(sound | async)" md-raised-button color="primary">
-      <md-icon>play_arrow</md-icon> Play
-      <div *ngIf="sound | async"><md-icon>pause_arrow</md-icon> Pause</div>
+    <button *ngIf="!(sound | async)" mat-raised-button color="primary">
+      <mat-icon>play_arrow</mat-icon> Play
+      <div *ngIf="sound | async"><mat-icon>pause_arrow</mat-icon> Pause</div>
     </button>
-    <button *ngIf="sound | async" md-raised-button color="primary">
-      <md-icon>pause_arrow</md-icon> Pause
+    <button *ngIf="sound | async" mat-raised-button color="primary">
+      <mat-icon>pause_arrow</mat-icon> Pause
     </button>
   </div>
 </form>

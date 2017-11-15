@@ -2,8 +2,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
-  MdButtonModule, MdIconModule, MdToolbarModule,
-  MdSidenavModule, MdMenuModule, MdCheckboxModule, MdRadioModule, MdSelectModule
+  MatButtonModule, MatIconModule, MatToolbarModule,
+  MatSidenavModule, MatMenuModule, MatCheckboxModule, MatRadioModule, MatSelectModule
 } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
@@ -49,14 +49,14 @@ import { SettingsComponent } from './settings/settings.component';
     SharedModule,
 
     // Material
-    MdButtonModule,
-    MdIconModule,
-    MdToolbarModule,
-    MdSidenavModule,
-    MdMenuModule,
-    MdCheckboxModule,
-    MdRadioModule,
-    MdSelectModule
+    MatButtonModule,
+    MatIconModule,
+    MatToolbarModule,
+    MatSidenavModule,
+    MatMenuModule,
+    MatCheckboxModule,
+    MatRadioModule,
+    MatSelectModule
   ],
   providers: [],
   bootstrap: [AppComponent]

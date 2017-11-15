@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
+// FirebaseListObservable
+import { AngularFireDatabase } from 'angularfire2/database';
 
 import { TimerHistory } from './../interfaces';
 import { AuthService } from './auth.service';
@@ -13,17 +14,17 @@ export class HistoryService {
     private angularFireDatabase: AngularFireDatabase,
     private authService: AuthService) {
 
-    this.history = this.authService.user.switchMap(auth => {
-      if (auth) {
-        return this.angularFireDatabase.list(`/users/${auth.uid}/history`, {
-          query: {
-            limitToLast: 200
-          }
-        });
-      } else {
-        return Observable.of([]);
-      }
-    });
+    // this.history = this.authService.user.switchMap(auth => {
+    //   if (auth) {
+    //     return this.angularFireDatabase.list(`/users/${auth.uid}/history`, {
+    //       query: {
+    //         limitToLast: 200
+    //       }
+    //     });
+    //   } else {
+    //     return Observable.of([]);
+    //   }
+    // });
   }
 
   addHistory(history: TimerHistory) {

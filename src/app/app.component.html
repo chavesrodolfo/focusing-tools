@@ -1,5 +1,5 @@
-<md-sidenav-container>
-  <md-sidenav #sidenav class="nav-list">
+<mat-sidenav-container>
+  <mat-sidenav #sidenav class="nav-list">
     <div class="side-nav-logo">
       <img src="assets/images/icon.svg" alt="Focus Tools" class="side-nav-logo__img" />
       <span class="side-nav-logo__name">Focusing Tools</span>
@@ -14,31 +14,31 @@
     <button fxShow="true" fxHide.gt-sm (click)="logout(); closeNav()" *ngIf="isLoggedIn | async" class="nav-list__item">
       Logout<!--<img [src]="profileImg | async" placeholder="Profile Image" class="nav-list__item-image" />-->
     </button>
-  </md-sidenav>
+  </mat-sidenav>
 
   <header>
-    <md-toolbar fxLayout="column" color="primary" class="mat-elevation-z6">
-      <button aria-label="Menu" md-button fxHide="false" fxHide.gt-sm (click)="sidenav.open()" class="float-right menu-btn">
-        <md-icon>menu</md-icon>
+    <mat-toolbar fxLayout="row" color="primary" class="mat-elevation-z6">
+      <button aria-label="Menu" mat-button fxHide="false" fxHide.gt-sm (click)="sidenav.open()" class="float-right menu-btn">
+        <mat-icon>menu</mat-icon>
       </button>
 
       <a routerLink="/" fxHide="false" fxHide.gt-sm class="link-light">Focus</a>
 
       <div fxShow="false" fxShow.gt-sm class="menu-btn--right">
-        <md-menu #appMenu="mdMenu" class="nav-list-large">
-          <a md-menu-item routerLink="settings" class="nav-list-large__item" (click)="closeNav()">Settings</a>
-          <a md-menu-item routerLink="about" class="nav-list-large__item" (click)="closeNav()">About</a>
-          <a md-menu-item routerLink="login" *ngIf="!(isLoggedIn | async)" (click)="closeNav()" class="nav-list-large__item">Login</a>
-          <button (click)="share()" md-menu-item>Share</button>
-          <button md-menu-item (click)="logout(); closeNav();" *ngIf="isLoggedIn | async" class="nav-list-large__item">
+        <mat-menu #appMenu="matMenu" class="nav-list-large">
+          <a mat-menu-item routerLink="settings" class="nav-list-large__item" (click)="closeNav()">Settings</a>
+          <a mat-menu-item routerLink="about" class="nav-list-large__item" (click)="closeNav()">About</a>
+          <a mat-menu-item routerLink="login" *ngIf="!(isLoggedIn | async)" (click)="closeNav()" class="nav-list-large__item">Login</a>
+          <button (click)="share()" mat-menu-item>Share</button>
+          <button mat-menu-item (click)="logout(); closeNav();" *ngIf="isLoggedIn | async" class="nav-list-large__item">
             <img [src]="profileImg | async" placeholder="Profile Image" class="nav-list-large__item__image" /> Logout
           </button>
-        </md-menu>
-        <button md-icon-button [mdMenuTriggerFor]="appMenu">
-          <md-icon>more_vert</md-icon>
+        </mat-menu>
+        <button mat-icon-button [matMenuTriggerFor]="appMenu">
+          <mat-icon>more_vert</mat-icon>
         </button>
       </div>
-    </md-toolbar>
+    </mat-toolbar>
   </header>
   <div class="scroll">
     <main>
@@ -49,4 +49,4 @@
     </main>
   </div>
   <footer></footer>
-</md-sidenav-container>
+</mat-sidenav-container>

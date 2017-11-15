@@ -2,13 +2,13 @@
   <div class="timer__controls">
     <div class="time">{{currentTime | async | date: 'mm:ss'}}</div>
     <div class="timer-buttons text-center">
-      <button md-raised-button size="large" color="primary" [disabled]="(timerType | async) !== null && (timerType | async) !== 25" (click)="startStandardTimer()"><md-icon>play_arrow</md-icon> 25 Mins</button>
-      <button md-raised-button [disabled]="(timerType | async) !== null && (timerType | async) !== 5" (click)="startShortBreakTimer()"><md-icon>pause</md-icon> 5 Mins</button>
-      <button md-raised-button [disabled]="(timerType | async) !== null && (timerType | async) !== 15" (click)="startLongBreakTimer()"><md-icon>pause</md-icon> 15 Mins</button>
+      <button mat-raised-button size="large" color="primary" [disabled]="(timerType | async) !== null && (timerType | async) !== 25" (click)="startStandardTimer()"><mat-icon>play_arrow</mat-icon> 25 Mins</button>
+      <button mat-raised-button [disabled]="(timerType | async) !== null && (timerType | async) !== 5" (click)="startShortBreakTimer()"><mat-icon>pause</mat-icon> 5 Mins</button>
+      <button mat-raised-button [disabled]="(timerType | async) !== null && (timerType | async) !== 15" (click)="startLongBreakTimer()"><mat-icon>pause</mat-icon> 15 Mins</button>
     </div>
 
     <span class="app-action">
-      <button aria-label="Start" md-fab color="primary" [disabled]="(timerType | async) !== null && (timerType | async) !== 25" (click)="startStandardTimer()"><md-icon>play_arrow</md-icon></button>
+      <button aria-label="Start" mat-fab color="primary" [disabled]="(timerType | async) !== null && (timerType | async) !== 25" (click)="startStandardTimer()"><mat-icon>play_arrow</mat-icon></button>
     </span>
   </div>
 

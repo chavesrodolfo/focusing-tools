@@ -4,15 +4,15 @@
 <p>
   Login to save task and productivity history for free!
 </p>
-<button md-raised-button *ngIf="!(user | async)?.uid" (click)="loginGoogle()">Login With Google</button>
+<button mat-raised-button *ngIf="!(user | async)?.uid" (click)="loginGoogle()">Login With Google</button>
 
 <ng-container *ngIf="(user | async)?.uid">
   Hello, {{(user | async)?.displayName}}
   <img [src]="(user | async)?.photoURL" placeholder="Profile Image" style="width: 100px" />
 
-  <button md-raised-button (click)="logout()">Logout</button>
+  <button mat-raised-button (click)="logout()">Logout</button>
 </ng-container>
 
 <span class="app-action">
-  <a routerLink="/" md-fab color="primary"><md-icon>play_arrow</md-icon></a>
+  <a routerLink="/" mat-fab color="primary"><mat-icon>play_arrow</mat-icon></a>
 </span>

@@ -1,5 +1,11 @@
 @import './../styles/_variables';
 
+header {
+  mat-toolbar {
+    flex-direction: row;
+  }
+}
+
 .menu-btn, .menu-btn--right {
   min-width: 32px;
   padding: 4px;
@@ -8,7 +14,6 @@
 
 .menu-btn--right {
   margin-left: auto;
-  margin-right: 221px;
 }
 
 .side-nav-logo {

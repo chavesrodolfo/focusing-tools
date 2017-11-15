@@ -1,7 +1,7 @@
 import { environment } from './../environments/environment';
 import { Component, ChangeDetectionStrategy, ViewChild, OnInit, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
-import { MdSidenav } from '@angular/material';
+import { MatSidenav } from '@angular/material';
 import { Observable } from 'rxjs/Observable';
 
 import { AuthService } from './common/core/services/auth.service';
@@ -15,7 +15,7 @@ const desktopBreak = 959;
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppComponent implements OnInit {
-  @ViewChild('sidenav') sidenav: MdSidenav;
+  @ViewChild('sidenav') sidenav: MatSidenav;
   isLoggedIn: Observable<boolean>;
   profileImg: Observable<string>;
 
