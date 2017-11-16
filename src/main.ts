@@ -8,8 +8,7 @@ if (environment.production) {
   enableProdMode();
 }
 
-platformBrowserDynamic().bootstrapModule(AppModule)
-  .then(() => registerServiceWorker())
+platformBrowserDynamic().bootstrapModule(AppModule).then(() => registerServiceWorker())
   .catch(err => console.log(err));
 
 function registerServiceWorker() {

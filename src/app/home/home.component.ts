@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
+import { combineLatest } from 'rxjs/observable/combineLatest';
 
 import { TimerService } from './../common/core/services/timer.service';
 import { TimerType } from './../common/core/interfaces';
@@ -24,38 +25,11 @@ export class HomeComponent implements OnInit {
     this.timerType = this.timerService.timerType;
     this.currentTime = this.timerService.currentTime;
 
-    this.progress = Observable
-      .combineLatest(this.timerService.currentTime, this.timerService.timerType)
-      .map(([date, timerType]) => {
-        if (date && date.getMinutes()) {
-          const minsLeft = date.getMinutes();
-          const minsCompleted = timerType - minsLeft;
-          const complete = (minsCompleted / timerType) * 100;
-          const left = (minsLeft / timerType) * 100;
-
-          return [
-            {
-              name: 'Completed',
-              value: complete
-            },
-            {
-              name: 'Time Left',
-              value: left
-            }
-          ];
-        } else {
-          return [
-            {
-              name: 'Completed',
-              value: 0
-            },
-            {
-              name: 'Time Left',
-              value: 100
-            }
-          ];
-        }
-      });
+    this.progress = combineLatest(
+      this.timerService.currentTime,
+      this.timerService.timerType,
+      (date, timerType) => this.getChartData(date, timerType)
+    );
   }
 
   startStandardTimer() {
@@ -72,5 +46,36 @@ export class HomeComponent implements OnInit {
 
   private stopTimer() {
     this.timerService.stopTimer();
+  }
+
+  private getChartData(date, timerType) {
+    if (date && date.getMinutes()) {
+      const minsLeft = date.getMinutes();
+      const minsCompleted = timerType - minsLeft;
+      const complete = (minsCompleted / timerType) * 100;
+      const left = (minsLeft / timerType) * 100;
+
+      return [
+        {
+          name: 'Completed',
+          value: complete
+        },
+        {
+          name: 'Time Left',
+          value: left
+        }
+      ];
+    } else {
+      return [
+        {
+          name: 'Completed',
+          value: 0
+        },
+        {
+          name: 'Time Left',
+          value: 100
+        }
+      ];
+    }
   }
 }

@@ -3,6 +3,7 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { Howl } from 'howler';
 import * as Push from 'push.js';
+import { first } from 'rxjs/operators';
 
 import { AppState } from './../store/app.state';
 import { SetAppSettingsNotificationStatusAction } from './../store/settings/actions';
@@ -35,7 +36,9 @@ export class NotificationService {
   }
 
   private chimeNotify() {
-    this.store.select(state => state.settings.soundEnabled).first().subscribe(soundEnabled => {
+    this.store.select(state => state.settings.soundEnabled).pipe(
+      first()
+    ).subscribe(soundEnabled => {
       if (soundEnabled) {
         new Howl({
           src: ['assets/audio/chime.mp3'],

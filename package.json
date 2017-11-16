@@ -9,7 +9,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "build--prod": "npm run lint && ng build --prod --no-sourcemap --stats-json --build-optimizer && npm run sw",
+    "build--prod": "npm run lint && ng build --prod --no-sourcemap && npm run sw",
     "sw": "node workbox-build.js",
     "deploy": "npm run build--prod && firebase deploy",
     "bundle-report": "webpack-bundle-analyzer dist/stats.json"

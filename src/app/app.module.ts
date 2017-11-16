@@ -8,14 +8,6 @@ import {
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import 'hammerjs';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/switchMap';
-import 'rxjs/add/operator/first';
-import 'rxjs/add/operator/do';
-import 'rxjs/add/observable/fromEvent';
-import 'rxjs/add/observable/of';
-import 'rxjs/add/observable/combineLatest';
-import 'rxjs/add/operator/startWith';
 
 import { AppRoutingModule } from './app-routing.module';
 import { SharedModule } from './common/shared/shared.module';

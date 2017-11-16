@@ -2,6 +2,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Howl } from 'howler';
+import { first } from 'rxjs/operators';
 
 import { SettingsService } from './../common/core/services/settings.service';
 
@@ -45,7 +46,9 @@ export class MeditateComponent implements OnInit, OnDestroy {
   }
 
   submit() {
-    this.settingsService.settings.first().subscribe(settings => {
+    this.settingsService.settings.pipe(
+      first()
+    ).subscribe(settings => {
       const soundType = this.meditateForm.controls.audioType.value;
 
       if (settings.soundType === soundType) {
@@ -68,7 +71,9 @@ export class MeditateComponent implements OnInit, OnDestroy {
   }
 
   stop() {
-    this.settingsService.settings.first().subscribe(settings => {
+    this.settingsService.settings.pipe(
+      first()
+    ).subscribe(settings => {
       if (settings.sound !== null) {
         settings.sound.stop();
         this.settingsService.updateSettings({ soundType: null, sound: null });

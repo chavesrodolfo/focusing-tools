@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
+import { first } from 'rxjs/operators';
 
 import { State as AppSettings } from './../common/core/store/settings/state';
 import { NotificationService } from './../common/core/services/notification.service';
@@ -48,7 +49,9 @@ export class SettingsComponent implements OnInit {
   }
 
   private loadSettings() {
-    this.settingsService.settings.first().subscribe(settings =>
+    this.settingsService.settings.pipe(
+      first()
+    ).subscribe(settings =>
       this.settingsForm.controls.soundEnabled.setValue(settings.soundEnabled));
   }
 }

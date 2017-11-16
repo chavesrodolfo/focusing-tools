@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import * as addDays from 'date-fns/add_days';
 import * as isSameDay from 'date-fns/is_same_day';
+import { map, startWith } from 'rxjs/operators';
 
 import { TimerHistory } from './../common/core/interfaces';
 import { HistoryService } from './../common/core/services/history.service';
@@ -33,12 +34,14 @@ export class HistoryComponent implements OnInit {
   };
 
   constructor(private historyService: HistoryService) {
-    this.timerHistory = this.historyService.history.map(this.filterPastThirtyDays);
-    this.results = this.historyService.history
-      .startWith([])
-      .map(i => this.filterPastThirtyDays(i))
-      .map(i => this.graphData(i));
-    this.totalMinutes = this.timerHistory.map(this.pastWeekTotalMins);
+    this.timerHistory = this.historyService.history.pipe(map(this.filterPastThirtyDays));
+    this.results = this.historyService.history.pipe(
+      startWith([]),
+      map(i => this.filterPastThirtyDays(i)),
+      map(i => this.getGraphData(i))
+    );
+
+    this.totalMinutes = this.timerHistory.pipe(map(this.pastWeekTotalMins));
   }
 
   ngOnInit() { }
@@ -54,7 +57,7 @@ export class HistoryComponent implements OnInit {
       next.type === 25 ? total + next.type : total, 0);
   }
 
-  private graphData(timerHistory: TimerHistory[]): GraphData[] {
+  private getGraphData(timerHistory: TimerHistory[]): GraphData[] {
     const today = new Date();
     const thirtyDaysAgo = new Date(today.getTime() - (30 * 24 * 60 * 60 * 1000));
 
@@ -62,7 +65,6 @@ export class HistoryComponent implements OnInit {
       name: 'Completed Tasks',
       series: this.getDates(thirtyDaysAgo, today)
     };
-
 
     timerHistory.forEach(history => {
       graphData.series.forEach(series => {
@@ -76,10 +78,10 @@ export class HistoryComponent implements OnInit {
   }
 
   private getDates(startDate: Date, stopDate: Date): Series[] {
-    const dateArray = new Array();
+    const dateArray = [];
     let currentDate = startDate;
 
-    while (currentDate <= stopDate) {
+    while (currentDate <= addDays(stopDate, 1)) {
       dateArray.push({ name: new Date(currentDate), value: 0 });
       currentDate = addDays(currentDate, 1);
     }
